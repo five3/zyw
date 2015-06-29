@@ -1,0 +1,104 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}{{cate_name}}{% endblock %}
+
+{% block main %}
+
+<div id="main" >
+	<div class="main w1000">
+    <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>{{cate_name}}</b><span>当前位置：<a href="/">首页</a> >>{{cate_name}} </span></p>
+        </div>
+
+        <div class="tab1">
+        <ul id="test1_li_now_">
+            {% for i in cate_list %}
+                {% if forloop.first %}
+                    <li class="now">{{i}}</li>
+                {% else %}
+                    <li class="tab_line">{{i}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        </div>
+
+        <div class="left_area">
+            {% for k,v in cate_list.items %}
+                <div id="test1_{{forloop.counter}}" class="tablist{%if forloop.first%}block{%endif%}">
+                    <div class="test1_1_title">
+                        <p>{{k}}</p>
+                    </div>
+                    <div class="test1_1_area">
+                    <ul>
+                     {% for i in v.cate_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.updated | date:"Y-m-d"}}</span></li>
+                     {% endfor %}
+                     </ul>
+                    </div><div class="clear"></div>
+                    <div class="pages">
+                        <a href="/zhiyuw/{{v.more}}">点击查看更多</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div><div class="clear"></div>
+    </div>
+        <div id="right" class="fr">
+            {% include "zhiyuw/latest_blog.html" %}
+            {% include "zhiyuw/contact_small.html" %}
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block foot_extra %}
+
+<script type="text/javascript">
+window.onload = function(){
+    new tab('test1_li_now_', '_', null, 'onmouseover');
+    }
+function tab(o, s, cb, ev){ //tab切换类
+var $ = function(o){return document.getElementById(o)};
+var css = o.split((s||'_'));
+if(css.length!=4)return;
+this.event = ev || 'onclick';
+o = $(o);
+if(o){
+this.ITEM = [];
+o.id = css[0];
+var item = o.getElementsByTagName(css[1]);
+var j=1;
+for(var i=0;i<item.length;i++){
+if(item[i].className.indexOf(css[2])>=0 || item[i].className.indexOf(css[3])>=0){
+if(item[i].className == css[2])o['cur'] = item[i];
+item[i].callBack = cb||function(){};
+item[i]['css'] = css;
+item[i]['link'] = o;
+this.ITEM[j] = item[i];
+item[i]['Index'] = j++;
+item[i][this.event] = this.ACTIVE;
+}
+}
+return o;
+}
+}
+tab.prototype = {
+ACTIVE:function(){
+var $ = function(o){return document.getElementById(o)};
+this['link']['cur'].className = this['css'][3];
+this.className = this['css'][2];
+try{
+$(this['link']['id']+'_'+this['link']['cur']['Index']).style.display = 'none';
+$(this['link']['id']+'_'+this['Index']).style.display = 'block';
+}catch(e){}
+this.callBack.call(this);
+this['link']['cur'] = this;
+}
+}
+</script>
+
+{% endblock %}

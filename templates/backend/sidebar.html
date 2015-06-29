@@ -1,0 +1,49 @@
+	<section id="secondary_bar">
+		<div class="user">
+			<p>{{request}}(<a href="#">0 Messages</a>)</p>
+			<a class="logout_user" href="/backend/logout" title="Logout">退出</a>
+		</div>
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="/backend/">站点管理</a> <div class="breadcrumb_divider"></div> <a class="current">控制台</a></article>
+		</div>
+	</section><!-- end of secondary bar -->
+	
+	<aside id="sidebar" class="column">
+		<form class="quick_search">
+			<input type="text" value="快捷搜索" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+		</form>
+		<hr/>
+		<h3>内容管理</h3>
+		<ul class="toggle">
+			<li class="icn_new_article"><a href="/backend/post/new/">新建文章</a></li>
+			<li class="icn_edit_article"><a href="/backend/post/list/">编辑文章</a></li>
+			<li class="icn_edit_article"><a href="/backend/comments/list/">管理评论</a></li>
+			<li class="icn_categories"><a href="/backend/category/list/">文章分类</a></li>
+			<li class="icn_tags"><a href="#">标签管理</a></li>
+		</ul>
+		<h3>用户</h3>
+		<ul class="toggle">
+			<li class="icn_add_user"><a href="#">添加用户</a></li>
+			<li class="icn_view_users"><a href="#">查看用户</a></li>
+			<li class="icn_profile"><a href="#">个人资料</a></li>
+		</ul>
+		<h3>媒体</h3>
+		<ul class="toggle">
+			<li class="icn_folder"><a href="#">文件管理</a></li>
+			<li class="icn_photo"><a href="#">媒体</a></li>
+			<li class="icn_audio"><a href="#">音频</a></li>
+			<li class="icn_video"><a href="#">视频</a></li>
+		</ul>
+		<h3>管理员</h3>
+		<ul class="toggle">
+			<li class="icn_settings"><a href="#">设置</a></li>
+			<li class="icn_security"><a href="#">安全</a></li>
+			<li class="icn_jump_back"><a href="/backend/logout">退出</a></li>
+		</ul>
+		
+		<footer>
+			<hr />
+			<p><strong>Copyright &copy; 2015 Website Admin</strong></p>
+			<p>Theme by <a href="http://www.medialoot.com">MediaLoot</a></p>
+		</footer>
+	</aside><!-- end of sidebar -->

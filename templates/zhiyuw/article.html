@@ -1,0 +1,97 @@
+{% extends "zhiyuw/base.html" %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n future disqus_tags %}
+
+{% block meta_title %}{{art.title}}{% endblock %}
+
+{% block main %}
+<div id="main" >
+	<div class="main w1000">
+    <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>{{cate_name}}</b><span>当前位置：<a href="/">首页</a> >>{{cate_name}}</span></p>
+        </div>
+        <div class="left_area">
+            <div style="text-align:center;font-size:26px;margin-bottom:10px;">{{art.title}}</div>
+            <div style="text-align:center;margin-bottom:20px;">
+                作者：{{art.user_name}}&nbsp;发布日期：{{art.created | date:"Y-m-d"}}&nbsp;浏览次数:{{art.views}}</div>
+            <div style="text-align:left; margin-left:8px; margin-right:8px;">
+                <div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
+        	    {{ art.content|safe }}
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:20px;padding-bottom:20px;">
+                {% if pre_page %}
+                    上一篇：<a href="{{pre_page.short_url}}" title="{{pre_page.title}}">{{pre_page.title | slice:"20"}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                {% endif %}
+                {% if next_page %}
+                    下一篇：<a href="{{next_page.short_url}}" title="{{next_page.title}}">{{next_page.title | slice:"20"}}</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if art.allow_comments %}
+
+            <div id="comments" class="comments">
+            <h2>评论</h2><hr>
+                <ul>
+                {% if not comments %}
+                    <li><p class="comments_content">暂无评论</p></li>
+                {% endif %}
+                {% for i in comments %}
+                    <li>
+                        <div >
+                            <p><a href="{{i.user_url}}" class="comments_user">{{i.user_name}}</a>
+                                <small>{{i.submit_date | date:"Y-m-d"}}</small>
+                            </p>
+                            <p class="comments_content">{{i.comment}}</p>
+                        </div>
+
+                    </li>
+                {% endfor %}
+                </ul>
+            <h2>新评论</h2><hr>
+            <form method="post" id="comment" action="/zhiyuw/comment" class="comments">
+            <input type="hidden" name="referrer" value="{{refer}}">
+            <input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost">
+            <input id="id_object_pk" name="object_pk" type="hidden" value="{{art.id}}">
+            <input id="id_timestamp" name="timestamp" type="hidden" value="{{timestamp}}">
+            <input id="id_security_hash" name="security_hash" type="hidden" value="691897e4f25ef0e586c071f618149b2e7fe6a2a0">
+            <div class="">
+                <label class="control-label" for="id_name">名&nbsp;&nbsp;称</label>
+                <input id="id_name" maxlength="50" name="name" type="text" value="{%if request.session.isLogin%}{{request.session.info.username}}{%endif%}" class="reg_field">必填
+            </div>
+            <div class="form-group input_id_email">
+                <label class="control-label" for="id_email">电子邮件</label>
+                <input id="id_email" name="email" type="email" value="{%if request.session.isLogin%}{{request.session.info.email}}{%endif%}" class="reg_field">必填(不公开)
+            </div>
+            <div class="form-group input_id_url">
+                <label class="control-label" for="id_url">网&nbsp;&nbsp;址</label>
+                <input id="id_url" name="url" type="url" value="" class="reg_field">选填
+            </div>
+            <div class="form-group input_id_comment">
+                <label class="control-label" for="id_comment">评&nbsp;&nbsp;论</label>
+                <textarea cols="40" id="id_comment" name="comment" rows="10"></textarea>
+            </div>
+            <div class="form-group input_id_honeypot" style="display:none;">
+                <label class="control-label" for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label>
+                <input id="id_honeypot" name="honeypot" type="text" class="input-xlarge">
+            </div>
+                <div style="padding:10px 280px;">
+                    <input class="btn btn-primary btn-lg" type="submit" value="提交" >
+                </div>
+            </form>
+
+            </div>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+
+    <div id="right" class="fr">
+        {% include "zhiyuw/latest_blog.html" %}
+        {% include "zhiyuw/contact_small.html" %}
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+{% endblock %}

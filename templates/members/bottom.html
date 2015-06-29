@@ -1,0 +1,42 @@
+
+<div id="footer">
+	<div class="footer w1000">
+    	<ul>
+            	<li><a href="/" target="_blank">网站首页</a></li>
+                <li><a href="/zhiyuw/ktq" target="_blank">开拓圈</a></li>
+                <li><a href="/zhiyuw/gyq" target="_blank">耕耘群</a></li>
+                <li><a href="/zhiyuw/alh" target="_blank">案例汇</a></li>
+                <li><a href="/zhiyuw/xxc" target="_blank">信息窗</a></li>
+                <li><a href="/zhiyuw/zyk" target="_blank">资源库</a></li>
+                <li><a href="/zhiyuw/fsb" target="_blank">放松吧</a></li>
+                <li><a href="/zhiyuw/nxt" target="_blank">纳贤台</a></li>
+                <li><a href="/zhiyuw/bw" target="_blank">博文</a></li>
+                <li><a href="/zhiyuw/gbook" target="_blank">留言栏</a></li>
+                <li><a href="/zhiyuw/contact" target="_blank"> 联系我们</a></li>
+            </ul>
+            <p>CopyRight © 2015 会员中心, All Rights Reserved.</p>
+    </div>
+</div><div class="clear"></div>
+<script type="text/javascript">
+    $(".leftsidebar_box dt").css({"background-color":"#3992d0"});
+    $(".leftsidebar_box dt img").attr("src","/static/members/cy_images/images/left/select_xl01.png");
+    $(function(){
+        $(".leftsidebar_box dd").hide();
+        $(".leftsidebar_box dt").click(function(){
+            $(".leftsidebar_box dt").css({"background-color":"#3992d0"})
+            $(this).css({"background-color": "#317eb4"});
+            $(this).parent().find('dd').removeClass("menu_chioce");
+            $(".leftsidebar_box dt img").attr("src","/static/members/cy_images/images/left/select_xl01.png");
+            $(this).parent().find('img').attr("src","/static/members/cy_images/images/left/select_xl.png");
+            $(".menu_chioce").slideUp();
+            $(this).parent().find('dd').slideToggle();
+            $(this).parent().find('dd').addClass("menu_chioce");
+        });
+    })
+
+    function changeImage(){
+
+    }
+</script>
+</body>
+</html>

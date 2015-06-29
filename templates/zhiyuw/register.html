@@ -1,0 +1,81 @@
+{% extends "zhiyuw/base.html" %}
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+
+{% block meta_title %}{{cate_name}}{% endblock %}
+
+{% block position %}{% endblock %}
+
+{% block main %}
+<div id="main" >
+	<div class="main w1000">
+    <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>{{cate_name}}</b><span>当前位置：<a href="/">首页</a> >>{{cate_name}}</span></p>
+        </div>
+
+        <div id="test2_1" class="">
+            <div class="">
+                <div class="">
+                <form method="post" action="/zhiyuw/register" name="formktz" id="reg_form">
+                <input type="hidden" name="submit" value="tj" />
+                <p>
+                会员类型:<select name="utype" class="reg_field">
+                   <option value="gyq" selected="">耕耘人</option><option value="ktq">开拓人</option></select></select><span id="err_utype">
+                    &nbsp;
+                    </span>
+                </p>
+                <p>
+                会员账号:<input type="text" name="username" id="username" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*用户名不能为空'}"><span id="err_username">
+                    &nbsp;
+                    </span>
+                </p>
+                <p>
+                账号密码:<input type="password" name="password" id="password" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_password').innerText='*密码不能为空'}"><span id="err_password">
+                    &nbsp;
+                    </span>
+                </p><p>
+                密码确认:<input type="password" name="password2" id="password2" value="" onblur="checkpass()"  class="reg_field"><span id="err_password2">
+                    &nbsp;
+                    </span>
+                </p><p>
+                电子邮箱:<input type="text" onblur="checkemail(this)" name="email" id="email" value=""  class="reg_field"><span id="err_email">
+                    &nbsp;
+                    </span>
+                </p>
+                {% if settings.logincode %}
+                <p>
+                验证码:<input type="text"  name="code" style="width:80px; height:30px; margin-right:4px;" tabindex="4"/><span class="captcha"><img id="code" src="{{src}}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{{src}}" style="cursor:pointer; "></span>
+                </p>
+                {% endif %}
+                <p>
+                <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image" onclick="javascript:formktz.submit();" style="display:block; margin:10px 60px;">
+                </p>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="right" class="fr">
+        {% include "zhiyuw/latest_blog.html" %}
+        {% include "zhiyuw/contact_small.html" %}
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+{% endblock %}
+
+{% block foot_extra %}
+<script type="text/javascript">
+    function checkpass(){
+        if ($('#password').val()!=$('#password2').val()){
+            $('#err_password2').text('两次密码不一致');
+        }
+    }
+    function checkemail(t){
+
+    }
+</script>
+{% endblock %}

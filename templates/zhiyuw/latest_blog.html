@@ -1,0 +1,10 @@
+<div class="right_news">
+    <div class="right_title">
+    <img src="/static/zhiyuw/cy_images/images/piont10.jpg" width="14" height="17" /><p>最新博文</p>
+    </div>
+    <ul>
+        {% for i in blog_list %}
+            <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"22"}}</a></li>
+        {% endfor %}
+    </ul>
+</div><div class="clear"></div>

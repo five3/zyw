@@ -1,0 +1,130 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
+<head>
+<title>Log in | Mezzanine</title>
+<meta name="robots" content="NONE,NOARCHIVE" />
+
+<!-- LOADING -->
+
+
+<!-- STYLESHEETS / EXTRASTYLE -->
+
+    <link rel="stylesheet" type="text/css" href="/static/grappelli/css/base.css" />
+
+
+
+
+<!-- JAVASCRIPTS / EXTRAHEAD -->
+
+<script type="text/javascript" src="/static/mezzanine/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    // Ensures jQuery does not pollute the global namespace
+    $.noConflict();
+    
+    var ADMIN_URL = "/admin/";
+</script>
+
+
+
+<link rel="stylesheet" type="text/css" href="/static/grappelli/css/login.css">
+
+<link rel="stylesheet" href="/static/mezzanine/css/admin/global.css">
+<style>
+    /* These are set in PageAdmin's view methods, and mezzanine.core.admin.SingletonAdmin */
+    
+    
+    
+</style>
+<script>
+    
+    
+    
+    
+    window.__home_link = '<a href="/index/">View site</a>';
+    window.__csrf_token = 'op584KSFkXbUlYyS33Yj5uuDyO7iEgO0';
+    window.__admin_keywords_submit_url = '/admin_keywords_submit/';
+    window.__filebrowser_url = '/admin/media-library/browse/';
+    window.__tinymce_css = '/static/mezzanine/css/tinymce.css';
+    window.__admin_url = '/admin/';
+    window.__static_proxy = '/asset_proxy/';
+    window.__admin_media_prefix__ = '/static/admin/';
+    window.__grappelli_installed = true;
+    window.__admin_menu_collapsed = false;
+    window.__language_code = 'en';
+</script>
+
+
+
+<script>
+jQuery(function($) {
+    $('.admin-title').click(function() {location = window.__admin_url;});
+});
+</script>
+
+
+<link rel="stylesheet" href="/static/mezzanine/chosen/chosen.css">
+<script src="/static/mezzanine/chosen/chosen-0.9.12.jquery.js"></script>
+<script> jQuery(function($) {$('select').chosen();}); </script>
+
+
+
+
+</head>
+
+<body class="login">
+
+<!-- CONTAINER -->
+<div id="container">
+
+    <!-- HEADER -->
+
+<div id="header">
+    <div class="branding">&nbsp;</div>
+    <!-- Title -->
+    <div class="admin-title">管理后台</div>
+    
+</div>
+    <!-- BREADCRUMBS -->
+
+    <!-- MESSAGES -->
+
+    <!-- CONTENT -->
+    <div id="content" class="colM">
+
+<form action="/backend/login" method="post" id="login-form">{% csrf_token %}
+    <div id="content-main">
+        <div class="form-row">
+            <label for="id_username" class="required">Username or email:</label>
+            <input type="text" required name="username" id="id_username" value="">
+        </div>
+        <div class="form-row">
+            <label for="id_password" class="required">Password:</label>
+            <input type="password" required  name="password" id="id_password">
+            <input type="hidden" name="this_is_the_login_form" value="1" />
+        </div>
+        
+        <div class="form-row" id="extra-login-fields">
+            <label class="required">Interface:</label>
+            <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
+                value="admin" checked />
+            <label class="interface" for="interface_admin">Admin</label>
+        </div>
+    </div>
+    <div class="submit-row">
+        <label>&nbsp;</label><input type="submit" value="Log in" />
+    </div>
+    <p id="forgot-password">
+        <a href="/password_reset/">Forgot password?</a>
+    </p>
+</form>
+
+        <br class="clear" />
+    </div>
+
+    <!-- FOOTER -->
+
+    <script src="/static/mezzanine/js/admin/login.js"></script>
+</div>
+</body>
+</html>

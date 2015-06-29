@@ -1,0 +1,70 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">内容管理</h3>
+		<ul class="tabs">
+   			<li><a href="/backend/post/new/">新建</a></li>
+		</ul>
+		</header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th></th> 
+    				<th>文章名称</th> 
+    				<th>分类1</th>
+    				<th>分类2</th>
+    				<th>发布时间</th>
+                    <th>浏览量</th>
+    				<th>操作</th> 
+				</tr> 
+			</thead> 
+			<tbody>
+                {% for i in post_list %}
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td style="width:400px;">{{i.title}}</td>
+                        <td>{{i.cate}}</td>
+                        <td>{{i.cate2}}</td>
+                        <td>{{i.created | date:"Y-m-d"}}</td>
+                        <td>{{i.views}}</td>
+                        <td>
+                            <a href="/backend/post/edit/?id={{i.id}}"><input type="image" src="/static/backend/images/icn_edit.png" title="编辑"></a>
+                            <input type="image" src="/static/backend/images/icn_trash.png" title="删除" onclick="del_post({{i.id}}, this);"></td>
+                    </tr>
+                {% endfor %}
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+			
+		</div><!-- end of .tab_container -->
+
+		</article><!-- end of content manager article -->
+		<div style="margin-bottom:10px; padding:10px 20px">
+            <ul class="tabs">
+                <li><a href="/backend/post/list/?page={{page|add:-1}}">上一页</a></li>
+                <li><a href="/backend/post/list/?page={{page|add:1}}">下一页</a></li>
+            </ul>
+        </div>
+{% endblock %}
+{% block bottom %}
+<script type="text/javascript">
+    function del_post(id, obj){
+        if (!confirm("是否确认删除？")){
+            return;
+        }
+        var url = "/backend/post/del/";
+        $.post(url,{id:id},function(result){
+            if (result.errorCode==0){
+                $(obj).parent().parent().remove();
+            }else{
+                alert(errorCode.msg);
+            }
+        });
+    }
+</script>
+{% endblock %}
+

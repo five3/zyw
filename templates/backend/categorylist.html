@@ -1,0 +1,57 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">分类管理</h3>
+		</header>
+
+		<div class="tab_container">	
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th></th> 
+    				<th>分类</th> 
+    				<th>发布时间</th> 
+    				<th>操作</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>Articles</td> 
+    				<td>5th April 2011</td> 
+    				<td><input type="image" src="/static/backend/images/icn_edit.png" title="Edit"><input type="image" src="/static/backend/images/icn_trash.png" title="Trash"></td>
+				</tr> 
+				<tr> 
+   					<td><input type="checkbox"></td>  
+    				<td>Freebies</td> 
+    				<td>6th April 2011</td> 
+   				 	<td><input type="image" src="/static/backend/images/icn_edit.png" title="Edit"><input type="image" src="/static/backend/images/icn_trash.png" title="Trash"></td>
+				</tr>
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>Tutorials</td> 
+    				<td>10th April 2011</td> 
+    				<td><input type="image" src="/static/backend/images/icn_edit.png" title="Edit"><input type="image" src="/static/backend/images/icn_trash.png" title="Trash"></td>
+				</tr> 
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>Articles</td> 
+    				<td>16th April 2011</td> 
+   				 	<td><input type="image" src="/static/backend/images/icn_edit.png" title="Edit"><input type="image" src="/static/backend/images/icn_trash.png" title="Trash"></td>
+				</tr>
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>Articles</td> 
+    				<td>16th April 2011</td> 
+   				 	<td><input type="image" src="/static/backend/images/icn_edit.png" title="Edit"><input type="image" src="/static/backend/images/icn_trash.png" title="Trash"></td>
+				</tr>
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+			
+		</div><!-- end of .tab_container -->
+		
+		</article><!-- end of content manager article -->
+		
+{% endblock %}

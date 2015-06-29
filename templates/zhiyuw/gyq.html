@@ -1,0 +1,58 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}耕耘群{% endblock %}
+
+{% block main %}
+
+<div id="case">
+	<div class="case w1000">
+    	<div class="case_title">
+        <img src="/static/zhiyuw/cy_images/images/piont04.jpg" width="18" height="15" /><p>耕耘群</p>
+        </div>
+        <span>职位：</span>
+        <ul>
+        	<!--<li><a href="/zhiyuw/gyq?name=fzzj">副总/总监</a></li>
+            <li><a href="/zhiyuw/gyq?name=cwjl">财务经理</a></li>
+            <li><a href="/zhiyuw/gyq?name=cwkjzg">财务/会计主管</a></li>
+            <li><a href="/zhiyuw/gyq?name=kjzl">会计/助理</a></li>
+            <li><a href="/zhiyuw/gyq?name=sjjlzg">审计经理/主管</a></li>
+            <li><a href="/zhiyuw/gyq?name=cbjlzg">成本经理/主管</a></li>
+            <li><a href="/zhiyuw/gyq?name=trzjlzg">投融资经理/主管</a></li>
+            <li><a href="/zhiyuw/gyq?name=zjjlcn">资金经理/出纳</a></li>
+            <li><a href="/zhiyuw/gyq?name=sjfxszy">数据分析师/专员</a></li>-->
+            <li><a href="/zhiyuw/gyq?name=high">高级</a></li>
+            <li><a href="/zhiyuw/gyq?name=middle">中级</a></li>
+            <li><a href="/zhiyuw/gyq?name=low">初级</a></li>
+            <li><a href="/zhiyuw/gyq?name=qt">其他</a></li>
+        </ul>
+        <div class="clear"></div>
+
+        <img src="/static/zhiyuw/cy_images/images/line.jpg" width="1002" height="36" />
+
+<div class="case_area">
+
+      {% for i in gyq_list %}
+   	  <div class="case_map fl">
+            <a href="/zhiyuw/member?t=gyq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
+            <div class="caption">
+            <h2>{{i.nickname}}</h2>
+            <img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="30" height="24" />
+            </div>
+            <p>等级：<b>{{i.credits}}</b></p>
+            <ul>
+            	<li>职位：{{i.zhiwei}}</li>
+            </ul>
+            <p title="{{i.zuoyouming}}">座右铭：{{i.zuoyouming | slice:"30"}}</p>
+      </div>
+      {% endfor %}
+            <div class="clear"></div>
+            <div class="page">
+               {{pagelist}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+{% endblock %}

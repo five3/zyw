@@ -1,0 +1,218 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}首页{% endblock %}
+
+{% block main %}
+
+<!-- {% load pages_tags mezzanine_tags i18n future staticfiles %}  -->
+
+<div id="news" >
+	<div class="news w1000">
+	<div class="information fl">
+    	<div class="information_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont01.jpg" %}" width="15" height="15" /><p>信息窗</p><a href="/zhiyuw/xxc">MORE>></a>
+        </div>
+        <div class="information_area">
+        	<ul>
+                {% for i in xxc_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="information fl">
+    	<div class="information_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont03.jpg" %}" width="14" height="13" /><p>通知栏</p><a href="/zhiyuw/tzl">MORE>></a>
+        </div>
+        <div class="information_area">
+        	<ul>
+           	 {% for i in tzl_list %}
+                    <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
+             {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="login fr">
+    	<div class="qiehuan3">
+            <ul id="test2_li_now_">
+                <li class="now">开拓圈登录</li>
+                <li>耕耘群登录</li>
+            </ul>
+        </div>
+        <div>
+		<div id="test2_1" class="qiehuanlist01 block">
+            <div class="test_area01">
+                <div class="login_area">
+                 <form method="post" action="/zhiyuw/login" name="formktz">
+                 <input type="hidden" name="submit" value="tj" />
+                <p>
+                帐号:<input type="text" name="username" id="username" value="" class="reg_field">
+                </p>
+                <p>
+                密码:<input type="password" name="password" id="password" value="" class="reg_field">
+                </p>
+                {% if settings.logincode %}
+                <p>
+                验证:<input type="text"  name="code" style="width:80px; height:30px; margin-right:4px;" tabindex="4"/><span class="captcha"><img id="code" src="{{src}}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{{src}}" style="cursor:pointer; "></span>
+                </p>
+                {% endif %}
+                <p>
+                <input type="image" src="{% static "zhiyuw/cy_images/images/login01.jpg" %}" id="image" onclick="javascript:formktz.submit();">
+                <a href="/zhiyuw/register"><img id="image"  src="{% static "zhiyuw/cy_images/images/login.jpg" %}"></a>
+                </p>
+                </form>
+                </div>
+            </div>
+		</div>
+
+		<div id="test2_2" class="qiehuanlist01">
+            <div class="test_area01">
+                <div class="login_area">
+                <form method="post" action="/zhiyuw/login" name="formgyr">
+                <input type="hidden" name="submit" value="tj" />
+                <p>
+                帐号:<input type="text" name="username" id="username" value="">
+                </p>
+                <p>
+                密码:<input type="password" name="password" id="password" value="">
+                </p>
+                {% if settings.logincode %}
+                <p>
+                验证:<input type="text"  name="code" style="width:80px; height:30px; margin-right:4px;" tabindex="4"/><span class="captcha"><img id="code" src="{{src}}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{{src}}" style="cursor:pointer; "></span>
+                </p>
+                {% endif %}
+                <p>
+                <input type="image" src="{% static "zhiyuw/cy_images/images/login01.jpg" %}" id="image" onclick="javascript:formgyr.submit();">
+                <a href="/zhiyuw/register"><img id="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}"></a>
+                </p>
+                </form>
+                </div>
+            </div>
+		</div>
+	</div>
+    <script type="text/javascript">
+        window.onload = function(){
+        new qiehuan('test2_li_now_', '_', null, 'onclick');
+        }
+    </script>
+</div></div>
+</div><div class="clear"></div>
+
+<div id="develop" >
+  <div class="develop w1000">
+<div class="develop_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont04.jpg" %}" width="18" height="15" /><p>开拓圈</p><span>(企业专区)</span>
+      </div>
+    <a href="/zhiyuw/ktq"><img src="{% static "zhiyuw/cy_images/images/piont05.jpg" %}" width="28" height="28" /></a>
+  </div><div class="clear"></div>
+
+ <div class="develop_list w1000">
+{% for i in ktq_list %}
+    <div class="develop_map fl">
+    	<div class="develop_area">
+    	<a href="/zhiyuw/member?userid={{i.id}}&t=ktq"><img src="{{i.logo}}"  width="194" height="153" /></a>
+        </div>
+        <div class="develop_words">
+   		<p>主题：{{i.zhuti | slice:"8"}}</p><a href="{{i.qiyewangzhi}}" target="_blank">{{i.qiyeming}}</a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+</div><div class="clear"></div>
+
+<div id="case_information" >
+	<div class="case_information_list w1000">
+		<div class="case_information fl">
+    	<div class="case_information_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>案例汇</p><a href="/zhiyuw/alh">MORE>></a>
+        </div>
+        <div class="case_information_area">
+        	<ul>
+           	 {% for i in alh_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
+             {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="case_information fl">
+    	<div class="case_information_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>放松吧</p><a href="/zhiyuw/fsb">MORE>></a>
+        </div>
+        <div class="case_information_area">
+        	<ul>
+           	 {% for i in fsb_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
+             {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="case_information fl">
+    	<div class="case_information_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>博文</p><a href="/zhiyuw/bw">MORE>></a>
+        </div>
+        <div class="case_information_area">
+        	<ul>
+           	 {% for i in bw_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
+             {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</div><div class="clear"></div>
+
+<div id="develop" >
+  <div class="develop w1000">
+<div class="develop_title">
+        <img src="{% static "zhiyuw/cy_images/images/piont04.jpg" %}" width="18" height="15" /><p>耕耘群</p><span>(个人专区)</span>
+      </div>
+    <a href="/zhiyuw/gyq"><img src="{% static "zhiyuw/cy_images/images/piont05.jpg" %}" width="28" height="28" /></a>
+  </div><div class="clear"></div>
+
+    <div class="develop_list w1000">
+    {% for i in gyq_list %}
+    <div class="develop_map fl">
+    	<div class="develop_area">
+    	<a href="/zhiyuw/member?userid={{i.id}}&t=gyq"><img src="{{i.logo}}"  width="194" height="153" /></a>
+        </div>
+        <div class="develop_words">
+   		<p>职位：{{i.zhiwei}}</p><a href="/zhiyuw/member?userid={{i.id}}">{{i.nickname}}</a>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</div><div class="clear"></div>
+
+{% endblock %}
+
+{% block link %}
+<div id="link">
+	<div class="link w1000">
+    	<div class="link_title">
+        <img src="{% static "zhiyuw/cy_images/images/link.jpg" %}" width="1004" height="26" />
+        </div>
+        <div class="link_area">
+        <a href="http://www.tc-zhiyuw.com/" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map02.jpg" %}" width="150" height="113" /></a>
+        <a href="http://www.cz-zhiyuw.com/" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map01.jpg" %}" width="150" height="113" /></a>
+        <a href="http://www.aq-zhiyuw.com/" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map03.jpg" %}" width="150" height="113" /></a>
+        <a href="http://www.la-zhiyuw.com" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map04.jpg" %}" width="150" height="113" /></a>
+        <a href="http://www.hn-zhiyuw.com" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map05.jpg" %}" width="150" height="113" /></a>
+ <a href="http://www.chz-zhiyuw.com" target="_blank"><img src="{% static "zhiyuw/cy_images/images/link_map06.jpg" %}" width="150" height="113" /></a>
+        </div>
+    </div>
+</div><div class="clear"></div>
+
+<div id="links">
+	<div class="links w1000">
+    	<div class="links_title">
+        <p>友情链接：</p>
+        </div>
+		{% include "zhiyuw/link.html" %}
+    </div>
+</div><div class="clear"></div>
+{% endblock %}

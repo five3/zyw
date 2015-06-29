@@ -1,0 +1,56 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}开拓圈{% endblock %}
+
+{% block main %}
+
+<div id="case">
+	<div class="case w1000">
+    	<div class="case_title">
+        <img src="/static/zhiyuw/cy_images/images/piont04.jpg" width="18" height="15" /><p>开拓圈</p>
+        </div>
+        <span>行业：</span>
+        <ul>
+        	<li><a href="/zhiyuw/ktq?name=smy">商贸业</a></li>
+            <li><a href="/zhiyuw/ktq?name=yyhgny">医药/化工/能源</a></li>
+            <li><a href="/zhiyuw/ktq?name=fdcjz">房地产/建筑</a></li>
+            <li><a href="/zhiyuw/ktq?name=nlmy">农林渔业</a></li>
+            <li><a href="/zhiyuw/ktq?name=jsjtx">计算机/通讯</a></li>
+            <li><a href="/zhiyuw/ktq?name=ksxfp">快速消费品</a></li>
+            <li><a href="/zhiyuw/ktq?name=zzjgy">制造/加工业</a></li>
+            <li><a href="/zhiyuw/ktq?name=ysbz">印刷/包装</a></li>
+            <li><a href="/zhiyuw/ktq?name=zxpx">咨询/培训</a></li>
+            <li><a href="/zhiyuw/ktq?name=yswl">运输/物流</a></li>
+			<li><a href="/zhiyuw/ktq?name=nyxfp">耐用消费品</a></li>
+            <li><a href="/zhiyuw/ktq?name=qt">其他</a></li>
+        </ul>
+
+
+        <div class="clear"></div>
+
+        <img src="/static/zhiyuw/cy_images/images/line.jpg" width="1002" height="36" />
+
+<div class="case_area">
+{% for i in ktq_list %}
+   	  <div class="case_map fl">
+            <a href="/zhiyuw/member?t=ktq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
+            <div class="caption">
+                <h2><a href="{{i.url}}" title="{{i.qiyeming}}">{{i.qiyeming | slice:"13"}}</a></h2>
+            </div>
+            <p>等级：<b>{{i.credits}}</b></p>
+            <p>行业：{{i.zhuanye}}</p>
+            <p title="{{i.zhuti}}">主题：{{i.zhuti | slice:"13"}}</p>
+            <p title="{{i.qiyejianjie}}">简介：{{i.qiyejianjie | slice:"29"}}</p>
+      </div>
+ {% endfor %}
+            <div class="clear"></div>
+            <div class="page">
+            {{pagelist}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+{% endblock %}
