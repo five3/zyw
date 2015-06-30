@@ -219,4 +219,4 @@
 .archives_area img{ margin-top:20px;}
 .archives_area p{ text-align:left; line-height:25px;}
 
-#sina_keyword_ad_area2 img { width: 100%;}
+#sina_keyword_ad_area2 img { max-width: 100%;}
