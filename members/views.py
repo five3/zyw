@@ -68,9 +68,35 @@ def profile(req):
 def password(req):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
-    return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
+    uid = req.session['info']['id']
+    if req.method=='GET':
+        return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
+    else:
+        data = fun.warp_data(req.POST)
+        if data.get('new')==data.get('renew'):
+            r = controller.set_password(data, uid)
+            # print r
+            if r:
+                msg = '密码设置成功！'
+            else:
+                msg = '密码设置失败'
+        else:
+            msg = '确认密码不一致'
+        return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
 
 def bgmusic(req):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
-    return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))
+    uid = req.session['info']['id']
+    if req.method=='GET':
+        return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))
+    else:
+        src = req.POST.get('src', None)
+        r = controller.set_bg_music(src, uid)
+        # print r
+        if r:
+            req.session['info']['bgmusic'] = src
+            msg = '背景音乐设置成功！'
+        else:
+            msg = '背景音乐设置失败'
+        return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))

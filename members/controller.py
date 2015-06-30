@@ -109,3 +109,18 @@ def save_comment(data):
 def del_comment(id):
     sql = '''update django_comments set is_removed=1 where id=%s''' % id
     return unio().execute(sql)
+
+def set_bg_music(src, uid):
+    sql = '''update ww_member set bgmusic='%s' where id=%s;''' % (src, uid)
+    # print sql
+    return unio().execute(sql)
+
+def set_password(data, uid):
+    old = data.get('old')
+    new = data.get('new')
+    sql = '''select password from ww_member where id=%s''' % uid
+    r = unio().fetchOne(sql)
+    if r:
+        if r.get('password')==fun.mk_md5(old):
+            sql = '''update ww_member set password='%s' where id=%s''' % (fun.mk_md5(new), uid)
+            return unio().execute(sql)
