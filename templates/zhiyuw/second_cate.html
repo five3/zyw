@@ -17,29 +17,29 @@
         <ul id="test1_li_now_">
             {% for i in cate_list %}
                 {% if forloop.first %}
-                    <li class="now">{{i}}</li>
+                    <li class="now">{{i.title}}</li>
                 {% else %}
-                    <li class="tab_line">{{i}}</li>
+                    <li class="tab_line">{{i.title}}</li>
                 {% endif %}
             {% endfor %}
         </ul>
         </div>
 
         <div class="left_area">
-            {% for k,v in cate_list.items %}
+            {% for i in cate_list %}
                 <div id="test1_{{forloop.counter}}" class="tablist{%if forloop.first%}block{%endif%}">
                     <div class="test1_1_title">
-                        <p>{{k}}</p>
+                        <p>{{i.title}}</p>
                     </div>
                     <div class="test1_1_area">
                     <ul>
-                     {% for i in v.cate_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.updated | date:"Y-m-d"}}</span></li>
+                     {% for j in i.cate_list %}
+                        <li><a href="{{j.url}}" title="{{j.title}}">{{j.title}}</a><a class="name" href="{{j.url}}">{{j.user_name}}</a><span>{{j.updated | date:"Y-m-d"}}</span></li>
                      {% endfor %}
                      </ul>
                     </div><div class="clear"></div>
                     <div class="pages">
-                        <a href="/zhiyuw/{{v.more}}">点击查看更多</a>
+                        <a href="/zhiyuw/{{i.more}}">点击查看更多</a>
                     </div>
                 </div>
             {% endfor %}
