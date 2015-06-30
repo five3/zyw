@@ -104,22 +104,22 @@ def post_gbook(data):
 def get_child_list(cate):
     sql = '''select b.id, b.title, b.slug
             from blog_blogcategory a, blog_blogcategory b
-            where a.slug='%s' and a.id=b.parent_id''' % cate
+            where a.slug='%s' and a.id=b.parent_id order by b.ord''' % cate
     cate_list = unio().fetchAll(sql)
-    d = {}
+    d = []
     for i in cate_list:
         sql = '''select d.short_url as url,d.title, d.user_name, d.updated
                 from blog_blogpost_categories c, blog_blogpost d
                 where d.site_id=%s and c.blogcategory_id=%s and c.blogpost_id=d.id
                 order by d.updated desc limit 0,10''' % (get_site_id(), i['id'])
-        d[i['title']] = {'more':i['slug'], 'cate_list':unio().fetchAll(sql)}
+        d.append({'title':i['title'], 'more':i['slug'], 'cate_list':unio().fetchAll(sql)})
     return d
 
 
 def auth(data):
     username = data.get('username')
     password = data.get('password')
-    sql = '''select password,id,nickname,username,utype,email from ww_member where site_id=%s and username='%s'
+    sql = '''select password,id,nickname,username,utype,email,bgmusic from ww_member where site_id=%s and username='%s'
         ''' % (get_site_id(), username)
     r = unio().fetchOne(sql)
     if not r:
@@ -174,3 +174,11 @@ def get_comments(id):
             where object_pk=%s;''' % (id,)
     # print sql
     return unio().fetchAll(sql)
+
+def get_cate_dict():
+    sql = '''select slug, title from blog_blogcategory'''
+    l = unio().fetchAll(sql)
+    d = {}
+    for i in l:
+        d[i['slug']] = i['title']
+    return d

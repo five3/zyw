@@ -46,7 +46,7 @@ def gengyunqun(req):
 cate_dict = {'alh':'案例汇','xxc':'信息窗','zyk':'资源库','bw':'博文', 'fsb':'放松吧','nxt':'纳贤台',
              'lxwm':'联系我们','lyl':'留言栏', 'tzl':'通知栏', 'sh':'书画', 'sy':'摄影', 'bjys':'保健养生',
              'wxjl':'文学交流', 'ylxw':'娱乐新闻', 'zxmk':'招贤模块', 'zjmk':'自荐模块', 'rlzx':'人力资讯'}
-latest_blog = [{'url':'/zhiyuw/bw/article/111.html', 'title':'最新博文文章'},]
+cate_dict = controller.get_cate_dict()
 def category(req, cate):
     page = req.GET.get('page', 1)
     position_imgs = pimg
@@ -63,14 +63,8 @@ def second_cate(req, cate):
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list('bw', 10)
-    if cate=='fsb':
-        cate_list = controller.get_child_list('fsb')
-    elif cate=='nxt':
-        article = [{'url':'#', 'title':'模板文章标题', 'user_name':'five3', 'updated':'2015-06-13'}]
-        cate_list = {'招贤模块': {'more':'','cate_list':article*6},
-                     '自荐模块':{'more':'','cate_list':article*5},
-                     '人力资讯':{'more':'','cate_list':article*8}}
-        cate_list = controller.get_child_list('nxt')
+    if cate:
+        cate_list = controller.get_child_list(cate)
     return render_to_response("zhiyuw/second_cate.html", locals(), context_instance = RequestContext(req))
 
 def gbook(req):
