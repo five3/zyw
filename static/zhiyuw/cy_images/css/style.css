@@ -221,34 +221,6 @@
 
 #sina_keyword_ad_area2 img { max-width: 100%;}
 .Murphy {float: left;display: block;width: 590px;height: auto;margin: 40px 36px;}
-.Murphy_list {
-  float: left;
-  display: block;
-  width: 590px;
-  height: auto;
-  margin-bottom: 30px;
-}
-.Murphy_list strong {
-  float: left;
-  display: block;
-  width: 100px;
-  line-height: 20px;
-  font-family: "微软雅黑";
-  font-size: 16px;
-  color: #1c1c1c;
-  text-align: left;
-  font-weight: normal;
-  border-left: 6px solid #0581D0;
-  padding-left: 8px;
-}
-.Murphy_list p {
-  float: right;
-  display: block;
-  width: 470px;
-  height: auto;
-  text-align: left;
-  line-height: 20px;
-  color: #5D5D5D;
-  font-family: "微软雅黑";
-  font-size: 14px;
-}
+.Murphy_list {float: left;display: block;width: 590px;height: auto;margin-bottom: 30px;}
+.Murphy_list strong {float: left;display: block;width: 100px;line-height: 20px;font-family: "微软雅黑";font-size: 16px;color: #1c1c1c;text-align: left;font-weight: normal;border-left: 6px solid #0581D0;padding-left: 8px;}
+.Murphy_list p {float: right;display: block;width: 470px;height: auto;text-align: left;line-height: 20px;color: #5D5D5D;font-family: "微软雅黑";font-size: 14px;}
