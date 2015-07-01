@@ -228,7 +228,7 @@
   height: auto;
   margin-bottom: 30px;
 }
-.Murphy_list b {
+.Murphy_list strong {
   float: left;
   display: block;
   width: 100px;
