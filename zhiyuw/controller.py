@@ -15,6 +15,14 @@ def get_fsb_list(n):
     # print sql
     return unio().fetchAll(sql)
 
+def get_alh_list(n):
+    sql = '''select post.title, short_url as url, user_name, created
+            from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
+            where post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh') and cate.blogcategory_id=blog_category.id
+            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (get_site_id(),n)
+    # print sql
+    return unio().fetchAll(sql)
+	
 def get_cate_list(cate, n, page=1):
     if not page:
         page = 1

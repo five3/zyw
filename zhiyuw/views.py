@@ -13,7 +13,7 @@ def index(req):
     xxc_list = controller.get_cate_list('xxc', 12)
     tzl_list = controller.get_cate_list('tzl', 12)
     ktq_list = controller.get_ktq_list(10)
-    alh_list = controller.get_cate_list('alh', 12)
+    alh_list = controller.get_alh_list(12)
     fsb_list = controller.get_fsb_list(12)
     bw_list = controller.get_cate_list('bw', 12)
     gyq_list = controller.get_gyq_list(10)
