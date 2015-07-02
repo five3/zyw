@@ -163,6 +163,7 @@ def get_user_info(data):
     t = data.get('t')
     if not uid or not t:
         return {}
+	print t	
 	if t=='gyq':	
 		sql = '''select nickname,email,credits from ww_member where id=%s''' % uid
 	elif t=='ktq':
