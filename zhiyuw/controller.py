@@ -171,6 +171,7 @@ def get_user_info(data):
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
     r = unio().fetchOne(sql)
+    print r		
     if r:
         r['utype'] = utype[t]
     return r
