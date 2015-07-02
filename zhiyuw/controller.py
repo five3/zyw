@@ -163,7 +163,12 @@ def get_user_info(data):
     t = data.get('t')
     if not uid or not t:
         return {}
-    sql = '''select nickname,email,credits from ww_member where id=%s''' % uid
+	if t=='gyq':	
+		sql = '''select nickname,email,credits from ww_member where id=%s''' % uid
+	elif t=='ktq':
+		sql = '''select nickname,email,credits,vip.qiyejianjie 
+				from ww_member,ww_member_vip vip 
+				where ww_member.id=%s and ww_member.id=vip.id''' % uid
     r = unio().fetchOne(sql)
     if r:
         r['utype'] = utype[t]
