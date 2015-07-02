@@ -165,9 +165,9 @@ def get_user_info(data):
         return {}
     print t	
     if t=='gyq':	
-		sql = '''select nickname,email,credits from ww_member where id=%s''' % uid
+		sql = '''select nickname,email,credits,avatar as logo from ww_member where id=%s''' % uid
     elif t=='ktq':
-		sql = '''select nickname,email,credits,vip.qiyejianjie 
+		sql = '''select nickname,email,credits,vip.qiyejianjie,vip.logo  
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
     r = unio().fetchOne(sql)
