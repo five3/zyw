@@ -118,7 +118,7 @@ def login(req):
             # print r
             req.session['isLogin'] = True
             req.session['info'] = r
-            return HttpResponseRedirect("/zhiyuw")
+            return HttpResponseRedirect("/members")
         else:
             msg = '用户或密码错误'
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
