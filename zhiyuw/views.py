@@ -157,7 +157,7 @@ def search(req):
     return render_to_response("zhiyuw/search.html", locals(), context_instance = RequestContext(req))
 
 def member(req):
-	position_imgs = pimg
+    position_imgs = pimg
     settings = st
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
