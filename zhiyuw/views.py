@@ -160,7 +160,7 @@ def member(req):
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
     article_list = controller.get_user_article(data)
-    return render_to_response("zhiyuw/members.html", locals(), context_instance = RequestContext(req))
+    return render_to_response("zhiyuw/member.html", locals(), context_instance = RequestContext(req))
 
 def comment(req):
     data = fun.warp_data(req.POST)
