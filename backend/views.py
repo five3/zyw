@@ -124,5 +124,4 @@ def postimage(req):
         return HttpResponse("unsupport method")
     # print dir(req.FILES)
     data = imageUp.imageup(req.FILES['upfile'])
-    # print data
-    return HttpResponse(data, content_type="application/json")
+    return HttpResponse(json.dumps(data), content_type="application/json")
