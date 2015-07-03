@@ -117,11 +117,12 @@
 
 {% endblock %}
 
-{% block buttom %}
+{% block bottom %}
 <script>
 var  highlightcolor='#3992D0';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
 var  clickcolor='#51b2f6';
+source=null;
 function  changeto(){
 source=event.srcElement;
 if  (source.tagName=="TR"||source.tagName=="TABLE")
@@ -165,7 +166,7 @@ for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor="";
 }
 }
-function goto_page(cate, page){
+function changeto(){
 }
 </script>
 {% endblock %}

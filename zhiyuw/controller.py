@@ -129,6 +129,7 @@ def auth(data):
     password = data.get('password')
     sql = '''select password,id,nickname,username,utype,email,bgmusic from ww_member where site_id=%s and username='%s'
         ''' % (get_site_id(), username)
+    # print sql
     r = unio().fetchOne(sql)
     if not r:
         return None
@@ -137,11 +138,19 @@ def auth(data):
 
 from django.db.utils import IntegrityError
 def reg_user(data):
-    sql = '''insert into ww_member (username, password, email, avatar, regdate, regip, status, utype, site_id)
-            values ('%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s)
-            ''' % (data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id())
+    sql = '''insert into ww_member (username, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic)
+            values ('%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s')
+            ''' % (data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
     try:
-        return unio().execute(sql)
+        r = unio().executeInsert(sql)
+        if not r:
+            return -2
+        if data['utype']=='gyq':
+            sql = '''insert into ww_member_normal (id) values (%s)''' % r
+            return unio().executeInsert(sql)
+        elif data['utype']=='ktq':
+            sql = '''insert into ww_member_vip (id, logo) values (%s, '%s')''' % (r, '/static/zhiyuw/cy_images/images/kaituoquan.png')
+            return unio().executeInsert(sql)
     except:
         return -2
 

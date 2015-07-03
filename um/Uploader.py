@@ -39,10 +39,11 @@ class uploader:
 
             td = time.strftime('/%Y-%m-%d/')
             path = self.config['savePath'] + td
-            self.url = td +self.f.name
+            self.name = '%s_%s' % (int(time.time()), self.f.name)
+            self.url = td +self.name
             if not os.path.exists(path):
                 os.makedirs(path)
-            self.filePath = path + self.f.name
+            self.filePath = path + self.name
             destination = open(self.filePath, 'wb+')
             for chunk in self.f.chunks():
                 destination.write(chunk)
@@ -68,9 +69,10 @@ class uploader:
     def getFileInfo(self):
         return {
             "originalName" : self.f.name,
-            "name" : self.f.name,
+            "name" : self.name,
             "url" : self.url,
             "size" : self.fileSize,
             "type" : self.fileType,
             "state" : self.stateInfo,
+            "abs_url" : '%s%s' % (self.config['imageUrl'], self.url),
             }

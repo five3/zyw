@@ -18,5 +18,4 @@ class UploadFileForm(forms.Form):
 def imageup(f):
     up = Uploader.uploader(f, config)
     info = up.getFileInfo()
-    import json
-    return json.dumps(info)
+    return info
