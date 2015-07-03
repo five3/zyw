@@ -124,3 +124,57 @@ def set_password(data, uid):
         if r.get('password')==fun.mk_md5(old):
             sql = '''update ww_member set password='%s' where id=%s''' % (fun.mk_md5(new), uid)
             return unio().execute(sql)
+
+def update_profile(data, utype, uid):
+    if utype=='ktq':
+        sql = '''update ww_member_vip set logo='%s', qiyeming='%s', lianxifangshi='%s', qiyewangzhi='%s',
+                qiyejianjie='%s', zhuanye='%s', zhuti='%s'
+                where id=%s''' % (data.get('photo_img'), data.get('qiyeming'), data.get('lianxifangshi'),
+                                  data.get('qiyewangzhi'), data.get('qiyejianjie'), data.get('zhuanye','qt'),
+                                  data.get('zhuti'), uid)
+        # print sql
+        return unio().execute(sql)
+    elif utype=='gyq':
+        sql = '''update ww_member set nickname='%s', avatar='%s' where id=%s''' % \
+              (data.get('nickname'), data.get('photo_img'), uid)
+        print sql
+        unio().execute(sql)
+        sql = '''update ww_member_normal set xingming='%s', shoujihao='%s', zuoyouming='%s', qq='%s',
+               gerenjianjie='%s', zhiwei='%s', sex='%s' where id=%s''' % (data.get('xingming'), data.get('shoujihao'),
+                 data.get('zuoyouming'), data.get('qq'), data.get('gerenjianjie'), data.get('zhiwei'),
+                 data.get('sex'), uid)
+        print sql
+        return unio().execute(sql)
+
+def get_profile(uid, utype):
+    if utype=='ktq':
+        sql = '''select logo as photo_img, qiyeming, qiyewangzhi, lianxifangshi, qiyejianjie, zhuanye, zhuti
+                from ww_member_vip where id=%s''' % uid
+        # print sql
+        return unio().fetchOne(sql)
+    elif utype=='gyq':
+        sql = '''select m.nickname, m.avatar as photo_img, n.xingming, n.shoujihao, n.zuoyouming, n.qq, n.gerenjianjie,
+                n.zhiwei, n.sex from ww_member m, ww_member_normal n
+                where m.id=%s and m.id=n.id''' % uid
+        # print sql
+        return unio().fetchOne(sql)
+
+def get_zhuanye_list():
+    sql = '''select name, `desc` from ww_zhuanye where `desc` is not null'''
+    # print sql
+    return unio().fetchAll(sql)
+
+def get_zhiwei_list():
+    sql = '''select name, `desc` from ww_zhiwei where `desc` is not null'''
+    # print sql
+    return unio().fetchAll(sql)
+
+def update_photo_img(url, utype, uid):
+    if utype=='ktq':
+        sql = '''update ww_member_vip set logo='%s' where id=%s''' % (url, uid)
+        # print sql
+        return unio().execute(sql)
+    elif utype=='gyq':
+        sql = '''update ww_member set avatar='%s' where id=%s''' % (url, uid)
+        # print sql
+        return unio().execute(sql)

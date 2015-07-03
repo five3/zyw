@@ -53,17 +53,42 @@ def post(req, action):
 
 from um import imageUp
 def postimage(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
     if req.method=='GET':
         return HttpResponse("unsupport method")
-    # print dir(req.FILES)
+    # print req.FILES.keys()
     data = imageUp.imageup(req.FILES['upfile'])
-    # print data
-    return HttpResponse(data, content_type="application/json")
+    if data['state']=='SUCCESS':
+        if controller.update_photo_img(data['abs_url'], utype, uid):
+            return HttpResponseRedirect('/members/profile')
+    msg = '上传头像失败'
+    return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
 def profile(req):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
-    return render_to_response("members/profile.html", locals(), context_instance = RequestContext(req))
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    if req.method=='GET':
+        info = controller.get_profile(uid, utype)
+        if utype=='ktq':
+            zhuanye = controller.get_zhuanye_list()
+            return render_to_response("members/cprofile.html", locals(), context_instance = RequestContext(req))
+        else:
+            zhiwei = controller.get_zhiwei_list()
+            return render_to_response("members/gprofile.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        data = fun.warp_data(req.POST)
+        # print data
+        r = controller.update_profile(data, utype, uid)
+        if r:
+            msg = '更新资料成功'
+        else:
+            msg = '更新资料失败'
+        return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
 def password(req):
     if not req.session.get('isLogin'):
