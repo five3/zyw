@@ -137,13 +137,13 @@ def update_profile(data, utype, uid):
     elif utype=='gyq':
         sql = '''update ww_member set nickname='%s', avatar='%s' where id=%s''' % \
               (data.get('nickname'), data.get('photo_img'), uid)
-        print sql
+        # print sql
         unio().execute(sql)
         sql = '''update ww_member_normal set xingming='%s', shoujihao='%s', zuoyouming='%s', qq='%s',
                gerenjianjie='%s', zhiwei='%s', sex='%s' where id=%s''' % (data.get('xingming'), data.get('shoujihao'),
                  data.get('zuoyouming'), data.get('qq'), data.get('gerenjianjie'), data.get('zhiwei'),
                  data.get('sex'), uid)
-        print sql
+        # print sql
         return unio().execute(sql)
 
 def get_profile(uid, utype):

@@ -61,11 +61,15 @@ def postimage(req):
         return HttpResponse("unsupport method")
     # print req.FILES.keys()
     data = imageUp.imageup(req.FILES['upfile'])
+    # print req.GET
+    if 'editorid' in req.GET:
+        return HttpResponse(json.dumps(data),content_type="application/json")
+
     if data['state']=='SUCCESS':
         if controller.update_photo_img(data['abs_url'], utype, uid):
             return HttpResponseRedirect('/members/profile')
-    msg = '上传头像失败'
-    return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
+        msg = '上传头像失败'
+        return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
 def profile(req):
     if not req.session.get('isLogin'):
