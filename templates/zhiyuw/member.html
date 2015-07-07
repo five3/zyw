@@ -13,22 +13,25 @@
             <p><b>会员中心</b><span>当前位置：<a href="/">首页</a> >>会员中心 </span></p>
         </div>
         <div class="left_area">
-            <div class="articles">
-            <p>会员简介</p>
-            </div>
             <div class="left_area_news">
 			{% if info.qiyejianjie %}
-			<div>
-				{{info.qiyejianjie}}
-			</div>
+                <div class="articles">
+                <p>会员简介</p>
+                </div>
+                <div style="text-align: left;margin: 10px;font-size: 14px;">
+                    {{info.qiyejianjie}}
+                </div>
 			{% endif %}
-            <p>
-            <ul>
-                {% for i in article_list %}
-                    <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"35"}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.created | date:"Y-m-d"}}</span></li>
-                {% endfor %}
-            </ul>
-            </p>
+            {% if article_list %}
+                <div class="articles">
+                <p>会员文章</p>
+                </div>
+                <ul>
+                    {% for i in article_list %}
+                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"35"}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.created | date:"Y-m-d"}}</span></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             </div>
              <div class="clear"></div>
             {% ifequal info.utype '开拓圈' %}
