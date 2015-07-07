@@ -51,7 +51,7 @@
 .block{display:block;}
 .test_area01{ width:630px; height:260px; margin-left:15px; }
 .login_area{ width:270px; height:260px; border-bottom:1px dashed #DCDCDC; }
-.reg_field { background: url(../images/ID.jpg) center no-repeat; width:230px; height:33px; border:none;  padding:10px 5px; line-height:33px}
+.reg_field { background: url(../images/ID.jpg) center no-repeat; width:230px; height:33px; border:none; line-height:33px}
 .login_area p{ float:left; margin-top:20px; font-size:12px; line-height:33px}
 #image{ float:left; margin-top:20px; margin-bottom:15px; display:block; margin-left:15px;}
 #reg_form p { padding-left:200px; font-size:12px; line-height:33px; text-align:left;}

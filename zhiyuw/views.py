@@ -184,6 +184,10 @@ def qiye_comment(req):
         return render_to_response("zhiyuw/qiye_comment.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = fun.warp_data(req.POST)
+        if req.META.has_key('HTTP_X_FORWARDED_FOR'):
+            data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
+        else:
+            data['ip'] = req.META['REMOTE_ADDR']
         if controller.post_qiye_comment(data):
             msg = '提交说说成功'
         else:

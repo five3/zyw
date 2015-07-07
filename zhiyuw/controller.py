@@ -212,8 +212,8 @@ def get_cate_dict():
     return d
 
 def post_qiye_comment(data):
-    sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created) values
-            ('%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
-                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now())
+    sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created, ip) values
+            ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
+                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'])
     # print sql
     return unio().execute(sql)
