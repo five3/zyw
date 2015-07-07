@@ -16,11 +16,16 @@
 			<dd><a href="#">消费记录</a></dd>
 			<dd><a href="#">操作记录</a></dd>
 		</dl>
-
-		<dl class="cloud">
-			<dt>平台设置<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
-			<dd class="first_dd"><a href="/members/bgmusic">背景音乐</a></dd>
-		</dl>
+        {% ifequal request.session.info.utype 'ktq' %}
+        <dl class="system_log">
+            <dt onClick="changeImage()">企业发布<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
+            <dd class="first_dd"><a href="/members/zhaopin">招聘信息</a></dd>
+        </dl>
+        {% endifequal %}
+        <dl class="cloud">
+            <dt>平台设置<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
+            <dd class="first_dd"><a href="/members/bgmusic">背景音乐</a></dd>
+        </dl>
 
 		<dl class="source">
 			<dt>我的书咖<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>

@@ -79,7 +79,7 @@ def gbook(req):
         url = "/zhiyuw/gbook"
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
     else:
-        cate_name = cate_dict.get('lyl', '无效分类')
+        cate_name = '留言栏'
         blog_list = controller.get_cate_list('bw', 10)
     return render_to_response("zhiyuw/gbook.html", locals(), context_instance = RequestContext(req))
 
@@ -87,7 +87,7 @@ def contact(req):
     position_imgs = pimg
     settings = st
     packagelist = None
-    cate_name = cate_dict.get('lxwm', '无效分类')
+    cate_name =  '联系我们'
     blog_list = controller.get_cate_list('bw', 10)
     return render_to_response("zhiyuw/contact_us.html", locals(), context_instance = RequestContext(req))
 
@@ -174,3 +174,18 @@ def comment(req):
     # print data
     controller.add_comments(data)
     return HttpResponseRedirect(data.get('referrer'))
+
+def qiye_comment(req):
+    if req.method=='GET':
+        position_imgs = pimg
+        settings = st
+        data = {'userid':req.session.get('info',{}).get('id'), 't':req.session.get('info',{}).get('utype')}
+        info = controller.get_user_info(data)
+        return render_to_response("zhiyuw/qiye_comment.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        data = fun.warp_data(req.POST)
+        if controller.post_qiye_comment(data):
+            msg = '提交说说成功'
+        else:
+            msg = '提交说说失败'
+        return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))

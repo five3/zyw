@@ -134,13 +134,15 @@ def auth(data):
     if not r:
         return None
     if r.pop('password')==fun.mk_md5(password):
+        sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
+        unio().execute(sql)
         return r
 
 from django.db.utils import IntegrityError
 def reg_user(data):
-    sql = '''insert into ww_member (username, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic)
-            values ('%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s')
-            ''' % (data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
+    sql = '''insert into ww_member (username, nickname, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic)
+            values ('%s', '%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s')
+            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
     try:
         r = unio().executeInsert(sql)
         if not r:
@@ -174,11 +176,13 @@ def get_user_info(data):
         return {}
 #    print t	
     if t=='gyq':	
-		sql = '''select nickname,email,credits,avatar as logo from ww_member where id=%s''' % uid
+		sql = '''select id,nickname,email,credits,avatar as logo from ww_member where id=%s''' % uid
     elif t=='ktq':
-		sql = '''select nickname,email,credits,vip.qiyejianjie,vip.logo  
+		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,vip.logo
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
+
+    # print sql
     r = unio().fetchOne(sql)
 #    print r		
     if r:
@@ -206,3 +210,10 @@ def get_cate_dict():
     for i in l:
         d[i['slug']] = i['title']
     return d
+
+def post_qiye_comment(data):
+    sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created) values
+            ('%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
+                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now())
+    # print sql
+    return unio().execute(sql)

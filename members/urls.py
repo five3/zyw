@@ -8,6 +8,7 @@ urlpatterns = patterns('members.views',
     url("^profile/?$", 'profile'),
     url("^password/?$", 'password'),
     url("^bgmusic/?$", 'bgmusic'),
+    url("^zhaopin/?$", 'zhaopin'),
     url("^post/(.*)/$", 'post'),
     url("^$", 'index'),
 )

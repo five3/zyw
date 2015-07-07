@@ -22,12 +22,20 @@
 				{{info.qiyejianjie}}
 			</div>
 			{% endif %}
+            <p>
             <ul>
                 {% for i in article_list %}
                     <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"35"}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.created | date:"Y-m-d"}}</span></li>
                 {% endfor %}
             </ul>
+            </p>
             </div>
+             <div class="clear"></div>
+            {% ifequal info.utype '开拓圈' %}
+                <div style="text-align:center; margin:20px;">
+                    <a href="/zhiyuw/qiye_comment"><img src="/static/zhiyuw/cy_images/images/shuoshuo.png"></a>
+                </div>
+            {% endifequal %}
             <div class="clear"></div>
 
             <div class="pages">

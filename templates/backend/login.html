@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
 <head>
-<title>Log in | Mezzanine</title>
+<title>登录 | 管理后台</title>
 <meta name="robots" content="NONE,NOARCHIVE" />
 
 <!-- LOADING -->
@@ -11,9 +11,6 @@
 <!-- STYLESHEETS / EXTRASTYLE -->
 
     <link rel="stylesheet" type="text/css" href="/static/grappelli/css/base.css" />
-
-
-
 
 <!-- JAVASCRIPTS / EXTRAHEAD -->
 
@@ -95,27 +92,27 @@ jQuery(function($) {
 <form action="/backend/login" method="post" id="login-form">{% csrf_token %}
     <div id="content-main">
         <div class="form-row">
-            <label for="id_username" class="required">Username or email:</label>
+            <label for="id_username" class="required">用户名:</label>
             <input type="text" required name="username" id="id_username" value="">
         </div>
         <div class="form-row">
-            <label for="id_password" class="required">Password:</label>
+            <label for="id_password" class="required">密码:</label>
             <input type="password" required  name="password" id="id_password">
             <input type="hidden" name="this_is_the_login_form" value="1" />
         </div>
         
         <div class="form-row" id="extra-login-fields">
-            <label class="required">Interface:</label>
+            <label class="required">接口:</label>
             <input class="interface" type="radio" name="mezzanine_login_interface" id="interface_admin"
                 value="admin" checked />
-            <label class="interface" for="interface_admin">Admin</label>
+            <label class="interface" for="interface_admin">后台</label>
         </div>
     </div>
     <div class="submit-row">
-        <label>&nbsp;</label><input type="submit" value="Log in" />
+        <label>&nbsp;</label><input type="submit" value="登录" />
     </div>
     <p id="forgot-password">
-        <a href="/password_reset/">Forgot password?</a>
+        <a href="/password_reset/">忘记密码?</a>
     </p>
 </form>
 

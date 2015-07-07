@@ -2,11 +2,10 @@
 {% load i18n %}
 
 {% block meta_title %}消息提示页{% endblock %}
-
+{% block position %}{% endblock %}
 {% block main %}
 <div class="showMsg" style="text-align:center">
-    <div class="content guery" style="height: 30px;
-    padding:40px;width:330px; margin:40px auto;"><p>{{msg}}</p></div>
+    <div class="content guery" style="height: 30px; padding:40px;width:330px; margin:40px auto;"><p>{{msg}}</p></div>
     <div class="bottom">
     {% if url %}
         <a href="{{url}}">如果您的浏览器没有自动跳转，请点击这里</a>
@@ -16,7 +15,7 @@
             <a href="javascript:history.back();" >[点这里返回上一页]</a>
 		{% else %}
 			<a href="/">如果您的浏览器没有自动跳转，请点击这里返回首页</a>
-			<meta http-equiv="refresh" content="5; url=/zhiyuw">
+			<meta http-equiv="refresh" content="1000; url=/zhiyuw">
 		{% endif %}
     {% endif %}
     </div>

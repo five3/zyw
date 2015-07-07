@@ -133,7 +133,7 @@ def update_profile(data, utype, uid):
                                   data.get('qiyewangzhi'), data.get('qiyejianjie'), data.get('zhuanye','qt'),
                                   data.get('zhuti'), uid)
         # print sql
-        return unio().execute(sql)
+        return unio().execute(sql)>-1
     elif utype=='gyq':
         sql = '''update ww_member set nickname='%s', avatar='%s' where id=%s''' % \
               (data.get('nickname'), data.get('photo_img'), uid)
@@ -144,7 +144,7 @@ def update_profile(data, utype, uid):
                  data.get('zuoyouming'), data.get('qq'), data.get('gerenjianjie'), data.get('zhiwei'),
                  data.get('sex'), uid)
         # print sql
-        return unio().execute(sql)
+        return unio().execute(sql)>-1
 
 def get_profile(uid, utype):
     if utype=='ktq':
@@ -178,3 +178,20 @@ def update_photo_img(url, utype, uid):
         sql = '''update ww_member set avatar='%s' where id=%s''' % (url, uid)
         # print sql
         return unio().execute(sql)
+
+def post_zhaopin(data, uid, uname):
+    data['cate'] = 15
+    data['cate2'] = '*'
+    data['status'] = 2
+    companyname = data.pop('companyname')
+    zhaopingangwei = data.pop('zhaopingangwei')
+    zhaopinrenshu = data.pop('zhaopinrenshu')
+    lianxifangshi = data.pop('lianxifangshi')
+    gangweiyaoqiu = data.pop('gangweiyaoqiu').replace('\r\n', '<br/>')
+    # print `gangweiyaoqiu`
+    data['editorValue'] = '''<div class="Murphy fl"><div class="Murphy_list fl"><strong>公司名称</strong><p>%s</p></div>
+    <div class="Murphy_list fl"><strong>招聘岗位</strong><p>%s</p></div><div class="Murphy_list fl">
+    <strong>招聘人数</strong><p>%s人</p></div>
+    <div class="Murphy_list fl"><strong>岗位要求</strong><p>%s</p></div>
+    <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div></div>''' % (companyname, zhaopingangwei, zhaopinrenshu, gangweiyaoqiu, lianxifangshi)
+    return save_post(data, uid, uname)

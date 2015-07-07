@@ -31,6 +31,13 @@ def post(req, action):
         elif action=='edit':
             post_info = controller.get_post_info(req.GET.get('id',0))
             return render_to_response("members/post.html", locals(), context_instance = RequestContext(req))
+        elif action=='del':
+            id = req.GET.get('id')
+            if controller.del_post(id):
+                return HttpResponseRedirect('/members')
+            else:
+                msg = '删除失败'
+                return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         if action=='save':
             uid = req.session['info']['id']
@@ -129,3 +136,18 @@ def bgmusic(req):
         else:
             msg = '背景音乐设置失败'
         return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))
+
+def zhaopin(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    uname = req.session['info']['username']
+    if req.method=='GET':
+        return render_to_response("members/zhaopin.html", locals(), context_instance = RequestContext(req))
+    else:
+        data = fun.warp_data(req.POST)
+        if controller.post_zhaopin(data, uid, uname):
+            msg = '职位发布成功！'
+        else:
+            msg = '职位发布失败'
+        return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
