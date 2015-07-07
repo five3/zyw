@@ -1,0 +1,116 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}会员中心{% endblock %}
+
+{% block position %}{% endblock %}
+{% block main %}
+<div id="main" >
+	<div class="main w1000">
+        <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>会员中心</b><span>当前位置：<a href="/">首页</a> >>会员中心 </span></p>
+        </div>
+        <div class="left_area">
+            <div class="articles">
+            <p>会员简介</p>
+            </div>
+            <div class="left_area_news">
+
+                <div class="container clearfix">
+                    <div class="main-wrap">
+                        <div class="result-wrap">
+                            <div class="result-content">
+                                <form action="" method="post" name="myform"">
+                                    <table class="insert-tab" width="100%">
+                                        <tbody>
+                                          <tr>
+                                                <th>用户名：</th>
+                                                <td><input name="qiye_id" size="20" value="{{info.id}}" type="hidden">
+                                                    <input class="common-text" name="user_name" size="20" value="{{request.session.info.username}}" type="text"></td>
+                                            </tr>
+                                        <tr>
+                                            <th width="120"><i class="require-red">*</i>所属类别：</th>
+                                            <td>
+                                                <select name="user_type" class="required">
+                                                    <option value="无">请选择</option>
+                                                    <option value="公司">公司</option>
+                                                    <option value="员工">员工</option>
+                                                    <option value="访客">访客</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                            <tr>
+                                                <th>邮箱/微信号：</th>
+                                                <td>
+                                                    <input class="common-text required"  name="lianxi" size="50" value="" type="text">
+                                                </td>
+                                            </tr>
+
+                                             <tr>
+                                                <th><i class="require-red">*</i>微信钱包：</th>
+                                                <td>
+                                                    <input class="common-text required"  name="qianbao" size="50" value="" type="text">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>我的说说：</th>
+                                                <td><textarea name="shuoshuo" class="common-textarea" id="content" cols="30" style="width: 98%;" rows="10"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                                    <input class="btn btn6" onClick="history.go(-1)" value="返回" type="button">
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="pages">
+            </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="right" class="fr">
+            <div class="right_news">
+                <div class="right_title">
+                <img src="/static/zhiyuw/cy_images/images/piont10.jpg" width="14" height="17"><p>会员资料</p>
+                </div>
+                <div class="archives_area">
+                <a href="#"><img src="{{info.logo}}" width="235" height="187"></a>
+                <p>会员昵称：{{info.nickname}}</p>
+                <p>会员类型：{{info.utype}}</p>
+                <p>会员等级：{{info.credits}}</p>
+                <p>联系邮箱：{{info.email}}</p>
+              </div>
+          </div><div class="clear"></div>
+
+          <div class="right_contact">
+                <div class="right_contact_title">
+                <p>联系我们</p>
+              </div>
+                <div class="right_contact_map">
+                <p><span><img src="/static/zhiyuw/cy_images/images/piont2.jpg" width="26" height="23"></span>咨询热线： 0566-5031361</p>
+                <p><span><img src="/static/zhiyuw/cy_images/images/piont13.jpg" width="24" height="19"></span>公司地址：池州青阳县蓉城镇花园幢6号</p>
+                <p><span><img src="/static/zhiyuw/cy_images/images/piont14.jpg" width="17" height="20"></span>联 系 人： 曹国富</p>
+              </div>
+          </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<div class="clear"></div>
+{% endblock %}

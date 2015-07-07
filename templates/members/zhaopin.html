@@ -1,0 +1,81 @@
+{% extends "members/base.html" %}
+
+{% block css %}
+    <style>
+    .registerform {
+        margin: 0 105px 15px;
+        padding-top: 45px;
+    }
+    .registerform .inputxt {
+        padding: 3px 2px;
+    }
+    .registerform td{
+        display: block;
+        float: left;
+    }
+    .phpadd td{
+        padding-bottom: 20px;
+    }
+    .fangbiang{
+        margin-left: 50px;
+    }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="content" style="margin: 0 auto;">
+            <div class="information">
+                <div class="inputout" style="width: 800px;">
+                    <h3>发布招聘</h3>
+                    <div class="zcxx">
+                        <form class="registerform" method="post" action="" name="zhaopin">
+                            <table >
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>标题：</td>
+                                    <td>
+                                        <input type="text" value="" name="title" class="inputxt" datatype="m" nullmsg="" errormsg="" />
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>公司名称：</td>
+                                    <td>
+                                        <input type="text" value="" name="companyname" class="inputxt" datatype="m" nullmsg="" errormsg="" />
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>招聘岗位：</td>
+                                    <td>
+                                        <input type="text" value="" name="zhaopingangwei" class="inputxt" datatype="m" nullmsg="" errormsg="" />
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>招聘人数：</td>
+                                    <td>
+                                        <input type="text" value="" name="zhaopinrenshu" class="inputxt" datatype="m" nullmsg="" errormsg="" />
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>联系方式：</td>
+                                    <td>
+                                        <input type="text" value="" name="lianxifangshi" class="inputxt" datatype="m" nullmsg="" errormsg="" />
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>岗位要求：</td>
+                                    <td>
+                                        <textarea name="gangweiyaoqiu" class="inputxt" cols="55" rows="6"></textarea>
+                                    </td>
+                                </tr>
+
+                                <tr><td>{{msg}}</td></tr>
+                            </table>
+                        </form>
+                        <div class="inputsubmit regisspan ">
+			      	  	  	<a href="javascript:void(0);" onclick="zhaopin.submit();">点击保存</a>
+			      	  	  </div>
+                    </div>
+                </div>
+            </div>
+        </div><div class="clear"></div>
+{% endblock %}
+
