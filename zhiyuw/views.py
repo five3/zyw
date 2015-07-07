@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
 def index(req):
+    # print req.session['site_host']
     position_imgs = pimg
     settings = st
     xxc_list = controller.get_cate_list('xxc', 12)
@@ -47,6 +48,7 @@ cate_dict = {'alh':'案例汇','xxc':'信息窗','zyk':'资源库','bw':'博文'
              'lxwm':'联系我们','lyl':'留言栏', 'tzl':'通知栏', 'sh':'书画', 'sy':'摄影', 'bjys':'保健养生',
              'wxjl':'文学交流', 'ylxw':'娱乐新闻', 'zxmk':'招贤模块', 'zjmk':'自荐模块', 'rlzx':'人力资讯'}
 cate_dict = controller.get_cate_dict()
+
 def category(req, cate):
     page = req.GET.get('page', 1)
     position_imgs = pimg

@@ -3,9 +3,10 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
+from local_settings import SITE_ID
 
 def get_site_id():
-    return 1
+    return SITE_ID
 
 def get_cate_list():
     sql = '''select id, title

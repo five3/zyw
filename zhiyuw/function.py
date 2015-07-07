@@ -32,3 +32,10 @@ def handle_uploaded_file(f):
     destination.close()
     return True
 
+def need_site_id(func):
+    def _need_site_id(req, *args):
+        # print req.META['HTTP_HOST'], req.META['REMOTE_HOST']
+        req.session['site_host'] = req.META['HTTP_HOST'].split(':')[0]
+        ret = func(req, *args)
+        return ret
+    return _need_site_id

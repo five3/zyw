@@ -32,3 +32,5 @@ ROOT_PATH=os.getcwd()+'/'
 LOGIN_URL = '/backend/login/'
 LOGIN_REDIRECT_URL = '/backend/'
 APPEND_SLASH = False
+
+SITE_ID = 1

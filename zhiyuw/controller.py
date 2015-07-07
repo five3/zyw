@@ -3,9 +3,10 @@ __author__ = 'macy'
 
 from model import *
 import function as fun
+from local_settings import SITE_ID
 
 def get_site_id():
-    return 1
+    return SITE_ID
 
 def get_fsb_list(n):
     sql = '''select post.title, short_url as url, user_name, created
@@ -212,8 +213,8 @@ def get_cate_dict():
     return d
 
 def post_qiye_comment(data):
-    sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created, ip) values
-            ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
-                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'])
+    sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created, ip, site_id) values
+            ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
+                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'], get_site_id())
     # print sql
     return unio().execute(sql)
