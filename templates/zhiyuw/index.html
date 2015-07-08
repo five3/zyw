@@ -40,7 +40,7 @@
                 <img src="/static/zhiyuw/cy_images/images/piont03.jpg" width="14" height="13"><p>会员信息</p><a href="/members">MORE&gt;&gt;</a>
             </div>
             <div class="archives_area">
-                <a href="/members"><img src="/static/uploadfiles/image/20150513/thumb_d33a741c020d799a1b21ceeb1d4e4c26.png" width="235" height="187"></a>
+                <a href="/members"><img src="{{request.session.info.logo}}" width="235" height="187"></a>
                 <p>会员昵称：{{request.session.info.nickname}}</p>
                 <p>会员类型：{% ifequal request.session.info.utype 'ktq' %}开拓圈{% else %}耕耘群{% endifequal %}</p>
                 <p>会员等级：{{request.session.info.credits}}</p>

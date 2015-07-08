@@ -65,13 +65,13 @@ def get_context_page(cate, id):
 
 def get_ktq_list(n, zhuanye=None):
     if zhuanye:
-        sql = '''select vip.id, logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
+        sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
              order by id desc limit 0,%s''' % (get_site_id(), zhuanye, n)
     else:
-        sql = '''select vip.id, logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
+        sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
@@ -81,13 +81,13 @@ def get_ktq_list(n, zhuanye=None):
 
 def get_gyq_list(n, zhiwei=None):
     if zhiwei:
-        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.avatar as logo,ww_member.nickname,
+        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
                     order by normal.id desc limit 0,%s''' % (get_site_id(), zhiwei, n)
     else:
-        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.avatar as logo,ww_member.nickname,
+        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
@@ -123,11 +123,10 @@ def get_child_list(cate):
         d.append({'title':i['title'], 'more':i['slug'], 'cate_list':unio().fetchAll(sql)})
     return d
 
-
 def auth(data):
     username = data.get('username')
     password = data.get('password')
-    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits from ww_member where site_id=%s and username='%s'
+    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo from ww_member where site_id=%s and username='%s'
         ''' % (get_site_id(), username)
     # print sql
     r = unio().fetchOne(sql)
@@ -140,9 +139,13 @@ def auth(data):
 
 from django.db.utils import IntegrityError
 def reg_user(data):
-    sql = '''insert into ww_member (username, nickname, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic, credits)
-            values ('%s', '%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s', 1)
-            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
+    if data['utype']=='gyq':
+        logo = '/static/zhiyuw/cy_images/images/gengyunqun.png'
+    else:
+        logo = '/static/zhiyuw/cy_images/images/kaituoquan.png'
+    sql = '''insert into ww_member (username, nickname, password, email, logo, regdate, regip, status, utype, site_id, bgmusic, credits)
+            values ('%s', '%s', '%s', '%s', '%s', '%s', '', 1, '%s', %s, '%s', 1)
+            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
     try:
         r = unio().executeInsert(sql)
         if not r:
@@ -151,7 +154,7 @@ def reg_user(data):
             sql = '''insert into ww_member_normal (id) values (%s)''' % r
             return unio().executeInsert(sql)
         elif data['utype']=='ktq':
-            sql = '''insert into ww_member_vip (id, logo) values (%s, '%s')''' % (r, '/static/zhiyuw/cy_images/images/kaituoquan.png')
+            sql = '''insert into ww_member_vip (id) values (%s)''' % r
             return unio().executeInsert(sql)
     except:
         return -2
@@ -176,9 +179,9 @@ def get_user_info(data):
         return {}
 #    print t	
     if t=='gyq':	
-		sql = '''select id,nickname,email,credits,avatar as logo from ww_member where id=%s''' % uid
+		sql = '''select id,nickname,email,credits,logo from ww_member where id=%s''' % uid
     elif t=='ktq':
-		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,vip.logo
+		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,ww_member.logo
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
 

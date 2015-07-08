@@ -22,22 +22,23 @@
                     <div class="main-wrap">
                         <div class="result-wrap">
                             <div class="result-content">
-                                <form action="" method="post" name="myform"">
+                                <form action="" method="post" name="myform" onsubmit="if($('#user_name').val()==''){alert('用户名必填');return false}else{return true;}">
                                     <table class="insert-tab" width="100%">
                                         <tbody>
                                           <tr>
                                                 <th>用户名：</th>
                                                 <td><input name="qiye_id" size="20" value="{{info.id}}" type="hidden">
-                                                    <input class="common-text" name="user_name" size="20" value="{{request.session.info.username}}" type="text"></td>
+                                                    <input class="common-text" id="user_name" name="user_name" size="20" value="{{request.session.info.username}}" type="text" ></td>
                                             </tr>
                                         <tr>
                                             <th width="120"><i class="require-red">*</i>所属类别：</th>
                                             <td>
                                                 <select name="user_type" class="required">
                                                     <option value="无">请选择</option>
-                                                    <option value="公司">公司</option>
+                                                    <option value="供应商">供应商</option>
+                                                    <option value="客户">客户</option>
                                                     <option value="员工">员工</option>
-                                                    <option value="访客">访客</option>
+                                                    <option value="其他">其他</option>
                                                 </select>
                                             </td>
                                         </tr>
