@@ -168,7 +168,8 @@ def shuoshuo(req):
                 return render_to_response("members/raw.html", locals(), context_instance = RequestContext(req))
             else:
                 controller.del_qiye_comment(id)
-        shuoshuo_list = controller.get_shuoshuo_list(uid)
+        page = req.GET.get('page', 1)
+        shuoshuo_list = controller.get_shuoshuo_list(uid, page)
         return render_to_response("members/shuoshuo.html", locals(), context_instance = RequestContext(req))
     else:
         data = fun.warp_data(req.POST)

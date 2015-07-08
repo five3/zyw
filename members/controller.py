@@ -197,9 +197,14 @@ def post_zhaopin(data, uid, uname):
     <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div></div>''' % (companyname, zhaopingangwei, zhaopinrenshu, gangweiyaoqiu, lianxifangshi)
     return save_post(data, uid, uname)
 
-def get_shuoshuo_list(uid):
+def get_shuoshuo_list(uid, page, num=10):
+    if page:
+        page = int(page)
+    else:
+        page = 1
+    index = (page-1)*num
     sql = '''select id, user_name, user_type, lianxi, created
-            from ww_qiye_comment where qiye_id=%s and is_show>-1''' % uid
+            from ww_qiye_comment where qiye_id=%s and is_show>-1 limit %s,%s''' % (uid, index, num)
     # print sql
     return unio().fetchAll(sql)
 
