@@ -122,7 +122,7 @@
 
 
 #main{ width:100%; height:auto; background:url(../images/bg.jpg) center repeat; float:left; display:block;}
-#left{ width:670px; height:auto; float:left; display:block; margin-top:5px;}
+#left{ width:670px; height:auto; float:left; display:block; margin-top:45px;}
 .left_title{ width:670px; height:30px; border-bottom:1px solid #CCCCCC;}
 .left_title img{ float:left; padding-left:5px; margin-top:8px; margin-right:5px;}
 .left_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#000; display:block; }
@@ -145,7 +145,7 @@
 .page{ width:1000px; height:30px;  text-align:center; line-height:30px; margin-top:20px; margin-bottom:30px;}
 
 
-#right{ width:304px; height:auto; float:right; display:block; margin-top:5px;}
+#right{ width:304px; height:auto; float:right; display:block; margin-top:45px;}
 .right_news{ width:304px; height: auto; background:#FFF; float:right; display:block; }
 .right_title{ height:30px; width:302px; background:#007CCC; border:1px solid #D6D6D6;}
 .right_title img{ float:left; padding-left:5px; margin-top:8px; margin-right:5px;}
@@ -329,3 +329,4 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .btn6 {
   width: 120px;
 }
+#kinMaxShow {margin-top:41px;}

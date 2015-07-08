@@ -127,7 +127,7 @@ def get_child_list(cate):
 def auth(data):
     username = data.get('username')
     password = data.get('password')
-    sql = '''select password,id,nickname,username,utype,email,bgmusic from ww_member where site_id=%s and username='%s'
+    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits from ww_member where site_id=%s and username='%s'
         ''' % (get_site_id(), username)
     # print sql
     r = unio().fetchOne(sql)
@@ -140,8 +140,8 @@ def auth(data):
 
 from django.db.utils import IntegrityError
 def reg_user(data):
-    sql = '''insert into ww_member (username, nickname, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic)
-            values ('%s', '%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s')
+    sql = '''insert into ww_member (username, nickname, password, email, avatar, regdate, regip, status, utype, site_id, bgmusic, credits)
+            values ('%s', '%s', '%s', '%s', '/static/zhiyuw/cy_images/images/gengyunqun.png', '%s', '', 1, '%s', %s, '%s', 1)
             ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
     try:
         r = unio().executeInsert(sql)
