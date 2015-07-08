@@ -154,3 +154,22 @@ def zhaopin(req):
         else:
             msg = '职位发布失败'
         return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
+
+def shuoshuo(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    if req.method=='GET':
+        id = req.GET.get('id')
+        if id:
+            t = req.GET.get('t')
+            if not t=='del':
+                msg = controller.get_qiye_comment(id)
+                return render_to_response("members/raw.html", locals(), context_instance = RequestContext(req))
+            else:
+                controller.del_qiye_comment(id)
+        shuoshuo_list = controller.get_shuoshuo_list(uid)
+        return render_to_response("members/shuoshuo.html", locals(), context_instance = RequestContext(req))
+    else:
+        data = fun.warp_data(req.POST)
+        pass

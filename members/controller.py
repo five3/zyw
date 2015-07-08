@@ -196,3 +196,26 @@ def post_zhaopin(data, uid, uname):
     <div class="Murphy_list fl"><strong>岗位要求</strong><p>%s</p></div>
     <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div></div>''' % (companyname, zhaopingangwei, zhaopinrenshu, gangweiyaoqiu, lianxifangshi)
     return save_post(data, uid, uname)
+
+def get_shuoshuo_list(uid):
+    sql = '''select id, user_name, user_type, lianxi, created
+            from ww_qiye_comment where qiye_id=%s and is_show>-1''' % uid
+    # print sql
+    return unio().fetchAll(sql)
+
+def get_qiye_comment(id):
+    sql = '''select id, user_name, user_type, lianxi, qianbao, shuoshuo, created
+            from ww_qiye_comment where id=%s''' % id
+    # print sql
+    r = unio().fetchOne(sql)
+    return '''<div class="Murphy fl">
+             <div class="Murphy_list fl"><strong>用户名称</strong><p>%s</p></div>
+             <div class="Murphy_list fl"><strong>用户类型</strong><p>%s</p></div>
+             <div class="Murphy_list fl"><strong>联系方式</strong><p>%s人</p></div>
+             <div class="Murphy_list fl"><strong>微信钱包</strong><p>%s</p></div>
+             <div class="Murphy_list fl"><strong>说说内容</strong><p>%s</p></div></div>''' %  (r['user_name'], r['user_type'],
+                                    r['lianxi'], r['qianbao'], r['shuoshuo'])
+
+def del_qiye_comment(id):
+    sql = '''update ww_qiye_comment set is_show=-1 where id=%s''' % id
+    return unio().execute(sql)

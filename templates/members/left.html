@@ -34,6 +34,9 @@
 			<dd><a href="/members?cate=myresource">我的资源</a></dd>
             <dd><a href="/members?cate=myart">我的文学</a></dd>
             <dd><a href="/members?cate=myphoto">我的摄影</a></dd>
+            {% ifequal request.session.info.utype 'ktq' %}
+                <dd><a href="/members/shuoshuo">我的说说</a></dd>
+            {% endifequal %}
 		</dl>
 
 	<div class="tel fl">

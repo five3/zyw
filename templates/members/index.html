@@ -56,7 +56,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
       <tr >
         <td width="8" >&nbsp;</td>
-        <td><table width="100%" border="0" cellpadding="0" cellspacing="0"  onmouseover="changeto()"  onmouseout="changeback()" >
+        <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
           <tr>
             <td width="3%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="center">
               <input type="checkbox" name="checkbox" value="checkbox" />
@@ -80,7 +80,7 @@
 
             <td height="34" ><div align="center"><span class="STYLE4">
                 <a href="/members/post/edit/?id={{i.id}}"><img src="/static/members/cy_images/images/edt.gif" width="16" height="16" />编辑</a>&nbsp; &nbsp;
-                <a href="/members/post/del/?id={{i.id}}"><img src="/static/members/cy_images/images/del.gif" width="16" height="16" />删除</a>
+                <a href="javascript:void(0);" onclick="del_post({{i.id}})"><img src="/static/members/cy_images/images/del.gif" width="16" height="16" />删除</a>
             </span></div></td>
           </tr>
           {% endfor %}
@@ -119,54 +119,10 @@
 
 {% block bottom %}
 <script>
-var  highlightcolor='#3992D0';
-//此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
-var  clickcolor='#51b2f6';
-source=null;
-function  changeto(){
-source=event.srcElement;
-if  (source.tagName=="TR"||source.tagName=="TABLE")
-return;
-while(source.tagName!="TD")
-source=source.parentElement;
-source=source.parentElement;
-cs  =  source.children;
-//alert(cs.length);
-if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
-for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor=highlightcolor;
-}
-}
-
-function  changeback(){
-if  (event.fromElement.contains(event.toElement)||source.contains(event.toElement)||source.id=="nc")
-return
-if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
-//source.style.backgroundColor=originalcolor
-for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor="";
-}
-}
-
-function  clickto(){
-source=event.srcElement;
-if  (source.tagName=="TR"||source.tagName=="TABLE")
-return;
-while(source.tagName!="TD")
-source=source.parentElement;
-source=source.parentElement;
-cs  =  source.children;
-//alert(cs.length);
-if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
-for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor=clickcolor;
-}
-else
-for(i=0;i<cs.length;i++){
-	cs[i].style.backgroundColor="";
-}
-}
-function changeto(){
+function del_post(id){
+    if (confirm('你确定删除么')){
+        location.href = '/members/post/del/?id='+id;
+    }
 }
 </script>
 {% endblock %}
