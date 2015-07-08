@@ -1,0 +1,142 @@
+{% extends "members/base.html" %}
+
+{% block main %}
+
+<table width="820px" border="0" cellspacing="0" cellpadding="0">
+  <tr >
+    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr >
+        <td width="12" height="30"></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr >
+            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5%"><div align="center"><img src="/static/members/cy_images/images/tb.gif" width="16" height="16" /></div></td>
+                <td width="95%" class="STYLE1"><span class="STYLE3">您当前的位置</span>：首页</td>
+              </tr>
+            </table></td>
+            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+      <tr >
+        <td width="8" >&nbsp;</td>
+        <td><table width="100%" border="0" cellpadding="0" cellspacing="0"  onmouseover="changeto()"  onmouseout="changeback()" >
+          <tr>
+            <td width="3%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="center">
+              <input type="checkbox" name="checkbox" value="checkbox" />
+            </div></td>
+            <td width="20%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="left"><span class="STYLE1">用户</span></div></td>
+            <td width="20%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">类型</span></div></td>
+            <td width="20%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">联系方式</span></div></td>
+            <td width="20%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">提交时间</span></div></td>
+            <td width="20%" height="31" background="/static/members/cy_images/images/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
+          </tr>
+
+          {% for i in shuoshuo_list %}
+          <tr >
+            <td height="34" ><div align="center">
+              <input type="checkbox" name="checkbox3" value="checkbox" />
+            </div></td>
+            <td height="34" ><div align="left" class="STYLE1"><a href="/members/shuoshuo?id={{i.id}}" target="_blank">{{i.user_name}}</a></div></td>
+            <td height="34" ><div align="center"><span class="STYLE1">{{i.user_type}}</span></div></td>
+            <td height="34" ><div align="center"><span class="STYLE1">{{i.lianxi}}</span></div></td>
+            <td height="34" ><div align="center"><span class="STYLE1">{{i.created}}</span></div></td>
+            <td height="34" ><div align="center"><span class="STYLE4">&nbsp; &nbsp;
+                <a href="/members/shuoshuo?t=del&id={{i.id}}"><img src="/static/members/cy_images/images/del.gif" width="16" height="16" />删除</a>
+            </span></div></td>
+          </tr>
+          {% endfor %}
+
+        </table></td>
+        <td width="8" >&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="35" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="35"></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="STYLE4" style="display:none;">&nbsp;&nbsp;共有 134 条记录，当前第 1/10 页</td>
+            <td><table border="0" align="right" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="45"><a href="/members/?cate={{cate}}&page={{page|add:-1}}"><img src="/static/members/cy_images/images/back.gif" width="43" height="15" /></a></td>
+                  <td width="45"><a href="/members/?cate={{cate}}&page={{page|add:1}}"><img src="/static/members/cy_images/images/next.gif" width="43" height="15" /></a></td>
+                  <td width="100"><div align="center"><span class="STYLE1">转到第
+                    <input name="textfield" type="text" size="4" style="height:18px; width:30px; border:1px solid #999999;" />
+                    页 </span></div></td>
+                  <td width="40" onclick="goto_page({{cate}}, {{page}})"><img src="/static/members/cy_images/images/go.gif" width="37" height="15" /></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+{% endblock %}
+
+{% block bottom %}
+<script>
+var  highlightcolor='#3992D0';
+//此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
+var  clickcolor='#51b2f6';
+source=null;
+function  changeto(){
+source=event.srcElement;
+if  (source.tagName=="TR"||source.tagName=="TABLE")
+return;
+while(source.tagName!="TD")
+source=source.parentElement;
+source=source.parentElement;
+cs  =  source.children;
+//alert(cs.length);
+if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
+for(i=0;i<cs.length;i++){
+	cs[i].style.backgroundColor=highlightcolor;
+}
+}
+
+function  changeback(){
+if  (event.fromElement.contains(event.toElement)||source.contains(event.toElement)||source.id=="nc")
+return
+if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
+//source.style.backgroundColor=originalcolor
+for(i=0;i<cs.length;i++){
+	cs[i].style.backgroundColor="";
+}
+}
+
+function  clickto(){
+source=event.srcElement;
+if  (source.tagName=="TR"||source.tagName=="TABLE")
+return;
+while(source.tagName!="TD")
+source=source.parentElement;
+source=source.parentElement;
+cs  =  source.children;
+//alert(cs.length);
+if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
+for(i=0;i<cs.length;i++){
+	cs[i].style.backgroundColor=clickcolor;
+}
+else
+for(i=0;i<cs.length;i++){
+	cs[i].style.backgroundColor="";
+}
+}
+function changeto(){
+}
+</script>
+{% endblock %}
