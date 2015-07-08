@@ -105,3 +105,26 @@ def save_comment(data):
 def del_comment(id):
     sql = '''update django_comments set is_removed=1 where id=%s''' % id
     return unio().execute(sql)
+
+def get_gbook_list(page, num=10):
+    if page:
+        page = int(page)
+    else:
+        page = 1
+    index = (page-1)*num
+    sql = '''select id, name, tel, created from ww_gbook where site_id=%s limit %s,%s''' % (get_site_id(), index, num)
+    # print sql
+    return unio().fetchAll(sql)
+
+def del_gbook(id):
+    sql = '''delete from ww_gbook where id=%s''' % id
+    return unio().execute(sql)
+
+def get_gbook_info(id):
+    sql = '''select name, tel, content from ww_gbook where id=%s''' % id
+    r = unio().fetchOne(sql)
+    return '''<div class="Murphy fl">
+             <div class="Murphy_list fl"><strong>用户名称</strong><p>%s</p></div>
+             <div class="Murphy_list fl"><strong>联系方式</strong><p>%s人</p></div>
+             <div class="Murphy_list fl"><strong>留言内容</strong><p>%s</p></div></div>''' % (
+                r['name'], r['tel'], r['content'])

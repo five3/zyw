@@ -103,10 +103,9 @@ def get_search_result(kw):
     return unio().fetchAll(sql)
 
 def post_gbook(data):
-    data['addtime'] = int(time.time())
-    sql = '''insert into ww_gbook (name, tel, content, addtime, status, site_id)
+    sql = '''insert into ww_gbook (name, tel, content, created, status, site_id)
             values ('%s', '%s', '%s', '%s', 1, %s)''' % \
-          (data['name'],data['tel'],data['content'],data['addtime'], get_site_id())
+          (data['name'],data['tel'],data['content'].replace('\r\n', '<br>'), fun.now(), get_site_id())
     # print sql
     return unio().execute(sql)
 
