@@ -189,12 +189,16 @@ def post_zhaopin(data, uid, uname):
     zhaopinrenshu = data.pop('zhaopinrenshu')
     lianxifangshi = data.pop('lianxifangshi')
     gangweiyaoqiu = data.pop('gangweiyaoqiu').replace('\r\n', '<br/>')
+    relatelink = data.pop('relatelink')
     # print `gangweiyaoqiu`
     data['editorValue'] = '''<div class="Murphy fl"><div class="Murphy_list fl"><strong>公司名称</strong><p>%s</p></div>
     <div class="Murphy_list fl"><strong>招聘岗位</strong><p>%s</p></div><div class="Murphy_list fl">
     <strong>招聘人数</strong><p>%s人</p></div>
     <div class="Murphy_list fl"><strong>岗位要求</strong><p>%s</p></div>
-    <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div></div>''' % (companyname, zhaopingangwei, zhaopinrenshu, gangweiyaoqiu, lianxifangshi)
+    <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div>
+    <div class="Murphy_list fl"><strong>相关链接</strong><p><a href="%s" target="_blank">%s</a></p></div>
+    </div>''' % (
+        companyname, zhaopingangwei, zhaopinrenshu, gangweiyaoqiu, lianxifangshi, relatelink, relatelink)
     return save_post(data, uid, uname)
 
 def get_shuoshuo_list(uid, page, num=10):
