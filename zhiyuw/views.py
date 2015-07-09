@@ -142,6 +142,7 @@ def register(req):
             msg = '两次密码不一致'
         else:
             r = controller.reg_user(data)
+            # print r
             if r>0:
                 msg = '注册用户成功，你现在可以登录了'
             else:

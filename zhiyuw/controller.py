@@ -152,10 +152,10 @@ def reg_user(data):
             return -2
         if data['utype']=='gyq':
             sql = '''insert into ww_member_normal (id) values (%s)''' % r
-            return unio().executeInsert(sql)
+            return unio().execute(sql)
         elif data['utype']=='ktq':
             sql = '''insert into ww_member_vip (id) values (%s)''' % r
-            return unio().executeInsert(sql)
+            return unio().execute(sql)
     except:
         return -2
 
