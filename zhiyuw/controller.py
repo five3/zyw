@@ -98,7 +98,7 @@ def get_gyq_list(n, zhiwei=None):
 def get_search_result(kw):
     sql = '''select short_url as url, title, user_name, updated
             from blog_blogpost
-            where site_id='''+ get_site_id() +''' and title like '%%'''+kw+"%%'"
+            where site_id='''+ str(get_site_id()) +''' and title like '%%'''+kw+"%%'"
     # print sql
     return unio().fetchAll(sql)
 
