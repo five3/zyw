@@ -1,0 +1,53 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">用户管理</h3>
+		</header>
+
+		<div class="tab_container">	
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th></th> 
+    				<th>账号</th>
+                    <th>注册ip</th>
+    				<th>注册时间</th>
+                    <th>状态</th>
+    				<th>操作</th> 
+				</tr> 
+			</thead> 
+			<tbody>
+                {% for i in userlist %}
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td><a href="/zhiyuw/member/?id={{i.id}}" target="_blank">{{i.username}}</a></td>
+    				<td>{{i.regip}}</td>
+    				<td>{{i.regdate}}</td>
+    				<td>{%ifequal i.status 1%}正常{%else%}未审核{%endifequal%}</td>
+    				<td><a href="javascript:void(0);" onclick="del_gbook({{i.id}});">通过</a>
+                    <a href="javascript:void(0);" onclick="del_gbook({{i.id}});">失效</a></td>
+				</tr>
+                {% endfor %}
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+		<div style="margin-bottom:10px; padding:10px 20px">
+            <ul class="tabs">
+                <li><a href="/backend/users/list/?page={{page|add:-1}}">上一页</a></li>
+                <li><a href="/backend/users/list/?page={{page|add:1}}">下一页</a></li>
+            </ul>
+        </div>
+
+{% endblock %}
+{% block bottom %}
+<script>
+function del_gbook(id){
+    if (confirm('确定删除？')){
+        location.href = '/backend/gbook/del/?id='+id;
+    }
+}
+</script>
+{% endblock %}
