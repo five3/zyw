@@ -128,3 +128,14 @@ def get_gbook_info(id):
              <div class="Murphy_list fl"><strong>联系方式</strong><p>%s人</p></div>
              <div class="Murphy_list fl"><strong>留言内容</strong><p>%s</p></div></div>''' % (
                 r['name'], r['tel'], r['content'])
+
+def get_user_list(page, num=10):
+    if page:
+        page = int(page)
+    else:
+        page = 1
+    index = (page-1)*num
+    sql = '''select id, username, regdate, regip,status from ww_member where site_id=%s order by created desc limit %s,%s''' % (
+        get_site_id(), index, num)
+    # print sql
+    return unio().fetchAll(sql)

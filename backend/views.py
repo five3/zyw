@@ -111,6 +111,21 @@ def gbook(req, action):
         return render_to_response("backend/gbooklist.html", locals())
 
 @login_required
+def users(req, action):
+    settings = setting
+    if req.method=='GET':
+        if action=='list':
+            page = req.GET.get('page', 1)
+            userlist = controller.get_user_list(page)
+            return render_to_response("backend/userslist.html", locals())
+        elif action=='del':
+            id = req.GET.get('id')
+            controller.del_gbook(id)
+        page = req.GET.get('page',1)
+        gbook_list = controller.get_gbook_list(page)
+        return render_to_response("backend/gbooklist.html", locals())
+
+@login_required
 def category(req, action):
     settings = setting
     if req.method=='GET':

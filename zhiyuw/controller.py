@@ -137,15 +137,14 @@ def auth(data):
         unio().execute(sql)
         return r
 
-from django.db.utils import IntegrityError
 def reg_user(data):
     if data['utype']=='gyq':
         logo = '/static/zhiyuw/cy_images/images/gengyunqun.png'
     else:
         logo = '/static/zhiyuw/cy_images/images/kaituoquan.png'
-    sql = '''insert into ww_member (username, nickname, password, email, logo, regdate, regip, status, utype, site_id, bgmusic, credits)
-            values ('%s', '%s', '%s', '%s', '%s', '%s', '', 1, '%s', %s, '%s', 1)
-            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, int(time.time()), data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
+    sql = '''insert into ww_member (username, nickname, password, email, logo, created, regip, status, utype, site_id, bgmusic, credits)
+            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
+            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, fun.now(), data['ip'], data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
     try:
         r = unio().executeInsert(sql)
         if not r:

@@ -141,6 +141,10 @@ def register(req):
         if data['password']!=data['password2']:
             msg = '两次密码不一致'
         else:
+            if req.META.has_key('HTTP_X_FORWARDED_FOR'):
+                data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
+            else:
+                data['ip'] = req.META['REMOTE_ADDR']
             r = controller.reg_user(data)
             # print r
             if r>0:
