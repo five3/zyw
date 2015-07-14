@@ -86,7 +86,7 @@ def comments(req, action):
             else:
                 msg = '保存失败'
             return render_to_response("backend/msg.html", locals())
-            return HttpResponse(json.dumps(data),content_type="application/json")
+            # return HttpResponse(json.dumps(data),content_type="application/json")
         elif action=='del':
             id = data.get('id')
             if controller.del_comment(id):
@@ -124,6 +124,15 @@ def users(req, action):
         page = req.GET.get('page',1)
         gbook_list = controller.get_gbook_list(page)
         return render_to_response("backend/gbooklist.html", locals())
+    else:
+        id = req.POST.get('id', 0)
+        if id:
+            controller.audit_user(id, action)
+            return HttpResponse(json.dumps({'errorCode':0}),content_type="application/json")
+        else:
+            msg = 'id 无效'
+            return render_to_response("backend/msg.html", locals())
+
 
 @login_required
 def category(req, action):

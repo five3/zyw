@@ -23,10 +23,10 @@
    					<td><input type="checkbox"></td> 
     				<td><a href="/zhiyuw/member/?id={{i.id}}" target="_blank">{{i.username}}</a></td>
     				<td>{{i.regip}}</td>
-    				<td>{{i.regdate}}</td>
+    				<td>{{i.created}}</td>
     				<td>{%ifequal i.status 1%}正常{%else%}未审核{%endifequal%}</td>
-    				<td><a href="javascript:void(0);" onclick="del_gbook({{i.id}});">通过</a>
-                    <a href="javascript:void(0);" onclick="del_gbook({{i.id}});">失效</a></td>
+    				<td><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">通过</a>
+                    <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a></td>
 				</tr>
                 {% endfor %}
 			</tbody> 
@@ -44,9 +44,29 @@
 {% endblock %}
 {% block bottom %}
 <script>
-function del_gbook(id){
-    if (confirm('确定删除？')){
-        location.href = '/backend/gbook/del/?id='+id;
+function audit_pass(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/users/pass/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+
+    }
+}
+function audit_fail(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/users/fail/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
     }
 }
 </script>

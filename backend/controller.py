@@ -135,7 +135,16 @@ def get_user_list(page, num=10):
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select id, username, regdate, regip,status from ww_member where site_id=%s order by created desc limit %s,%s''' % (
+    sql = '''select id, username, created, regip,status from ww_member where site_id=%s order by created desc limit %s,%s''' % (
         get_site_id(), index, num)
     # print sql
     return unio().fetchAll(sql)
+
+def audit_user(id, action):
+    if action=='pass':
+        status = 1
+    else:
+        status = 0
+    sql = '''update ww_member set status=%s where id=%s''' % (status, id)
+    print sql
+    return unio().execute(sql)
