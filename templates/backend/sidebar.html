@@ -1,6 +1,6 @@
 	<section id="secondary_bar">
 		<div class="user">
-			<p>{{request}}(<a href="#">0 Messages</a>)</p>
+			<p>{{request.session.info.user_name}}(<a href="#">0 Messages</a>)</p>
 			<a class="logout_user" href="/backend/logout" title="Logout">退出</a>
 		</div>
 		<div class="breadcrumbs_container">
