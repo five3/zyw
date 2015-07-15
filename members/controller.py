@@ -3,10 +3,6 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
-from local_settings import SITE_ID
-
-def get_site_id():
-    return SITE_ID
 
 def get_cate_list():
     sql = '''select id, title
@@ -24,7 +20,7 @@ def get_post_info(id):
     # print sql
     return unio().fetchOne(sql)
 
-def get_post_list(uid, cate=None, page=1, num=10):
+def get_post_list(req, uid, cate=None, page=1, num=10):
     if page<1:
         return []
     if cate:
@@ -36,11 +32,11 @@ def get_post_list(uid, cate=None, page=1, num=10):
             post.created, cate.title as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where %s post.user_id=%s and post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
-            order by post.created desc limit %s,%s''' % (condition, uid, get_site_id(), index, num)
+            order by post.created desc limit %s,%s''' % (condition, uid, fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
 
-def save_post(data, uid, uname):
+def save_post(req, data, uid, uname):
     id = data.get('id', 0)
     views = data.get('views')
     if not views:
@@ -62,7 +58,7 @@ def save_post(data, uid, uname):
         sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
                 values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (0, get_site_id(), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                  (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
                   fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)
@@ -87,11 +83,11 @@ def del_post(id):
     sql = '''delete from blog_blogpost_categories where blogpost_id=%s''' % id
     return unio().execute(sql)
 
-def get_comment_list(page=1, num=10):
+def get_comment_list(req, page=1, num=10):
     index = (int(page)-1)*num
     sql = '''select id, comment, user_name, submit_date
             from django_comments
-            where is_removed=0 and site_id=%s order by submit_date desc limit %s,%s''' % (get_site_id(), index, num)
+            where is_removed=0 and site_id=%s order by submit_date desc limit %s,%s''' % (fun.get_site_id(req), index, num)
     return unio().fetchAll(sql)
 
 def get_comment_info(id):

@@ -12,20 +12,19 @@ setting = {'site_name': '职语网'}
 @login_required
 def index(req):
     settings = setting
-    post_list = controller.get_post_list(1, 5)
-    comment_list = controller.get_comment_list(1, 5)
+    post_list = controller.get_post_list(req, 1, 5)
+    comment_list = controller.get_comment_list(req, 1, 5)
     return render_to_response("backend/index.html", locals())
 
 @login_required
 def post(req, action):
     settings = setting
     if req.method=='GET':
+        cate_list1, cate_list2 = controller.get_cate_list()
         if action=='new':
-            cate_list1, cate_list2 = controller.get_cate_list()
             post_info = {}
             return render_to_response("backend/post.html", locals())
         elif action=='edit':
-            cate_list1, cate_list2 = controller.get_cate_list()
             post_info = controller.get_post_info(req.GET.get('id',0))
             return render_to_response("backend/post.html", locals())
         elif action=='list':
@@ -33,14 +32,14 @@ def post(req, action):
             if not page:
                 page = 1
             if int(page)>0:
-                post_list = controller.get_post_list(page)
+                post_list = controller.get_post_list(req, page)
             else:
                 post_list = []
             return render_to_response("backend/postlist.html", locals())
     elif req.method=='POST':
         if action=='save':
             data = fun.warp_data(req.POST)
-            r = controller.save_post(data)
+            r = controller.save_post(req, data)
             if r:
                 return HttpResponseRedirect('/backend/post/list/')
             else:
@@ -73,7 +72,7 @@ def comments(req, action):
             if not page:
                 page = 1
             if int(page)>0:
-                comment_list = controller.get_comment_list(page)
+                comment_list = controller.get_comment_list(req, page)
             else:
                 comment_list = []
             return render_to_response("backend/commentslist.html", locals())
@@ -107,7 +106,7 @@ def gbook(req, action):
             id = req.GET.get('id')
             controller.del_gbook(id)
         page = req.GET.get('page',1)
-        gbook_list = controller.get_gbook_list(page)
+        gbook_list = controller.get_gbook_list(req, page)
         return render_to_response("backend/gbooklist.html", locals())
 
 @login_required
@@ -116,14 +115,8 @@ def users(req, action):
     if req.method=='GET':
         if action=='list':
             page = req.GET.get('page', 1)
-            userlist = controller.get_user_list(page)
+            userlist = controller.get_user_list(req, page)
             return render_to_response("backend/userslist.html", locals())
-        elif action=='del':
-            id = req.GET.get('id')
-            controller.del_gbook(id)
-        page = req.GET.get('page',1)
-        gbook_list = controller.get_gbook_list(page)
-        return render_to_response("backend/gbooklist.html", locals())
     else:
         id = req.POST.get('id', 0)
         if id:
@@ -132,7 +125,6 @@ def users(req, action):
         else:
             msg = 'id 无效'
             return render_to_response("backend/msg.html", locals())
-
 
 @login_required
 def category(req, action):

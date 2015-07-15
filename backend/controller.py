@@ -3,10 +3,7 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
-from local_settings import SITE_ID
 
-def get_site_id():
-    return SITE_ID
 
 def get_cate_list():
     sql = '''select id, title
@@ -24,17 +21,17 @@ def get_post_info(id):
     # print sql
     return unio().fetchOne(sql)
 
-def get_post_list(page=1, num=10):
+def get_post_list(req, page=1, num=10):
     index = (int(page)-1)*num
     sql = '''select post.id, post.title, post.content, post.views, post.cate2, post.status,
             post.created, cate.title as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
-            order by post.created desc limit %s,%s''' % (get_site_id(), index, num)
+            order by post.created desc limit %s,%s''' % (fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
 
-def save_post(data):
+def save_post(req, data):
     id = data.get('id', 0)
     views = data.get('views')
     if not views:
@@ -56,7 +53,7 @@ def save_post(data):
         sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
                 values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (0, get_site_id(), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                  (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
                   fun.now(), short_url, data.get('editorValue'), 1, 'admin', 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)
@@ -82,11 +79,11 @@ def del_post(id):
     sql = '''delete from blog_blogpost_categories where blogpost_id=%s''' % id
     return unio().execute(sql)
 
-def get_comment_list(page=1, num=10):
+def get_comment_list(req, page=1, num=10):
     index = (int(page)-1)*num
     sql = '''select id, comment, user_name, submit_date
             from django_comments
-            where is_removed=0 and site_id=%s order by submit_date desc limit %s,%s''' % (get_site_id(), index, num)
+            where is_removed=0 and site_id=%s order by submit_date desc limit %s,%s''' % (fun.get_site_id(req), index, num)
     return unio().fetchAll(sql)
 
 def get_comment_info(id):
@@ -106,13 +103,13 @@ def del_comment(id):
     sql = '''update django_comments set is_removed=1 where id=%s''' % id
     return unio().execute(sql)
 
-def get_gbook_list(page, num=10):
+def get_gbook_list(req, page, num=10):
     if page:
         page = int(page)
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select id, name, tel, created from ww_gbook where site_id=%s limit %s,%s''' % (get_site_id(), index, num)
+    sql = '''select id, name, tel, created from ww_gbook where site_id=%s limit %s,%s''' % (fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
 
@@ -138,14 +135,14 @@ def auth(req, data):
         login(req, user)
         return True
 
-def get_user_list(page, num=10):
+def get_user_list(req, page, num=10):
     if page:
         page = int(page)
     else:
         page = 1
     index = (page-1)*num
     sql = '''select id, username, created, regip,status from ww_member where site_id=%s order by created desc limit %s,%s''' % (
-        get_site_id(), index, num)
+        fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
 

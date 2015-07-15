@@ -11,13 +11,13 @@ def index(req):
     # print req.session['site_host']
     position_imgs = pimg
     settings = st
-    xxc_list = controller.get_cate_list('xxc', 12)
-    tzl_list = controller.get_cate_list('tzl', 12)
-    ktq_list = controller.get_ktq_list(10)
-    alh_list = controller.get_alh_list(12)
-    fsb_list = controller.get_fsb_list(12)
-    bw_list = controller.get_cate_list('bw', 12)
-    gyq_list = controller.get_gyq_list(10)
+    xxc_list = controller.get_cate_list(req, 'xxc', 12)
+    tzl_list = controller.get_cate_list(req, 'tzl', 12)
+    ktq_list = controller.get_ktq_list(req, 10)
+    alh_list = controller.get_alh_list(req, 12)
+    fsb_list = controller.get_fsb_list(req, 12)
+    bw_list = controller.get_cate_list(req, 'bw', 12)
+    gyq_list = controller.get_gyq_list(req, 10)
     return render_to_response("zhiyuw/index.html", locals(), context_instance = RequestContext(req))
 
 def kaituoqquan(req):
@@ -28,9 +28,9 @@ def kaituoqquan(req):
                 {'id': 2, 'zhuti': '百度一下，你就', 'logo':'/static/uploadfiles/image/20150526/bd_logo1.png', 'qiyeming':'百度', 'qiye_url':"http://www.baidu.com", 'credits':'老鸟单', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'}] * 5
     name = req.GET.get('name')
     if name:
-        ktq_list = controller.get_ktq_list(20, name)
+        ktq_list = controller.get_ktq_list(req, 20, name)
     else:
-        ktq_list = controller.get_ktq_list(20)
+        ktq_list = controller.get_ktq_list(req, 20)
     return render_to_response("zhiyuw/ktq.html", locals(), context_instance = RequestContext(req))
 
 def gengyunqun(req):
@@ -39,9 +39,9 @@ def gengyunqun(req):
     packagelist = None
     name = req.GET.get('name')
     if name:
-        gyq_list = controller.get_gyq_list(20,name)
+        gyq_list = controller.get_gyq_list(req, 20,name)
     else:
-        gyq_list = controller.get_gyq_list(20)
+        gyq_list = controller.get_gyq_list(req, 20)
     return render_to_response("zhiyuw/gyq.html", locals(), context_instance = RequestContext(req))
 
 cate_dict = {'alh':'案例汇','xxc':'信息窗','zyk':'资源库','bw':'博文', 'fsb':'放松吧','nxt':'纳贤台',
@@ -55,18 +55,18 @@ def category(req, cate):
     settings = st
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
-    cate_list = controller.get_cate_list(cate, 15, page)
-    blog_list = controller.get_cate_list('bw', 10)
+    cate_list = controller.get_cate_list(req, cate, 15, page)
+    blog_list = controller.get_cate_list(req, 'bw', 10)
     return render_to_response("zhiyuw/category.html", locals(), context_instance = RequestContext(req))
 
 def second_cate(req, cate):
     position_imgs = pimg
     settings = st
     packagelist = None
-    cate_name = cate_dict.get(cate, '无效分类')
-    blog_list = controller.get_cate_list('bw', 10)
+    cate_name = cate_dict.get(req, cate, '无效分类')
+    blog_list = controller.get_cate_list(req, 'bw', 10)
     if cate:
-        cate_list = controller.get_child_list(cate)
+        cate_list = controller.get_child_list(req, cate)
     return render_to_response("zhiyuw/second_cate.html", locals(), context_instance = RequestContext(req))
 
 def gbook(req):
@@ -74,7 +74,7 @@ def gbook(req):
     settings = st
     if req.method=="POST":
         data = fun.warp_data(req.POST)
-        if controller.post_gbook(data):
+        if controller.post_gbook(req, data):
             msg = "提交成功"
         else:
             msg = "提交失败，请联系管理员"
@@ -82,7 +82,7 @@ def gbook(req):
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
     else:
         cate_name = '留言栏'
-        blog_list = controller.get_cate_list('bw', 10)
+        blog_list = controller.get_cate_list(req, 'bw', 10)
     return render_to_response("zhiyuw/gbook.html", locals(), context_instance = RequestContext(req))
 
 def contact(req):
@@ -90,7 +90,7 @@ def contact(req):
     settings = st
     packagelist = None
     cate_name =  '联系我们'
-    blog_list = controller.get_cate_list('bw', 10)
+    blog_list = controller.get_cate_list(req, 'bw', 10)
     return render_to_response("zhiyuw/contact_us.html", locals(), context_instance = RequestContext(req))
 
 import time
@@ -99,12 +99,12 @@ def article(req, cate, id):
     settings = st
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
-    blog_list = controller.get_cate_list('bw', 10)
+    blog_list = controller.get_cate_list(req, 'bw', 10)
     art = controller.get_article(id)
     refer = req.path
     timestamp = int(time.time())
     comments = controller.get_comments(id)
-    pre_page, next_page = controller.get_context_page(cate, id)
+    pre_page, next_page = controller.get_context_page(req, cate, id)
     return render_to_response("zhiyuw/article.html", locals(), context_instance = RequestContext(req))
 
 def login(req):
@@ -115,7 +115,7 @@ def login(req):
         return render_to_response("zhiyuw/login.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = fun.warp_data(req.POST)
-        r = controller.auth(data)
+        r = controller.auth(req, data)
         if r:
             # print r
             req.session['isLogin'] = True
@@ -145,7 +145,7 @@ def register(req):
                 data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
             else:
                 data['ip'] = req.META['REMOTE_ADDR']
-            r = controller.reg_user(data)
+            r = controller.reg_user(req, data)
             # print r
             if r>0:
                 msg = '注册用户成功，你现在可以登录了'
@@ -157,10 +157,10 @@ def search(req):
     position_imgs = pimg
     settings = st
     packagelist = None
-    blog_list = controller.get_cate_list('bw', 10)
+    blog_list = controller.get_cate_list(req, 'bw', 10)
     kw = req.GET.get("kw")
     results = [{'url':'#', 'title':'搜索内容文章', 'username':'xwchen', 'update_date':'2015-06-13'},] *15
-    results = controller.get_search_result(kw)
+    results = controller.get_search_result(req, kw)
     return render_to_response("zhiyuw/search.html", locals(), context_instance = RequestContext(req))
 
 def member(req):
@@ -179,7 +179,7 @@ def comment(req):
     else:
         data['ip'] = req.META['REMOTE_ADDR']
     # print data
-    controller.add_comments(data)
+    controller.add_comments(req, data)
     return HttpResponseRedirect(data.get('referrer'))
 
 def qiye_comment(req):
@@ -195,7 +195,7 @@ def qiye_comment(req):
             data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
         else:
             data['ip'] = req.META['REMOTE_ADDR']
-        if controller.post_qiye_comment(data):
+        if controller.post_qiye_comment(req, data):
             msg = '提交说说成功'
         else:
             msg = '提交说说失败'

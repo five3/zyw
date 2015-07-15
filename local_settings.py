@@ -34,3 +34,6 @@ LOGIN_REDIRECT_URL = '/backend/'
 APPEND_SLASH = False
 
 SITE_ID = 1
+SITE_DICT = {'localhost':1, 'www.zhiyuw.com':1, 'www.tc-zhiyuw.com':2,
+             'www.cz-zhiyuw.com':3, 'www.aq-zhiyuw.com':4, 'www.la-zhiyuw.com':5,
+             'www.hn-zhiyuw.com':6, 'www.chz-zhiyuw.com':7}

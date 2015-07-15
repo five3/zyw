@@ -39,3 +39,8 @@ def need_site_id(func):
         ret = func(req, *args)
         return ret
     return _need_site_id
+
+import local_settings
+def get_site_id(req):
+    site_host = req.META['HTTP_HOST'].split(':')[0]
+    return local_settings.SITE_DICT.get(site_host, 0)

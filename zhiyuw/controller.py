@@ -3,28 +3,27 @@ __author__ = 'macy'
 
 from model import *
 import function as fun
-from local_settings import SITE_ID
 
-def get_site_id():
-    return SITE_ID
+# def get_site_id():
+#     return SITE_ID
 
-def get_fsb_list(n):
+def get_fsb_list(req, n):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy') and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (get_site_id(),n)
+            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
     # print sql
     return unio().fetchAll(sql)
 
-def get_alh_list(n):
+def get_alh_list(req, n):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh') and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (get_site_id(),n)
+            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
     # print sql
     return unio().fetchAll(sql)
 	
-def get_cate_list(cate, n, page=1):
+def get_cate_list(req, cate, n, page=1):
     if not page:
         page = 1
     else:
@@ -35,7 +34,7 @@ def get_cate_list(cate, n, page=1):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (get_site_id(), cate, index, n)
+            and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
     # print sql
     return unio().fetchAll(sql)
 
@@ -46,70 +45,70 @@ def get_article(id):
     # print sql
     return unio().fetchOne(sql)
 
-def get_context_page(cate, id):
+def get_context_page(req, cate, id):
     sql = '''select post.title, short_url
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory
             where blog_blogcategory.slug='%s' and blog_blogcategory.id=cate.blogcategory_id
             and cate.blogpost_id=post.id and post.site_id=%s and post.id<%s order by post.id desc limit 0,1''' % \
-          (cate, get_site_id(), id)
+          (cate, fun.get_site_id(req), id)
     # print sql
     pre_page = unio().fetchOne(sql)
     sql = '''select post.title, short_url
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory
             where blog_blogcategory.slug='%s' and blog_blogcategory.id=cate.blogcategory_id
             and cate.blogpost_id=post.id and post.site_id=%s and post.id>%s limit 0,1''' % \
-          (cate, get_site_id(), id)
+          (cate, fun.get_site_id(req), id)
     # print sql
     next_page = unio().fetchOne(sql)
     return pre_page, next_page
 
-def get_ktq_list(n, zhuanye=None):
+def get_ktq_list(req, n, zhuanye=None):
     if zhuanye:
         sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by id desc limit 0,%s''' % (get_site_id(), zhuanye, n)
+             order by id desc limit 0,%s''' % (fun.get_site_id(req), zhuanye, n)
     else:
         sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by id desc limit 0,%s''' % (get_site_id(), n,)
+             order by id desc limit 0,%s''' % (fun.get_site_id(req), n,)
     # print sql
     return unio().fetchAll(sql)
 
-def get_gyq_list(n, zhiwei=None):
+def get_gyq_list(req, n, zhiwei=None):
     if zhiwei:
         sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit 0,%s''' % (get_site_id(), zhiwei, n)
+                    order by normal.id desc limit 0,%s''' % (fun.get_site_id(req), zhiwei, n)
     else:
         sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit 0,%s''' % (get_site_id(), n)
+                    order by normal.id desc limit 0,%s''' % (fun.get_site_id(req), n)
     # print sql
     return unio().fetchAll(sql)
 
-def get_search_result(kw):
+def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
             from blog_blogpost
-            where site_id='''+ str(get_site_id()) +''' and title like '%%'''+kw+"%%'"
+            where site_id='''+ str(fun.get_site_id(req)) +''' and title like '%%'''+kw+"%%'"
     # print sql
     return unio().fetchAll(sql)
 
-def post_gbook(data):
+def post_gbook(req, data):
     sql = '''insert into ww_gbook (name, tel, content, created, status, site_id)
             values ('%s', '%s', '%s', '%s', 1, %s)''' % \
-          (data['name'],data['tel'],data['content'].replace('\r\n', '<br>'), fun.now(), get_site_id())
+          (data['name'],data['tel'],data['content'].replace('\r\n', '<br>'), fun.now(), fun.get_site_id(req))
     # print sql
     return unio().execute(sql)
 
-def get_child_list(cate):
+def get_child_list(req, cate):
     sql = '''select b.id, b.title, b.slug
             from blog_blogcategory a, blog_blogcategory b
             where a.slug='%s' and a.id=b.parent_id order by b.ord''' % cate
@@ -119,15 +118,15 @@ def get_child_list(cate):
         sql = '''select d.short_url as url,d.title, d.user_name, d.updated
                 from blog_blogpost_categories c, blog_blogpost d
                 where d.site_id=%s and c.blogcategory_id=%s and c.blogpost_id=d.id
-                order by d.updated desc limit 0,10''' % (get_site_id(), i['id'])
+                order by d.updated desc limit 0,10''' % (fun.get_site_id(req), i['id'])
         d.append({'title':i['title'], 'more':i['slug'], 'cate_list':unio().fetchAll(sql)})
     return d
 
-def auth(data):
+def auth(req, data):
     username = data.get('username')
     password = data.get('password')
     sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo from ww_member where site_id=%s and username='%s'
-        ''' % (get_site_id(), username)
+        ''' % (fun.get_site_id(req), username)
     # print sql
     r = unio().fetchOne(sql)
     if not r:
@@ -137,14 +136,14 @@ def auth(data):
         unio().execute(sql)
         return r
 
-def reg_user(data):
+def reg_user(req, data):
     if data['utype']=='gyq':
         logo = '/static/zhiyuw/cy_images/images/gengyunqun.png'
     else:
         logo = '/static/zhiyuw/cy_images/images/kaituoquan.png'
     sql = '''insert into ww_member (username, nickname, password, email, logo, created, regip, status, utype, site_id, bgmusic, credits)
             values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
-            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, fun.now(), data['ip'], data['utype'], get_site_id(), '/static/members/cy_images/music/gohome.mp3')
+            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, fun.now(), data['ip'], data['utype'], fun.get_site_id(req), '/static/members/cy_images/music/gohome.mp3')
     try:
         r = unio().executeInsert(sql)
         if not r:
@@ -158,13 +157,13 @@ def reg_user(data):
     except:
         return -2
 
-def add_comments(data):
+def add_comments(req, data):
     sql = '''update blog_blogpost set comments_count=comments_count+1 where id=%s''' % data.get('object_pk')
     if unio().execute(sql)<0:
         return False
     sql = '''insert into django_comments (content_type_id, object_pk, site_id, user_id, user_name,
             user_email, user_url, comment, submit_date, ip_address, is_public, is_removed) values
-            (14, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', 1, 0)''' % (data['object_pk'], get_site_id(), data['id'], data['name'], data['email'], data['url'], data['comment'], fun.now(), data['ip'])
+            (14, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', 1, 0)''' % (data['object_pk'], fun.get_site_id(req), data['id'], data['name'], data['email'], data['url'], data['comment'], fun.now(), data['ip'])
     # print sql
     if unio().execute(sql)<0:
         return False
@@ -213,9 +212,9 @@ def get_cate_dict():
         d[i['slug']] = i['title']
     return d
 
-def post_qiye_comment(data):
+def post_qiye_comment(req, data):
     sql = '''insert into ww_qiye_comment (qiye_id, user_name, user_type, lianxi, qianbao, shuoshuo, created, ip, site_id) values
             ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % (data['qiye_id'], data['user_name'], data['user_type'], data['lianxi'], data['qianbao'],
-                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'], get_site_id())
+                                               data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'], fun.get_site_id(req))
     # print sql
     return unio().execute(sql)

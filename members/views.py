@@ -18,7 +18,7 @@ def index(req):
     page = req.GET.get('page')
     if not page:
         page = 1
-    post_list = controller.get_post_list(uid, cate, page)
+    post_list = controller.get_post_list(req, uid, cate, page)
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
 
 
@@ -45,7 +45,7 @@ def post(req, action):
             uid = req.session['info']['id']
             uname = req.session['info']['username']
             data = fun.warp_data(req.POST)
-            r = controller.save_post(data, uid, uname)
+            r = controller.save_post(req, data, uid, uname)
             if r:
                 return HttpResponseRedirect('/members')
             else:
