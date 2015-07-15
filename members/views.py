@@ -174,3 +174,15 @@ def shuoshuo(req):
     else:
         data = fun.warp_data(req.POST)
         pass
+
+def pinpai(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    username = req.session['info']['username']
+    if req.method=='GET':
+        msg = '''<p>亲爱的%s，今天有X只蝴蝶进了您的花园，截止现在一共N只蝴蝶闻到了您的香味，加油啊！</p>
+                <p>亲爱的%s，今天您一共收到3朵茉莉，截止现在您一共收到10朵茉莉，真幸福！</p>
+                <p>亲爱的%s，今天您一共收到3朵文心半，截止现在您一共收到10朵文心兰，好好数数哦！</p>
+                <p>内容正在建设中……''' % (username,username,username,)
+        return render_to_response("members/raw.html", locals(), context_instance = RequestContext(req))
