@@ -127,7 +127,16 @@ def get_gbook_info(id):
              <div class="Murphy_list fl"><strong>用户名称</strong><p>%s</p></div>
              <div class="Murphy_list fl"><strong>联系方式</strong><p>%s人</p></div>
              <div class="Murphy_list fl"><strong>留言内容</strong><p>%s</p></div></div>''' % (
-                r['name'], r['tel'], r['content'])
+            r['name'], r['tel'], r['content'])
+
+def auth(req, data):
+    from django.contrib.auth import authenticate, login
+    username = data.get('username')
+    password = data.get('password')
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(req, user)
+        return True
 
 def get_user_list(page, num=10):
     if page:
@@ -146,5 +155,5 @@ def audit_user(id, action):
     else:
         status = 0
     sql = '''update ww_member set status=%s where id=%s''' % (status, id)
-    print sql
+    # print sql
     return unio().execute(sql)

@@ -155,7 +155,17 @@ def category(req, action):
             return HttpResponse(data,content_type="application/json")
 
 def login(req):
-    return render_to_response("backend/login.html", setting)
+    settings = setting
+    if req.method=='GET':
+        return render_to_response("backend/login.html", locals())
+    elif req.method=='POST':
+        data = req.POST
+        if controller.auth(req, data):
+            return HttpResponseRedirect('/backend/')
+        else:
+            msg = '用户名或密码错误'
+            return render_to_response("backend/msg.html", locals())
+
 
 from um import imageUp
 def postimage(req):
