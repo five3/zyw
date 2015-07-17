@@ -63,7 +63,7 @@ def second_cate(req, cate):
     position_imgs = pimg
     settings = st
     packagelist = None
-    cate_name = cate_dict.get(req, cate, '无效分类')
+    cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list(req, 'bw', 10)
     if cate:
         cate_list = controller.get_child_list(req, cate)
