@@ -11,6 +11,7 @@ def index(req):
     # print req.session['site_host']
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     xxc_list = controller.get_cate_list(req, 'xxc', 12)
     tzl_list = controller.get_cate_list(req, 'tzl', 12)
     ktq_list = controller.get_ktq_list(req, 10)
@@ -23,6 +24,7 @@ def index(req):
 def kaituoqquan(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     ktq_list = [{'id': 1, 'zhuti': '主题名1', 'logo':'/static/uploadfiles/image/20150525/thumb_287a08c4865fda9bd348cfac4bf0b090.jpg', 'qiyeming':'企业名称', 'qiye_url':"#", 'credits':'新兵蛋', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'},
                 {'id': 2, 'zhuti': '百度一下，你就', 'logo':'/static/uploadfiles/image/20150526/bd_logo1.png', 'qiyeming':'百度', 'qiye_url':"http://www.baidu.com", 'credits':'老鸟单', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'}] * 5
@@ -36,6 +38,7 @@ def kaituoqquan(req):
 def gengyunqun(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     name = req.GET.get('name')
     if name:
@@ -53,6 +56,7 @@ def category(req, cate):
     page = req.GET.get('page', 1)
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
     cate_list = controller.get_cate_list(req, cate, 15, page)
@@ -62,6 +66,7 @@ def category(req, cate):
 def second_cate(req, cate):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list(req, 'bw', 10)
@@ -72,6 +77,7 @@ def second_cate(req, cate):
 def gbook(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     if req.method=="POST":
         data = fun.warp_data(req.POST)
         if controller.post_gbook(req, data):
@@ -88,6 +94,7 @@ def gbook(req):
 def contact(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name =  '联系我们'
     blog_list = controller.get_cate_list(req, 'bw', 10)
@@ -97,6 +104,7 @@ import time
 def article(req, cate, id):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list(req, 'bw', 10)
@@ -110,6 +118,7 @@ def article(req, cate, id):
 def login(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     cate_name = '用户登录'
     if req.method=='GET':
         return render_to_response("zhiyuw/login.html", locals(), context_instance = RequestContext(req))
@@ -133,6 +142,7 @@ def logout(req):
 def register(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
     if req.method=='GET':
         return render_to_response("zhiyuw/register.html", locals(), context_instance = RequestContext(req))
@@ -156,6 +166,7 @@ def register(req):
 def search(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     packagelist = None
     blog_list = controller.get_cate_list(req, 'bw', 10)
     kw = req.GET.get("kw")
@@ -166,6 +177,7 @@ def search(req):
 def member(req):
     position_imgs = pimg
     settings = st
+    logo_image = fun.get_site_logo(req)
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
     article_list = controller.get_user_article(data)
@@ -186,6 +198,7 @@ def qiye_comment(req):
     if req.method=='GET':
         position_imgs = pimg
         settings = st
+        logo_image = fun.get_site_logo(req)
         data = {'userid':req.session.get('info',{}).get('id'), 't':req.session.get('info',{}).get('utype')}
         info = controller.get_user_info(data)
         return render_to_response("zhiyuw/qiye_comment.html", locals(), context_instance = RequestContext(req))

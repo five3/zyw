@@ -37,3 +37,11 @@ SITE_ID = 1
 SITE_DICT = {'localhost':1, 'www.zhiyuw.com':1, 'www.tc-zhiyuw.com':2,
              'www.cz-zhiyuw.com':3, 'www.aq-zhiyuw.com':4, 'www.la-zhiyuw.com':5,
              'www.hn-zhiyuw.com':6, 'www.chz-zhiyuw.com':7}
+SITE_LOGO = {'localhost' : '/static/zhiyuw/cy_images/images/logo.png',
+             'www.zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo.png',
+             'www.tc-zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo_tongcheng.png',
+             'www.cz-zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo_chizhou.png',
+             'www.aq-zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo_anqing.png',
+             'www.la-zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo_luan.png',
+             'www.hn-zhiyuw.com' : '/static/zhiyuw/cy_images/images/logo_huainan.png',
+             'www.chz-zhiyuw.com' :'/static/zhiyuw/cy_images/images/logo_chuzhou.png'}
