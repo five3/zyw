@@ -57,7 +57,7 @@
             <input id="id_object_pk" name="object_pk" type="hidden" value="{{art.id}}">
             <input id="id_timestamp" name="timestamp" type="hidden" value="{{timestamp}}">
             <input id="id_security_hash" name="security_hash" type="hidden" value="691897e4f25ef0e586c071f618149b2e7fe6a2a0">
-            <div class="">
+            <div class="form-group">
                 <label class="control-label" for="id_name">名&nbsp;&nbsp;称</label>
                 <input id="id_name" maxlength="50" name="name" type="text" value="{%if request.session.isLogin%}{{request.session.info.username}}{%endif%}" class="reg_field">必填
             </div>
