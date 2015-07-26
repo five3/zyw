@@ -62,35 +62,37 @@ def get_context_page(req, cate, id):
     next_page = unio().fetchOne(sql)
     return pre_page, next_page
 
-def get_ktq_list(req, n, zhuanye=None):
+def get_ktq_list(req, n, zhuanye=None, page=1):
+    index = (page-1)*n
     if zhuanye:
         sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
-            where ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by id desc limit 0,%s''' % (fun.get_site_id(req), zhuanye, n)
+            where ww_member.status=1 and ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
+             order by id desc limit %s,%s''' % (fun.get_site_id(req), zhuanye, index, n)
     else:
         sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
-            where ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by id desc limit 0,%s''' % (fun.get_site_id(req), n,)
+            where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
+             order by vip.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     return unio().fetchAll(sql)
 
-def get_gyq_list(req, n, zhiwei=None):
+def get_gyq_list(req, n, zhiwei=None, page=1):
+    index = (page-1)*n
     if zhiwei:
         sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
-                where ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit 0,%s''' % (fun.get_site_id(req), zhiwei, n)
+                where ww_member.status=1 and ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
+                    order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), zhiwei, index, n)
     else:
         sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
-                where ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit 0,%s''' % (fun.get_site_id(req), n)
+                where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
+                    order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     return unio().fetchAll(sql)
 
@@ -177,9 +179,11 @@ def get_user_info(data):
         return {}
 #    print t	
     if t=='gyq':	
-		sql = '''select id,nickname,email,credits,logo from ww_member where id=%s''' % uid
+		sql = '''select ww_member.id, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
+		        from ww_member, ww_member_normal
+		        where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % uid
     elif t=='ktq':
-		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,ww_member.logo
+		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,ww_member.logo, vip.qiyeming as name
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
 

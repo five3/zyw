@@ -120,8 +120,13 @@ def users(req, action):
     else:
         id = req.POST.get('id', 0)
         if id:
-            controller.audit_user(id, action)
-            return HttpResponse(json.dumps({'errorCode':0}),content_type="application/json")
+            if action=='reset_passwd':
+                controller.reset_passwd(id)
+                msg = '密码设置为：000000'
+            else:
+                controller.audit_user(id, action)
+                msg = ''
+            return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
         else:
             msg = 'id 无效'
             return render_to_response("backend/msg.html", locals())

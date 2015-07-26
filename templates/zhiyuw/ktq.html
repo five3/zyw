@@ -45,8 +45,13 @@
       </div>
  {% endfor %}
             <div class="clear"></div>
-            <div class="page">
-            {{pagelist}}
+            <div class="pages">
+                <div id="pages">
+                    {% ifnotequal page 1 %}
+                        <a href="/zhiyuw/ktq?{{prepage}}">上一页</a>
+                    {% endifnotequal %}
+                    <a href="/zhiyuw/ktq?{{nextpage}}">下一页</a>
+                </div>
             </div>
         </div>
     </div>

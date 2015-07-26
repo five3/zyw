@@ -149,7 +149,7 @@ def zhaopin(req):
         return render_to_response("members/zhaopin.html", locals(), context_instance = RequestContext(req))
     else:
         data = fun.warp_data(req.POST)
-        if controller.post_zhaopin(data, uid, uname):
+        if controller.post_zhaopin(req, data, uid, uname):
             msg = '职位发布成功！'
         else:
             msg = '职位发布失败'

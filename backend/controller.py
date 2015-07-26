@@ -141,7 +141,7 @@ def get_user_list(req, page, num=10):
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select id, username, created, regip,status from ww_member where site_id=%s order by created desc limit %s,%s''' % (
+    sql = '''select id, username, created, regip, status,utype from ww_member where site_id=%s order by created desc limit %s,%s''' % (
         fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
@@ -152,5 +152,11 @@ def audit_user(id, action):
     else:
         status = 0
     sql = '''update ww_member set status=%s where id=%s''' % (status, id)
+    # print sql
+    return unio().execute(sql)
+
+def reset_passwd(id):
+    md5 = fun.mk_md5('000000')
+    sql = '''update ww_member set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)

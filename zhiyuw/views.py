@@ -29,10 +29,21 @@ def kaituoqquan(req):
     ktq_list = [{'id': 1, 'zhuti': '主题名1', 'logo':'/static/uploadfiles/image/20150525/thumb_287a08c4865fda9bd348cfac4bf0b090.jpg', 'qiyeming':'企业名称', 'qiye_url':"#", 'credits':'新兵蛋', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'},
                 {'id': 2, 'zhuti': '百度一下，你就', 'logo':'/static/uploadfiles/image/20150526/bd_logo1.png', 'qiyeming':'百度', 'qiye_url':"http://www.baidu.com", 'credits':'老鸟单', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'}] * 5
     name = req.GET.get('name')
-    if name:
-        ktq_list = controller.get_ktq_list(req, 20, name)
+    page = req.GET.get('page', 1)
+    if page:
+        page = int(page)
     else:
-        ktq_list = controller.get_ktq_list(req, 20)
+        page = 1
+    if page<1:
+        ktq_list = []
+    elif name:
+        prepage = 'name=%s&page=%s' % (name, page-1)
+        nextpage = 'name=%s&page=%s' % (name, page+1)
+        ktq_list = controller.get_ktq_list(req, 20, name, page)
+    else:
+        prepage = 'page=%s' % (page-1,)
+        nextpage = 'page=%s' % (page+1,)
+        ktq_list = controller.get_ktq_list(req, 20, name, page)
     return render_to_response("zhiyuw/ktq.html", locals(), context_instance = RequestContext(req))
 
 def gengyunqun(req):
@@ -41,10 +52,21 @@ def gengyunqun(req):
     logo_image = fun.get_site_logo(req)
     packagelist = None
     name = req.GET.get('name')
-    if name:
-        gyq_list = controller.get_gyq_list(req, 20,name)
+    page = req.GET.get('page', 1)
+    if page:
+        page = int(page)
     else:
-        gyq_list = controller.get_gyq_list(req, 20)
+        page = 1
+    if page<1:
+        gyq_list = []
+    elif name:
+        prepage = 'name=%s&page=%s' % (name, page-1)
+        nextpage = 'name=%s&page=%s' % (name, page+1)
+        gyq_list = controller.get_gyq_list(req, 20, name, page)
+    else:
+        prepage = 'page=%s' % (page-1,)
+        nextpage = 'page=%s' % (page+1,)
+        gyq_list = controller.get_gyq_list(req, 20, name, page)
     return render_to_response("zhiyuw/gyq.html", locals(), context_instance = RequestContext(req))
 
 cate_dict = {'alh':'案例汇','xxc':'信息窗','zyk':'资源库','bw':'博文', 'fsb':'放松吧','nxt':'纳贤台',

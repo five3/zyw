@@ -11,6 +11,7 @@
 				<tr> 
    					<th></th> 
     				<th>账号</th>
+                    <th>账户类型</th>
                     <th>注册ip</th>
     				<th>注册时间</th>
                     <th>状态</th>
@@ -21,12 +22,19 @@
                 {% for i in userlist %}
 				<tr> 
    					<td><input type="checkbox"></td> 
-    				<td><a href="/zhiyuw/member/?id={{i.id}}" target="_blank">{{i.username}}</a></td>
-    				<td>{{i.regip}}</td>
+    				<td><a href="/zhiyuw/member?userid={{i.id}}&t={{i.utype}}" target="_blank">{{i.username}}</a></td>
+    				<td>{% ifequal i.utype 'ktq' %}
+                            开拓圈
+                        {% else %}
+                            耕耘群
+                        {% endifequal %}
+                    </td>
+                    <td>{{i.regip}}</td>
     				<td>{{i.created}}</td>
     				<td>{%ifequal i.status 1%}正常{%else%}未审核{%endifequal%}</td>
-    				<td><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">通过</a>
-                    <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a></td>
+    				<td style="width:120px;"><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">通过</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a>&nbsp;
+                    <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a></td>
 				</tr>
                 {% endfor %}
 			</tbody> 
@@ -61,6 +69,18 @@ function audit_fail(id){
         $.post("/backend/users/fail/",{id:id},function(result){
             if (result.errorCode==0){
                 alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+    }
+}
+function reset_passwd(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/users/reset_passwd/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert(result.msg);
             }else{
                 alert('操作失败');
             }
