@@ -177,7 +177,7 @@ def get_user_info(data):
     t = data.get('t')
     if not uid or not t:
         return {}
-#    print t	
+   # print t
     if t=='gyq':	
 		sql = '''select ww_member.id, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
 		        from ww_member, ww_member_normal
