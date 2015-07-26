@@ -54,7 +54,7 @@
 .reg_field {  width:200px; height:33px; border:none; line-height:33px; margin-right: 20px;}
 .login_area p{ float:left; margin-top:20px; font-size:12px; line-height:33px}
 #image{ float:left; margin-top:20px; margin-bottom:15px; display:block; margin-left:15px;}
-#reg_form p { padding-left:200px; font-size:12px; line-height:33px; text-align:left;}
+#reg_form p { padding-left:200px; font-size:12px; line-height:33px; text-align:left; margin: 10px 0;}
 .login_qq{ width:270px; height:100px; }
 .login_qq a{ float:left; display:block; line-height:40px; font-size:12px; color:#454545;}
 .login_qq a:hover{ color:#208DCE;}
