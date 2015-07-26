@@ -102,7 +102,11 @@ def gbook(req):
     logo_image = fun.get_site_logo(req)
     if req.method=="POST":
         data = fun.warp_data(req.POST)
-        if controller.post_gbook(req, data):
+        if not data.get('tel'):
+            msg = '联系电话不能为空'
+        elif not data['content']:
+            msg = '内容不能为空'
+        elif controller.post_gbook(req, data):
             msg = "提交成功"
         else:
             msg = "提交失败，请联系管理员"
