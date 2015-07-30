@@ -225,7 +225,7 @@ def qiye_comment(req):
         position_imgs = pimg
         settings = st
         logo_image = fun.get_site_logo(req)
-        data = {'userid':req.session.get('info',{}).get('id'), 't':req.session.get('info',{}).get('utype')}
+        data = fun.warp_data(req.GET)
         info = controller.get_user_info(data)
         return render_to_response("zhiyuw/qiye_comment.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':

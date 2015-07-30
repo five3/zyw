@@ -146,6 +146,19 @@ def get_user_list(req, page, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+def get_user_pages(req, num=10):
+    sql = '''select count(id) as pages from ww_member where site_id=%s''' % fun.get_site_id(req)
+    print sql
+    pages = unio().fetchOne(sql)
+    if pages:
+        count = pages['pages']
+        if count % num==0:
+            return count/num
+        else:
+            return count/num+1
+    else:
+        return 1
+
 def audit_user(id, action):
     if action=='pass':
         status = 1

@@ -44,8 +44,10 @@
 		</article><!-- end of content manager article -->
 		<div style="margin-bottom:10px; padding:10px 20px">
             <ul class="tabs">
+                <li><a href="/backend/users/list/?page=1">首页</a></li>
                 <li><a href="/backend/users/list/?page={{page|add:-1}}">上一页</a></li>
                 <li><a href="/backend/users/list/?page={{page|add:1}}">下一页</a></li>
+                <li><a href="/backend/users/list/?page={{last_page}}">末页</a></li>
             </ul>
         </div>
 

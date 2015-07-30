@@ -115,6 +115,7 @@ def users(req, action):
     if req.method=='GET':
         if action=='list':
             page = req.GET.get('page', 1)
+            last_page = controller.get_user_pages(req)
             userlist = controller.get_user_list(req, page)
             return render_to_response("backend/userslist.html", locals())
     else:

@@ -37,9 +37,8 @@
             <a href="/zhiyuw/member?t=gyq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
             <div class="caption">
             <h2>{{i.nickname}}</h2>
-            <img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="30" height="24" />
             </div>
-            <p>等级：<b>{{i.credits}}</b></p>
+            <p>等级：{% for i in count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
             <ul>
             	<li>职位：{{i.zhiwei}}</li>
             </ul>

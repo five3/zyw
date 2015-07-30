@@ -77,7 +77,8 @@ def get_ktq_list(req, n, zhuanye=None, page=1):
             where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
              order by vip.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
-    return unio().fetchAll(sql)
+    rs = unio().fetchAll(sql)
+    return rs
 
 def get_gyq_list(req, n, zhiwei=None, page=1):
     index = (page-1)*n
@@ -94,7 +95,8 @@ def get_gyq_list(req, n, zhiwei=None, page=1):
                 where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
                     order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
-    return unio().fetchAll(sql)
+    rs = unio().fetchAll(sql)
+    return rs
 
 def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
