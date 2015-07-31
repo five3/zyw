@@ -51,14 +51,14 @@
         <div id="right" class="fr">
             <div class="right_news">
                 <div class="right_title">
-                <img src="/static/zhiyuw/cy_images/images/piont10.jpg" width="14" height="17"><p>会员资料</p>
+                <img class="photo" src="/static/zhiyuw/cy_images/images/piont10.jpg" width="14" height="17"><p>会员资料</p>
                 </div>
                 <div class="archives_area">
-                <a href="#"><img src="{{info.logo}}" width="235" height="187"></a>
+                <a href="#"><img class="photo" src="{{info.logo}}" width="235" height="187"></a>
                 <p>会员昵称：{{info.nickname}}</p>
                 <p>会员名称：{{info.name}}</p>
                 <p>会员类型：{{info.utype}}</p>
-                <p>会员等级：{{info.credits}}</p>
+                <p>会员等级：{% for i in info.count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
                 <p>联系邮箱：{{info.email}}</p>
               </div>
           </div><div class="clear"></div>

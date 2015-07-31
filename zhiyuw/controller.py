@@ -78,7 +78,7 @@ def get_ktq_list(req, n, zhuanye=None, page=1):
              order by vip.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     rs = unio().fetchAll(sql)
-    return rs
+    return fun.convert_dengji_list(*rs)
 
 def get_gyq_list(req, n, zhiwei=None, page=1):
     index = (page-1)*n
@@ -96,7 +96,7 @@ def get_gyq_list(req, n, zhiwei=None, page=1):
                     order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     rs = unio().fetchAll(sql)
-    return rs
+    return fun.convert_dengji_list(*rs)
 
 def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
@@ -194,7 +194,7 @@ def get_user_info(data):
 #    print r		
     if r:
         r['utype'] = utype[t]
-    return r
+    return fun.convert_dengji_list(r)[0]
 
 def get_user_article(data):
     sql = '''select post.title, short_url as url, user_name, created

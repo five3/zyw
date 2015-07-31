@@ -6,7 +6,7 @@ import os
 config = {
     "savePath" : "%s/static/um/upload" % os.getcwd(),           ##存储文件夹
     "imageUrl" : "/static/um/upload",
-    "maxSize" : 1000 ,                  ##允许的文件最大尺寸，单位KB
+    "maxSize" : 3000 ,                  ##允许的文件最大尺寸，单位KB
     "allowFiles" : ( ".gif" , ".png" , ".jpg" , ".jpeg" , ".bmp" )  ##允许的文件格式
 }
 

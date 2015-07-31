@@ -48,3 +48,28 @@ def get_site_id(req):
 def get_site_logo(req):
     site_host = req.META['HTTP_HOST'].split(':')[0]
     return local_settings.SITE_LOGO.get(site_host, '')
+
+def convert_dengji_list(*l):
+    tl = []
+    for i in l:
+        i['count'] = convert_dengji(i['credits'])
+        tl.append(i)
+    # print tl
+    return tl
+
+def convert_dengji(credits):
+    f = ['*']
+    if credits < 20:
+        return f * 1
+    elif credits < 50:
+        return f * 2
+    elif credits < 100:
+        return f * 3
+    elif credits < 200:
+        return f * 4
+    elif credits < 400:
+        return f * 5
+    elif credits < 800:
+        return f * 6
+    else:
+        return f * 7

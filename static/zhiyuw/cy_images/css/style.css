@@ -216,7 +216,7 @@
 .left_area_contact img{ text-align:left; float:left; padding-left:10px;}
 
 .archives_area{ text-align:left; padding-left:10px;}
-.archives_area img{ margin-top:20px;}
+.archives_area .photo{ margin-top:20px;}
 .archives_area p{ text-align:left; line-height:25px;}
 
 #sina_keyword_ad_area2 img { max-width: 100%;}
