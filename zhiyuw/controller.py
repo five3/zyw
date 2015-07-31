@@ -206,7 +206,7 @@ def get_user_article(data):
 def get_comments(id):
     sql = '''select user_url,user_name,submit_date,comment
             from django_comments
-            where object_pk=%s;''' % (id,)
+            where object_pk=%s and is_removed=0''' % (id,)
     # print sql
     return unio().fetchAll(sql)
 
