@@ -71,7 +71,7 @@ def postimage(req):
     # print req.FILES.keys()
     data = imageUp.imageup(req.FILES['upfile'])
     # print req.GET
-    if 'editorid' in req.GET:
+    if 'editorid' in req.GET or 'type' in req.GET:
         return HttpResponse(json.dumps(data),content_type="application/json")
 
     if data['state']=='SUCCESS':

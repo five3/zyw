@@ -131,7 +131,7 @@ def update_profile(data, utype, uid):
                                   data.get('zhuti'), uid)
         # print sql
         unio().execute(sql)
-        sql = '''update ww_member set logo='%s' where id=%s''' % (data.get('qiyeming'), uid)
+        sql = '''update ww_member set logo='%s' where id=%s''' % (data.get('photo_img'), uid)
         return unio().execute(sql)>-1
     elif utype=='gyq':
         sql = '''update ww_member set nickname='%s', logo='%s' where id=%s''' % \
