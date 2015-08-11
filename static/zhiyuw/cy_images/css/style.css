@@ -339,3 +339,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .contact_us {
     margin-bottom: 20px;
 }
+.left_area h5{
+	font-size:18px;
+	font-weight:normal;
+	font-family:"微软雅黑";
+	}
