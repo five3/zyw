@@ -10,7 +10,7 @@ import function as fun
 def get_fsb_list(req, n):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
-            where post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy', 'fsb') and cate.blogcategory_id=blog_category.id
+            where post.status=2 and post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy', 'fsb') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
     # print sql
     return unio().fetchAll(sql)
@@ -18,7 +18,7 @@ def get_fsb_list(req, n):
 def get_alh_list(req, n):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
-            where post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
+            where post.status=2 and post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
     # print sql
     return unio().fetchAll(sql)
@@ -33,7 +33,7 @@ def get_cate_list(req, cate, n, page=1):
     index = (page-1)*n
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
-            where post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
+            where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
     # print sql
     return unio().fetchAll(sql)
@@ -41,7 +41,7 @@ def get_cate_list(req, cate, n, page=1):
 def get_article(id):
     sql = '''select id, title, content, user_name, created, allow_comments,views
             from blog_blogpost post
-            where id=%s''' % id
+            where post.status=2 and id=%s''' % id
     # print sql
     return unio().fetchOne(sql)
 
@@ -101,7 +101,7 @@ def get_gyq_list(req, n, zhiwei=None, page=1):
 def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
             from blog_blogpost
-            where site_id='''+ str(fun.get_site_id(req)) +''' and title like '%%'''+kw+"%%'"
+            where post.status=2 and site_id='''+ str(fun.get_site_id(req)) +''' and title like '%%'''+kw+"%%'"
     # print sql
     return unio().fetchAll(sql)
 
@@ -121,7 +121,7 @@ def get_child_list(req, cate):
     for i in cate_list:
         sql = '''select d.short_url as url,d.title, d.user_name, d.updated
                 from blog_blogpost_categories c, blog_blogpost d
-                where d.site_id=%s and c.blogcategory_id=%s and c.blogpost_id=d.id
+                where d.status=2 and d.site_id=%s and c.blogcategory_id=%s and c.blogpost_id=d.id
                 order by d.updated desc limit 0,10''' % (fun.get_site_id(req), i['id'])
         d.append({'title':i['title'], 'more':i['slug'], 'cate_list':unio().fetchAll(sql)})
     return d
@@ -138,7 +138,7 @@ def auth(req, data):
     if r.pop('password')==fun.mk_md5(password):
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
         unio().execute(sql)
-        return r
+        return fun.convert_dengji_list(r)[0]
 
 def reg_user(req, data):
     if data['utype']=='gyq':
@@ -199,7 +199,7 @@ def get_user_info(data):
 def get_user_article(data):
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post
-            where post.user_id=%s order by updated desc limit 0,%s;''' % (data.get('userid',0), 10)
+            where post.status=2 and post.user_id=%s order by updated desc limit 0,%s;''' % (data.get('userid',0), 10)
     # print sql
     return unio().fetchAll(sql)
 

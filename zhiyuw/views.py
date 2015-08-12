@@ -152,7 +152,7 @@ def login(req):
         data = fun.warp_data(req.POST)
         r = controller.auth(req, data)
         if r:
-            # print r
+            print r
             req.session['isLogin'] = True
             req.session['info'] = r
             return HttpResponseRedirect("/members")

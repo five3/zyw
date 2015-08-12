@@ -14,12 +14,13 @@
 			<thead> 
 				<tr> 
    					<th></th> 
-    				<th>文章名称</th> 
-    				<th>分类1</th>
-    				<th>分类2</th>
-    				<th>发布时间</th>
-                    <th>浏览量</th>
-    				<th>操作</th> 
+    				<th width="30%">文章名称</th>
+    				<th width="10%">状态</th>
+    				<th width="10%">分类1</th>
+    				<th width="10%">分类2</th>
+    				<th width="10%">发布时间</th>
+                    <th width="10%">浏览量</th>
+    				<th width="20%">操作</th>
 				</tr> 
 			</thead> 
 			<tbody>
@@ -27,11 +28,14 @@
                     <tr>
                         <td><input type="checkbox"></td>
                         <td style="width:400px;">{{i.title}}</td>
+                        <td>{% ifequal i.status 2 %}通过{%else%}未通过{%endifequal%}</td>
                         <td>{{i.cate}}</td>
                         <td>{{i.cate2}}</td>
                         <td>{{i.created | date:"Y-m-d"}}</td>
                         <td>{{i.views}}</td>
                         <td>
+                            <a href="javascript:void(0);" onclick="audit_post({{i.id}}, 2);">通过</a>&nbsp;
+                            <a href="javascript:void(0);" onclick="audit_post({{i.id}}, 1);">不通过</a>&nbsp;
                             <a href="/backend/post/edit/?id={{i.id}}"><input type="image" src="/static/backend/images/icn_edit.png" title="编辑"></a>
                             <input type="image" src="/static/backend/images/icn_trash.png" title="删除" onclick="del_post({{i.id}}, this);"></td>
                     </tr>
@@ -62,6 +66,16 @@
                 $(obj).parent().parent().remove();
             }else{
                 alert(errorCode.msg);
+            }
+        });
+    }
+    function audit_post(id, status){
+        var url = "/backend/post/audit/";
+        $.post(url,{id:id, status:status},function(result){
+            if (result.errorCode==0){
+                location = location.href;
+            }else{
+                alert(result.msg);
             }
         });
     }

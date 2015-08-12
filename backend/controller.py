@@ -23,7 +23,7 @@ def get_post_info(id):
 
 def get_post_list(req, page=1, num=10):
     index = (int(page)-1)*num
-    sql = '''select post.id, post.title, post.content, post.views, post.cate2, post.status,
+    sql = '''select post.id, post.title, post.status, post.content, post.views, post.cate2, post.status,
             post.created, cate.title as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
@@ -173,3 +173,12 @@ def reset_passwd(id):
     sql = '''update ww_member set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)
+
+def audit_post(data):
+    sql = '''update blog_blogpost set status='%s' where id=%s''' % (data.get('status',1),data.get('id',0))
+    # print sql
+    if unio().execute(sql):
+        return {'msg': 'success', 'errorCode' : 0}
+    else:
+        return {'msg': 'fail', 'errorCode' : -1}
+

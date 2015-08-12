@@ -45,6 +45,10 @@ def post(req, action):
             else:
                 msg = '保存失败'
             return render_to_response("backend/msg.html", locals())
+        elif action=='audit':
+            data = fun.warp_data(req.POST)
+            r = controller.audit_post(data)
+            return HttpResponse(json.dumps(r),content_type="application/json")
         elif action=='del':
             data = fun.warp_data(req.POST)
             id = data.get('id')

@@ -28,7 +28,7 @@ def get_post_list(req, uid, cate=None, page=1, num=10):
     else:
         condition = ''
     index = (int(page)-1)*num
-    sql = '''select post.id, post.title, short_url, post.content, post.views, post.cate2, post.status,
+    sql = '''select post.id, post.title, post.status, short_url, post.content, post.views, post.cate2, post.status,
             post.created, cate.title as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where %s post.user_id=%s and post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
@@ -42,10 +42,10 @@ def save_post(req, data, uid, uname):
     if not views:
         views = 0
     if id:  ##update
-        sql = '''update blog_blogpost set title='%s', content='%s', status='%s', cate2='%s',
+        sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s',
                 updated='%s', views='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'),
-                                  data.get('status'), data.get('cate2'), fun.now(), views, id)
+                                  data.get('cate2'), fun.now(), views, id)
         # print sql
         r = unio().execute(sql)
         if r:
@@ -58,7 +58,7 @@ def save_post(req, data, uid, uname):
         sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
                 values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                  (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), 1,
                   fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)

@@ -40,10 +40,10 @@
                 <img src="/static/zhiyuw/cy_images/images/piont03.jpg" width="14" height="13"><p>会员信息</p><a href="/members">MORE&gt;&gt;</a>
             </div>
             <div class="archives_area">
-                <a href="/members"><img src="{{request.session.info.logo}}" width="235" height="187"></a>
+                <a href="/members" style="margin: 5px 0; display: block;"><img src="{{request.session.info.logo}}" width="235" height="187"></a>
                 <p>会员昵称：{{request.session.info.nickname}}</p>
                 <p>会员类型：{% ifequal request.session.info.utype 'ktq' %}开拓圈{% else %}耕耘群{% endifequal %}</p>
-                <p>会员等级：{{request.session.info.credits}}</p>
+                <p>会员等级：{% for i in request.session.info.count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
                 <p>联系邮箱：{{request.session.info.email}}</p>
             </div>
         </div>
