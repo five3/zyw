@@ -10,12 +10,12 @@
 			<thead> 
 				<tr> 
    					<th></th> 
-    				<th>账号</th>
-                    <th>账户类型</th>
-                    <th>注册ip</th>
-    				<th>注册时间</th>
-                    <th>状态</th>
-    				<th>操作</th> 
+    				<th width="25%">账号</th>
+                    <th width="10%">账户类型</th>
+                    <th width="15%">注册ip</th>
+    				<th width="15%">注册时间</th>
+                    <th width="10%">状态</th>
+    				<th width="30%">操作</th>
 				</tr> 
 			</thead> 
 			<tbody>
@@ -34,7 +34,8 @@
     				<td>{%ifequal i.status 1%}正常{%else%}未审核{%endifequal%}</td>
     				<td style="width:120px;"><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">通过</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a>&nbsp;
-                    <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a></td>
+                    <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a>&nbsp;
+                    <a href="/backend/profile?userid={{i.id}}&t={{i.utype}}" target="_blank">个人资料</a></td>
 				</tr>
                 {% endfor %}
 			</tbody> 

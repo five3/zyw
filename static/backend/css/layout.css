@@ -883,3 +883,8 @@ text-indent: 40px;
 font-size: 14px;}
 
 #myEditor img {width:100%; height:auto;}
+
+.profile li {
+    font-size: 16px;
+    margin: 3px;
+}

@@ -182,3 +182,17 @@ def audit_post(data):
     else:
         return {'msg': 'fail', 'errorCode' : -1}
 
+def get_user_info(data):
+    t = data.get('t')
+    if t=='ktq':
+        sql = '''select username, email, nickname, logo, utype,
+                qiyeming, qiyewangzhi, lianxifangshi, qiyejianjie, zhuanye, zhuti
+                from ww_member, ww_member_vip
+                where ww_member.id=%s and ww_member.id=ww_member_vip.id''' % data.get('userid')
+    else:
+        sql = '''select username, email, nickname, logo, utype,
+                xingming, shoujihao, qq, zuoyouming, gerenjianjie, zhiwei, sex
+                from ww_member, ww_member_normal
+                where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % data.get('userid')
+    # print sql
+    return unio().fetchOne(sql)

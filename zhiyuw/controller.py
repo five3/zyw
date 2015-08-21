@@ -191,10 +191,12 @@ def get_user_info(data):
 
     # print sql
     r = unio().fetchOne(sql)
-#    print r		
+    # print r
     if r:
         r['utype'] = utype[t]
-    return fun.convert_dengji_list(r)[0]
+        return fun.convert_dengji_list(r)[0]
+    else:
+        return {}
 
 def get_user_article(data):
     sql = '''select post.title, short_url as url, user_name, created

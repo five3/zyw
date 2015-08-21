@@ -156,6 +156,17 @@ def category(req, action):
             data = req.POST
             return HttpResponse(data,content_type="application/json")
 
+@login_required
+def profile(req):
+    settings = setting
+    if req.method=='GET':
+        data = fun.warp_data(req.GET)
+        info = controller.get_user_info(data)
+        # print info
+        return render_to_response("backend/profile.html", locals())
+    else:
+        return HttpResponse({'errorCode' : 'method not supported!'},content_type="application/json")
+
 def login(req):
     settings = setting
     if req.method=='GET':

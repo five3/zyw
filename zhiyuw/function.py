@@ -51,6 +51,7 @@ def get_site_logo(req):
 
 def convert_dengji_list(*l):
     tl = []
+    # print l
     for i in l:
         i['count'] = convert_dengji(i['credits'])
         tl.append(i)
