@@ -1,0 +1,41 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<form action="/backend/comments/save/" method="post">
+		<article class="module width_full">
+			<header><h3>会员资料</h3></header>
+				<div class="module_content">
+                    <img src="{{info.logo}}" width="150" height="150">
+                    <ul class="profile">
+                        <li>账号：{{info.username}}</li>
+                        <li>email：{{info.email}}</li>
+                        <li>昵称：{{info.nickname}}</li>
+                        {% ifequal info.utype "ktq" %}
+                            <li>类型：开拓圈</li>
+                            <li>企业名：{{info.qiyeming}}</li>
+                            <li>企业主题：{{info.zhuti}}</li>
+                            <li>企业网址：{{info.qiyewangzhi}}</li>
+                            <li>企业简介：{{info.qiyejianjie}}</li>
+                            <li>所属行业：{{info.zhuanye}}</li>
+                            <li>联系方式：{{info.lianxifangshi}}</li>
+                        {% else %}
+                            <li>类型：耕耘群</li>
+                            <li>姓名：{{info.xingming}}</li>
+                            <li>性别：{{info.sex}}</li>
+                            <li>职位：{{info.zhiwei}}</li>
+                            <li>QQ：{{info.qq}}</li>
+                            <li>手机号：{{info.shoujihao}}</li>
+                            <li>座右铭：{{info.zuoyouming}}</li>
+                            <li>个人简介：{{info.gerenjianjie}}</li>
+                        {% endifequal %}
+                    </ul>
+                    <div class="clear"></div>
+				</div>
+			<footer style="display:none;">
+				<div class="submit_link">
+					<input type="submit" value="发布" class="alt_btn">
+					<input type="submit" value="重置">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
