@@ -38,11 +38,11 @@
             <div class="caption">
             <h2>{{i.nickname}}</h2>
             </div>
-            <p>等级：{% for j in i.count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
+            <p>等级：{{i.dengji}}</p>
             <ul>
             	<li>职位：{{i.zhiwei}}</li>
             </ul>
-            <p title="{{i.zuoyouming}}">座右铭：{{i.zuoyouming | slice:"30"}}</p>
+            <p title="{{i.zuoyouming}}">座右铭：{{i.zuoyouming | slice:"25"}}...</p>
       </div>
       {% endfor %}
             <div class="clear"></div>

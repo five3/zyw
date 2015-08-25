@@ -131,7 +131,7 @@
 .left_title p span a{ color:#454545;}
 .left_title p span a:hover{ color:#208DCE;}
 
-.left_area{ width:670px; height:auto; float:left; display:block; margin-top:20px; background:#FFF;}
+.left_area{ width:670px; height:auto; float:left; display:block; margin-top:20px; padding-top: 30px; background:#FFF;}
 .articles{  width:670px; height:30px; background:#007CCC; border:1px solid #D6D6D6;}
 .articles p{ text-align:left; color:#FFF; font-size:15px; font-family:"微软雅黑"; line-height:30px; padding-left:8px;}
 .left_area_news ul li{ float:left; display:block;  text-align:left; line-height:30px; width:650px; background: url(../images/li_bg.jpg) bottom repeat-x; margin-left:5px;}

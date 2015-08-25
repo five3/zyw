@@ -68,6 +68,9 @@ def save_post(req, data, uid, uname):
             # print sql
             r =unio().executeInsert(sql)
         if r:
+            sql = '''update ww_member set credits=credits+10 where id=%s''' % uid
+            unio().execute(sql)
+
             sql = '''select slug from blog_blogcategory where id=%s''' % data.get('cate')
             r = unio().fetchOne(sql)
             slug = r.get('slug')

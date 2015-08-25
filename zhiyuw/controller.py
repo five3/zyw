@@ -39,11 +39,15 @@ def get_cate_list(req, cate, n, page=1):
     return unio().fetchAll(sql)
 
 def get_article(id):
-    sql = '''select id, title, content, user_name, created, allow_comments,views
+    sql = '''select id, title, content, user_id, user_name, created, allow_comments,views
             from blog_blogpost post
             where post.status=2 and id=%s''' % id
     # print sql
-    return unio().fetchOne(sql)
+    r = unio().fetchOne(sql)
+    if r:
+        sql = '''update ww_member set credits=credits+1 where id=%s''' % r['user_id']
+        unio().execute(sql)
+    return r
 
 def get_context_page(req, cate, id):
     sql = '''select post.title, short_url
@@ -65,13 +69,13 @@ def get_context_page(req, cate, id):
 def get_ktq_list(req, n, zhuanye=None, page=1):
     index = (page-1)*n
     if zhuanye:
-        sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
+        sql = '''select vip.id, ww_member.logo, utype, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.status=1 and ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
              order by id desc limit %s,%s''' % (fun.get_site_id(req), zhuanye, index, n)
     else:
-        sql = '''select vip.id, ww_member.logo, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
+        sql = '''select vip.id, ww_member.logo, utype, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
@@ -83,13 +87,13 @@ def get_ktq_list(req, n, zhuanye=None, page=1):
 def get_gyq_list(req, n, zhiwei=None, page=1):
     index = (page-1)*n
     if zhiwei:
-        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
+        sql = '''select ww_member.id, utype,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.status=1 and ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
                     order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), zhiwei, index, n)
     else:
-        sql = '''select ww_member.id,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
+        sql = '''select ww_member.id, utype,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
@@ -181,11 +185,11 @@ def get_user_info(data):
         return {}
    # print t
     if t=='gyq':	
-		sql = '''select ww_member.id, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
+		sql = '''select ww_member.id, utype, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
 		        from ww_member, ww_member_normal
 		        where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % uid
     elif t=='ktq':
-		sql = '''select ww_member.id,nickname,email,credits,vip.qiyejianjie,ww_member.logo, vip.qiyeming as name
+		sql = '''select ww_member.id, utype, nickname,email,credits,vip.qiyejianjie,ww_member.logo, vip.qiyeming as name
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
 
@@ -193,7 +197,6 @@ def get_user_info(data):
     r = unio().fetchOne(sql)
     # print r
     if r:
-        r['utype'] = utype[t]
         return fun.convert_dengji_list(r)[0]
     else:
         return {}

@@ -53,24 +53,56 @@ def convert_dengji_list(*l):
     tl = []
     # print l
     for i in l:
-        i['count'] = convert_dengji(i['credits'])
+        if i['utype'] == 'gyq':
+            i['dengji'] = convert_geren_dengji(i['credits'])
+        else:
+            i['dengji'] = convert_qiye_dengji(i['credits'])
         tl.append(i)
     # print tl
     return tl
 
-def convert_dengji(credits):
-    f = ['*']
-    if credits < 20:
-        return f * 1
-    elif credits < 50:
-        return f * 2
-    elif credits < 100:
-        return f * 3
-    elif credits < 200:
-        return f * 4
-    elif credits < 400:
-        return f * 5
-    elif credits < 800:
-        return f * 6
+def convert_geren_dengji(credits):
+    if credits < 800:
+        return "迎客松"
+    elif credits <= 999:
+        return "迎客松"
+    elif credits <= 1399:
+        return "帝王树"
+    elif credits <= 2099:
+        return "凤凰松"
+    elif credits <= 2299:
+        return "汉柏凌霄"
+    elif credits <= 2499:
+        return "阿里山神木"
+    elif credits <= 2599:
+        return "苦槠"
+    elif credits <= 3999:
+        return "林芝巨柏"
+    elif credits <= 4999:
+        return "黄帝手植柏"
+    elif credits <= 9999:
+        return "轩辕柏"
     else:
-        return f * 7
+        return "筠连珙桐"
+
+def convert_qiye_dengji(credits):
+    if credits < 150:
+        return "无名榕"
+    elif credits <= 249:
+        return "沙堆榕"
+    elif credits <= 299:
+        return "樟州榕"
+    elif credits <= 399:
+        return "学院榕"
+    elif credits <= 499:
+        return "玉水榕"
+    elif credits <= 599:
+        return "天马榕"
+    elif credits <= 799:
+        return "恩平榕"
+    elif credits <= 999:
+        return "翰林榕"
+    elif credits <= 1399:
+        return "长宁榕"
+    else:
+        return "阳朔榕"

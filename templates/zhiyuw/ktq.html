@@ -38,10 +38,10 @@
             <div class="caption">
                 <h2><a href="{{i.url}}" title="{{i.qiyeming}}">{{i.qiyeming | slice:"13"}}</a></h2>
             </div>
-            <p>等级：{% for j in i.count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
+            <p>等级：{{i.dengji}}</p>
             <p>行业：{{i.zhuanye}}</p>
             <p title="{{i.zhuti}}">主题：{{i.zhuti | slice:"13"}}</p>
-            <p title="{{i.qiyejianjie}}">简介：{{i.qiyejianjie | slice:"29"}}</p>
+            <p title="{{i.qiyejianjie}}">简介：{{i.qiyejianjie | slice:"25"}}...</p>
       </div>
  {% endfor %}
             <div class="clear"></div>

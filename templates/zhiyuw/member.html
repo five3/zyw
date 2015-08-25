@@ -57,8 +57,8 @@
                 <a href="#"><img class="photo" src="{{info.logo}}" width="235" height="187"></a>
                 <p>会员昵称：{{info.nickname}}</p>
                 <p>会员名称：{{info.name}}</p>
-                <p>会员类型：{{info.utype}}</p>
-                <p>会员等级：{% for i in info.count %}<img src="/static/zhiyuw/cy_images/images/logo01.jpg" width="15" height="15">{% endfor %}</p>
+                <p>会员类型：{% ifequal info.utype 'ktq' %}开拓圈{% else %}耕耘群{% endifequal %}</p>
+                <p>会员等级：{{info.dengji}}</p>
                 <p>联系邮箱：{{info.email}}</p>
               </div>
           </div><div class="clear"></div>
