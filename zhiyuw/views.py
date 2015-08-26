@@ -206,7 +206,7 @@ def member(req):
     logo_image = fun.get_site_logo(req)
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
-    article_list = controller.get_user_article(data)
+    article_list = controller.get_user_article(data, req)
     return render_to_response("zhiyuw/member.html", locals(), context_instance = RequestContext(req))
 
 def comment(req):
