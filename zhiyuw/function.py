@@ -63,7 +63,7 @@ def convert_dengji_list(*l):
 
 def convert_geren_dengji(credits):
     if credits < 800:
-        return "迎客松"
+        return "青檀"
     elif credits <= 999:
         return "迎客松"
     elif credits <= 1399:
