@@ -7,11 +7,21 @@ from zhiyuw import function as fun
 
 def get_cate_list():
     sql = '''select id, title
-            from blog_blogcategory cate'''
-    cate1 = unio().fetchAll(sql)
+            from blog_blogcategory cate where parent_id is null'''
+    catet = unio().fetchAll(sql)
+    cate1 = []
+    for i in catet:
+        cate1.append(i)
+        sql = '''select id, title from blog_blogcategory where parent_id=%s''' % i['id']
+        # print sql
+        catet2 = unio().fetchAll(sql)
+        if catet2:
+            items1 = [{'id': j['id'], 'title': '|----'+j['title']} for j in catet2]
+            cate1.extend(items1)
     sql = '''select id, title, slug
             from ww_cate2'''
     cate2 = unio().fetchAll(sql)
+    # print cate1
     return cate1, cate2
 
 def get_post_info(id):

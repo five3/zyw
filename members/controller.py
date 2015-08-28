@@ -4,13 +4,24 @@ __author__ = 'macy'
 from model import *
 from zhiyuw import function as fun
 
+
 def get_cate_list():
     sql = '''select id, title
-            from blog_blogcategory cate'''
-    cate1 = unio().fetchAll(sql)
+            from blog_blogcategory cate where parent_id is null'''
+    catet = unio().fetchAll(sql)
+    cate1 = []
+    for i in catet:
+        cate1.append(i)
+        sql = '''select id, title from blog_blogcategory where parent_id=%s''' % i['id']
+        # print sql
+        catet2 = unio().fetchAll(sql)
+        if catet2:
+            items1 = [{'id': j['id'], 'title': '|----'+j['title']} for j in catet2]
+            cate1.extend(items1)
     sql = '''select id, title, slug
             from ww_cate2'''
     cate2 = unio().fetchAll(sql)
+    # print cate1
     return cate1, cate2
 
 def get_post_info(id):
@@ -222,7 +233,7 @@ def get_qiye_comment(id):
     return '''<div class="Murphy fl">
              <div class="Murphy_list fl"><strong>用户名称</strong><p>%s</p></div>
              <div class="Murphy_list fl"><strong>用户类型</strong><p>%s</p></div>
-             <div class="Murphy_list fl"><strong>联系方式</strong><p>%s人</p></div>
+             <div class="Murphy_list fl"><strong>联系方式</strong><p>%s</p></div>
              <div class="Murphy_list fl"><strong>微信钱包</strong><p>%s</p></div>
              <div class="Murphy_list fl"><strong>说说内容</strong><p>%s</p></div></div>''' %  (r['user_name'], r['user_type'],
                                     r['lianxi'], r['qianbao'], r['shuoshuo'])
