@@ -27,7 +27,7 @@
                 {% for i in post_list %}
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td style="width:400px;">{{i.title}}</td>
+                        <td style="width:400px;"><a href="{{i.short_url}}" target="_blank">{{i.title}}</a></td>
                         <td>{% ifequal i.status 2 %}通过{%else%}未通过{%endifequal%}</td>
                         <td>{{i.cate}}</td>
                         <td>{{i.cate2}}</td>

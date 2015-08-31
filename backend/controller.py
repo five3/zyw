@@ -33,7 +33,7 @@ def get_post_info(id):
 
 def get_post_list(req, page=1, num=10):
     index = (int(page)-1)*num
-    sql = '''select post.id, post.title, post.status, post.content, post.views, post.cate2, post.status,
+    sql = '''select post.id, post.title, post.short_url, post.status, post.content, post.views, post.cate2, post.status,
             post.created, cate.title as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
