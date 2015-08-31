@@ -55,7 +55,7 @@
 				{% for i in post_list %}
                     <tr>
                         <td><input type="checkbox"></td>
-                        <td>{{i.title}}</td>
+                        <td><a href="{{i.short_url}}" target="_blank">{{i.title}}</a></td>
                         <td>{% ifequal i.status 2 %}通过{%else%}未通过{%endifequal%}</td>
                         <td>{{i.cate}}</td>
                         <td>{{i.cate2}}</td>
@@ -77,10 +77,10 @@
 			<thead> 
 				<tr> 
    					<th></th> 
-    				<th>评论</th> 
-    				<th>提交者</th> 
-    				<th>提交时间</th> 
-    				<th>操作</th> 
+    				<th width="50%">评论</th>
+    				<th width="10%">提交者</th>
+    				<th width="10%">提交时间</th>
+    				<th width="30%">操作</th>
 				</tr> 
 			</thead> 
 			<tbody> 
