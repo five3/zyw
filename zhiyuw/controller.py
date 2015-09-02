@@ -41,11 +41,14 @@ def get_cate_list(req, cate, n, page=1):
 def get_article(id):
     sql = '''select id, title, content, user_id, user_name, created, allow_comments,views
             from blog_blogpost post
-            where post.status=2 and id=%s''' % id
+            where id=%s''' % id
     # print sql
     r = unio().fetchOne(sql)
     if r:
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['user_id']
+        unio().execute(sql)
+
+        sql = '''update blog_blogpost set views=views+1 where id=%s''' % id
         unio().execute(sql)
     return r
 
