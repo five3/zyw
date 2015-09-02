@@ -39,6 +39,9 @@ def get_cate_list(req, cate, n, page=1):
     return unio().fetchAll(sql)
 
 def get_article(id):
+    sql = '''update blog_blogpost set views=views+1 where id=%s''' % id
+    unio().execute(sql)
+
     sql = '''select id, title, content, user_id, user_name, created, allow_comments,views
             from blog_blogpost post
             where id=%s''' % id
@@ -48,8 +51,6 @@ def get_article(id):
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['user_id']
         unio().execute(sql)
 
-        sql = '''update blog_blogpost set views=views+1 where id=%s''' % id
-        unio().execute(sql)
     return r
 
 def get_context_page(req, cate, id):
