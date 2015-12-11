@@ -14,7 +14,7 @@
         <div class="left_area">
             <div style="text-align:center;font-size:26px;margin-bottom:10px;">{{art.title}}</div>
             <div style="text-align:center;margin-bottom:20px;">
-                发布者：{{art.user_name}}&nbsp;发布日期：{{art.created | date:"Y-m-d"}}&nbsp;浏览次数:{{art.views}}</div>
+                {{art.user_name}}&nbsp;发布日期：{{art.created | date:"Y-m-d"}}&nbsp;浏览次数:{{art.views}}</div>
             <div style="text-align:left; margin-left:8px; margin-right:8px;">
                 <div id="sina_keyword_ad_area2" class="articalContent   newfont_family">
         	    {{ art.content|safe }}
