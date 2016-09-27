@@ -17,7 +17,7 @@
         <div id="test2_1" class="">
             <div class="">
                 <div class="">
-                <form method="post" action="/zhiyuw/register" name="formktz" id="reg_form">
+                <form method="post" action="/zhiyuw/register" name="formktz" id="reg_form"  onsubmit="return validate()">
                 <input type="hidden" name="submit" value="tj" />
                 <p>
                 会员类型:<select name="utype" class="reg_field" style=" border: 1px solid #cccccc;">
@@ -45,7 +45,9 @@
                 </p>
                 {% if settings.logincode %}
                 <p>
-                验证码:<input type="text"  name="code" style="width:80px; height:30px; margin-right:4px;" tabindex="4"/><span class="captcha"><img id="code" src="{{src}}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{{src}}" style="cursor:pointer; "></span>
+                验证码:
+				<input type="button" id="checkCode" class="code" style="width:60px" onClick="createCode()" />
+                <input id="id_code" name="code" value="" class="reg_field">
                 </p>
                 {% endif %}
                 <p>
@@ -78,4 +80,5 @@
 
     }
 </script>
+<script src="/static/zhiyuw/cy_images/js/code.js" type="text/javascript"></script>
 {% endblock %}
