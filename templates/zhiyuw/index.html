@@ -59,7 +59,7 @@
 		<div id="test2_1" class="qiehuanlist01 block">
             <div class="test_area01" style="width:auto;">
                 <div class="login_area">
-                 <form method="post" action="/zhiyuw/login" name="formktz">
+                 <form method="post" action="/zhiyuw/login" name="formktz" onsubmit="return validate()">
                  <input type="hidden" name="submit" value="tj" />
                 <p>
                 帐号:<input type="text" name="username" id="username" value="" class="reg_field">
@@ -69,8 +69,11 @@
                 </p>
                 {% if settings.logincode %}
                 <p>
-                验证:<input type="text"  name="code" style="width:80px; height:30px; margin-right:4px;" tabindex="4"/><span class="captcha"><img id="code" src="{{src}}" align="absmiddle" title="看不清楚？换一张" onclick="document.getElementById('code').src='{{src}}" style="cursor:pointer; "></span>
+                验证:<input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" onClick="createCode()" />
+                    <input type="text"  id="id_code" name="code" class="reg_field" style="width:80px;text-align: center;" tabindex="4"/>
+                    <br><span class="red" id="err_code">&nbsp;</span>
                 </p>
+
                 {% endif %}
                 <p>
                 <input type="image" src="{% static "zhiyuw/cy_images/images/login01.jpg" %}" id="image" onclick="javascript:formktz.submit();">
@@ -229,4 +232,5 @@
 		{% include "zhiyuw/link.html" %}
     </div>
 </div><div class="clear"></div>
+<script src="/static/zhiyuw/cy_images/js/code.js" type="text/javascript"></script>
 {% endblock %}

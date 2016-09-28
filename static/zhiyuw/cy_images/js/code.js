@@ -20,17 +20,14 @@ createCode();
 
 function validate() {
 	var inputCode = $("#id_code").val().toUpperCase();
-
 	if(inputCode.length <=0) {
-	   alert("请输入验证码！");
+	   $('#err_code').text("请输入验证码！");
 	   return false;
-	}
-	else if(inputCode != code ){
-	   alert("验证码输入错误！");
+	}else if(inputCode != code ){
+	   $('#err_code').text("验证码输入错误！");
 	   createCode();
 	   return false;
-	}
-	else {
+	}else {
 	   return true;
 	}
 }

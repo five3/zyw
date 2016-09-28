@@ -41,7 +41,7 @@
                 {% for i in comments %}
                     <li>
                         <div >
-                            <p><a href="#" class="comments_user">{{i.user_name}}</a>
+                            <p><span class="comments_user">{{i.user_name}}</span>
                                 <small>{{i.submit_date | date:"Y-m-d"}}</small>
                             </p>
                             <p class="comments_content">{{i.comment}}</p>
@@ -52,7 +52,7 @@
                 </ul>
             <h2>新评论</h2><hr>
             <form method="post" id="comment" action="/zhiyuw/comment" class="comments" onsubmit="return validate()">
-            <input type="hidden" name="referrer" value="{{refer}}">
+            <input type="hidden" name="referer" value="{{referer}}">
             <input id="id_content_type" name="content_type" type="hidden" value="blog.blogpost">
             <input id="id_object_pk" name="object_pk" type="hidden" value="{{art.id}}">
             <input id="id_timestamp" name="timestamp" type="hidden" value="{{timestamp}}">
@@ -70,9 +70,9 @@
                 <textarea cols="40" id="id_comment" name="comment" rows="10"></textarea>
             </div>
             <div class="form-group input_id_url">
-                <label class="control-label" for="id_url">验证码</label>
-				<input type="button" id="checkCode" class="code" style="width:60px" onClick="createCode()" />
-                <input id="id_code" name="code" value="" class="reg_field">
+                <label class="control-label" for="checkCode">验证码&nbsp;</label>
+				<input type="text" id="checkCode" class="reg_field" style="width:60px; text-align: center;background-color: #cccccc;" onClick="createCode()" />
+                <input type="text" id="id_code" name="code" value="" class="reg_field" style="width:80px;text-align: center;" ><span class="red" id="err_code">&nbsp;</span>
             </div>
             <div class="form-group input_id_honeypot" style="display:none;">
                 <label class="control-label" for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label>

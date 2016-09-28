@@ -175,7 +175,7 @@ def add_comments(req, data):
         return False
     sql = '''insert into django_comments (content_type_id, object_pk, site_id, user_id, user_name,
             user_email, user_url, comment, submit_date, ip_address, is_public, is_removed) values
-            (14, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', 1, 0)''' % (data['object_pk'], fun.get_site_id(req), data['id'], data['name'], data['email'], data['url'], data['comment'], fun.now(), data['ip'])
+            (14, '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', 1, 0)''' % (data['object_pk'], fun.get_site_id(req), data['id'], data['name'], data['email'], data.get('url',''), data['comment'], fun.now(), data['ip'])
     # print sql
     if unio().execute(sql)<0:
         return False

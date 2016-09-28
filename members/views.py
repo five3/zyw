@@ -16,7 +16,7 @@ def index(req):
     uid = req.session['info'].get('id', 0)
     cate = data.get('cate','')
     page = req.GET.get('page')
-    if not page:
+    if not page or int(page)==0:
         page = 1
     post_list = controller.get_post_list(req, uid, cate, page)
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))

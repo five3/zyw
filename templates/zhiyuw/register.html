@@ -26,29 +26,31 @@
                     </span>
                 </p>
                 <p>
-                会员账号:<input type="text" name="username" id="username" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*用户名不能为空'}"><span id="err_username">
+                会员账号:<input type="text" name="username" id="username" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*用户名不能为空'}"><span class="red" id="err_username">
                     &nbsp;
                     </span>
                 </p>
                 <p>
-                账号密码:<input type="password" name="password" id="password" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_password').innerText='*密码不能为空'}"><span id="err_password">
+                账号密码:<input type="password" name="password" id="password" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_password').innerText='*密码不能为空'}"><span class="red" id="err_password">
                     &nbsp;
                     </span>
                 </p><p>
-                密码确认:<input type="password" name="password2" id="password2" value="" onblur="checkpass()"  class="reg_field"><span id="err_password2">
+                密码确认:<input type="password" name="password2" id="password2" value="" onblur="checkpass()"  class="reg_field"><span class="red" id="err_password2">
                     &nbsp;
                     </span>
                 </p><p>
-                电子邮箱:<input type="text" onblur="checkemail(this)" name="email" id="email" value=""  class="reg_field"><span id="err_email">
+                电子邮箱:<input type="email" onblur="checkemail(this)" name="email" id="email" value=""  class="reg_field"><span class="red" id="err_email">
                     &nbsp;
                     </span>
                 </p>
                 {% if settings.logincode %}
-                <p>
-                验证码:
-				<input type="button" id="checkCode" class="code" style="width:60px" onClick="createCode()" />
-                <input id="id_code" name="code" value="" class="reg_field">
-                </p>
+                    <p>
+                    验证码:
+                    <input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" onClick="createCode()" />
+                    <input type="text" id="id_code" name="code" value="" class="reg_field" style="width:90px; text-align: center;" /><span class="red" id="err_code" >
+                    &nbsp;
+                    </span>
+                    </p>
                 {% endif %}
                 <p>
                 <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image" onclick="javascript:formktz.submit();" style="display:block; margin:10px 60px;">

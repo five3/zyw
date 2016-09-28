@@ -135,7 +135,7 @@ def article(req, cate, id):
     cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list(req, 'bw', 10)
     art = controller.get_article(id)
-    refer = req.path
+    referer = req.path
     timestamp = int(time.time())
     comments = controller.get_comments(id)
     pre_page, next_page = controller.get_context_page(req, cate, id)
@@ -218,7 +218,7 @@ def comment(req):
         data['ip'] = req.META['REMOTE_ADDR']
     # print data
     controller.add_comments(req, data)
-    return HttpResponseRedirect(data.get('referrer'))
+    return HttpResponseRedirect(data.get('referer'))
 
 def qiye_comment(req):
     if req.method=='GET':
