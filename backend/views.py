@@ -114,11 +114,49 @@ def gbook(req, action):
         return render_to_response("backend/gbooklist.html", locals())
 
 @login_required
+def admin(req, action):
+    settings = setting
+    print req.session
+    if req.method=='GET':
+        if action=='list':
+            page = req.GET.get('page', 1)
+            if int(page) < 1:
+                page = 1
+            last_page = controller.get_admin_pages(req)
+            adminlist = controller.get_admin_list(req, page)
+            return render_to_response("backend/adminlist.html", locals())
+        elif action=='new':
+            return render_to_response("backend/addadmin.html", locals())
+    elif req.method=='POST':
+        if action=='new':
+            r = controller.add_admin(req.POST)
+            if r:
+                return HttpResponseRedirect('/backend/admin/list/')
+            else:
+                msg = '用户名已存在'
+                return render_to_response('backend/msg.html', locals())
+        id = req.POST.get('id', 0)
+        if id:
+            if action=='reset_passwd':
+                controller.reset_admin_passwd(id)
+                msg = '密码设置为：000000'
+            else:
+                controller.audit_admin(id, action)
+                msg = ''
+            return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
+        else:
+            msg = 'id 无效'
+            return render_to_response("backend/msg.html", locals())
+
+
+@login_required
 def users(req, action):
     settings = setting
     if req.method=='GET':
         if action=='list':
             page = req.GET.get('page', 1)
+            if int(page) < 1:
+                page = 1
             last_page = controller.get_user_pages(req)
             userlist = controller.get_user_list(req, page)
             return render_to_response("backend/userslist.html", locals())
@@ -126,7 +164,7 @@ def users(req, action):
         id = req.POST.get('id', 0)
         if id:
             if action=='reset_passwd':
-                controller.reset_passwd(id)
+                controller.reset_user_passwd(id)
                 msg = '密码设置为：000000'
             else:
                 controller.audit_user(id, action)

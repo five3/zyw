@@ -1,0 +1,88 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">管理员管理</h3>
+        <ul class="tabs">
+   			<li><a href="/backend/admin/new/">新建</a></li>
+		</ul>
+		</header>
+
+		<div class="tab_container">	
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr> 
+   					<th></th> 
+    				<th width="25%">账号</th>
+    				<th width="25%">注册时间</th>
+                    <th width="20%">状态</th>
+    				<th width="30%">操作</th>
+				</tr> 
+			</thead> 
+			<tbody>
+                {% for i in adminlist %}
+				<tr> 
+   					<td><input type="checkbox"></td> 
+    				<td>{{i.name}}</a></td>
+    				<td>{{i.created | date:"Y-m-d H:i:s"}}</td>
+    				<td>{%ifequal i.status 1%}正常{%else%}失效{%endifequal%}</td>
+    				<td style="width:120px;"><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">生效</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a>&nbsp;
+                    <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a>&nbsp;
+				</tr>
+                {% endfor %}
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+		<div style="margin-bottom:10px; padding:10px 20px">
+            <ul class="tabs">
+                <li><a href="/backend/admin/list/?page=1">首页</a></li>
+                <li><a href="/backend/admin/list/?page={{page|add:-1}}">上一页</a></li>
+                <li><a href="/backend/admin/list/?page={{page|add:1}}">下一页</a></li>
+                <li><a href="/backend/admin/list/?page={{last_page}}">末页</a></li>
+            </ul>
+        </div>
+
+{% endblock %}
+{% block bottom %}
+<script>
+function audit_pass(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/admin/pass/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+    }
+}
+function audit_fail(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/admin/fail/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+    }
+}
+function reset_passwd(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/admin/reset_passwd/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert(result.msg);
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+    }
+}
+</script>
+{% endblock %}

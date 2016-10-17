@@ -156,6 +156,30 @@ def get_user_list(req, page, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+def get_admin_list(req, page, num=10):
+    if page:
+        page = int(page)
+    else:
+        page = 1
+    index = (page-1)*num
+    sql = '''select id, name, created, status from ww_admin where 1=1 order by created desc limit %s,%s''' % (
+        index, num)
+    # print sql
+    return unio().fetchAll(sql)
+
+def get_admin_pages(req, num=10):
+    sql = '''select count(id) as pages from ww_admin where 1=1'''
+    # print sql
+    pages = unio().fetchOne(sql)
+    if pages:
+        count = pages['pages']
+        if count % num==0:
+            return count/num
+        else:
+            return count/num+1
+    else:
+        return 1
+
 def get_user_pages(req, num=10):
     sql = '''select count(id) as pages from ww_member where site_id=%s''' % fun.get_site_id(req)
     print sql
@@ -178,9 +202,24 @@ def audit_user(id, action):
     # print sql
     return unio().execute(sql)
 
-def reset_passwd(id):
+def audit_admin(id, action):
+    if action=='pass':
+        status = 1
+    else:
+        status = 0
+    sql = '''update ww_admin set status=%s where id=%s''' % (status, id)
+    # print sql
+    return unio().execute(sql)
+
+def reset_user_passwd(id):
     md5 = fun.mk_md5('000000')
     sql = '''update ww_member set password='%s' where id=%s''' % (md5, id)
+    # print sql
+    return unio().execute(sql)
+
+def reset_admin_passwd(id):
+    md5 = fun.mk_md5('000000')
+    sql = '''update ww_admin set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)
 
@@ -206,3 +245,14 @@ def get_user_info(data):
                 where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % data.get('userid')
     # print sql
     return unio().fetchOne(sql)
+
+def add_admin(post):
+    name = post.get('name')
+    password = post.get('password')
+    sql = '''insert into ww_admin (name, password, created, status) VALUES ('%s', '%s', now(), 0);''' % (name, password)
+    print sql
+    try:
+        if unio().execute(sql):
+            return True
+    except:
+        pass
