@@ -1,0 +1,36 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<form action="/backend/admin/setting/" method="post">
+		<article class="module width_full">
+			<header><h3>网站设置</h3></header>
+				<div class="module_content">
+						<fieldset>
+							<label>站名标题</label>
+							<input type="text" name="title" value="">
+						</fieldset>
+                        <fieldset>
+							<label>关键字</label>
+							<input type="text" name="keywords" value="">
+						</fieldset>
+                        <fieldset>
+							<label>网站描述</label>
+							<input type="text" class="field" name="desc" value="">
+						</fieldset>
+                        <fieldset>
+							<label>网站版权</label>
+							<input type="text" class="field" name="copyright" value="">
+						</fieldset>
+                        <fieldset>
+							<label>友情链接</label>
+							<textarea name="friend_link"></textarea>
+						</fieldset>
+						<div class="clear"></div>
+				</div>
+			<footer>
+				<div class="submit_link">
+					<input type="submit" value="发布" class="alt_btn">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
