@@ -162,13 +162,13 @@ def get_admin_list(req, page, num=10):
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select id, name, created, status from ww_admin where 1=1 order by created desc limit %s,%s''' % (
+    sql = '''select id, username, date_joined, is_active, email from auth_user where is_staff=1 order by date_joined desc limit %s,%s''' % (
         index, num)
     # print sql
     return unio().fetchAll(sql)
 
 def get_admin_pages(req, num=10):
-    sql = '''select count(id) as pages from ww_admin where 1=1'''
+    sql = '''select count(id) as pages from auth_user where is_staff=1'''
     # print sql
     pages = unio().fetchOne(sql)
     if pages:
@@ -207,7 +207,7 @@ def audit_admin(id, action):
         status = 1
     else:
         status = 0
-    sql = '''update ww_admin set status=%s where id=%s''' % (status, id)
+    sql = '''update auth_user set is_active=%s where id=%s''' % (status, id)
     # print sql
     return unio().execute(sql)
 
@@ -219,7 +219,7 @@ def reset_user_passwd(id):
 
 def reset_admin_passwd(id):
     md5 = fun.mk_md5('000000')
-    sql = '''update ww_admin set password='%s' where id=%s''' % (md5, id)
+    sql = '''update auth_user set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)
 
@@ -249,7 +249,8 @@ def get_user_info(data):
 def add_admin(post):
     name = post.get('name')
     password = post.get('password')
-    sql = '''insert into ww_admin (name, password, created, status) VALUES ('%s', '%s', now(), 0);''' % (name, password)
+    email = post.get('email')
+    sql = '''insert into auth_user (username, password, date_joined, is_active, is_staff, email) VALUES ('%s', '%s', now(), 0, 1, '%s');''' % (name, fun.mk_md5(password), email)
     print sql
     try:
         if unio().execute(sql):

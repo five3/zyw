@@ -13,19 +13,21 @@
 			<thead> 
 				<tr> 
    					<th></th> 
-    				<th width="25%">账号</th>
-    				<th width="25%">注册时间</th>
-                    <th width="20%">状态</th>
-    				<th width="30%">操作</th>
+    				<th width="15%">账号</th>
+    				<th width="25%">Email</th>
+    				<th width="20%">注册时间</th>
+                    <th width="15%">状态</th>
+    				<th width="25%">操作</th>
 				</tr> 
 			</thead> 
 			<tbody>
                 {% for i in adminlist %}
 				<tr> 
    					<td><input type="checkbox"></td> 
-    				<td>{{i.name}}</a></td>
-    				<td>{{i.created | date:"Y-m-d H:i:s"}}</td>
-    				<td>{%ifequal i.status 1%}正常{%else%}失效{%endifequal%}</td>
+    				<td>{{i.username}}</td>
+    				<td>{{i.email}}</td>
+    				<td>{{i.date_joined | date:"Y-m-d H:i:s"}}</td>
+    				<td>{%ifequal i.is_active 1%}正常{%else%}失效{%endifequal%}</td>
     				<td style="width:120px;"><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">生效</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a>&nbsp;
                     <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a>&nbsp;

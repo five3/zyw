@@ -115,10 +115,12 @@ def gbook(req, action):
 
 @login_required
 def admin(req, action):
+    if not req.user.is_superuser:
+        msg = '你没有相关权限！'
+        return render_to_response('backend/msg.html', locals())
     settings = setting
-    print req.session
     if req.method=='GET':
-        if action=='list':
+        if action=='list' :
             page = req.GET.get('page', 1)
             if int(page) < 1:
                 page = 1
@@ -127,6 +129,8 @@ def admin(req, action):
             return render_to_response("backend/adminlist.html", locals())
         elif action=='new':
             return render_to_response("backend/addadmin.html", locals())
+        elif action=='setting':
+            return render_to_response("backend/setting.html", locals())
     elif req.method=='POST':
         if action=='new':
             r = controller.add_admin(req.POST)

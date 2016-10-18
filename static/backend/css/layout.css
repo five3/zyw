@@ -706,7 +706,7 @@ margin: -5px 0 5px 0;
 text-transform: uppercase;
 }
 
-fieldset input[type=text] {
+fieldset input[type=text], .field {
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
