@@ -290,7 +290,7 @@ def get_banners():
         pass
 
 def del_banner(id):
-    sql = '''DELETE FROM ww_banner where id=%d''' % id
+    sql = '''DELETE FROM ww_banner where id=%s''' % id
     print sql
     try:
         return unio().execute(sql)
