@@ -1,0 +1,70 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">Banner列表</h3>
+		</header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0">
+			<thead>
+				<tr>
+   					<th></th>
+    				<th width="40%">src</th>
+    				<th width="40%">url</th>
+    				<th width="20%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for i in banners %}
+				<tr>
+   					<td><input type="checkbox"></td>
+    				<td><a href="{{i.src}}" target="_blank">{{i.src}}</a></td>
+    				<td>{{i.url}}</td>
+                    <td><a href="javascript:void(0);" onclick="del_banner({{i.id}});">删除</a>&nbsp;</td>
+				</tr>
+                {% endfor %}
+			</tbody>
+			</table>
+			</div><!-- end of #tab1 -->
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+
+		<form action="/backend/admin/banner/" method="post" enctype="multipart/form-data">
+		<article class="module width_full">
+			<header><h3>Banner新建（最多添加10条记录）</h3></header>
+				<div class="module_content">
+						<fieldset>
+							<label>上传图片</label>
+							<input type="file" name="src" value=""> <span>文件大小为500K以内，分辨率为1200*350</span>
+						</fieldset>
+                        <fieldset>
+							<label>跳转地址</label>
+							<input type="text" name="url" value="">
+						</fieldset>
+						<div class="clear"></div>
+				</div>
+			<footer>
+				<div class="submit_link">
+					<input type="submit" value="提交" class="alt_btn">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
+{% block bottom %}
+<script>
+function del_banner(id){
+    if (confirm('确定操作？')){
+        $.post("/backend/admin/banner/",{id:id},function(result){
+            if (result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert('操作失败');
+            }
+            location.reload();
+        });
+    }
+}
+</script>
+{% endblock %}

@@ -6,23 +6,23 @@
 				<div class="module_content">
 						<fieldset>
 							<label>站名标题</label>
-							<input type="text" name="title" value="">
+							<input type="text" name="title" value="{{website_settings.title}}">
 						</fieldset>
                         <fieldset>
 							<label>关键字</label>
-							<input type="text" name="keywords" value="">
+							<input type="text" name="keywords" value="{{website_settings.keywords}}">
 						</fieldset>
                         <fieldset>
 							<label>网站描述</label>
-							<input type="text" class="field" name="desc" value="">
+							<input type="text" class="field" name="desc" value="{{website_settings.desc}}">
 						</fieldset>
                         <fieldset>
 							<label>网站版权</label>
-							<input type="text" class="field" name="copyright" value="">
+							<input type="text" class="field" name="copyright" value="{{website_settings.copyright}}">
 						</fieldset>
                         <fieldset>
 							<label>友情链接</label>
-							<textarea name="friend_link"></textarea>
+							<textarea name="friend_link" style="min-height: 200px;">{{website_settings.friend_link}}</textarea>
 						</fieldset>
 						<div class="clear"></div>
 				</div>

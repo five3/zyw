@@ -79,10 +79,10 @@ function reset_passwd(id){
         $.post("/backend/admin/reset_passwd/",{id:id},function(result){
             if (result.errorCode==0){
                 alert(result.msg);
+                location.reload();
             }else{
                 alert('操作失败');
             }
-            location.reload();
         });
     }
 }

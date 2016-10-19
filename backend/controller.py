@@ -141,7 +141,8 @@ def auth(req, data):
     username = data.get('username')
     password = data.get('password')
     user = authenticate(username=username, password=password)
-    if user is not None:
+    print
+    if user and user.is_active:
         login(req, user)
         return True
 
@@ -258,16 +259,49 @@ def add_admin(post):
     except:
         pass
 
+def get_settings():
+    sql = '''SELECT * FROM ww_setting where 1=1'''
+    print sql
+    try:
+        return unio().fetchOne(sql)
+    except:
+        pass
+
 def update_setting(post):
     title = post.get('title')
     keywords = post.get('keywords')
     desc = post.get('desc')
     copyright = post.get('copyright')
     friend_link = post.get('friend_link')
-    sql = '''UPDATE setting SET title='%s', keywords='%s', desc='%s', copyright='%s', friend_link='%s' where 1=1''' % (title, keywords, desc, copyright, friend_link)
+    sql = '''UPDATE ww_setting SET title='%s', keywords='%s', `desc`='%s', copyright='%s', friend_link='%s' where 1=1''' % (title, keywords, desc, copyright, friend_link)
     print sql
     try:
         if unio().execute(sql):
             return True
+    except:
+        pass
+
+def get_banners():
+    sql = '''SELECT * FROM ww_banner where 1=1'''
+    print sql
+    try:
+        return unio().fetchAll(sql)
+    except:
+        pass
+
+def del_banner(id):
+    sql = '''DELETE FROM ww_banner where id=%d''' % id
+    print sql
+    try:
+        return unio().execute(sql)
+    except:
+        pass
+
+def add_banner(url, file_path):
+    src = '/static' + file_path.split('static')[1].replace('\\', '/')
+    sql ='''INSERT INTO ww_banner (src, url) VALUES ('%s', '%s')''' % (src, url)
+    print sql
+    try:
+        return unio().execute(sql)
     except:
         pass

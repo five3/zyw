@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import json
 import controller
 from zhiyuw import function as fun
+from zhiyuw.config import reset_setting, global_settings
 
 setting = {'site_name': '职语网'}
 
@@ -113,6 +114,11 @@ def gbook(req, action):
         gbook_list = controller.get_gbook_list(req, page)
         return render_to_response("backend/gbooklist.html", locals())
 
+from django import forms
+class bannerForm(forms.Form):
+    url = forms.CharField(max_length=1024)
+    src = forms.FileField()
+
 @login_required
 def admin(req, action):
     if not req.user.is_superuser:
@@ -130,7 +136,11 @@ def admin(req, action):
         elif action=='new':
             return render_to_response("backend/addadmin.html", locals())
         elif action=='setting':
+            website_settings = controller.get_settings()
             return render_to_response("backend/setting.html", locals())
+        elif action=='banner':
+            banners = controller.get_banners()
+            return render_to_response("backend/banner.html", locals())
     elif req.method=='POST':
         if action=='new':
             r = controller.add_admin(req.POST)
@@ -143,9 +153,33 @@ def admin(req, action):
             r = controller.update_setting(req.POST)
             if r:
                 msg = '更新网站设置成功'
+                reset_setting(global_settings)
             else:
                 msg = '更新网站设置失败'
             return render_to_response('backend/msg.html', locals())
+        elif action=='banner':
+            id = req.POST.get('id', 0)
+            if id: ##delete
+                if controller.del_banner(id):
+                    msg = '删除成功'
+                else:
+                    msg = '删除失败'
+                return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
+            else: ##add
+                import os
+                from um import imageUp
+                img_dir = "%s/static/backend/images/banner" % os.getcwd()
+                file_path = imageUp.save_image(bannerForm, req.POST, req.FILES, img_dir, 'src')
+                if file_path:
+                    url = req.POST.get('url')
+                    if controller.add_banner(url, file_path):
+                        msg = "添加成功"
+                        reset_setting(global_settings)
+                    else:
+                        msg = '添加失败'
+                else:
+                    msg = '保存图片失败'
+                return render_to_response('backend/msg.html', locals())
 
         id = req.POST.get('id', 0)
         if id:
@@ -227,6 +261,8 @@ def login(req):
             return HttpResponseRedirect('/backend/')
         else:
             msg = '用户名或密码错误'
+            if not req.user.is_active:
+                msg = '该用户未生效'
             return render_to_response("backend/msg.html", locals())
 
 
