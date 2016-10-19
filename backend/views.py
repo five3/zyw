@@ -162,6 +162,7 @@ def admin(req, action):
             if id: ##delete
                 if controller.del_banner(id):
                     msg = '删除成功'
+					reset_setting(global_settings)
                 else:
                     msg = '删除失败'
                 return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
