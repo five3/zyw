@@ -16,7 +16,7 @@ DATABASES = {
         # Not used with sqlite3.
         "USER": "root",
         # Not used with sqlite3.
-        "PASSWORD": "changeit!",
+        "PASSWORD": "root",
         # Set to empty string for localhost. Not used with sqlite3.
         "HOST": "localhost",
         # Set to empty string for default. Not used with sqlite3.
@@ -25,7 +25,7 @@ DATABASES = {
 }
 
 DB_TYPE='mysql'
-DB_STRING='localhost/3306/root/changeit!/mzproject'
+DB_STRING='localhost/3306/root/root/mzproject'
 DB_TABEL_PREFIX='mz_'
 
 ROOT_PATH=os.getcwd()+'/'

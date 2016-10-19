@@ -139,6 +139,14 @@ def admin(req, action):
             else:
                 msg = '用户名已存在'
                 return render_to_response('backend/msg.html', locals())
+        elif action=='setting':
+            r = controller.update_setting(req.POST)
+            if r:
+                msg = '更新网站设置成功'
+            else:
+                msg = '更新网站设置失败'
+            return render_to_response('backend/msg.html', locals())
+
         id = req.POST.get('id', 0)
         if id:
             if action=='reset_passwd':

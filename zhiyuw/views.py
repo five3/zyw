@@ -1,16 +1,19 @@
 #！encoding: utf-8
 
 from django.shortcuts import render_to_response
-from config import position_imgs as pimg,settings as st
+from config import global_settings, reset_setting
 import controller
 import function as fun
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
+# reset_setting(global_settings)
+# print global_settings
+
 def index(req):
     # print req.session['site_host']
-    position_imgs = pimg
-    settings = st
+    req.session['banner_list']  = global_settings['banner_list']
+    req.session['settings'] = global_settings['settings']
     logo_image = fun.get_site_logo(req)
     xxc_list = controller.get_cate_list(req, 'xxc', 12)
     tzl_list = controller.get_cate_list(req, 'tzl', 12)
@@ -22,8 +25,6 @@ def index(req):
     return render_to_response("zhiyuw/index.html", locals(), context_instance = RequestContext(req))
 
 def kaituoqquan(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     ktq_list = [{'id': 1, 'zhuti': '主题名1', 'logo':'/static/uploadfiles/image/20150525/thumb_287a08c4865fda9bd348cfac4bf0b090.jpg', 'qiyeming':'企业名称', 'qiye_url':"#", 'credits':'新兵蛋', 'hangye':'财务', 'desc':'企业简介描述，不超过200字'},
@@ -47,8 +48,6 @@ def kaituoqquan(req):
     return render_to_response("zhiyuw/ktq.html", locals(), context_instance = RequestContext(req))
 
 def gengyunqun(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     name = req.GET.get('name')
@@ -76,8 +75,6 @@ cate_dict = controller.get_cate_dict()
 
 def category(req, cate):
     page = req.GET.get('page', 1)
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
@@ -86,8 +83,6 @@ def category(req, cate):
     return render_to_response("zhiyuw/category.html", locals(), context_instance = RequestContext(req))
 
 def second_cate(req, cate):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
@@ -97,8 +92,6 @@ def second_cate(req, cate):
     return render_to_response("zhiyuw/second_cate.html", locals(), context_instance = RequestContext(req))
 
 def gbook(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     if req.method=="POST":
         data = fun.warp_data(req.POST)
@@ -118,8 +111,6 @@ def gbook(req):
     return render_to_response("zhiyuw/gbook.html", locals(), context_instance = RequestContext(req))
 
 def contact(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name =  '联系我们'
@@ -128,8 +119,6 @@ def contact(req):
 
 import time
 def article(req, cate, id):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
@@ -142,8 +131,6 @@ def article(req, cate, id):
     return render_to_response("zhiyuw/article.html", locals(), context_instance = RequestContext(req))
 
 def login(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     cate_name = '用户登录'
     if req.method=='GET':
@@ -166,8 +153,6 @@ def logout(req):
     return HttpResponseRedirect("/zhiyuw")
 
 def register(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
     if req.method=='GET':
@@ -190,8 +175,6 @@ def register(req):
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
 
 def search(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     packagelist = None
     blog_list = controller.get_cate_list(req, 'bw', 10)
@@ -201,8 +184,6 @@ def search(req):
     return render_to_response("zhiyuw/search.html", locals(), context_instance = RequestContext(req))
 
 def member(req):
-    position_imgs = pimg
-    settings = st
     logo_image = fun.get_site_logo(req)
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
@@ -222,8 +203,6 @@ def comment(req):
 
 def qiye_comment(req):
     if req.method=='GET':
-        position_imgs = pimg
-        settings = st
         logo_image = fun.get_site_logo(req)
         data = fun.warp_data(req.GET)
         info = controller.get_user_info(data)

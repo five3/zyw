@@ -1,9 +1,15 @@
 #！encoding: utf-8
 __author__ = 'macy'
+from model import *
 
-settings = {'SITE_TITLE': "职语网", 'logincode':True, 'site_domain' : 'www.zhiyuw.com'}
-position_imgs = [{'url':'#','src':'/static/uploadfiles/image/20151223/banner01.jpg'},
-                     {'url':'#','src':'/static/uploadfiles/image/20151223/banner02.jpg'},
-                     {'url':'#','src':'/static/uploadfiles/image/20151223/banner03.jpg'},
-                     {'url':'#','src':'/static/uploadfiles/image/20151223/banner04.jpg'},
-                     {'url':'#','src':'/static/uploadfiles/image/20151223/banner05.jpg'}]
+sql = 'SELECT * FROM ww_setting where 1=1'
+sql2 = 'SELECT * FROM ww_banner where 1=1'
+
+global_settings = {
+    'settings' : unio().fetchOne(sql),
+    'banner_list' : unio().fetchAll(sql2)
+}
+
+def reset_setting(d):
+    d['settings'] = unio().fetchOne(sql)
+    d['banner_list'] = unio().fetchOne(sql2)

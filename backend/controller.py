@@ -250,7 +250,21 @@ def add_admin(post):
     name = post.get('name')
     password = post.get('password')
     email = post.get('email')
-    sql = '''insert into auth_user (username, password, date_joined, is_active, is_staff, email) VALUES ('%s', '%s', now(), 0, 1, '%s');''' % (name, fun.mk_md5(password), email)
+    sql = '''insert into auth_user (first_name, last_name, username, password, date_joined, last_login, is_active, is_staff, is_superuser, email) VALUES ('', '', '%s', '%s', now(), now(), 0, 1, 0, '%s');''' % (name, fun.mk_md5(password), email)
+    print sql
+    try:
+        if unio().execute(sql):
+            return True
+    except:
+        pass
+
+def update_setting(post):
+    title = post.get('title')
+    keywords = post.get('keywords')
+    desc = post.get('desc')
+    copyright = post.get('copyright')
+    friend_link = post.get('friend_link')
+    sql = '''UPDATE setting SET title='%s', keywords='%s', desc='%s', copyright='%s', friend_link='%s' where 1=1''' % (title, keywords, desc, copyright, friend_link)
     print sql
     try:
         if unio().execute(sql):

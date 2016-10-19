@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-<meta name="description" content="{% block meta_description %}职语网，找坐标的地方{% endblock %}">
-<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<meta name="keywords" content="{% block meta_keywords %}{{ req.session.settings.keywords }}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{{ req.session.settings.desc }}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if req.session.settings.title %} | {{ req.session.settings.title }}{% endif %}</title>
 <link rel="shortcut icon" href="{% static "favicon.ico" %}">
 
 {% compress css %}
@@ -245,7 +245,7 @@
 {% block position %}
 <div id="kinMaxShow">
     	<!-- 首页banner -->
-		{% for i in position_imgs %}
+		{% for i in req.session.banner_list %}
         <div>
         	<a href="{{i.url}}"><img src="{{i.src}}"  /></a>
         </div>
