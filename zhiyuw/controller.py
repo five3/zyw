@@ -283,3 +283,20 @@ def post_qiye_comment(req, data):
                                                data['shuoshuo'].replace('\r\n', '<br>'), fun.now(), data['ip'], fun.get_site_id(req))
     # print sql
     return unio().execute(sql)
+
+def get_valid_code():
+    exp, val = fun.get_valid_code()
+    sql = '''INSERT INTO ww_valid_code (express, value) VALUES ('%s', '%s')''' % (exp, val)
+    # print sql
+    rt = unio().executeInsert(sql)
+    if rt:
+        return exp, rt
+    else:
+        return '8*8', 1
+
+def validation_code(code_id):
+    sql = '''SELECT value FROM ww_valid_code WHERE id=%s''' % code_id
+    print sql
+    rt = unio().fetchOne(sql)
+    if rt:
+        return rt.get('value')

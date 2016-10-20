@@ -114,3 +114,16 @@ def get_total_page(total, num):
         return total / num
     else:
         return total / num + 1
+
+def get_valid_code():
+    import random
+    n = 2
+    nums = (0,1,2,3,4,5,6,7,8,9,10)
+    flags = ('+', '-', '*')
+    left = int(random.random()*len(nums))
+    middle = int(random.random()*len(flags))
+    right = int(random.random()*len(nums))
+    express = '%s%s%s' % (nums[left], flags[middle], nums[right])
+    value = eval(express)
+    return express, value
+

@@ -9,6 +9,30 @@ from django.template import RequestContext
 
 # reset_setting(global_settings)
 # print global_settings
+def valid_code(func):
+    def __warp(req):
+        if req.method=='POST':
+            value = controller.validation_code(req.POST.get('code_id'))
+            if not value or value!=req.POST.get('code'):
+                msg = '验证码错误'
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        ret = func(req)
+        return ret
+    return __warp
+
+def request_login(func):
+    def __warp(req):
+        if req.method=='POST':
+            if not req.session.get('isLogin'):
+                msg = '你需要登录才能发表评论'
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+            ret = func(req)
+            return ret
+        else:
+            msg = '请求方法不支持'
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+
+    return __warp
 
 def index(req):
     # print req.session['site_host']
@@ -153,7 +177,7 @@ def login(req):
         data = fun.warp_data(req.POST)
         r = controller.auth(req, data)
         if r:
-            print r
+            # print r
             req.session['isLogin'] = True
             req.session['info'] = r
             return HttpResponseRedirect("/members")
@@ -166,10 +190,13 @@ def logout(req):
     req.session['info'] = {}
     return HttpResponseRedirect("/zhiyuw")
 
+@valid_code
 def register(req):
     logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
     if req.method=='GET':
+        express, express_id = controller.get_valid_code()
+        fun.get_valid_code()
         return render_to_response("zhiyuw/register.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = fun.warp_data(req.POST)
@@ -204,6 +231,7 @@ def member(req):
     article_list = controller.get_user_article(data, req)
     return render_to_response("zhiyuw/member.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def comment(req):
     data = fun.warp_data(req.POST)
     data['id'] = req.session.get('info',{}).get('id','0')
@@ -232,3 +260,4 @@ def qiye_comment(req):
         else:
             msg = '提交说说失败'
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+
