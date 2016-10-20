@@ -50,7 +50,10 @@
                     {% ifnotequal page 1 %}
                         <a href="/zhiyuw/ktq?{{prepage}}">上一页</a>
                     {% endifnotequal %}
-                    <a href="/zhiyuw/ktq?{{nextpage}}">下一页</a>
+                    <label>{{page}}/{{total_page}}</label>
+                    {% ifnotequal page total_page %}
+                        <a href="/zhiyuw/ktq?{{nextpage}}">下一页</a>
+                    {% endifnotequal %}
                 </div>
             </div>
         </div>

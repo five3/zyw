@@ -38,6 +38,19 @@ def get_cate_list(req, cate, n, page=1):
     # print sql
     return unio().fetchAll(sql)
 
+def get_cate_total(req, cate):
+    sql = '''select count(post.title) as total
+            from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
+            where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
+            and cate.blogpost_id=post.id''' % (fun.get_site_id(req), cate)
+    print sql
+    rt = unio().fetchOne(sql)
+    if rt:
+        return rt['total']
+    else:
+        return 1
+
+
 def get_article(id):
     sql = '''update blog_blogpost set views=views+1 where id=%s''' % id
     unio().execute(sql)
@@ -88,6 +101,25 @@ def get_ktq_list(req, n, zhuanye=None, page=1):
     rs = unio().fetchAll(sql)
     return fun.convert_dengji_list(*rs)
 
+def get_ktq_total(req, zhuanye=None):
+    if zhuanye:
+        sql = '''select count(vip.id) as total
+            from ww_member_vip vip, ww_member, ww_zhuanye
+            where ww_member.status=1 and ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
+            ''' % (fun.get_site_id(req), zhuanye)
+    else:
+        sql = '''select count(vip.id) as total
+            from ww_member_vip vip, ww_member, ww_zhuanye
+            where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
+             ''' % (fun.get_site_id(req))
+    print sql
+    rt = unio().fetchOne(sql)
+    if rt:
+        return rt['total']
+    else:
+        return 1
+
+
 def get_gyq_list(req, n, zhiwei=None, page=1):
     index = (page-1)*n
     if zhiwei:
@@ -105,6 +137,24 @@ def get_gyq_list(req, n, zhiwei=None, page=1):
     # print sql
     rs = unio().fetchAll(sql)
     return fun.convert_dengji_list(*rs)
+
+def get_gyq_total(req, zhiwei=None):
+    if zhiwei:
+        sql = '''select count(ww_member.id) as total
+                from ww_member_normal normal,ww_member,ww_zhiwei
+                where ww_member.status=1 and ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
+                ''' % (fun.get_site_id(req), zhiwei)
+    else:
+        sql = '''select count(ww_member.id) as total
+                from ww_member_normal normal,ww_member,ww_zhiwei
+                where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
+                ''' % (fun.get_site_id(req))
+    print sql
+    rt = unio().fetchOne(sql)
+    if rt:
+        return rt['total']
+    else:
+        return 1
 
 def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
