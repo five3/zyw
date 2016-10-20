@@ -41,10 +41,12 @@ def kaituoqquan(req):
         prepage = 'name=%s&page=%s' % (name, page-1)
         nextpage = 'name=%s&page=%s' % (name, page+1)
         ktq_list = controller.get_ktq_list(req, 20, name, page)
+        base_path = '?name=%s&page=' % name
     else:
         prepage = 'page=%s' % (page-1,)
         nextpage = 'page=%s' % (page+1,)
         ktq_list = controller.get_ktq_list(req, 20, name, page)
+        base_path = '?page='
     total = controller.get_ktq_total(req, name)
     total_page = fun.get_total_page(total, 20)
     return render_to_response("zhiyuw/ktq.html", locals(), context_instance = RequestContext(req))
@@ -64,10 +66,12 @@ def gengyunqun(req):
         prepage = 'name=%s&page=%s' % (name, page-1)
         nextpage = 'name=%s&page=%s' % (name, page+1)
         gyq_list = controller.get_gyq_list(req, 20, name, page)
+        base_path = '?name=%s&page=' % name
     else:
         prepage = 'page=%s' % (page-1,)
         nextpage = 'page=%s' % (page+1,)
         gyq_list = controller.get_gyq_list(req, 20, name, page)
+        base_path = '?page='
     total = controller.get_gyq_total(req, name)
     total_page = fun.get_total_page(total, 20)
     return render_to_response("zhiyuw/gyq.html", locals(), context_instance = RequestContext(req))

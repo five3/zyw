@@ -29,6 +29,10 @@
                     {% ifnotequal page total_page %}
                         <a href="/zhiyuw/{{cate}}?page={{page|add:1}}">下一页</a>
                     {% endifnotequal %}
+                    <p style="display:inline-block;">
+                        <input type="text" style="width:30px;" placeholder="页码" id="page_num"/>
+                        <input type="button" onclick="location.href=location.pathname + '?page=' + $('#page_num').val()" value="Go!">
+                    </p>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ def get_cate_total(req, cate):
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id''' % (fun.get_site_id(req), cate)
-    print sql
+    # print sql
     rt = unio().fetchOne(sql)
     if rt:
         return rt['total']
@@ -112,7 +112,7 @@ def get_ktq_total(req, zhuanye=None):
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
              ''' % (fun.get_site_id(req))
-    print sql
+    # print sql
     rt = unio().fetchOne(sql)
     if rt:
         return rt['total']
@@ -149,7 +149,7 @@ def get_gyq_total(req, zhiwei=None):
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
                 ''' % (fun.get_site_id(req))
-    print sql
+    # print sql
     rt = unio().fetchOne(sql)
     if rt:
         return rt['total']
