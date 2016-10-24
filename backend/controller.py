@@ -305,3 +305,26 @@ def add_banner(url, file_path):
         return unio().execute(sql)
     except:
         pass
+
+
+def save_content(data):
+        short_url = '/xx/xx'
+        sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
+                short_url, content, user_id, user_name, allow_comments, views, cate2)
+                values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+                  (0, 1, data.get('zhiwei'), data.get('zhiwei'), fun.now(), 1,
+                  fun.now(), short_url, data.get('content'), 0, 'auto', 1, 0, '')
+        # print sql
+        lastid = unio().executeInsert(sql)
+        if lastid:
+            sql = '''insert blog_blogpost_categories (blogcategory_id, blogpost_id) values
+                    ('%s', '%s')''' % (data.get('cate'), lastid)
+            # print sql
+            r = unio().executeInsert(sql)
+        if r:
+            sql = '''select slug from blog_blogcategory where id=%s''' % data.get('cate')
+            r = unio().fetchOne(sql)
+            slug = r.get('slug')
+            short_url = '/zhiyuw/%s/show-%s.html' % (slug, lastid)
+            sql = '''update blog_blogpost set short_url='%s' where id=%s''' %(short_url, lastid)
+            return unio().execute(sql)
