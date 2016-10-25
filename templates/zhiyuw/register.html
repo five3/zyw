@@ -17,7 +17,7 @@
         <div id="test2_1" class="">
             <div class="">
                 <div class="">
-                <form method="post" action="/zhiyuw/register" name="formktz" id="reg_form"  onsubmit="return validate()">
+                <form method="post" action="/zhiyuw/register" name="formktz" id="reg_form" >
                 <input type="hidden" name="submit" value="tj" />
                 <p>
                 会员类型:<select name="utype" class="reg_field" style=" border: 1px solid #cccccc;">
@@ -39,7 +39,7 @@
                     &nbsp;
                     </span>
                 </p><p>
-                电子邮箱:<input type="email" onblur="checkemail(this)" name="email" id="email" value=""  class="reg_field"><span class="red" id="err_email">
+                电子邮箱:<input type="email" name="email" id="email" value=""  class="reg_field"><span class="red" id="err_email">
                     &nbsp;
                     </span>
                 </p>
@@ -54,7 +54,10 @@
                     </p>
                 {% endif %}
                 <p>
-                <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image" onclick="javascript:formktz.submit();" style="display:block; margin:10px 60px;">
+                    <input type="checkbox" name="agreen" id="agreen" /> 我同意<a href="/zhiyuw/agreen.html" target="_blank">注册协议</a>中相关协议说明
+                </p>
+                <p>
+                <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image"  style="display:block; margin:10px 60px;">
                 </p>
                 </form>
                 </div>
@@ -79,7 +82,24 @@
             $('#err_password2').text('两次密码不一致');
         }
     }
-    function checkemail(t){
-    }
+
+    $('#reg_form').on('submit', function(e){
+        var email = $('#email').val().trim();
+        if (email==''){
+            alert('邮箱不能为空');
+            return false;
+        }
+        var id_code = $('#id_code').val().trim();
+        if (id_code==''){
+            alert('请填写验证码');
+            return false;
+        }
+        var is_agreen = $('#agreen').is(':checked');
+        if (is_agreen){
+        }else{
+            alert('请先查看并勾选注册协议！')
+            return false;
+        }
+    })
 </script>
 {% endblock %}

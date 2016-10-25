@@ -24,12 +24,14 @@ def get_cate_list():
     # print cate1
     return cate1, cate2
 
+
 def get_post_info(id):
     sql = '''select post.id, post.title, post.content, post.views, post.cate2, post.status, cate.id as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id''' % id
     # print sql
     return unio().fetchOne(sql)
+
 
 def get_post_list(req, page=1, num=10):
     index = (int(page)-1)*num
@@ -40,6 +42,7 @@ def get_post_list(req, page=1, num=10):
             order by post.created desc limit %s,%s''' % (fun.get_site_id(req), index, num)
     # print sql
     return unio().fetchAll(sql)
+
 
 def save_post(req, data):
     id = data.get('id', 0)
@@ -89,6 +92,7 @@ def del_post(id):
     sql = '''delete from blog_blogpost_categories where blogpost_id=%s''' % id
     return unio().execute(sql)
 
+
 def get_comment_list(req, page=1, num=10):
     index = (int(page)-1)*num
     sql = '''select id, comment, user_name, submit_date
@@ -96,9 +100,11 @@ def get_comment_list(req, page=1, num=10):
             where is_removed=0 and site_id=%s order by submit_date desc limit %s,%s''' % (fun.get_site_id(req), index, num)
     return unio().fetchAll(sql)
 
+
 def get_comment_info(id):
     sql = '''select id, comment from django_comments where id=%s''' % id
     return unio().fetchOne(sql)
+
 
 def save_comment(data):
     id = data.get('id')
@@ -109,9 +115,11 @@ def save_comment(data):
     else:
         sql = ''''''
 
+
 def del_comment(id):
     sql = '''update django_comments set is_removed=1 where id=%s''' % id
     return unio().execute(sql)
+
 
 def get_gbook_list(req, page, num=10):
     if page:
@@ -123,9 +131,11 @@ def get_gbook_list(req, page, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+
 def del_gbook(id):
     sql = '''delete from ww_gbook where id=%s''' % id
     return unio().execute(sql)
+
 
 def get_gbook_info(id):
     sql = '''select name, tel, content from ww_gbook where id=%s''' % id
@@ -136,6 +146,7 @@ def get_gbook_info(id):
              <div class="Murphy_list fl"><strong>留言内容</strong><p>%s</p></div></div>''' % (
             r['name'], r['tel'], r['content'])
 
+
 def auth(req, data):
     from django.contrib.auth import authenticate, login
     username = data.get('username')
@@ -145,6 +156,7 @@ def auth(req, data):
     if user and user.is_active:
         login(req, user)
         return True
+
 
 def get_user_list(req, page, num=10):
     if page:
@@ -157,6 +169,7 @@ def get_user_list(req, page, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+
 def get_admin_list(req, page, num=10):
     if page:
         page = int(page)
@@ -167,6 +180,7 @@ def get_admin_list(req, page, num=10):
         index, num)
     # print sql
     return unio().fetchAll(sql)
+
 
 def get_admin_pages(req, num=10):
     sql = '''select count(id) as pages from auth_user where is_staff=1'''
@@ -181,6 +195,7 @@ def get_admin_pages(req, num=10):
     else:
         return 1
 
+
 def get_user_pages(req, num=10):
     sql = '''select count(id) as pages from ww_member where site_id=%s''' % fun.get_site_id(req)
     print sql
@@ -194,6 +209,7 @@ def get_user_pages(req, num=10):
     else:
         return 1
 
+
 def audit_user(id, action):
     if action=='pass':
         status = 1
@@ -202,6 +218,7 @@ def audit_user(id, action):
     sql = '''update ww_member set status=%s where id=%s''' % (status, id)
     # print sql
     return unio().execute(sql)
+
 
 def audit_admin(id, action):
     if action=='pass':
@@ -212,17 +229,20 @@ def audit_admin(id, action):
     # print sql
     return unio().execute(sql)
 
+
 def reset_user_passwd(id):
     md5 = fun.mk_md5('000000')
     sql = '''update ww_member set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)
 
+
 def reset_admin_passwd(id):
     md5 = fun.mk_md5('000000')
     sql = '''update auth_user set password='%s' where id=%s''' % (md5, id)
     # print sql
     return unio().execute(sql)
+
 
 def audit_post(data):
     sql = '''update blog_blogpost set status='%s' where id=%s''' % (data.get('status',1),data.get('id',0))
@@ -231,6 +251,7 @@ def audit_post(data):
         return {'msg': 'success', 'errorCode' : 0}
     else:
         return {'msg': 'fail', 'errorCode' : -1}
+
 
 def get_user_info(data):
     t = data.get('t')
@@ -247,6 +268,7 @@ def get_user_info(data):
     # print sql
     return unio().fetchOne(sql)
 
+
 def add_admin(post):
     name = post.get('name')
     password = post.get('password')
@@ -259,6 +281,7 @@ def add_admin(post):
     except:
         pass
 
+
 def get_settings():
     sql = '''SELECT * FROM ww_setting where 1=1'''
     print sql
@@ -266,6 +289,7 @@ def get_settings():
         return unio().fetchOne(sql)
     except:
         pass
+
 
 def update_setting(post):
     title = post.get('title')
@@ -289,6 +313,7 @@ def get_banners():
     except:
         pass
 
+
 def del_banner(id):
     sql = '''DELETE FROM ww_banner where id=%s''' % id
     print sql
@@ -296,6 +321,7 @@ def del_banner(id):
         return unio().execute(sql)
     except:
         pass
+
 
 def add_banner(url, file_path):
     src = '/static' + file_path.split('static')[1].replace('\\', '/')
@@ -308,23 +334,35 @@ def add_banner(url, file_path):
 
 
 def save_content(data):
-        short_url = '/xx/xx'
-        sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
-                short_url, content, user_id, user_name, allow_comments, views, cate2)
-                values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (0, 1, data.get('zhiwei'), data.get('zhiwei'), fun.now(), 1,
-                  fun.now(), short_url, data.get('content'), 0, 'auto', 1, 0, '')
+    short_url = '/xx/xx'
+    sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
+            short_url, content, user_id, user_name, allow_comments, views, cate2)
+            values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+              (0, 1, data.get('zhiwei'), data.get('zhiwei'), fun.now(), 1,
+              fun.now(), short_url, data.get('content'), 0, 'auto', 1, 0, '')
+    # print sql
+    lastid = unio().executeInsert(sql)
+    if lastid:
+        sql = '''insert blog_blogpost_categories (blogcategory_id, blogpost_id) values
+                ('%s', '%s')''' % (data.get('cate'), lastid)
         # print sql
-        lastid = unio().executeInsert(sql)
-        if lastid:
-            sql = '''insert blog_blogpost_categories (blogcategory_id, blogpost_id) values
-                    ('%s', '%s')''' % (data.get('cate'), lastid)
-            # print sql
-            r = unio().executeInsert(sql)
-        if r:
-            sql = '''select slug from blog_blogcategory where id=%s''' % data.get('cate')
-            r = unio().fetchOne(sql)
-            slug = r.get('slug')
-            short_url = '/zhiyuw/%s/show-%s.html' % (slug, lastid)
-            sql = '''update blog_blogpost set short_url='%s' where id=%s''' %(short_url, lastid)
-            return unio().execute(sql)
+        r = unio().executeInsert(sql)
+    if r:
+        sql = '''select slug from blog_blogcategory where id=%s''' % data.get('cate')
+        r = unio().fetchOne(sql)
+        slug = r.get('slug')
+        short_url = '/zhiyuw/%s/show-%s.html' % (slug, lastid)
+        sql = '''update blog_blogpost set short_url='%s' where id=%s''' %(short_url, lastid)
+        return unio().execute(sql)
+
+
+def get_agreen():
+    sql = '''SELECT content FROM ww_agreen where 1=1'''
+    print sql
+    return unio().fetchOne(sql)
+
+
+def update_agreen(content):
+    sql = '''UPDATE ww_agreen SET content='%s' where 1=1''' % content
+    print sql
+    return unio().execute(sql)

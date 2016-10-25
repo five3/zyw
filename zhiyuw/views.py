@@ -215,6 +215,13 @@ def register(req):
                 msg = '该用户名或邮箱已注册,'
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
 
+def agreen(req):
+    logo_image = fun.get_site_logo(req)
+    cate_name = '用户注册'
+    if req.method=='GET':
+        agreen = controller.get_agreen()
+        return render_to_response("zhiyuw/agreen.html", locals(), context_instance = RequestContext(req))
+
 def search(req):
     logo_image = fun.get_site_logo(req)
     packagelist = None

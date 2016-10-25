@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from pyquery import PyQuery as pq
-import controller
+# import controller
 
 class Crawler :
     def __init__(self, base_url, items, logger, data_ite=None, encoding='utf-8'):
@@ -10,7 +10,7 @@ class Crawler :
         self.items = items
         self.logger = logger
         if not data_ite:
-            self.data_ite = self.ite(100, 1000)
+            self.data_ite = self.ite(11000, 15000)
 
     def run(self):
         for i in self.data_ite:
@@ -50,7 +50,8 @@ def zp_logger(d):
     data['zhiwei'] = d.get('zhiwei')
     data['content'] = '<h2>%s</h2><h4>%s</h4><p>职位介绍：<br>%s</p>' % (d.get('zhiwei'), d.get('company'), d.get('detail'))
     data['cate'] = 24
-    print data
+    with open('data.txt', 'a') as f:
+        f.write(data)
     # controller.save_content(data)
 
 if __name__=='__main__':

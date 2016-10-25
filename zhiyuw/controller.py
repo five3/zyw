@@ -206,6 +206,7 @@ def reg_user(req, data):
     sql = '''insert into ww_member (username, nickname, password, email, logo, created, regip, status, utype, site_id, bgmusic, credits)
             values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
             ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, fun.now(), data['ip'], data['utype'], fun.get_site_id(req), '/static/members/cy_images/music/gohome.mp3')
+    print sql
     try:
         r = unio().executeInsert(sql)
         if not r:
@@ -216,7 +217,8 @@ def reg_user(req, data):
         elif data['utype']=='ktq':
             sql = '''insert into ww_member_vip (id) values (%s)''' % r
             return unio().execute(sql)
-    except:
+    except Exception, e:
+        print e.message
         return -2
 
 def add_comments(req, data):
@@ -300,3 +302,12 @@ def validation_code(code_id):
     rt = unio().fetchOne(sql)
     if rt:
         return rt.get('value')
+
+def get_agreen():
+    sql = '''SELECT content FROM ww_agreen WHERE 1=1'''
+    # print sql
+    rt = unio().fetchOne(sql)
+    if rt:
+        return rt.get('content')
+    else:
+        ''

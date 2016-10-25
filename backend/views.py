@@ -195,6 +195,28 @@ def admin(req, action):
             msg = 'id 无效'
             return render_to_response("backend/msg.html", locals())
 
+@login_required
+def manage(req, action):
+    settings = setting
+    if req.method=='GET':
+        if action=='agreen':
+            agreen = controller.get_agreen()
+            return render_to_response("backend/agreen.html", locals())
+        else:
+            msg = '无效url访问'
+        return render_to_response("backend/msg.html", locals())
+    else:
+        if action=='agreen':
+            content = req.POST.get('content', '')
+            if content.strip():
+                if controller.update_agreen(content):
+                    msg = '更新协议成功'
+                else:
+                    msg = '更新协议失败，请联系管理员'
+            else:
+                msg = '内容无效'
+            return render_to_response("backend/msg.html", locals())
+
 
 @login_required
 def users(req, action):
