@@ -1,0 +1,20 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<form action="/backend/manage/agreen/" method="post">
+		<article class="module width_full">
+			<header><h3>注册协议管理</h3></header>
+				<div class="module_content">
+						<fieldset>
+							<label>内容</label>
+							<textarea style="width:920px; height:310px;" name="content">{{agreen.content}}</textarea>
+						</fieldset>
+						<div class="clear"></div>
+				</div>
+			<footer>
+				<div class="submit_link">
+					<input type="submit" value="发布" class="alt_btn">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
