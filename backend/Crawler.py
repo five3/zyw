@@ -4,13 +4,13 @@ from pyquery import PyQuery as pq
 # import controller
 
 class Crawler :
-    def __init__(self, base_url, items, logger, data_ite=None, encoding='gbk'):
+    def __init__(self, base_url, items, logger, data_ite=None, encoding='gbk', ite_start=1, ite_end=100):
         self.base_url = base_url
         self.encoding = encoding
         self.items = items
         self.logger = logger
         if not data_ite:
-            self.data_ite = self.ite(13000, 15000)
+            self.data_ite = self.ite(ite_start, ite_end)
 
     def run(self):
         for i in self.data_ite:
@@ -52,9 +52,11 @@ def zp_logger(d):
     data['cate'] = 24
     print data
     with open('data.txt', 'a') as f:
-        f.write(str(data))
+        f.write(str(data)+'\n')
     # controller.save_content(data)
+zx_items = {
 
+}
 if __name__=='__main__':
-    crawler = Crawler(urls['zhaopin_url_format'], zp_items, zp_logger)
+    crawler = Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=13000, ite_end=15000)
     crawler.run()
