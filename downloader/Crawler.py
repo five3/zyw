@@ -44,8 +44,8 @@ def get_index(x):
             return f.read()
     except:
         pass
-
-if __name__=='__main__':
+		
+def start():
     threads = []
     zp_start = get_index('zp')
     if zp_start:
@@ -69,3 +69,6 @@ if __name__=='__main__':
     for t in threads:
         t.join()
 
+		
+if __name__=='__main__':
+    start()
