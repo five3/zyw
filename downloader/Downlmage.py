@@ -24,3 +24,7 @@ class DownloadImage:
                     f.flush()
             f.close()
         return full_name
+
+if __name__=='__main__':
+    di = DownloadImage('./imgs')
+    di.download_image('https://www.baidu.com/img/baidu_jgylogo3.gif')

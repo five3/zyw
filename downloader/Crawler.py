@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 from pyquery import PyQuery as pq
 from Config import urls, config
+import threading
 from Items import *
 from Logger import *
 
-class Crawler :
+
+class Crawler(threading.Thread):
     def __init__(self, base_url, items, logger, data_ite=None, encoding='gbk', ite_start=1, ite_end=100):
+        threading.Thread.__init__(self)
         self.base_url = base_url
         self.encoding = encoding
         self.items = items
@@ -43,14 +46,14 @@ def get_index(x):
         pass
 
 if __name__=='__main__':
-    # zp_start = get_index('zp')
-    # if zp_start:
-    #     zp_start = int(zp_start)
-    # else:
-    #     zp_start = 13000
-    # print zp_start
-    # zpcrawler = Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start, ite_end=zp_start+5)
-    # zpcrawler.run()
+    threads = []
+    zp_start = get_index('zp')
+    if zp_start:
+        zp_start = int(zp_start)
+    else:
+        zp_start = 13000
+    print zp_start
+    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start, ite_end=zp_start+10))
 
     zx_start = get_index('zx')
     if zx_start:
@@ -58,6 +61,11 @@ if __name__=='__main__':
     else:
         zx_start = 1000
     print zx_start
-    zxcrawler = Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start, ite_end=zx_start+5)
-    zxcrawler.run()
+    threads.append(Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start, ite_end=zx_start+10))
+
+    for t in threads:
+        t.start()
+
+    for t in threads:
+        t.join()
 
