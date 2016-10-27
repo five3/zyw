@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from pyquery import PyQuery as pq
-from Config import urls
+from Config import urls, config
 from Items import *
 from Logger import *
 
@@ -35,9 +35,29 @@ class Crawler :
             yield i
 
 
+def get_index(x):
+    try:
+        with open(config[x]['log'], 'r') as f:
+            return f.read()
+    except:
+        pass
+
 if __name__=='__main__':
-    zpcrawler = Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=15270, ite_end=15272)
-    zpcrawler.run()
-    # zxcrawler = Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=6719, ite_end=6720)
-    # zxcrawler.run()
+    # zp_start = get_index('zp')
+    # if zp_start:
+    #     zp_start = int(zp_start)
+    # else:
+    #     zp_start = 13000
+    # print zp_start
+    # zpcrawler = Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start, ite_end=zp_start+5)
+    # zpcrawler.run()
+
+    zx_start = get_index('zx')
+    if zx_start:
+        zx_start = int(zx_start)
+    else:
+        zx_start = 1000
+    print zx_start
+    zxcrawler = Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start, ite_end=zx_start+5)
+    zxcrawler.run()
 

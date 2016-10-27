@@ -6,12 +6,26 @@ from Config import config
 import os
 
 
+def zp_logger(d):
+    data = {}
+    if not d.get('zhiwei'):
+        print 'no data get'
+        return
+    with open(config['zp']['log'], 'w') as f:
+        f.write('%s\n' % d.get('index'))
+    data['title'] = d.get('zhiwei').text()
+    data['content'] = u'<h2>%s</h2><h4>%s</h4><p>职位介绍：<br>%s</p>' % (d.get('zhiwei').text(), d.get('company').text(), d.get('detail').text())
+    data['cate'] = 24
+    # print data['content']
+    controller.save_content(data)
+
+
 def zx_logger(d):
     data = {}
     if not d.get('title'):
         print 'no data get'
         return
-    with open('zx.index', 'w') as f:
+    with open(config['zx']['log'], 'w') as f:
         f.write('%s\n' % d.get('index'))
     data['title'] = d.get('title').text()
     data['content'] = d.get('content').html()
@@ -27,15 +41,3 @@ def zx_logger(d):
     controller.save_content(data)
 
 
-def zp_logger(d):
-    data = {}
-    if not d.get('zhiwei'):
-        print 'no data get'
-        return
-    with open('zp.index', 'w') as f:
-        f.write('%s\n' % d.get('index'))
-    data['title'] = d.get('zhiwei').text()
-    data['content'] = u'<h2>%s</h2><h4>%s</h4><p>职位介绍：<br>%s</p>' % (d.get('zhiwei').text(), d.get('company').text(), d.get('detail').text())
-    data['cate'] = 24
-    # print data['content']
-    controller.save_content(data)

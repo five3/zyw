@@ -6,6 +6,15 @@ cwd = os.path.dirname(__file__)
 config = {
     'images_dir' : os.path.join(cwd, '../static/uploadfiles'),
     'static_dir' : '/static/uploadfiles',
+    'zp' : {
+        'log' : 'zp.index'
+    },
+    'zx' : {
+        'log' : 'zx.index'
+    },
+    'gyrc' : {
+        'log' : 'gyrc.index'
+    }
 }
 
 urls = {
