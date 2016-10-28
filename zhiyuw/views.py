@@ -41,11 +41,14 @@ def index(req):
     logo_image = fun.get_site_logo(req)
     xxc_list = controller.get_cate_list(req, 'xxc', 12)
     tzl_list = controller.get_cate_list(req, 'tzl', 12)
+    bw_list = controller.get_cate_list(req, 'bw', 12)
     ktq_list = controller.get_ktq_list(req, 10)
+    gyq_list = controller.get_gyq_list(req, 10)
     alh_list = controller.get_alh_list(req, 12)
     fsb_list = controller.get_fsb_list(req, 12)
-    bw_list = controller.get_cate_list(req, 'bw', 12)
-    gyq_list = controller.get_gyq_list(req, 10)
+    zpcj_list = controller.get_cate_list(req, 'zpcj', 12)
+    zxcj_list = controller.get_cate_list(req, 'zxcj', 12)
+    gyrc_list = controller.get_cate_list(req, 'gyrc', 12)
     return render_to_response("zhiyuw/index.html", locals(), context_instance = RequestContext(req))
 
 def kaituoqquan(req):
@@ -157,11 +160,14 @@ def contact(req):
 
 import time
 def article(req, cate, id):
+    art = controller.get_article(id)
+    if not art:
+        msg = '当前文章不存在或者未生效，请联系管理员'
+        return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
     blog_list = controller.get_cate_list(req, 'bw', 10)
-    art = controller.get_article(id)
     referer = req.path
     timestamp = int(time.time())
     comments = controller.get_comments(id)
