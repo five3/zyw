@@ -5,7 +5,7 @@ from Config import urls, config
 import threading
 from Items import *
 from Logger import *
-
+from urlparse import urlparse
 
 class Crawler(threading.Thread):
     def __init__(self, base_url, items, logger, data_ite=None, encoding='gbk', ite_start=1, ite_end=100):
@@ -28,6 +28,13 @@ class Crawler(threading.Thread):
         d = {'index' : index}
         for k, v in self.items.items():
             d[k] = doc(v)
+        parsed = urlparse(url)
+        d['request_info'] = {
+            'proxy' :  parsed.scheme,
+            'hostname' : parsed.hostname,
+            'port' : parsed.port or 80,
+            'url' : url
+        }
         self.logger(d)
 
     def set_ite(self, data_ite):
@@ -44,7 +51,8 @@ def get_index(x):
             return f.read()
     except:
         pass
-		
+
+
 def start():
     threads = []
     zp_start = get_index('zp')
@@ -69,6 +77,6 @@ def start():
     for t in threads:
         t.join()
 
-		
+
 if __name__=='__main__':
     start()

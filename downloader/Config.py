@@ -14,7 +14,7 @@ config = {
     },
     'gyrc' : {
         'log' : 'gyrc.index'
-    }
+    },'log': 'downloader.log'
 }
 
 urls = {

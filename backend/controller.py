@@ -336,10 +336,10 @@ def add_banner(url, file_path):
 def save_content(data):
     short_url = '/xx/xx'
     sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
-            short_url, content, user_id, user_name, allow_comments, views, cate2)
-            values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+            short_url, content, user_id, user_name, allow_comments, views, cate2, reference)
+            values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
               (0, 1, data.get('title'), data.get('title'), fun.now(), 1,
-              fun.now(), short_url, data.get('content', '').replace("'", "\\'"), 0, 'auto', 1, 0, '')
+              fun.now(), short_url, data.get('content', '').replace("'", "\\'"), 0, 'auto', 1, 0, '', data.get('reference', ''))
     # print sql
     try:
         lastid = unio().executeInsert(sql)

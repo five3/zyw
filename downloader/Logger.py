@@ -14,7 +14,7 @@ def zp_logger(d):
     data['title'] = d.get('zhiwei').text()
     data['content'] = u'<h2>%s</h2><h4>%s</h4><p>职位介绍：<br>%s</p>' % (d.get('zhiwei').text(), d.get('company').text(), d.get('detail').text())
     data['cate'] = 24
-    # print data['content']
+    data['reference'] = d.get('request_info').get('url')
     controller.save_content(data)
     with open(config['zp']['log'], 'w') as f:
         f.write('%s\n' % d.get('index'))
@@ -31,11 +31,17 @@ def zx_logger(d):
     downloader = DownloadImage(des)
     for img in d.get('imgs'):
         src = img.attrib.get('src')
+        if not src.startswith('http'):
+            src = '%s://%s:%s%s' % (d.get('request_info').get('proxy'), d.get('request_info').get('hostname'), d.get('request_info').get('port', 80), src)
         img_path = downloader.download_image(src)
-        img_static_path = config.get('static_dir') + img_path.replace(config.get('images_dir'), '')
-        data['content'].replace('src="%s"' % src, 'src="%s"' % img_static_path)
+        if img_path:
+            img_static_path = config.get('static_dir') + img_path.replace(config.get('images_dir'), '')
+            data['content'] = data['content'].replace('src="%s"' % src, 'src="%s"' % img_static_path)
+        else:
+            with open(config.get('log'), 'a') as f:
+                f.write('Download Image Fail "' + src + '" For url:' + d.get('request_info').get('url'))
     data['cate'] = 25
-    # print data['content']
+    data['reference'] = d.get('request_info').get('url')
     controller.save_content(data)
     with open(config['zx']['log'], 'w') as f:
         f.write('%s\n' % d.get('index'))	
