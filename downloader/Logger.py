@@ -32,7 +32,7 @@ def zx_logger(d):
     des = os.path.join(config.get('images_dir'), 'zx')
     downloader = DownloadImage(des)
     for img in d.get('imgs'):
-        src = img.attr('src')
+        src = img.attrib.get('src')
         img_path = downloader.download_image(src)
         img_static_path = config.get('static_dir') + img_path.replace(config.get('images_dir'), '')
         data['content'].replace('src="%s"' % src, 'src="%s"' % img_static_path)
