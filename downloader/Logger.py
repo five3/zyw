@@ -11,13 +11,13 @@ def zp_logger(d):
     if not d.get('zhiwei'):
         print 'no data get'
         return
-    with open(config['zp']['log'], 'w') as f:
-        f.write('%s\n' % d.get('index'))
     data['title'] = d.get('zhiwei').text()
     data['content'] = u'<h2>%s</h2><h4>%s</h4><p>职位介绍：<br>%s</p>' % (d.get('zhiwei').text(), d.get('company').text(), d.get('detail').text())
     data['cate'] = 24
     # print data['content']
     controller.save_content(data)
+    with open(config['zp']['log'], 'w') as f:
+        f.write('%s\n' % d.get('index'))
 
 
 def zx_logger(d):
@@ -25,8 +25,6 @@ def zx_logger(d):
     if not d.get('title'):
         print 'no data get'
         return
-    with open(config['zx']['log'], 'w') as f:
-        f.write('%s\n' % d.get('index'))
     data['title'] = d.get('title').text()
     data['content'] = d.get('content').html()
     des = os.path.join(config.get('images_dir'), 'zx')
@@ -39,5 +37,7 @@ def zx_logger(d):
     data['cate'] = 25
     # print data['content']
     controller.save_content(data)
+    with open(config['zx']['log'], 'w') as f:
+        f.write('%s\n' % d.get('index'))	
 
 

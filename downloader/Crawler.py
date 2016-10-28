@@ -53,7 +53,7 @@ def start():
     else:
         zp_start = 13000
     print zp_start
-    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start, ite_end=zp_start+1000))
+    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start+1, ite_end=zp_start+1000))
 
     zx_start = get_index('zx')
     if zx_start:
@@ -61,7 +61,7 @@ def start():
     else:
         zx_start = 1000
     print zx_start
-    threads.append(Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start, ite_end=zx_start+1000))
+    threads.append(Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start+1, ite_end=zx_start+1000))
 
     for t in threads:
         t.start()
