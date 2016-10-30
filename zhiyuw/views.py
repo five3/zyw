@@ -39,16 +39,16 @@ def index(req):
     req.session['banner_list']  = global_settings['banner_list']
     req.session['settings'] = global_settings['settings']
     logo_image = fun.get_site_logo(req)
-    xxc_list = controller.get_cate_list(req, 'xxc', 12)
-    tzl_list = controller.get_cate_list(req, 'tzl', 12)
-    bw_list = controller.get_cate_list(req, 'bw', 12)
+    xxc_list = controller.get_cate_list(req, 'xxc', 5)
+    tzl_list = controller.get_cate_list(req, 'tzl', 5)
+    bw_list = controller.get_cate_list(req, 'bw', 5)
     ktq_list = controller.get_ktq_list(req, 10)
     gyq_list = controller.get_gyq_list(req, 10)
-    alh_list = controller.get_alh_list(req, 12)
-    fsb_list = controller.get_fsb_list(req, 12)
-    zpcj_list = controller.get_cate_list(req, 'zpcj', 12)
-    zxcj_list = controller.get_cate_list(req, 'zxcj', 12)
-    gyrc_list = controller.get_cate_list(req, 'gyrc', 12)
+    alh_list = controller.get_alh_list(req, 5)
+    fsb_list = controller.get_fsb_list(req, 5)
+    zpcj_list = controller.get_cate_list(req, 'zpcj', 5)
+    zxcj_list = controller.get_cate_list(req, 'zxcj', 5)
+    gyrc_list = controller.get_cate_list(req, 'gyrc', 5)
     return render_to_response("zhiyuw/index.html", locals(), context_instance = RequestContext(req))
 
 def kaituoqquan(req):

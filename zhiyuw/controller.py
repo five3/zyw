@@ -8,7 +8,7 @@ import function as fun
 #     return SITE_ID
 
 def get_fsb_list(req, n):
-    sql = '''select post.title, short_url as url, user_name, created
+    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy', 'fsb') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
@@ -16,7 +16,7 @@ def get_fsb_list(req, n):
     return unio().fetchAll(sql)
 
 def get_alh_list(req, n):
-    sql = '''select post.title, short_url as url, user_name, created
+    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
@@ -31,7 +31,7 @@ def get_cate_list(req, cate, n, page=1):
     if page<1:
         return []
     index = (page-1)*n
-    sql = '''select post.title, short_url as url, user_name, created
+    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)

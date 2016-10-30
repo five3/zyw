@@ -11,28 +11,32 @@
 	<div class="news w1000">
 	<div class="information fl">
     	<div class="information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont01.jpg" %}" width="15" height="15" /><p>信息窗</p><a href="/zhiyuw/xxc">MORE>></a>
+            <img src="{% static "zhiyuw/cy_images/images/piont01.jpg" %}" width="15" height="15" /><p>信息窗</p><a href="/zhiyuw/xxc">MORE>></a>
         </div>
-        <div class="information_area">
-        	<ul>
-                {% for i in xxc_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+        {% for i in xxc_list %}
+            <div class="information_area">
+                <div class="information_img">
+                <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                </div>
+                <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                <span>{{i.description}}</span>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="information fl">
     	<div class="information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont03.jpg" %}" width="14" height="13" /><p>通知栏</p><a href="/zhiyuw/tzl">MORE>></a>
+            <img src="{% static "zhiyuw/cy_images/images/piont03.jpg" %}" width="14" height="13" /><p>通知栏</p><a href="/zhiyuw/tzl">MORE>></a>
         </div>
-        <div class="information_area">
-        	<ul>
-           	 {% for i in tzl_list %}
-                    <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
+        {% for i in xxc_list %}
+            <div class="information_area">
+                <div class="information_img">
+                <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                </div>
+                <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                <span>{{i.description}}</span>
+            </div>
+        {% endfor %}
     </div>
     {% if request.session.isLogin %}
         <div class="information fl" style="width:290px;">
@@ -113,41 +117,47 @@
 	<div class="case_information_list w1000">
 		<div class="case_information fl">
     	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>案例汇</p><a href="/zhiyuw/alh">MORE>></a>
+            <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>案例汇</p><a href="/zhiyuw/alh">MORE>></a>
         </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in alh_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
+        {% for i in alh_list %}
+            <div class="information_area">
+                <div class="information_img">
+                <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                </div>
+                <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                <span>{{i.description}}</span>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="case_information fl">
     	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>放松吧</p><a href="/zhiyuw/fsb">MORE>></a>
+            <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>放松吧</p><a href="/zhiyuw/fsb">MORE>></a>
         </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in fsb_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
+        {% for i in fsb_list %}
+            <div class="information_area">
+                <div class="information_img">
+                <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                </div>
+                <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                <span>{{i.description}}</span>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="case_information fl">
     	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>博文</p><a href="/zhiyuw/bw">MORE>></a>
+            <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>博文</p><a href="/zhiyuw/bw">MORE>></a>
         </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in bw_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
+        {% for i in bw_list %}
+            <div class="information_area">
+                <div class="information_img">
+                <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                </div>
+                <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                <span>{{i.description}}</span>
+            </div>
+        {% endfor %}
     </div>
 </div>
 </div><div class="clear"></div>
@@ -176,45 +186,55 @@
 
 
 <div id="auto_information" >
-	<div class="case_information_list w1000">
-		<div class="case_information fl">
-    	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>招聘</p><a href="/zhiyuw/zpcj">MORE>></a>
+    {% if zpcj_list %}
+        <div class="case_information_list w1000">
+            <div class="case_information fl">
+            <div class="case_information_title">
+                <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>招聘</p><a href="/zhiyuw/zpcj">MORE>></a>
+            </div>
+            {% for i in zpcj_list %}
+                <div class="information_area">
+                    <div class="information_img">
+                    <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                    </div>
+                    <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                    <span>{{i.description}}</span>
+                </div>
+            {% endfor %}
         </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in zpcj_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
+    {% endif %}
+    {% if zxcj_list %}
+        <div class="case_information fl">
+            <div class="case_information_title">
+                <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>资讯</p><a href="/zhiyuw/zxcj">MORE>></a>
+            </div>
+            {% for i in zxcj_list %}
+                <div class="information_area">
+                    <div class="information_img">
+                    <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                    </div>
+                    <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                    <span>{{i.description}}</span>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-
-    <div class="case_information fl">
-    	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>资讯</p><a href="/zhiyuw/zxcj">MORE>></a>
+    {% endif %}
+    {% if gyrc_list %}
+        <div class="case_information fl">
+            <div class="case_information_title">
+                <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>国员人才</p><a href="/zhiyuw/gyrc">MORE>></a>
+            </div>
+            {% for i in gyrc_list %}
+                <div class="information_area">
+                    <div class="information_img">
+                    <a href="{{i.url}}"><img src="{{i.featured_image}}" width="74" height="64"></a>
+                    </div>
+                    <a href="{{i.url}}"><b title="{{i.title}}">{{i.title|slice:"15"}}</b></a>
+                    <span>{{i.description}}</span>
+                </div>
+            {% endfor %}
         </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in zxcj_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
-    </div>
-
-    <div class="case_information fl">
-    	<div class="case_information_title">
-        <img src="{% static "zhiyuw/cy_images/images/piont08.jpg" %}" width="14" height="13" /><p>国员人才</p><a href="/zhiyuw/gyrc">MORE>></a>
-        </div>
-        <div class="case_information_area">
-        	<ul>
-           	 {% for i in gyrc_list %}
-                        <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"24"}}</a></li>
-             {% endfor %}
-            </ul>
-        </div>
-    </div>
+    {% endif %}
 </div>
 </div><div class="clear"></div>
 

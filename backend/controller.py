@@ -51,9 +51,9 @@ def save_post(req, data):
         views = 0
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', content='%s', status='%s', cate2='%s',
-                updated='%s', views='%s'
+                updated='%s', views='%s', description='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'),
-                                  data.get('status'), data.get('cate2'), fun.now(), views, id)
+                                  data.get('status'), data.get('cate2'), fun.now(), views, data.get('desc', ''), id)
         # print sql
         r = unio().execute(sql)
         if r:
@@ -63,10 +63,10 @@ def save_post(req, data):
             return r
     else:
         short_url = '/xx/xx'
-        sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
+        sql = '''insert into blog_blogpost (featured_image, description, comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
-                values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                values ('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+                  (data.get('featured_image', '/static/zhiyuw/cy_images/images/infor.jpg'), data.get('desc', ''), 0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
                   fun.now(), short_url, data.get('editorValue'), 1, 'admin', 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)
