@@ -27,16 +27,42 @@
 #kinMaxShow{visibility:hidden;width:100%; height:400px; overflow:hidden;text-align:left; *margin-top:-4px;}
 
 #news{ width:100%; height:auto;  margin:0px auto;  background:url(../images/bg.jpg) center repeat; float:left; display:block; ;}
-.information{ background:url(../images/information_bg.jpg) center no-repeat; width:328px; height:347px; margin-right:15px; margin-top:5px;}
+.information{ background:url(../images/information_bg.jpg) no-repeat; width:328px; height:377px; margin-right:15px; margin-top:5px;}
 .information_title{ width:328px; height:32px;  overflow:hidden;}
 .information_title img{ float:left; padding-left:5px; margin-top:8px;}
 .information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff; float:left;}
 .information_title a{ float:right; display:block; font-family:"微软雅黑"; font-size:12px; color:#ADADAD; line-height:32px; padding-right:20px;}
 .information_title a:hover{ color:#208DCE;}
-.information_area{ width:310px; height:300px; }
-.information_area ul li{ float:left; display:block; width:310px; line-height:25px; text-align:left; background:url(../images/piont02.jpg) left center no-repeat; margin-left:5px;}
-.information_area ul li a{ padding-left:10px; color:#454545;}
-.information_area ul li a:hover{ color:#208DCE;}
+.information_area{
+    width: 310px;
+    height: auto;
+    float: left;}
+.information_img {
+    float: left;
+    display: block;
+    margin-right: 5px;
+    margin-top: 3px;
+}
+.information_area b {
+    float: left;
+    display: block;
+    width: 225px;
+    text-align: left;
+    line-height: 28px;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #333333 !important;
+}
+.information_area span a {
+    float: left;
+    display: block;
+    width: 225px;
+    text-align: left;
+    line-height: 18px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    color: #999999;
+}
 
 .login{ width:312px; height:347px;  background:url(../images/login_bg.jpg) no-repeat; margin-top:5px;}
 .qiehuan3{width:304px; height:34px; margin-top:3px; margin-left:4px;}
@@ -80,7 +106,7 @@
 
 
 #case_information{ width:100%; height:auto;  background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px;}
-.case_information{ background:url(../images/case_bg.jpg) center no-repeat; width:328px; height:363px; margin-right:5px; margin-top:10px;}
+.case_information{ background:url(../images/case_bg.jpg) no-repeat; width:328px; height:375px; margin-right:5px; margin-top:10px;}
 .case_information_title{ width:328px; height:32px;  overflow:hidden;}
 .case_information_title img{ float:left; padding-left:5px; margin-top:8px;}
 .case_information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff; float:left;}
