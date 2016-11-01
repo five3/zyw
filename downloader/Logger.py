@@ -13,6 +13,8 @@ def zp_logger(d):
         return
     data['title'] = d.get('zhiwei').text() + ' 招聘'
     data['content'] = u'<h2>单位名称：%s</h2><p>职位介绍：<br>%s</p>' % (d.get('company').text(), d.get('detail').text())
+    data['description'] = d.get('company').text()
+    data['featured_image'] = d.get('imgs') and d.get('imgs')[0] or '/static/zhiyuw/cy_images/images/infor.jpg'
     data['cate'] = 24
     data['reference'] = d.get('request_info').get('url')
     controller.save_content(data)
@@ -27,6 +29,8 @@ def zx_logger(d, cate=25):
         return
     data['title'] = d.get('title').text()
     data['content'] = d.get('content').html()
+    data['description'] = d.get('content').text()
+    data['featured_image'] = d.get('imgs') and d.get('imgs')[0] or '/static/zhiyuw/cy_images/images/infor.jpg'
     des = os.path.join(config.get('images_dir'), 'zx')
     downloader = DownloadImage(des)
     for img in d.get('imgs'):
