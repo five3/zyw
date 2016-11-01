@@ -67,7 +67,7 @@ def start_zp():
     else:
         zp_start = 13000
     print zp_start
-    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start+1, ite_end=zp_start+1000))
+    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start+1, ite_end=zp_start+100))
 
 def start_zx():
     zx_start = get_index('zx')
@@ -76,12 +76,12 @@ def start_zx():
     else:
         zx_start = 1000
     print zx_start
-    threads.append(Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start+1, ite_end=zx_start+1000))
+    threads.append(Crawler(urls['zixun_url_format'], zx_items, zx_logger, encoding='gbk', ite_start=zx_start+1, ite_end=zx_start+100))
 
 def start_gyrc():
     gyrc_start = get_index('gyrc')
     if not gyrc_start:
-        gyrc_start = '2015-12-27'
+        gyrc_start = '2015-06-01'
     print gyrc_start
     gyrc_end = None
     threads.append(Crawler(urls['guoyuan_url_format'], gyrc_items, gyrc_logger, data_ite=gyrc_ite, encoding='utf-8', ite_start=gyrc_start, ite_end=gyrc_end))
