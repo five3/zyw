@@ -337,7 +337,7 @@ def save_content(data):
     short_url = '/xx/xx'
     sql = '''insert into blog_blogpost (featured_image, description, comments_count, site_id, title, slug, created, status, publish_date,
             short_url, content, user_id, user_name, allow_comments, views, cate2, reference)
-            values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+            values ('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
               (data.get('featured_image', '/static/zhiyuw/cy_images/images/infor.jpg'), data.get('description'),
                0, 1, data.get('title'), data.get('title'), fun.now(), 2,
               fun.now(), short_url, data.get('content', '').replace("'", "\\'"), 0, 'auto', 1, 0, '', data.get('reference', ''))
