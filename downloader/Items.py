@@ -8,7 +8,13 @@ zp_items = {
 }
 
 zx_items = {
-    'title' : 'title',
+    'title' : '.newsbt',
     'content' : '.nrymzw',
     'imgs' : '.nrymzw img[src!=""]'
+}
+
+gyrc_items = {
+    'title' : '.content_details h1',
+    'content' : '.body-text',
+    'imgs' : '.body-text img[src!=""]'
 }

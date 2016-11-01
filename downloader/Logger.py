@@ -20,7 +20,7 @@ def zp_logger(d):
         f.write('%s\n' % d.get('index'))
 
 
-def zx_logger(d):
+def zx_logger(d, cate=25):
     data = {}
     if not d.get('title'):
         print 'no data get'
@@ -40,10 +40,15 @@ def zx_logger(d):
         else:
             with open(config.get('log'), 'a') as f:
                 f.write('Download Image Fail "' + src + '" For url:' + d.get('request_info').get('url'))
-    data['cate'] = 25
+    data['cate'] = cate
     data['reference'] = d.get('request_info').get('url')
     controller.save_content(data)
-    with open(config['zx']['log'], 'w') as f:
-        f.write('%s\n' % d.get('index'))	
+    if cate==25:
+        with open(config['zx']['log'], 'w') as f:
+            f.write('%s\n' % d.get('index'))
+    elif cate==26:
+        with open(config['gyrc']['log'], 'w') as f:
+            f.write('%s-%s-%s\n' % d.get('index')[:3])
 
-
+def gyrc_logger(d):
+    zx_logger(d, 26)
