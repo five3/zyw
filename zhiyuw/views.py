@@ -196,6 +196,14 @@ def logout(req):
     req.session['info'] = {}
     return HttpResponseRedirect("/zhiyuw")
 
+def ydy(req):
+    logo_image = fun.get_site_logo(req)
+    cate_name = '用户注册'
+    if req.method=='GET':
+        express, express_id = controller.get_valid_code()
+        fun.get_valid_code()
+        return render_to_response("ydy.html", locals(), context_instance = RequestContext(req))
+
 @valid_code
 def register(req):
     logo_image = fun.get_site_logo(req)

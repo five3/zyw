@@ -7,6 +7,7 @@ from mezzanine.core.views import direct_to_template
 urlpatterns = patterns('zhiyuw.views',
 
     url("^$", 'index', name='zhiyuw'),
+    url("^ydy", 'ydy'),
     url("^ktq", 'kaituoqquan'),
     url("^gyq", 'gengyunqun'),
     url("^(xxc|bw|tzl|ylxw|wxjl|sy|sh|bjys|zxmk|zjmk|rlzx|zuzhi|geren|qtalh|zc|fl|ss|lz|qtzyk|zpcj|zxcj|gyrc)$", 'category'),

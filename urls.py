@@ -33,8 +33,8 @@ urlpatterns += patterns('',
     # one homepage pattern, so if you use a different one, comment this
     # one out.
 
-    # url("^$", redirect_to, {'url': '/zhiyuw/'}, name='home'),
-    (r'^$', RedirectView.as_view(url='/zhiyuw/')),
+    # url("^$", direct_to_template, {'template': 'ydy.html'}, name='index'),
+    (r'^$', RedirectView.as_view(url='/zhiyuw/ydy/')),
     url("^index/", direct_to_template, {"template": "index.html"}, name="home"),
 
     ("^zhiyuw/?", include("zhiyuw.urls")),
