@@ -1,3 +1,4 @@
 from downloader.Crawler import *
 	
-start()
+start_all()
+join_all()
