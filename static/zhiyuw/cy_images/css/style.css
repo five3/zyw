@@ -36,7 +36,8 @@
 .information_area{
     width: 310px;
     height: auto;
-    float: left;}
+    float: left;
+    text-align: left;}
 .information_img {
     float: left;
     display: block;

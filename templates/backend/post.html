@@ -114,8 +114,16 @@
 				<div class="module_content">
 						<fieldset>
 							<label>标题</label>
-                            <input name="id" type="hidden" value="{{post_info.id}}" placeholder="文章标题">
-							<input name="title" type="text"  value="{{post_info.title}}">
+                            <input name="id" type="hidden" value="{{post_info.id}}" >
+							<input name="title" type="text"  value="{{post_info.title}}" placeholder="文章标题">
+						</fieldset>
+                        <fieldset>
+							<label>摘要</label>
+							<input name="description" type="text"  value="{{post_info.description}}" placeholder="文章摘要">
+						</fieldset>
+                        <fieldset>
+							<label>摘要图片</label>
+							<input name="featured_image" type="text"  value="{{post_info.featured_image}}" placeholder="文章图片">
 						</fieldset>
 						<fieldset>
 							<label>内容</label><div class="clear"></div>
@@ -164,7 +172,7 @@
 						<option value="1">草稿</option>
 					</select>
 					<input type="submit" value="发布" class="alt_btn" onclick="">
-					<input value="重置">
+					<input type="button" value="重置" class="alt_btn" >
 				</div>
 			</footer>
 		</article><!-- end of post new article -->
