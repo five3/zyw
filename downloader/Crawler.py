@@ -87,8 +87,8 @@ def start_gyrc():
     threads.append(Crawler(urls['guoyuan_url_format'], gyrc_items, gyrc_logger, data_ite=gyrc_ite, encoding='utf-8', ite_start=gyrc_start, ite_end=gyrc_end))
 
 def start_all():
-    start_zp()
-    start_zx()
+    # start_zp()
+    # start_zx()
     start_gyrc()
 
 def join_all():

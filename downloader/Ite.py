@@ -12,6 +12,8 @@ def split_date(date):
 
 
 def strtodatetime(datestr,format='%Y-%m-%d'):
+    datestr = datestr.strip()
+    # print `datestr`
     return datetime.datetime.strptime(datestr, format)
 
 
