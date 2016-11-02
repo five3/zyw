@@ -12,9 +12,7 @@ def split_date(date):
 
 
 def strtodatetime(datestr,format='%Y-%m-%d'):
-    datestr = datestr.strip()
-    # print `datestr`
-    return datetime.datetime.strptime(datestr, format)
+    return datetime.datetime.strptime(datestr.strip(), format)
 
 
 def gyrc_ite(start='2015-01-01', end=None, ttl=50):
