@@ -6,7 +6,7 @@ import json
 import controller
 from zhiyuw import function as fun
 from django.template import RequestContext
-
+from zhiyuw import controller as controller2
 
 def index(req):
     if not req.session.get('isLogin'):
@@ -179,10 +179,41 @@ def pinpai(req):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
-    username = req.session['info']['username']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller2.get_user_info(data)
+    bg_img = '/static/members/cy_images/images/bg01.jpg'
     if req.method=='GET':
-        msg = '''<p>亲爱的%s，今天有X只蝴蝶进了您的花园，截止现在一共N只蝴蝶闻到了您的香味，加油啊！</p>
-                <p>亲爱的%s，今天您一共收到3朵茉莉，截止现在您一共收到10朵茉莉，真幸福！</p>
-                <p>亲爱的%s，今天您一共收到3朵文心半，截止现在您一共收到10朵文心兰，好好数数哦！</p>
-                <p>内容正在建设中……''' % (username,username,username,)
-        return render_to_response("members/raw.html", locals(), context_instance = RequestContext(req))
+        return render_to_response("members/pinpai.html", locals(), context_instance = RequestContext(req))
+
+def tianchi(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller2.get_user_info(data)
+    bg_img = '/static/members/cy_images/images/bg03.jpg'
+    if req.method=='GET':
+        return render_to_response("members/tianchi.html", locals(), context_instance = RequestContext(req))
+
+def xiangwang(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller2.get_user_info(data)
+    bg_img = '/static/members/cy_images/images/bg02.jpg'
+    if req.method=='GET':
+        return render_to_response("members/xiangwang.html", locals(), context_instance = RequestContext(req))
+
+def daohang(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller2.get_user_info(data)
+    if req.method=='GET':
+        return render_to_response("members/daohang.html", locals(), context_instance = RequestContext(req))

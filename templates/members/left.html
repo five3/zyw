@@ -17,10 +17,10 @@
 			<dd><a href="#">操作记录</a></dd>
 		</dl>
         {% ifequal request.session.info.utype 'ktq' %}
-        <dl class="system_log">
-            <dt onClick="changeImage()">企业发布<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
-            <dd class="first_dd"><a href="/members/zhaopin">招聘信息</a></dd>
-        </dl>
+            <dl class="system_log">
+                <dt onClick="changeImage()">企业发布<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
+                <dd class="first_dd"><a href="/members/zhaopin">招聘信息</a></dd>
+            </dl>
         {% endifequal %}
         <dl class="cloud" style="display:none;">
             <dt>平台设置<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
@@ -37,9 +37,18 @@
             {% ifequal request.session.info.utype 'ktq' %}
                 <dd><a href="/members/shuoshuo">我的说说</a></dd>
             {% endifequal %}
-            <dd><a href="/members/pinpai">我的品牌</a></dd>
 		</dl>
+        <dl class="source">
+			<dt>我的品牌<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
+			<dd class="first_dd"><a href="/members/pinpai">我的品牌</a></dd>
+            {% ifequal request.session.info.utype 'ktq' %}
+                <dd><a href="/members/tianchi">我的天池</a></dd>
+            {% else %}
 
+            {% endifequal %}
+            <dd><a href="/members/xiangwang">我的向往</a></dd>
+            <dd><a href="/members/daohang">我的导航</a></dd>
+		</dl>
 	<div class="tel fl">
     <img src="/static/members/cy_images/images/left/tel.jpg" />
     </div>
