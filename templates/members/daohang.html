@@ -1,0 +1,139 @@
+{% extends "members/base.html" %}
+
+{% block css %}
+    <style>
+    .registerform {
+        margin: 0 105px 15px;
+        padding-top: 45px;
+    }
+    .registerform .inputxt {
+        padding: 3px 2px;
+    }
+    .registerform td{
+        display: block;
+        float: left;
+    }
+    .phpadd td{
+        padding-bottom: 20px;
+    }
+    .fangbiang{
+        margin-left: 50px;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+	<script  src="/static/members/cy_images/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- loand -->
+    <script  src="/static/members/cy_images/js/Validform_v5.3.2_min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/passwordStrength-min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/loand.js" type="text/javascript"></script>
+    <!-- zhuce -->
+    <script src="/static/members/cy_images/js/zhuce.js" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+    <div class="content" style="margin: 0 auto;">
+        <div class="information">
+            <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px; ">
+                <div class="add_title">
+                    <div class="head">
+                        <a href="#"><img src="{{info.logo}}"></a>
+                        <span>亲爱的{{info.nickname}}，下午好！</span>
+                    </div>
+                </div>
+                <div class="add_aera">
+                    <div id="box">
+                        <span class="edit_navigate">编辑</span>
+                        <ol>
+                            <li>
+                                <div class="pro_name">
+                                    <div class="nav-del"><div class="del-icon" nid="1"></div></div>
+                                    <a href="http://www.baidu.com/" target="_blank" nid="1">百度</a>
+                                    <div class="nav-text"><div class="nav-item-edit"></div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="pro_name">
+                                    <div class="nav-del"><div class="del-icon" nid="2"></div></div>
+                                    <a href="http://www.sina.com.cn/" target="_blank" nid="2">新浪</a>
+                                    <div class="nav-text"><div class="nav-item-edit"></div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="pro_name">
+                                    <div class="nav-del"><div class="del-icon" nid="3"></div></div>
+                                    <a href="http://www.taobao.com/" target="_blank" nid="3">淘宝</a>
+                                    <div class="nav-text"><div class="nav-item-edit"></div></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="pro_name">
+                                    <div class="nav-del"><div class="del-icon" nid="4"></div></div>
+                                    <a href="http://www.youku.com/" target="_blank" nid="4">优酷</a>
+                                    <div class="nav-text"><div class="nav-item-edit"></div></div>
+                                </div>
+                            </li>
+                            <li class="add_navigate"><div class="pro_name"><a href="javascript:void(0);">+</a></div></li>
+                        </ol>
+                    </div>
+                    <div id="car" class="car">
+                        <div class="head_row hid">
+                            <form id="navigate" style="display:none;" action="" onclick="return false;">
+                                <input type="hidden" name="nid" value="">
+                                <input type="text" value="" name="name" placeholder="请输入网站名称">
+                                <input type="text" value="" name="url" placeholder="请输入网站URL" style="width: 300px;">
+                                <button class="navigate_submit">确定</button>
+                            </form>
+                            <div class="ctrl left"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+<script>
+    $('.navigate_submit').click(function(e){
+        var form = $('#navigate');
+        $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            dataType:'json',
+            data: form.serializeArray(),
+            success: function(msg) {
+                alert('success')
+            }
+        });
+    });
+    $('.add_navigate').click(function(e){
+        $('#navigate').show();
+    });
+    $('.edit_navigate').click(function(e){
+        $('.pro_name .nav-del').css('display', 'inline-block');
+        $('.pro_name .nav-text').css('display', 'inline-block');
+    });
+    $('.nav-item-edit').click(function(e){
+        var link = $(this).parent().parent().find('a');
+        var url = link.attr('href');
+        var nid = link.attr('nid');
+        var name = link.html();
+        $('#navigate input[name="nid"]').val(nid);
+        $('#navigate input[name="name"]').val(name);
+        $('#navigate input[name="url"]').val(url);
+        $('#navigate').show();
+    });
+    $('.del-icon').click(function(e){
+        $.ajax({
+            url: '/members/daohang',
+            type: 'post',
+            dataType:'json',
+            data: 'nid='+$(this).attr('nid'),
+            success: function(msg) {
+                alert('success')
+            }
+        });
+    });
+</script>
+{% endblock %}
+

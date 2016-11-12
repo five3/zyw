@@ -1,0 +1,144 @@
+{% extends "members/base.html" %}
+
+{% block css %}
+    <style>
+    .registerform {
+        margin: 0 105px 15px;
+        padding-top: 45px;
+    }
+    .registerform .inputxt {
+        padding: 3px 2px;
+    }
+    .registerform td{
+        display: block;
+        float: left;
+    }
+    .phpadd td{
+        padding-bottom: 20px;
+    }
+    .fangbiang{
+        margin-left: 50px;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+	<script  src="/static/members/cy_images/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- loand -->
+    <script  src="/static/members/cy_images/js/Validform_v5.3.2_min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/passwordStrength-min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/loand.js" type="text/javascript"></script>
+    <!-- zhuce -->
+    <script src="/static/members/cy_images/js/zhuce.js" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+    <div class="content" style="margin: 0 auto;">
+        <div class="information">
+                <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
+
+               	  <div class="add_title">
+                    	<div class="head">
+                        <a href="#"><img src="{{info.logo}}"></a>
+                        <span>亲爱的{{info.nickname}}，下午好！</span>
+                      </div>
+                  <div class="add_aera">
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                        <div class="add_list">
+                        	<div class="add_img">
+                        	<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
+                            </div>
+                            <div class="add_w">
+                            <b>安徽省琪升进出口有限责任公司</b>
+                            <span>等级：无名榕</span>
+                            <span>行业：商贸业</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                        <div class="pages">
+                            <a href="#">上一页</a> <a href="#" class="cur">1</a> <a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">下一页</a><a href="#">尾页</a>共15页
+                        </div>
+                </div>
+            </div>
+    </div><div class="clear"></div>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends "members/base.html" %}
+
+{% block css %}
+    <style>
+    .registerform {
+        margin: 0 105px 15px;
+        padding-top: 45px;
+    }
+    .registerform .inputxt {
+        padding: 3px 2px;
+    }
+    .registerform td{
+        display: block;
+        float: left;
+    }
+    .phpadd td{
+        padding-bottom: 20px;
+    }
+    .fangbiang{
+        margin-left: 50px;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+	<script  src="/static/members/cy_images/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- loand -->
+    <script  src="/static/members/cy_images/js/Validform_v5.3.2_min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/passwordStrength-min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/loand.js" type="text/javascript"></script>
+    <!-- zhuce -->
+    <script src="/static/members/cy_images/js/zhuce.js" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+    <div class="content" style="margin: 0 auto;">
+            <div class="information">
+                <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
+
+               	  <div class="add_title">
+                    	<div class="head">
+                        <a href="#"><img src="{{info.logo}}"></a>
+                        <span>亲爱的{{info.nickname}}，下午好！</span>
+                      </div>
+                    <div class="submit">
+                        <input type="submit" class="sub" value="发表文章" style="display:none;">
+                        </div>
+                    </div>
+                    <div class="add_aera">
+                <p><img src="../static/members/cy_images/images/piont01.png" width="45" height="45">亲爱的five3，今天有<span>X</span>只蝴蝶进了您的花园，截止现在一共<em>N</em>只蝴蝶闻到了您的香味，加油啊！</p>
+                <p><img src="../static/members/cy_images/images/piont02.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵茉莉，截止现在您一共收到<em>10</em>朵茉莉，真幸福！</p>
+                <p><img src="../static/members/cy_images/images/piont03.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵文心半，截止现在您一共收到<em>10</em>朵文心兰，好好数数哦！</p>
+                <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵文心半，截止现在您一共收到<em>10</em>朵文心兰，好好数数哦！</p>
+                </div>
+                </div>
+            </div>
+        </div><div class="clear"></div>
+{% endblock %}
+
