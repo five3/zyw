@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="Author" content="楚易科技">
+<meta content="楚易科技 www.chuyikeji.com" name="design">
+<title>首页--职语网</title>
+<link href="/static/mobile/cy_images/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/static/mobile/cy_images/css/swiper.min.css" rel="stylesheet" type="text/css" />
+<script src="/static/mobile/cy_images/js/jquery-1.9.1.min.js"></script>
+<!--移动端版本兼容 -->
+<script type="text/javascript">
+	var mengvalue = -1;
+	//if(mengvalue<0){mengvalue=0;}
+	var phoneWidth = parseInt(window.screen.width);
+	var phoneScale = phoneWidth / 640;
+
+	var ua = navigator.userAgent;
+	if (/Android (\d+\.\d+)/.test(ua)) {
+		var version = parseFloat(RegExp.$1);
+		// andriod 2.3
+		if (version > 2.3) {
+			document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+			// andriod 2.3以上
+		} else {
+			document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+		}
+		// 其他系统
+	} else {
+		document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+	}
+</script>
+<!--移动端版本兼容 end -->
+</head>
+<body>
+<div class="header">
+	<div class="header_area">
+        <div class="logo">
+        <a href="#"><img src="/static/mobile/cy_images/images/logo01.jpg" /></a>
+        </div>
+        
+        <div class="personal">
+        <a href="#"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>
+        </div>
+    </div>
+</div><div class="clear"></div>
+<div class="nav">
+	<ul>
+    	<li><a href="#" class="cur">首　页</a></li>
+        <li><a href="#">开拓圈</a></li>
+        <li><a href="#">耕耘群</a></li>
+        <li><a href="#">案例汇</a></li>
+        <li><a href="#">信息窗</a></li>
+        <li><a href="#">资源库</a></li>
+        <li><a href="#">放松吧</a></li>
+        <li><a href="#">纳贤台</a></li>
+        <li><a href="#">博　文</a></li>
+        <li><a href="#">联系我们</a></li>                      
+    </ul>
+</div><div class="clear"></div>
+
+{% block main %}{% endblock %}
+
+<div style="height:48px;"></div>
+
+{% block bottom_extra %}
+    <div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
+        <nav>
+        <ul id="top_menu" class="top_menu">
+
+      <li> <a href="javascript:void(0)"><img src="/static/mobile/cy_images/images/footer_o1.png" />
+        <label>发博文</label></a>
+
+                    </li><li> <a href="javascript:void(0)"><img src="/static/mobile/cy_images/images/footer_o2.png" /><label>我的书咖</label></a>
+
+                    </li><li> <a onclick="javascript:displayit(3)"><img src="/static/mobile/cy_images/images/footer_o3.png" /><label>我的财富</label></a>
+
+                        <ul id="menu_list3" class="menu_font" style=" display:none">
+
+                    <li> <a href="javascript:void(0)"><label>天池水</label></a></li><li> <a href="javascript:void(0)"><label>我的品牌</label></a></li><li> <a href="javascript:void(0)"><label>金钱树</label></a></li>            </ul>
+
+                     </li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+    <div id="plug-wrap" onclick="closeall()" style="display: none;"></div>
+{% endblock %}
+<script>
+
+function displayit(n){
+
+	for(i=0;i<4;i++){
+
+		if(i==n){
+
+			var id='menu_list'+n;
+
+			if(document.getElementById(id).style.display=='none'){
+
+				document.getElementById(id).style.display='';
+
+				document.getElementById("plug-wrap").style.display='';
+
+			}else{
+
+				document.getElementById(id).style.display='none';
+
+				document.getElementById("plug-wrap").style.display='none';
+
+			}
+
+		}else{
+
+			if($('#menu_list'+i)){
+
+				$('#menu_list'+i).css('display','none');
+
+			}
+
+		}
+
+	}
+
+}
+
+function closeall(){
+
+	var count = document.getElementById("top_menu").getElementsByTagName("ul").length;
+
+	for(i=0;i<count;i++){
+
+		document.getElementById("top_menu").getElementsByTagName("ul").item(i).style.display='none';
+
+	}
+
+	document.getElementById("plug-wrap").style.display='none';
+
+}
+
+
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+	WeixinJSBridge.call('hideToolbar');
+
+});
+
+</script>
+</body>
+</html>
