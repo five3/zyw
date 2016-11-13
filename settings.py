@@ -253,6 +253,7 @@ INSTALLED_APPS = (
     "zhiyuw",
     "backend",
     "members",
+    "mobile",
 )
 
 # List of processors used by RequestContext to populate the context.
