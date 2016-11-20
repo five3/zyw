@@ -1,0 +1,21 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+{% for i in cate_list %}
+    <div class="news">
+        <div class="title">
+            <span>{{i.title}}</span>
+        </div>
+        {% for j in i.cate_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{j.mobile_url}}"><img src="{{j.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{j.mobile_url}}" title="{{j.title}}">{{j.title|slice:"30"}}</a>
+                    <span>{{j.description|slice:"50"}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
+{% endfor %}
+{% endblock %}

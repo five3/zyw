@@ -1,0 +1,32 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+ 
+<div class="news">
+	<div class="title">
+    	<span>我的文章</span></a>
+    </div>
+    {% for i in post_list %}
+        <div class="news_list">
+            <div class="news_map">
+                <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+            </div>
+            <div class="news_l">
+                <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title | slice:'12'}}</a>
+                <span>{{i.description}}</span>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="pages">
+        共{{total}}条记录
+        {% ifnotequal page 1 %}
+            <a href="/mobile/{{cate}}?page={{page|add:-1}}">上一页</a>
+        {% endifnotequal %}
+        <a href="#" class="red">{{page}}/{{total_page}}</a>
+        {% ifnotequal page total_page %}
+            <a href="/mobile/{{cate}}?page={{page|add:1}}">下一页</a>
+        {% endifnotequal %}
+    </div>
+
+</div><div class="clear"></div>
+
+{% endblock %}

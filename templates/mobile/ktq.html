@@ -1,0 +1,60 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+<div class="news">
+	<div class="title">
+    	<span>开拓圈</span>
+    </div>
+    <div id="case">
+        <div class="case w1000">
+            <span>行业：</span>
+            <ul>
+                <li><a href="/mobile/ktq?name=smy">商贸业</a></li>
+                <li><a href="/mobile/ktq?name=yyhgny">医药/化工/能源</a></li>
+                <li><a href="/mobile/ktq?name=fdcjz">房地产/建筑</a></li>
+                <li><a href="/mobile/ktq?name=nlmy">农林渔业</a></li>
+                <li><a href="/mobile/ktq?name=jsjtx">计算机/通讯</a></li>
+                <li><a href="/mobile/ktq?name=ksxfp">快速消费品</a></li>
+                <li><a href="/mobile/ktq?name=zzjgy">制造/加工业</a></li>
+                <li><a href="/mobile/ktq?name=ysbz">印刷/包装</a></li>
+                <li><a href="/mobile/ktq?name=zxpx">咨询/培训</a></li>
+                <li><a href="/mobile/ktq?name=yswl">运输/物流</a></li>
+                <li><a href="/mobile/ktq?name=nyxfp">耐用消费品</a></li>
+                <li><a href="/mobile/ktq?name=qt">其他</a></li>
+            </ul>
+            <div class="clear"></div>
+
+            <div class="case_area">
+                {% for i in ktq_list %}
+                      <div class="case_map fl">
+                            <a href="/zhiyuw/member?t=ktq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
+                            <div class="caption">
+                                <a href="{{i.url}}" title="{{i.qiyeming}}">{{i.qiyeming | slice:"12"}}</a>
+                            </div>
+                            <div>等级：{{i.dengji}}</div>
+                            <div>行业：{{i.zhuanye}}</div>
+                            <div title="{{i.zhuti}}">主题：{{i.zhuti | slice:"9"}}</div>
+                            <div title="{{i.qiyejianjie}}" class="introduce">简介：{{i.qiyejianjie | slice:"25"}}...</div>
+                      </div>
+                {% endfor %}
+                <div class="clear"></div>
+                <div class="pages">
+                    <div id="pages" style="margin-bottom:10px;">
+                        {% ifnotequal page 1 %}
+                            <a href="/mobile/ktq?{{prepage}}">上一页</a>
+                        {% endifnotequal %}
+                        <label>{{page}}/{{total_page}}</label>
+                        {% ifnotequal page total_page %}
+                            <a href="/mobile/ktq?{{nextpage}}">下一页</a>
+                        {% endifnotequal %}
+                        <div style="display:inline-block;">
+                            <input type="text" style="width:30px;" placeholder="页码" id="page_num"/>
+                            <input type="button" onclick="location.href='/mobile/ktq{{base_path}}' + $('#page_num').val()" value="Go!">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style=""></div>
+{% endblock %}

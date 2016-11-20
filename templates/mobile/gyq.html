@@ -1,0 +1,53 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+<div class="news">
+	<div class="title">
+    	<span>耕耘群</span>
+    </div>
+    <div id="case">
+        <div class="case w1000">
+            <span>职位：</span>
+            <ul>
+                <li><a href="/mobile/gyq?name=high">高级</a></li>
+                <li><a href="/mobile/gyq?name=middle">中级</a></li>
+                <li><a href="/mobile/gyq?name=low">初级</a></li>
+                <li><a href="/mobile/gyq?name=qt">其他</a></li>
+            </ul>
+            <div class="clear"></div>
+            <div class="case_area">
+                {% for i in gyq_list %}
+                    <div class="case_map fl">
+                        <a href="/mobile/member?t=gyq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
+                        <div class="caption">
+                            {{i.nickname}}
+                        </div>
+                        <div>等级：{{i.dengji}}</div>
+                        <ul>
+                            <li>职位：{{i.zhiwei}}</li>
+                        </ul>
+                        <div title="{{i.zuoyouming}}" class="introduce">座右铭：{{i.zuoyouming | slice:"25"}}...</div>
+                    </div>
+                {% endfor %}
+                <div class="clear"></div>
+
+                <div class="pages">
+                    <div id="pages">
+                        {% ifnotequal page 1 %}
+                            <a href="/mobile/gyq?{{prepage}}">上一页</a>
+                        {% endifnotequal %}
+                        <label>{{page}}/{{total_page}}</label>
+                        {% ifnotequal page total_page %}
+                            <a href="/mobile/gyq?{{nextpage}}">下一页</a>
+                        {% endifnotequal %}
+                        <p style="display:inline-block;">
+                            <input type="text" style="width:30px;" placeholder="页码" id="page_num"/>
+                            <input type="button" onclick="location.href='/mobile/gyq{{base_path}}' + $('#page_num').val()" value="Go!">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+{% endblock %}
