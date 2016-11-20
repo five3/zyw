@@ -1,20 +1,21 @@
 {% extends "mobile/base.html" %}
 {% block main %}
-    <div class="release">
-             <div class="release_area">
-                    <dl>
-                    <dd><input type="text" name="username" placeholder="标题"/></dd>
-                    </dl>
-                    <dl style="border:none;">
-                    <dd><textarea cols="10" rows="15" placeholder="中文"></textarea></dd>
-                    </dl>
-                    <div style=" height:40px"></div>
-             </div>
-
-             <div class="field submit-btn" style="padding-left:0px; padding-right:0px; ">
-                                        <input type="submit" class="btn_big1" onclick="member_login()" value="发 布" />
-                                        <input type="submit" class="btn_big3" onclick="member_login()" value="取 消" />
-
-                    </div>
-    </div><div class="clear"></div>
+    <form class="release" action="/mobile/post/save" method="POST">
+        <div class="release_area">
+            <dl>
+                <dd><input type="text" name="title" placeholder="标题"/></dd>
+            </dl>
+            <dl style="border:none;">
+                <dd><textarea cols="10" rows="15" placeholder="请输入博文内容" name="editorValue"></textarea></dd>
+            </dl>
+            <input type="hidden" name="cate" value="3">
+            <input type="hidden" name="cate2" value="myart">
+            <input type="hidden" name="views" value="0">
+            <div style=" height:5px"></div>
+        </div>
+        <div class="field submit-btn" style="padding-left:0px; padding-right:0px; ">
+            <input type="submit" class="btn_big1"  value="发 布" />
+            <input type="button" class="btn_big3" onclick="javascript:void(0);" value="取 消" />
+        </div>
+    </form><div class="clear"></div>
 {% endblock %}

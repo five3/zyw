@@ -44,117 +44,104 @@
 <div class="header">
 	<div class="header_area">
         <div class="logo">
-        <a href="#"><img src="/static/mobile/cy_images/images/logo01.jpg" /></a>
+        <a href="/mobile"><img src="/static/mobile/cy_images/images/logo01.jpg" /></a>
         </div>
-        
         <div class="personal">
-        <a href="#"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>
+            {% if request.session.isLogin %}
+                <div class="auth">
+                    <label>您好：<a href="/mobile">{{request.session.info.username}}</a></label>
+                    &nbsp;&nbsp;<a href="/mobile/logout">退出</a>
+                </div>
+            {% else %}
+                <a href="/mobile/login"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>
+            {% endif %}
         </div>
     </div>
 </div><div class="clear"></div>
 <div class="nav">
 	<ul>
-    	<li><a href="#" class="cur">首　页</a></li>
-        <li><a href="#">开拓圈</a></li>
-        <li><a href="#">耕耘群</a></li>
-        <li><a href="#">案例汇</a></li>
-        <li><a href="#">信息窗</a></li>
-        <li><a href="#">资源库</a></li>
-        <li><a href="#">放松吧</a></li>
-        <li><a href="#">纳贤台</a></li>
-        <li><a href="#">博　文</a></li>
-        <li><a href="#">联系我们</a></li>                      
+    	<li><a href="/mobile" class="{{index_active}}">首　页</a></li>
+        <li><a href="/mobile/ktq" class="{{ktq_active}}">开拓圈</a></li>
+        <li><a href="/mobile/gyq" class="{{gyq_active}}">耕耘群</a></li>
+        <li><a href="/mobile/alh" class="{{alh_active}}">案例汇</a></li>
+        <li><a href="/mobile/xxc" class="{{xxc_active}}">信息窗</a></li>
+        <li><a href="/mobile/zyk" class="{{zyk_active}}">资源库</a></li>
+        <li><a href="/mobile/fsb" class="{{fsb_active}}">放松吧</a></li>
+        <li><a href="/mobile/nxt" class="{{nxt_active}}">纳贤台</a></li>
+        <li><a href="/mobile/bw" class="{{bw_active}}">博　文</a></li>
+        <li><a href="/mobile/contact" class="{{contact_active}}">联系我们</a></li>
     </ul>
 </div><div class="clear"></div>
 
 {% block main %}{% endblock %}
 
-<div style="height:48px;"></div>
+<div style="height:61px;"></div>
 
 {% block bottom_extra %}
     <div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
         <nav>
-        <ul id="top_menu" class="top_menu">
-
-      <li> <a href="javascript:void(0)"><img src="/static/mobile/cy_images/images/footer_o1.png" />
-        <label>发博文</label></a>
-
-                    </li><li> <a href="javascript:void(0)"><img src="/static/mobile/cy_images/images/footer_o2.png" /><label>我的书咖</label></a>
-
-                    </li><li> <a onclick="javascript:displayit(3)"><img src="/static/mobile/cy_images/images/footer_o3.png" /><label>我的财富</label></a>
-
-                        <ul id="menu_list3" class="menu_font" style=" display:none">
-
-                    <li> <a href="javascript:void(0)"><label>天池水</label></a></li><li> <a href="javascript:void(0)"><label>我的品牌</label></a></li><li> <a href="javascript:void(0)"><label>金钱树</label></a></li>            </ul>
-
-                     </li>
-
-        </ul>
-
-      </nav>
-
+            <ul id="top_menu" class="top_menu">
+                <li>
+                    <a href="/mobile/post/new">
+                        <img src="/static/mobile/cy_images/images/footer_o1.png" />
+                        <label>发博文</label>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:displayit(2)">
+                        <img src="/static/mobile/cy_images/images/footer_o2.png" />
+                        <label>我的书咖</label>
+                    </a>
+                    <ul id="menu_list2" class="menu_font" style=" display:none">
+                        <li>
+                            <a href="/mobile/myarts"><label>我的文章</label></a>
+                        </li>
+                        <li>
+                            <a href="/mobile/xiangwang"><label>我的向往</label></a>
+                        </li>
+                        <li>
+                            <a href="/mobile/navigate"><label>我的导航</label></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a onclick="javascript:displayit(3)">
+                        <img src="/static/mobile/cy_images/images/footer_o3.png" />
+                        <label>我的财富</label>
+                    </a>
+                    <ul id="menu_list3" class="menu_font" style=" display:none">
+                        <li>
+                            <a href="/mobile/tianchi"><label>天池水</label></a>
+                        </li>
+                        <li>
+                            <a href="/mobile/pinpai"><label>我的品牌</label></a>
+                        </li>
+                        <li>
+                            <a href="/mobile/caifu"><label>金钱树</label></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
     <div id="plug-wrap" onclick="closeall()" style="display: none;"></div>
 {% endblock %}
 <script>
+    function closeall(){
+        $("#top_menu ul").hide();
+        $("#plug-wrap").hide();
+    }
+    function displayit(n){
+        if ($('#menu_list'+n).css('display')=='block'){
+            $('#menu_list'+n).hide();
+            $("#plug-wrap").hide();
+        }else{
+            closeall();
+            $('#menu_list'+n).show();
+            $("#plug-wrap").show();
+        }
+    }
 
-function displayit(n){
-
-	for(i=0;i<4;i++){
-
-		if(i==n){
-
-			var id='menu_list'+n;
-
-			if(document.getElementById(id).style.display=='none'){
-
-				document.getElementById(id).style.display='';
-
-				document.getElementById("plug-wrap").style.display='';
-
-			}else{
-
-				document.getElementById(id).style.display='none';
-
-				document.getElementById("plug-wrap").style.display='none';
-
-			}
-
-		}else{
-
-			if($('#menu_list'+i)){
-
-				$('#menu_list'+i).css('display','none');
-
-			}
-
-		}
-
-	}
-
-}
-
-function closeall(){
-
-	var count = document.getElementById("top_menu").getElementsByTagName("ul").length;
-
-	for(i=0;i<count;i++){
-
-		document.getElementById("top_menu").getElementsByTagName("ul").item(i).style.display='none';
-
-	}
-
-	document.getElementById("plug-wrap").style.display='none';
-
-}
-
-
-
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-
-	WeixinJSBridge.call('hideToolbar');
-
-});
 
 </script>
 </body>

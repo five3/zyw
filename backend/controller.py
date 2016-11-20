@@ -24,14 +24,12 @@ def get_cate_list():
     # print cate1
     return cate1, cate2
 
-
 def get_post_info(id):
     sql = '''select post.id, post.title, post.featured_image, post.description, post.content, post.views, post.cate2, post.status, cate.id as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id''' % id
     # print sql
     return unio().fetchOne(sql)
-
 
 def get_post_list(req, page=1, num=10):
     index = (int(page)-1)*num
@@ -43,16 +41,18 @@ def get_post_list(req, page=1, num=10):
     # print sql
     return unio().fetchAll(sql)
 
-
 def save_post(req, data):
     id = data.get('id', 0)
     views = data.get('views')
     if not views:
         views = 0
+    featured_image = data.get('featured_image')
+    if not featured_image.strip():
+        featured_image = '/static/zhiyuw/cy_images/images/infor.jpg'
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', featured_image='%s', description='%s', content='%s', status='%s', cate2='%s',
                 updated='%s', views='%s'
-                where id=%s''' % (data.get('title'), data.get('featured_image', '/static/zhiyuw/cy_images/images/infor.jpg'), data.get('description'),
+                where id=%s''' % (data.get('title'), featured_image, data.get('description'),
                                   data.get('editorValue'), data.get('status'), data.get('cate2'), fun.now(), views, id)
         # print sql
         r = unio().execute(sql)
@@ -66,7 +66,7 @@ def save_post(req, data):
         sql = '''insert into blog_blogpost (featured_image, description, comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
                 values ('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (data.get('featured_image', '/static/zhiyuw/cy_images/images/infor.jpg'), data.get('description', ''), 0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                  (featured_image, data.get('description', ''), 0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
                   fun.now(), short_url, data.get('editorValue'), 1, 'admin', 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)

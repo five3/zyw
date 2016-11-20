@@ -2,40 +2,29 @@
 {% block main %}
     <div class="news">
 	<div class="title">
-    	<span>纳贤台</span>
+    	<span>{{cate_name}}</span>
     </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
+    {% for i in cate_list %}
+        <div class="news_list">
+            <div class="news_map">
+                <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+            </div>
+            <div class="news_l">
+                <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title | slice:"30"}}</a>
+                <span>{{i.description | slice:"50"}}</span>
+            </div>
         </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
+    {% endfor %}
+    <div class="pages">
+        共{{total}}条记录
+        {% ifnotequal page 1 %}
+            <a href="/mobile/myarts?page={{page|add:-1}}">上一页</a>
+        {% endifnotequal %}
+        <a href="#" class="red">{{page}}/{{total_page}}</a>
+        {% ifnotequal page total_page %}
+            <a href="/mobile/myarts?page={{page|add:1}}">下一页</a>
+        {% endifnotequal %}
     </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    
-    
-      <div class="pages">
-    共56条记录 <a href="#">上一页</a> <a href="#" class="red">1</a> <a href="#">下一页</a>
-</div>
     
     
 </div><div class="clear"></div>

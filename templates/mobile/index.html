@@ -3,12 +3,11 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><a href="#"><img src="/static/mobile/cy_images/images/banner01.jpg" /></a></div>
-             <div class="swiper-slide"><a href="#"><img src="/static/mobile/cy_images/images/banner01.jpg" /></a></div>
+            <div class="swiper-slide"><a href="#"><img src="/static/mobile/cy_images/images/banner01.jpg" /></a></div>
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
     </div>
-    
     <script src="/static/mobile/cy_images/js/swiper.min.js"></script>
     <script>
     var swiper = new Swiper('.swiper-container', {
@@ -19,139 +18,88 @@
 </script>
 
     <div class="news">
-	<div class="title">
-    	<span>纳贤台</span><a href="#">更多></a>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
+        <div class="title">
+            <span>放松吧</span><a href="/mobile/fsb">更多></a>
         </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    
-</div><div class="clear"></div>
+        {% for i in fsb_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title}}</a>
+                    <span>{{i.description}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
 
     <div class="news">
-	<div class="title">
-    	<span>博文</span><a href="#">更多></a>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
+        <div class="title">
+            <span>纳贤台</span><a href="/mobile/nxt">更多></a>
         </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    
-</div><div class="clear"></div>
+        {% for i in nxt_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title}}</a>
+                    <span>{{i.description}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
 
     <div class="news">
-	<div class="title">
-    	<span>信息窗</span><a href="#">更多></a>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
+        <div class="title">
+            <span>博文</span><a href="/mobile/bw">更多></a>
         </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    
-</div><div class="clear"></div>
+        {% for i in bw_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title}}</a>
+                    <span>{{i.description}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
 
     <div class="news">
-	<div class="title">
-    	<span>案例汇</span><a href="#">更多></a>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
+        <div class="title">
+            <span>信息窗</span><a href="/mobile/xxc">更多></a>
         </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
+        {% for i in xxc_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title}}</a>
+                    <span>{{i.description}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
+
+    <div class="news">
+        <div class="title">
+            <span>案例汇</span><a href="/mobile/alh">更多></a>
         </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    <div class="news_list">
-    	<div class="news_map">
-        <a href="#"><img src="/static/mobile/cy_images/images/news_map.jpg" /></a>
-        </div>
-        <div class="news_l">
-        	<a href="#">未来没有互联网企业</a>
-            <span>前几年，品牌的春天来了，但是伴随“互联网+”的舆论更强，似乎掩盖了品牌的声音...</span>
-        </div>
-    </div>
-    
-</div><div class="clear"></div>
+        {% for i in alh_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title}}</a>
+                    <span>{{i.description}}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div><div class="clear"></div>
 {% endblock %}
 

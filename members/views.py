@@ -21,7 +21,6 @@ def index(req):
     post_list = controller.get_post_list(req, uid, cate, page)
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
 
-
 def post(req, action):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
@@ -121,7 +120,6 @@ def password(req):
         else:
             msg = '确认密码不一致'
         return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
-
 
 def bgmusic(req):
     if not req.session.get('isLogin'):

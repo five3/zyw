@@ -6,9 +6,16 @@ import function as fun
 
 # def get_site_id():
 #     return SITE_ID
+def get_nxt_list(req, n):
+    sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
+            from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
+            where post.status=2 and post.site_id=%s and blog_category.slug in ('zjmk','zxmk', 'rlzx', 'nxt') and cate.blogcategory_id=blog_category.id
+            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
+    # print sql
+    return unio().fetchAll(sql)
 
 def get_fsb_list(req, n):
-    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
+    sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy', 'fsb') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
@@ -16,7 +23,7 @@ def get_fsb_list(req, n):
     return unio().fetchAll(sql)
 
 def get_alh_list(req, n):
-    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
+    sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
@@ -31,7 +38,7 @@ def get_cate_list(req, cate, n, page=1):
     if page<1:
         return []
     index = (page-1)*n
-    sql = '''select post.title, short_url as url, user_name, created, description, featured_image
+    sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
@@ -67,14 +74,14 @@ def get_article(id):
     return r
 
 def get_context_page(req, cate, id):
-    sql = '''select post.title, short_url
+    sql = '''select post.title, short_url, mobile_url
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory
             where blog_blogcategory.slug='%s' and blog_blogcategory.id=cate.blogcategory_id
             and cate.blogpost_id=post.id and post.site_id=%s and post.id<%s order by post.id desc limit 0,1''' % \
           (cate, fun.get_site_id(req), id)
     # print sql
     pre_page = unio().fetchOne(sql)
-    sql = '''select post.title, short_url
+    sql = '''select post.title, short_url, mobile_url
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory
             where blog_blogcategory.slug='%s' and blog_blogcategory.id=cate.blogcategory_id
             and cate.blogpost_id=post.id and post.site_id=%s and post.id>%s limit 0,1''' % \
@@ -177,7 +184,7 @@ def get_child_list(req, cate):
     cate_list = unio().fetchAll(sql)
     d = []
     for i in cate_list:
-        sql = '''select d.short_url as url,d.title, d.user_name, d.updated
+        sql = '''select d.short_url as url, d.mobile_url, d.title, d.description, d.user_name, d.updated, d.featured_image
                 from blog_blogpost_categories c, blog_blogpost d
                 where d.status=2 and d.site_id=%s and c.blogcategory_id=%s and c.blogpost_id=d.id
                 order by d.updated desc limit 0,10''' % (fun.get_site_id(req), i['id'])

@@ -39,68 +39,108 @@
 </script>
 <!--移动端版本兼容 end -->
 </head>
-
 <body>
 <div class="header">
 	<div class="header_area">
         <div class="logo">
-        <a href="#"><img src="/static/mobile/cy_images/images/logo.jpg" /></a>
+            <a href="/mobile"><img src="/static/mobile/cy_images/images/logo.jpg" /></a>
         </div>
         <span>注册</span>
         <div class="personal">
-        <a href="#"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>
+            <a href="/mobile/login"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>
         </div>
     </div>
 </div><div class="clear"></div>
 
-<div class="denglu">
-     <div class="bgwhite">
-            <div class="Login">
-            	<dl>
+<form class="denglu" action="/mobile/register" method="POST" id="reg_form">
+    <div class="bgwhite">
+        <div class="Login">
+            <dl>
                 <dt>会员类型 :</dt>
-                <dd><select id="test_select" name="hobby">
-<option value="Hard man" selected="true">耕耘群</option>
-<option value="Pioneer" >开拓圈</option>
-</select></dd>
-                </dl>
-                <dl>
+                <dd>
+                    <select id="test_select" name="utype">
+                        <option value="gyq" selected="true">耕耘群</option>
+                        <option value="ktq" >开拓圈</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
                 <dt>会员账号 :</dt>
-                <dd><input type="text" name="username" placeholder="" value="" /></dd>
-                </dl>
-                <dl>
-                <dt>手机号码 :</dt>
-                <dd> <input type="password" name="password" placeholder="" id="p_password"/> </dd>
-                </dl>
-                 <dl >
+                <dd><input type="text" name="username" placeholder="请输入会员名称" value="" /></dd>
+            </dl>
+            <dl>
+                <dt>EMAIL :</dt>
+                <dd> <input type="email" name="email" placeholder="请输入EMAIL" id="email"/> </dd>
+            </dl>
+            <dl>
                 <dt>账号密码 :</dt>
-                <dd> <input type="password" name="password" placeholder="" id="p_password"/> </dd>
-                </dl>
-                 <dl style="border:none;">
+                <dd> <input type="password" name="password" placeholder="请输入密码" id="password" onblur="if(this.value==''){alert('*密码不能为空')}"/> </dd>
+            </dl>
+            <dl>
                 <dt>确认密码 :</dt>
-                <dd> <input type="password" name="password" placeholder="" id="p_password"/> </dd>
-                </dl>
-            </div>
-           
-      </div>
-                <div class="field submit-btn" style="padding-left:0px; padding-right:0px; ">
-									<input type="submit" class="btn_big1" onclick="member_login()" value="立即注册" />
-                                    <input type="submit" class="btn_big2" onclick="member_login()" value="已有账号？登录" />
-									
-				</div>                    
-								
-                               
-              <div class="ng-foot">
-              <div class="third-area">
-                <div class="third-area-a"><font color="#d8d8d8">————————————</font>&nbsp;使用合作网站帐号登录&nbsp;<font color="#d8d8d8">————————————</font></div>
-                <div class="third-list">
-                <a class="ta-qq" href="user.php?act=oath&type=qq"  title="QQ">QQ登录</a>
-                <a class="ta-weixin" href="user.php?act=oath&type=weixin" title="weixin">微信登录</a>
-               </div>
-             </div>
-            </div>
-			
-	
-</div><div class="clear"></div>
+                <dd>
+                    <input type="password" name="password2" placeholder="请输入确认密码" id="password2" onblur="checkpass()"  />
+                </dd>
+            </dl>
+            <dl>
+                <dt>验证码 :</dt>
+                <dd>
+                    <input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" value="{{express}}" />
+                    <input type="hidden" name="code_id"  value="{{express_id}}">
+                    <input type="text" id="id_code" name="code" value="" class="reg_field" style="width:90px; text-align: center;">
+                    <span class="red" id="err_code" >&nbsp;</span>
+                </dd>
+            </dl>
+            <dl style="border:none;" class="agreen">
+                    <input type="checkbox" name="agreen" id="agreen" /> 我同意<a href="/mobile/agreen" target="_blank" style="color: #069fe6;">注册协议</a>中相关协议说明
+            </dl>
+        </div>
+        <div class="field submit-btn" style="padding-left:0px; padding-right:0px; width: 80%;margin: 0 auto;">
+            <input type="submit" class="btn_big1" value="立即注册" />
+            <input type="button" class="btn_big2" value="已有账号？登录" onclick="location.href='/mobile/login'" />
+        </div>
+    </div>
+</form>
 
+<div class="ng-foot">
+    <div class="third-area">
+        <div class="third-area-a">
+            <font color="#d8d8d8">————————————</font>&nbsp;使用合作网站帐号登录&nbsp;<font color="#d8d8d8">————————————</font>
+        </div>
+        <div class="third-list">
+            <a class="ta-qq" href="user.php?act=oath&type=qq"  title="QQ">QQ登录</a>
+            <a class="ta-weixin" href="user.php?act=oath&type=weixin" title="weixin">微信登录</a>
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+    function checkpass(){
+        if ($('#password').val()!=$('#password2').val()){
+            alert('两次密码不一致');
+        }
+    }
+
+    $('#reg_form').on('submit', function(e){
+        var email = $('#email').val().trim();
+        if (email==''){
+            alert('邮箱不能为空');
+            return false;
+        }
+        var id_code = $('#id_code').val().trim();
+        if (id_code==''){
+            alert('请填写验证码');
+            return false;
+        }
+        var is_agreen = $('#agreen').is(':checked');
+        if (is_agreen){
+        }else{
+            alert('请先查看并勾选注册协议！')
+            return false;
+        }
+    })
+</script>
 </body>
 </html>
