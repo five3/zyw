@@ -51,7 +51,7 @@ def save_post(req, data):
         featured_image = '/static/zhiyuw/cy_images/images/infor.jpg'
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', featured_image='%s', description='%s', content='%s', status='%s', cate2='%s',
-                updated='%s', views='%s'
+                created='%s', views='%s'
                 where id=%s''' % (data.get('title'), featured_image, data.get('description'),
                                   data.get('editorValue'), data.get('status'), data.get('cate2'), fun.now(), views, id)
         # print sql

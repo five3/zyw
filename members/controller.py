@@ -74,7 +74,7 @@ def save_post(req, data, uid, uname):
 
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s', featured_image='%s',
-                description='%s',updated='%s', views='%s'
+                description='%s',created='%s', views='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'), data.get('cate2'),
                                   featured_image, data.get('description', ''), fun.now(), views, id)
         # print sql

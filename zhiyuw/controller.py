@@ -41,7 +41,7 @@ def get_cate_list(req, cate, n, page=1):
     sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
+            and cate.blogpost_id=post.id order by created desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
     # print sql
     return unio().fetchAll(sql)
 
