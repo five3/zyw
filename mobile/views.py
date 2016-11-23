@@ -21,12 +21,14 @@ def valid_code(func):
     return __warp
 
 def request_login(func):
-    def __warp(req):
+    def __warp(req, *args):
         if not req.session.get('isLogin'):
             msg = '你需要登录才能发表评论'
             return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
-        ret = func(req)
-        return ret
+        if (args):
+            return func(req, *args)
+        else:
+            return func(req)
     return __warp
 
 def index(req):

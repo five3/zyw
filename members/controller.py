@@ -68,7 +68,7 @@ def save_post(req, data, uid, uname):
     views = data.get('views')
     if not views:
         views = 0
-    featured_image = data.get('featured_image')
+    featured_image = data.get('featured_image', '')
     if not featured_image.strip():
         featured_image = '/static/zhiyuw/cy_images/images/infor.jpg'
 
@@ -76,7 +76,7 @@ def save_post(req, data, uid, uname):
         sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s', featured_image='%s',
                 description='%s',updated='%s', views='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'), data.get('cate2'),
-                                  featured_image, data.get('description'), fun.now(), views, id)
+                                  featured_image, data.get('description', ''), fun.now(), views, id)
         # print sql
         r = unio().execute(sql)
         if r:
