@@ -173,7 +173,8 @@ def admin(req, action):
                 file_path = imageUp.save_image(bannerForm, req.POST, req.FILES, img_dir, 'src')
                 if file_path:
                     url = req.POST.get('url')
-                    if controller.add_banner(url, file_path):
+                    t = req.POST.get('t')
+                    if controller.add_banner(url, file_path, t):
                         msg = "添加成功"
                         reset_setting(global_settings)
                     else:

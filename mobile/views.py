@@ -33,7 +33,7 @@ def request_login(func):
 
 def index(req):
     # print req.session['site_host']
-    req.session['banner_list']  = global_settings['banner_list']
+    req.session['banner_list_mobile']  = global_settings['banner_list_mobile']
     req.session['settings'] = global_settings['settings']
     logo_image = fun.get_site_logo(req)
     fsb_list = controller.get_fsb_list(req, 5)

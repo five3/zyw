@@ -274,7 +274,7 @@ def add_admin(post):
     password = post.get('password')
     email = post.get('email')
     sql = '''insert into auth_user (first_name, last_name, username, password, date_joined, last_login, is_active, is_staff, is_superuser, email) VALUES ('', '', '%s', '%s', now(), now(), 0, 1, 0, '%s');''' % (name, fun.mk_md5(password), email)
-    print sql
+    # print sql
     try:
         if unio().execute(sql):
             return True
@@ -284,7 +284,7 @@ def add_admin(post):
 
 def get_settings():
     sql = '''SELECT * FROM ww_setting where 1=1'''
-    print sql
+    # print sql
     try:
         return unio().fetchOne(sql)
     except:
@@ -298,7 +298,7 @@ def update_setting(post):
     copyright = post.get('copyright')
     friend_link = post.get('friend_link')
     sql = '''UPDATE ww_setting SET title='%s', keywords='%s', `desc`='%s', copyright='%s', friend_link='%s' where 1=1''' % (title, keywords, desc, copyright, friend_link)
-    print sql
+    # print sql
     try:
         if unio().execute(sql):
             return True
@@ -307,7 +307,7 @@ def update_setting(post):
 
 def get_banners():
     sql = '''SELECT * FROM ww_banner where 1=1'''
-    print sql
+    # print sql
     try:
         return unio().fetchAll(sql)
     except:
@@ -316,17 +316,17 @@ def get_banners():
 
 def del_banner(id):
     sql = '''DELETE FROM ww_banner where id=%s''' % id
-    print sql
+    # print sql
     try:
         return unio().execute(sql)
     except:
         pass
 
 
-def add_banner(url, file_path):
+def add_banner(url, file_path, t):
     src = '/static' + file_path.split('static')[1].replace('\\', '/')
-    sql ='''INSERT INTO ww_banner (src, url) VALUES ('%s', '%s')''' % (src, url)
-    print sql
+    sql ='''INSERT INTO ww_banner (src, url, t) VALUES ('%s', '%s', '%s')''' % (src, url, t)
+    # print sql
     try:
         return unio().execute(sql)
     except:

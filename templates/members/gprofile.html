@@ -90,6 +90,24 @@
                                     </td>
                                 </tr>
                                 <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>微信：</td>
+                                    <td>
+                                        <input type="text" value="{{info.weixin}}" name="weixin" class="inputxt" datatype="*" nullmsg="请输入您的微信号码！" errormsg="" />
+                                    </td>
+                                    <td>
+                                        <div class="info"><span class="Validform_checktip">请输入您的微信</span><span class="dec"><s class="dec1">&#9670;</s><s class="dec2">&#9670;</s></span></div>
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
+                                    <td class="zcxxa"><span>*</span>领英：</td>
+                                    <td>
+                                        <input type="text" value="{{info.linkedin}}" name="linkedin" class="inputxt" datatype="*" nullmsg="请输入您的领英账号！" errormsg="" />
+                                    </td>
+                                    <td>
+                                        <div class="info"><span class="Validform_checktip">请输入您的领英账号</span><span class="dec"><s class="dec1">&#9670;</s><s class="dec2">&#9670;</s></span></div>
+                                    </td>
+                                </tr>
+                                <tr class="phpadd">
                                     <td class="zcxxa"><span>*</span>手机号码：</td>
                                     <td>
                                         <input type="text" value="{{info.shoujihao}}" name="shoujihao" class="inputxt" datatype="*" nullmsg="请输入您的手机号码！" errormsg="请输入您的手机号码！" />
@@ -122,9 +140,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                	<td class="zcxxa">个人简介：</td>
+                                	<td class="zcxxa">个人履历：</td>
                                     <td>
-                                    <textarea name="gerenjianjie" tip="请在这里输入您的意见。" errormsg="很感谢您花费宝贵时间给我们提供反馈，请填写有效内容！"   value="" cols="55" rows="4">{{info.gerenjianjie}}</textarea>
+                                    <textarea name="gerenjianjie" tip="请在这里输入您的意见。" errormsg="很感谢您花费宝贵时间给我们提供反馈，请填写有效内容！" cols="55" rows="4">{{info.gerenjianjie}}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td class="zcxxa">关注函：</td>
+                                    <td>
+                                    <textarea name="guanzhuhan" tip="请在这里输入您的意见。" errormsg="很感谢您花费宝贵时间给我们提供反馈，请填写有效内容！" cols="55" rows="4">{{info.guanzhuhan}}</textarea>
                                     </td>
                                 </tr>
                             </table>

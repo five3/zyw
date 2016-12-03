@@ -91,7 +91,7 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 
 .top_bar { position: fixed; z-index: 900; bottom: 0; left: 0; right: 0; margin: auto; font-family: Helvetica, Tahoma, Arial, Microsoft YaHei, sans-serif; display:block; clear:both; float:left;}
 
-.top_menu { display:-webkit-box; border-top: 1px solid #3D3D46; display: block; width: 100%; background: rgba(255, 255, 255, 0.7); height: 60px; display: -webkit-box; display: box; margin:0; padding:0; -webkit-box-orient: horizontal; background:#F4F5F6; box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset; }
+.top_menu { display:-webkit-box; border-top: 1px solid #3D3D46; display: block; width: 100%; background: rgba(255, 255, 255, 0.7); height: 70px; display: -webkit-box; display: box; margin:0; padding:0; -webkit-box-orient: horizontal; background:#F4F5F6; box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset; }
 
 .top_bar .top_menu>li { -webkit-box-flex:1; background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.1)), color-stop(50%, rgba(0, 0, 0, 0.3)), to(rgba(0, 0, 0, 0.4))), -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.1)), color-stop(50%, rgba(255, 255, 255, 0.1)), to(rgba(255, 255, 255, 0.15))); ; -webkit-background-size:1px 100%, 1px 100%; background-size:1px 100%, 1px 100%; background-position: 1px center, 2px center; background-repeat: no-repeat; position:relative; text-align:center; }
 
@@ -99,9 +99,9 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 
 .top_bar .top_menu>li>a { height:60px; display:block; text-align:center; color:#333; text-decoration:none; text-shadow: 0 1px rgba(0, 0, 0, 0.3); -webkit-box-flex:1; }
 
-.top_bar .top_menu>li>a label { overflow:hidden; margin: 0 0 0 0; font-size: 1.0em; display: block !important; line-height: 18px; text-align: center; }
+.top_bar .top_menu>li>a label { overflow:hidden; margin: 0 0 0 0; font-size: 1.0em; display: block !important; line-height: 20px; text-align: center; }
 
-.top_bar .top_menu>li>a img { padding: 3px 0 0 0; height: 24px; width: 24px; color: #333; line-height: 48px; vertical-align:middle; }
+.top_bar .top_menu>li>a img { padding: 15px 0 0 0; height: 24px; width: 24px; color: #333; line-height: 48px; vertical-align:middle; }
 
 .top_bar li:first-child a { display: block; }
 

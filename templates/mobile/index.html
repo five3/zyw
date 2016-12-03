@@ -2,8 +2,9 @@
 {% block main %}
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href="#"><img src="/static/mobile/cy_images/images/banner01.jpg" /></a></div>
-            <div class="swiper-slide"><a href="#"><img src="/static/mobile/cy_images/images/banner01.jpg" /></a></div>
+            {% for i in req.session.banner_list_mobile %}
+                <div class="swiper-slide"><a href="{{i.url}}"><img src="{{i.src}}" /></a></div>
+            {% endfor %}
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>

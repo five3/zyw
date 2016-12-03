@@ -4,8 +4,9 @@ from django.shortcuts import render_to_response
 from config import global_settings, reset_setting
 import controller
 import function as fun
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+import json
 
 # reset_setting(global_settings)
 # print global_settings
@@ -24,7 +25,7 @@ def request_login(func):
     def __warp(req):
         if req.method=='POST':
             if not req.session.get('isLogin'):
-                msg = '你需要登录才能发表评论'
+                msg = '你需要登录才能执行操作'
                 return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
             ret = func(req)
             return ret
@@ -199,6 +200,7 @@ def logout(req):
 def ydy(req):
     logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
+    req.session['banner_list_ydy']  = global_settings['banner_list_ydy']
     if req.method=='GET':
         express, express_id = controller.get_valid_code()
         fun.get_valid_code()
@@ -250,25 +252,31 @@ def member(req):
     data = fun.warp_data(req.GET)
     info = controller.get_user_info(data)
     article_list = controller.get_user_article(data, req)
+    # add credits
+    controller.add_count_history(req.session.get('info',{}).get('id','0'), 'hudie')
     return render_to_response("zhiyuw/member.html", locals(), context_instance = RequestContext(req))
 
 @request_login
 def comment(req):
-    data = fun.warp_data(req.POST)
-    data['id'] = req.session.get('info',{}).get('id','0')
-    if req.META.has_key('HTTP_X_FORWARDED_FOR'):
-        data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
-    else:
-        data['ip'] = req.META['REMOTE_ADDR']
-    # print data
-    controller.add_comments(req, data)
-    return HttpResponseRedirect(data.get('referer'))
+    if req.method=='POST':
+        data = fun.warp_data(req.POST)
+        data['id'] = req.session.get('info',{}).get('id','0')
+        if req.META.has_key('HTTP_X_FORWARDED_FOR'):
+            data['ip'] =  req.META['HTTP_X_FORWARDED_FOR']
+        else:
+            data['ip'] = req.META['REMOTE_ADDR']
+        # print data
+        controller.add_comments(req, data)
+        controller.add_count_history(req.session.get('info',{}).get('id','0'), 'comment')
+        return HttpResponseRedirect(data.get('referer'))
 
 def qiye_comment(req):
     if req.method=='GET':
         logo_image = fun.get_site_logo(req)
         data = fun.warp_data(req.GET)
         info = controller.get_user_info(data)
+        controller.add_count(data['userid'], 'shuoshuo')
+        controller.add_count_history(req.session.get('info',{}).get('id','0'), 'shuoshuo')
         return render_to_response("zhiyuw/qiye_comment.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = fun.warp_data(req.POST)
@@ -282,3 +290,21 @@ def qiye_comment(req):
             msg = '提交说说失败'
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
 
+@request_login
+def guanzhu(req):
+    result = {'errorCode':0, 'msg':''}
+    if not req.session.get('isLogin'):
+        result = {'errorCode':-1, 'msg':'你还未登录'}
+        return HttpResponse(json.dumps(result),content_type="application/json")
+    if req.method=='POST':
+        data = fun.warp_data(req.POST)
+        data['uid'] = req.session['info'].get('id', 0)
+        # print data
+        r = controller.add_guanzhu(data)
+        if r:
+            controller.add_count(data['userid'], 'focus')
+            controller.add_count_history(data['userid'], 'focus')
+            return HttpResponse(json.dumps(result),content_type="application/json")
+        else:
+            result = {'errorCode':-2, 'msg':'已关注 '}
+            return HttpResponse(json.dumps(result),content_type="application/json")

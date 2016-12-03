@@ -3,7 +3,8 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
-
+from zhiyuw import controller as controller2
+from datetime import date
 
 def get_cate_list():
     sql = '''select id, title
@@ -175,9 +176,10 @@ def update_profile(data, utype, uid):
         # print sql
         unio().execute(sql)
         sql = '''update ww_member_normal set xingming='%s', shoujihao='%s', zuoyouming='%s', qq='%s',
-               gerenjianjie='%s', zhiwei='%s', sex='%s' where id=%s''' % (data.get('xingming'), data.get('shoujihao'),
+               gerenjianjie='%s', zhiwei='%s', sex='%s', weixin='%s', linkedin='%s', guanzhuhan='%s'
+               where id=%s''' % (data.get('xingming'), data.get('shoujihao'),
                  data.get('zuoyouming'), data.get('qq'), data.get('gerenjianjie'), data.get('zhiwei'),
-                 data.get('sex'), uid)
+                 data.get('sex'), data.get('weixin'), data.get('linkedin'), data.get('guanzhuhan'), uid)
         # print sql
         return unio().execute(sql)>-1
 
@@ -190,7 +192,8 @@ def get_profile(uid, utype):
         return unio().fetchOne(sql)
     elif utype=='gyq':
         sql = '''select m.nickname, m.logo as photo_img, n.xingming, n.shoujihao, n.zuoyouming, n.qq, n.gerenjianjie,
-                n.zhiwei, n.sex from ww_member m, ww_member_normal n
+                n.zhiwei, n.sex, n.weixin, n.linkedin, n.guanzhuhan
+                from ww_member m, ww_member_normal n
                 where m.id=%s and m.id=n.id''' % uid
         # print sql
         return unio().fetchOne(sql)
@@ -263,3 +266,170 @@ def get_qiye_comment(id):
 def del_qiye_comment(id):
     sql = '''update ww_qiye_comment set is_show=-1 where id=%s''' % id
     return unio().execute(sql)
+
+def get_user_urls(uid):
+    sql = '''SELECT * FROM ww_navigate WHERE uid=%s''' % uid
+    # print sql
+    return unio().fetchAll(sql)
+
+def save_url(uid, nid, name, url):
+    if nid: ##update
+        sql = '''UPDATE ww_navigate SET name='%s', url='%s' WHERE uid=%s AND id=%s''' % (name, url, uid, nid)
+    else:   ##insert
+        sql = '''INSERT INTO ww_navigate (uid, name, url) VALUE (%s, '%s', '%s')''' % (uid, name, url)
+    # print sql
+    return unio().execute(sql)
+
+def del_url(uid, nid):
+    sql = '''DELETE FROM ww_navigate WHERE uid=%s AND id=%s''' % (uid, nid)
+    # print sql
+    return unio().execute(sql)
+
+def get_xiangwang_count(uid, num=10):
+    sql = '''SELECT count(id) as count
+            FROM ww_guanzhu
+            WHERE ww_guanzhu.pid=%s''' % uid
+    # print sql
+    r = unio().fetchOne(sql)
+    if r:
+        total =  r.get('count', 1)
+        if total==0:
+            return 1
+        elif total%num==0:
+            return total/num
+        else:
+            return total/num + 1
+    else:
+        return 1
+
+def get_xiangwang(uid, page=1, num=10):
+    index = (page-1)*num
+    sql = '''SELECT ww_member.id, ww_member.logo,ww_member_vip.qiyewangzhi as url,ww_member_vip.qiyeming,
+            ww_zhuanye.desc as hangye, ww_member.utype, ww_member.credits
+            FROM ww_guanzhu, ww_member, ww_member_vip, ww_zhuanye
+            WHERE ww_guanzhu.pid=%s AND ww_guanzhu.cid=ww_member.id AND ww_member.id=ww_member_vip.id
+            AND ww_member_vip.zhuanye=ww_zhuanye.name
+            order by ww_guanzhu.id desc limit %s,%s''' % (uid, index, num)
+    # print sql
+    r = unio().fetchAll(sql)
+    if r:
+        return fun.convert_dengji_list(*r)
+    else:
+        return {}
+
+def get_tianchi_count(uid, gread=None, num=10):
+    condi = ''
+    if gread:
+        condi = ''' AND ww_member_normal.zhiwei='%s' ''' % gread
+    sql = '''SELECT count(ww_guanzhu.id) as count
+            FROM ww_guanzhu, ww_member_normal
+            WHERE ww_guanzhu.cid=%s AND ww_guanzhu.pid=ww_member_normal.id %s''' % (uid, condi)
+    # print sql
+    r = unio().fetchOne(sql)
+    if r:
+        total =  r.get('count', 1)
+        if total==0:
+            return 1
+        elif total%num==0:
+            return total/num
+        else:
+            return total/num + 1
+    else:
+        return 1
+
+def get_tianchi(uid, gread=None, page=1, num=10):
+    condi = ''
+    if gread:
+        condi = ''' AND ww_member_normal.zhiwei='%s' ''' % gread
+    index = (page-1)*num
+    sql = '''SELECT ww_member.id, ww_member.utype, ww_member.logo, ww_member.username, ww_member_normal.qq,
+            ww_member_normal.shoujihao, ww_member_normal.weixin, ww_member_normal.linkedin, ww_member_normal.gerenjianjie,
+            ww_member_normal.guanzhuhan
+            FROM ww_guanzhu, ww_member, ww_member_normal
+            WHERE ww_guanzhu.cid=%s AND ww_guanzhu.pid=ww_member.id AND ww_guanzhu.pid=ww_member_normal.id
+            AND ww_member_normal.gerenjianjie is not null %s
+            order by ww_guanzhu.id desc limit %s,%s''' % (uid, condi, index, num)
+    # print sql
+    return unio().fetchAll(sql)
+
+
+def get_count(uid):
+    d = {}
+    sql = '''SELECT credits FROM ww_member where id=%s''' % uid
+    # print sql
+    member_totle = unio().fetchOne(sql)['credits']
+    sql = '''SELECT count(views) as n, count(comments_count) as m FROM blog_blogpost where user_id=%s''' % uid
+    # print sql
+    r = unio().fetchOne(sql)
+    article_totle = r['n']
+    comment = r['m']
+
+    sql = '''SELECT shuoshuo, money FROM ww_count WHERE uid=%s''' % uid
+    # print sql
+    r = unio().fetchOne(sql)
+    sql = '''SELECT hudie as hudie_today, comment as comment_today,
+            shuoshuo as shuoshuo_today, money_in, money_out
+            FROM ww_count_history WHERE uid=%s AND created='%s';''' % (uid, date.today())
+    # print sql
+    r2 = unio().fetchOne(sql)
+    if r:
+        d = r
+    if not r2:
+        r2 = {'hudie_today': 0, 'comment_today': 0, 'shuoshuo_today': 0, 'money_in': 0, 'money_out': 0}
+    d.update(r2)
+    d['hudie'] = member_totle + article_totle
+    d['comment'] = comment
+    # print d
+    return d
+
+def log_money(uid, account, num):
+    if num < 0:
+        return
+    email = account.strip().split()[0]
+    sql = '''SELECT id FROM ww_member WHERE email='%s' AND 1=1''' % email
+    r = unio().fetchOne(sql)
+    if r:
+        tid = r.get('id')
+    else:
+        return
+    sql = '''SELECT money FROM ww_count WHERE uid=%s AND money>%s''' % (uid, num)
+    r = unio().fetchOne(sql)
+    if not r:  ##money not enougth
+        return
+    sql = '''INSERT INTO ww_money (sender_id, recev_id, num, created) VALUES (%s, %s, %s, now())''' % (uid, tid, num)
+    r = unio().executeInsert(sql)
+    if r:
+        sql = '''INSERT INTO ww_money (sender_id, recev_id, num, created) VALUES (%s, %s, %s, now())''' % (tid, uid, 0-num)
+        r = unio().executeInsert(sql)
+        if r:
+            r1 = controller2.add_count(tid, 'money', num)
+            r2 = controller2.add_count(uid, 'money', 0-num)
+            r3 = controller2.add_count_history(tid, 'money_in', num)
+            r4 = controller2.add_count_history(uid, 'money_out', num)
+            if r1 and r2 and r3 and r4:
+                return True
+
+def get_money_history(uid):
+    sql = '''SELECT ww_money.num, ww_money.created, ww_member.username, ww_member.email
+            FROM ww_money,ww_member WHERE recev_id=%s AND ww_money.sender_id=ww_member.id
+            order by created desc''' % (uid)
+    # print sql
+    r = unio().fetchAll(sql)
+    if r:
+        return r
+    else:
+        []
+
+def get_focus_count(uid):
+    d = {}
+    sql = '''SELECT focus FROM ww_count WHERE uid=%s''' % uid
+    r = unio().fetchOne(sql)
+    sql = '''SELECT focus as focus_today FROM ww_count_history WHERE uid=%s AND created='%s';''' % (uid, date.today())
+    r2 = unio().fetchOne(sql)
+    if r:
+        d = r
+    else:
+        return d
+    if r2:
+        d.update(r2)
+    return d

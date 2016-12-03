@@ -34,170 +34,89 @@
 {% block main %}
     <div class="content" style="margin: 0 auto; ">
         <div class="information">
-                <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
-
-               	  <div class="add_title">
-                    	<div class="head">
+            <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
+                <div class="add_title">
+                    <div class="head">
                         <a href="#"><img src="{{info.logo}}"></a>
                         <span>亲爱的{{info.nickname}}，下午好！</span>
-                      </div>
+                    </div>
                     <div class="submit">
                         <input type="submit" class="sub" value="发表文章"  style="display:none;">
-                        </div>
                     </div>
-                    <div class="add_center">
-                    <p>您的天池今天注入 <span>100</span> 立方纯净水，总容量已突破 <em>900</em> 立方。用心呵护您的天池，进或出，都是美好的一天。</p>
+                </div>
+                <div class="add_center">
+                    <p>您的天池今天注入 <span>{{focus_count.focus_today}}</span> 立方纯净水，总容量已突破 <em>{{focus_count.focus}}</em> 立方。用心呵护您的天池，进或出，都是美好的一天。</p>
+                </div>
+                <div class="add_aera">
+                    <div class="add_l">
+                        <div class="add_name">
+                            <span gread="">全部</span>
+                            <span gread="high">高级</span>
+                            <span gread="middle">中级</span>
+                            <span gread="low">初级</span>
+                            <span gread="qt">其他</span>
+                        </div>
+                        {% for tianchi in my_tianchi %}
+                            <div class="add_list01">
+                                <div class="add_img01">
+                                    <a href="#"><img src="{{tianchi.logo}}" width="229" height="212"></a>
+                                </div>
+                                <div class="add_word">
+                                    <b><a href="/zhiyuw/member?userid={{tianchi.id}}&t={{tianchi.utype}}" target="_blank">{{tianchi.username}}</a></b>
+                                    <div class="add_word_left">
+                                        <span>QQ：{{tianchi.qq}}</span>
+                                        <span>微信：{{tianchi.weixin}}</span>
+                                        <span>领英：{{tianchi.linkedin}}</span>
+                                        <span>电话：{{tianchi.shoujihao}}</span>
+                                    </div>
+                                    <div class="add_word_right">
+                                        <a href="javascript:void(0);" class="gz" text="{{tianchi.guanzhuhan}}">关注函</a>
+                                        <a href="javascript:void(0);" class="lv" text="{{tianchi.gerenjianjie}}">履历表</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="add_aera">
-
-                      	<div class="add_l">
-                        	<div class="add_name">
-                            <span>高级管理类</span>
-                        	</div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                       <div class="add_l">
-                        	<div class="add_name">
-                            <span>基层员工类</span>
-                        	</div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="add_l">
-                        	<div class="add_name">
-                            <span>高级管理类</span>
-                        	</div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="add_list01">
-                            	<div class="add_img01">
-                        		<a href="#"><img src="../static/members/cy_images/images/news_show.jpg" width="229" height="212"></a>
-                            	</div>
-                                <div class="add_word">
-                                	<b>ERIC</b>
-                                    <div class="add_word_left">
-                                    	<span>QQ：817085213</span>
-										<span>微信：1999-11</span>
-                                        <span>领英：1999-11</span>
-										<span>电话：18010003022</span>
-                                    </div>
-                                    <div class="add_word_right">
-
-                                        <a href="#" class="gz">关注函</a>
-                                        <a href="#" class="lv">履历表</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                    <div class="clear"></div>
-
-                        <div class="pages">
-
-                            <a href="#">上一页</a> <a href="#" class="cur">1</a> <a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">下一页</a><a href="#">尾页</a>共15页
-
-                        </div>
+                </div>
+                <div class="clear"></div>
+                <div class="pages">
+                    {% ifnotequal page 1 %}
+                        <a href="/members/tianchi?gread={{gread}}&page={{page | add:-1}}">上一页</a>
+                    {% endifnotequal %}
+                    <a>{{page}}/{{total_page}}页</a>
+                    {% ifnotequal page total_page %}
+                        <a href="/members/tianchi?gread={{gread}}&page={{page | add:1}}">下一页</a>
+                    {% endifnotequal %}
                 </div>
             </div>
+        </div>
     </div><div class="clear"></div>
+    <div id="tips"></div>
+    <div class="dlg-container">
+        <h2>关注函</h2><hr>
+        <div class="content">sfsf士大夫撒旦</div>
+    </div>
+    <script>
+        $('.add_name span').click(function(e){
+            var gread = $(this).attr('gread');
+            var url = '/members/tianchi?gread='+ gread;
+            location.href = url;
+        });
+        $('.gz').click(show_tips);
+        $('.lv').click(show_tips);
+        function show_tips(e){
+            $('.dlg-container h2').text(this.innerText);
+            $('.content').val(this.text);
+            var width = $(window).width();
+            var div_width = $('.dlg-container').width();
+            $('.dlg-container').css('left', (width-div_width)/2);
+            $('.dlg-container').show();
+            $('#tips').show();
+        };
+        $('#tips').click(function(e){
+            $('.dlg-container').hide();
+            $('#tips').hide();
+        });
+    </script>
 {% endblock %}
 

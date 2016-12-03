@@ -3,7 +3,7 @@ __author__ = 'macy'
 
 from model import *
 import function as fun
-
+from datetime import date
 # def get_site_id():
 #     return SITE_ID
 def get_nxt_list(req, n):
@@ -69,6 +69,10 @@ def get_article(id):
         unio().execute(sql)
 
         sql = '''update blog_blogpost set views=views+1 where id=%s''' % id
+        unio().execute(sql)
+
+        sql = '''INSERT INTO ww_count_history (uid, hudie, created) VALUES (%s, 1, '%s')
+                ON DUPLICATE KEY UPDATE hudie=hudie+1;''' % (r['user_id'], date.today())
         unio().execute(sql)
 
     return r
@@ -220,10 +224,14 @@ def reg_user(req, data):
             return -1
         if data['utype']=='gyq':
             sql = '''insert into ww_member_normal (id) values (%s)''' % r
-            return unio().execute(sql)
+            r2 = unio().execute(sql)
         elif data['utype']=='ktq':
             sql = '''insert into ww_member_vip (id) values (%s)''' % r
+            r2 = unio().execute(sql)
+        if r2:
+            sql = '''INSERT INTO ww_account (id) VALUES (%s)''' % r
             return unio().execute(sql)
+
     except Exception, e:
         print e
         return -2
@@ -320,3 +328,21 @@ def get_agreen():
         return rt.get('content')
     else:
         ''
+
+def add_count(uid, label, num=1):
+    sql = '''INSERT INTO ww_count (uid, %s) VALUES (%s, 1)
+            ON DUPLICATE KEY UPDATE %s=%s+(%s);''' % (label, uid, label, label, num)
+    print sql
+    return unio().execute(sql)
+
+def add_count_history(uid, label, num=1):
+    sql = '''INSERT INTO ww_count_history (uid, %s, created) VALUES (%s, 1, '%s')
+            ON DUPLICATE KEY UPDATE %s=%s+%s;''' % (label, uid, date.today(), label, label, num)
+    return unio().execute(sql)
+
+def add_guanzhu(data):
+    sql = '''INSERT INTO ww_guanzhu (cid, pid) VALUES (%s, %s)
+            ON DUPLICATE KEY UPDATE pid=%s;''' % (data.get('userid'), data.get('uid'), data.get('uid'))
+    # print sql
+    return unio().execute(sql)
+

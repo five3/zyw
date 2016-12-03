@@ -96,9 +96,11 @@
                         <li>
                             <a href="/mobile/myarts"><label>我的文章</label></a>
                         </li>
-                        <li>
-                            <a href="/mobile/xiangwang"><label>我的向往</label></a>
-                        </li>
+                        {% ifequal request.session.info.utype 'gyq' %}
+                            <li>
+                                <a href="/mobile/xiangwang"><label>我的向往</label></a>
+                            </li>
+                        {% endifequal %}
                         <li>
                             <a href="/mobile/navigate"><label>我的导航</label></a>
                         </li>
@@ -113,9 +115,11 @@
                         <li>
                             <a href="/mobile/tianchi"><label>天池水</label></a>
                         </li>
-                        <li>
-                            <a href="/mobile/pinpai"><label>我的品牌</label></a>
-                        </li>
+                        {% ifequal request.session.info.utype 'ktq' %}
+                            <li>
+                                <a href="/mobile/pinpai"><label>我的品牌</label></a>
+                            </li>
+                        {% endifequal %}
                         <li>
                             <a href="/mobile/caifu"><label>金钱树</label></a>
                         </li>

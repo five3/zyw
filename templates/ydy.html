@@ -106,9 +106,9 @@
 	</div>
 	<div id="focus_m" class="focus_m">
 		<ul>
-			<li class="li_1"><a href="" hidefocus="true"></a></li>
-			<li class="li_2"><a href="" hidefocus="true"></a></li>
-			<li class="li_3"><a href="" hidefocus="true"></a></li>
+            {% for i in req.session.banner_list_ydy %}
+			    <li style="background: url({{i.src}}) center 0 no-repeat;"><a href="{{i.url}}" hidefocus="true"></a></li>
+            {% endfor %}
 		</ul>
 	</div>
 </div>

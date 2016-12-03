@@ -35,8 +35,13 @@
             </div>
              <div class="clear"></div>
             {% ifequal info.utype 'ktq' %}
-                <div style="text-align:center; margin:20px;">
-                    <a href="/zhiyuw/qiye_comment?userid={{data.userid}}&t={{data.t}}"><img src="/static/zhiyuw/cy_images/images/shuoshuo.png"></a>
+                <div style="width:320px; margin:0 auto;">
+                    <div style="text-align:center; margin:20px; display:inline-block; float:left;">
+                        <a href="/zhiyuw/qiye_comment?userid={{data.userid}}&t={{data.t}}"><img src="/static/zhiyuw/cy_images/images/shuoshuo.png"></a>
+                    </div>
+                    <div style="text-align:center; margin:20px; display:inline-block; float:left;">
+                        <a href="javascript:void(0);" id="guanzhu"><img src="/static/zhiyuw/cy_images/images/guanzhu.png"></a>
+                    </div>
                 </div>
             {% endifequal %}
             <div class="clear"></div>
@@ -80,4 +85,15 @@
 </div>
 </div>
 <div class="clear"></div>
+<script>
+    $('#guanzhu').click(function(e){
+        $.post('/zhiyuw/guanzhu', {'userid':'{{info.id}}', 't':'ktq'}, function(result){
+            if (result.errorCode==0){
+                alert('关注成功')
+            }else{
+                alert(result.msg)
+            }
+        });
+    });
+</script>
 {% endblock %}

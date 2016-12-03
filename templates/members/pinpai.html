@@ -35,24 +35,51 @@
     <div class="content" style="margin: 0 auto;">
             <div class="information">
                 <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
-
-               	  <div class="add_title">
-                    	<div class="head">
-                        <a href="#"><img src="{{info.logo}}"></a>
-                        <span>亲爱的{{info.nickname}}，下午好！</span>
-                      </div>
-                    <div class="submit">
-                        <input type="submit" class="sub" value="发表文章" style="display:none;">
+                    <div class="add_title">
+                        <div class="head">
+                            <a href="#"><img src="{{info.logo}}"></a>
+                            <span>亲爱的{{info.nickname}}，您好！</span>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="sub" value="发表文章" style="display:none;">
                         </div>
                     </div>
                     <div class="add_aera">
-                <p><img src="../static/members/cy_images/images/piont01.png" width="45" height="45">亲爱的five3，今天有<span>X</span>只蝴蝶进了您的花园，截止现在一共<em>N</em>只蝴蝶闻到了您的香味，加油啊！</p>
-                <p><img src="../static/members/cy_images/images/piont02.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵茉莉，截止现在您一共收到<em>10</em>朵茉莉，真幸福！</p>
-                <p><img src="../static/members/cy_images/images/piont03.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵文心半，截止现在您一共收到<em>10</em>朵文心兰，好好数数哦！</p>
-                <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">亲爱的five3，今天您一共收到<span>3</span>朵文心半，截止现在您一共收到<em>10</em>朵文心兰，好好数数哦！</p>
-                </div>
+                        <p><img src="../static/members/cy_images/images/piont01.png" width="45" height="45">亲爱的{{info.nickname}}，今天有<span>{{count.hudie_today}}</span>只蝴蝶进了您的花园，截止现在一共<em>{{count.hudie}}</em>只蝴蝶闻到了您的香味，加油啊！</p>
+                        <p><img src="../static/members/cy_images/images/piont02.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<span>{{count.comment_today}}</span>朵茉莉，截止现在您一共收到<em>{{count.comment}}</em>朵茉莉，真幸福！</p>
+                        <p><img src="../static/members/cy_images/images/piont03.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<span>{{count.shuoshuo_today}}</span>朵文心半，截止现在您一共收到<em>{{count.shuoshuo}}</em>朵文心兰，好好数数哦！</p>
+                        <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<span>{{count.money_in}}</span>棵金钱树，送出<span>{{count.money_out}}</span>棵金钱树，您一共拥有<em>{{count.money}}</em>棵金钱树，恭喜恭喜！</p>
+                    </div>
+                    <form id="money" action="/members/money" method="post" onsubmit="return false;">
+                        <label>对方账号：</label>
+                        <input type="text" name="account" value="">
+                        <label>赠送数量：</label>
+                        <input type="text" name="money" value="">
+                        <input type="submit" value="赠送金钱树" id="money_submit" style="height: 30px">
+                        <a id="money_history" style="height: 30px" href="/members/money" target="_blank">查看明细</a>
+                    </form>
                 </div>
             </div>
         </div><div class="clear"></div>
+    <script>
+    $('#money_submit').click(function(e){
+        var form = $('#money');
+        $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            dataType:'json',
+            data: form.serializeArray(),
+            success: function(msg) {
+                if(msg.errorCode==0){
+                        location = location.href;
+                        alert('操作成功')
+                }else{
+                    alert(msg.msg)
+                }
+            }
+        });
+    });
+    </script>
 {% endblock %}
+
 
