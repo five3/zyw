@@ -1,0 +1,79 @@
+{% extends "members/base.html" %}
+
+{% block css %}
+    <style>
+    .registerform {
+        margin: 0 105px 15px;
+        padding-top: 45px;
+    }
+    .registerform .inputxt {
+        padding: 3px 2px;
+    }
+    .registerform td{
+        display: block;
+        float: left;
+    }
+    .phpadd td{
+        padding-bottom: 20px;
+    }
+    .fangbiang{
+        margin-left: 50px;
+    }
+    </style>
+{% endblock %}
+
+{% block js %}
+	<script  src="/static/members/cy_images/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- loand -->
+    <script  src="/static/members/cy_images/js/Validform_v5.3.2_min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/passwordStrength-min.js" type="text/javascript"></script>
+    <script  src="/static/members/cy_images/js/loand.js" type="text/javascript"></script>
+    <!-- zhuce -->
+    <script src="/static/members/cy_images/js/zhuce.js" type="text/javascript"></script>
+{% endblock %}
+{% block main %}
+    <div class="content" style="margin: 0 auto;">
+            <div class="information">
+                <div class="inputout" style="width:760px; float:left; display:block; margin-left:39px;">
+                    <div class="add_title">
+                        <div class="head">
+                            <a href="#"><img src="{{info.logo}}"></a>
+                            <span>亲爱的{{info.nickname}}，您好！</span>
+                        </div>
+                        <div class="submit">
+                            <input type="submit" class="sub" value="发表文章" style="display:none;">
+                        </div>
+                    </div>
+                    <div class="add_aera">
+                        {% for h in history %}
+                            <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">
+                                {{h.created | date:'Y-m-d'}}收到<em>{{h.num}}</em>金钱树，对方账号:<span>{{h.username}}</span>，对方EMAIL:<span>{{h.email}}</span>
+                            </p>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div><div class="clear"></div>
+    <script>
+    $('#money_submit').click(function(e){
+        var form = $('#money');
+        $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            dataType:'json',
+            data: form.serializeArray(),
+            success: function(msg) {
+                if(msg.errorCode==0){
+                        location = location.href;
+                        alert('操作成功')
+                }else{
+                    alert(msg.msg)
+                }
+            }
+        });
+    });
+    </script>
+{% endblock %}
+
+
