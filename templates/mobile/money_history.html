@@ -1,0 +1,17 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+<div class="nav_add">
+    <div class="nav_top">
+        赠送记录
+    </div>
+    <div class="add_aera">
+        {% for h in history %}
+            <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">
+                {{h.created | date:'Y-m-d'}}收到<em>{{h.num}}</em>金钱树，对方账号:<label>{{h.username}}</label>，对方EMAIL:<span>{{h.email}}</span>
+            </p>
+        {% endfor %}
+            <p></p>
+    </div>
+</div>
+<div class="clear" style="height:20px;"></div>
+{% endblock %}

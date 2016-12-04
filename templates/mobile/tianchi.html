@@ -1,0 +1,58 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+<div class="nav_add">
+    <div class="nav_top">
+        我的天池
+    </div>
+    <div class="add_center">
+        <p>您的天池今天注入 <label>{{focus_count.focus_today}}</label> 立方纯净水，总容量已突破 <em>{{focus_count.focus}}</em> 立方。用心呵护您的天池，进或出，都是美好的一天。</p>
+    </div><div class="clear"></div>
+    <div class="add_aera">
+        <div class="add_l">
+            <div class="add_name">
+                <span gread="">全部</span>
+                <span gread="high">高级</span>
+                <span gread="middle">中级</span>
+                <span gread="low">初级</span>
+                <span gread="qt">其他</span>
+            </div>
+            {% for tianchi in my_tianchi %}
+                <div class="add_list01">
+                    <div class="add_img01">
+                        <a href="#"><img src="{{tianchi.logo}}" width="229" height="212"></a>
+                    </div>
+                    <div class="add_word">
+                        <b><a href="/zhiyuw/member?userid={{tianchi.id}}&t={{tianchi.utype}}" target="_blank">{{tianchi.username}}</a></b>
+                        <div class="add_word_left">
+                            <span>QQ：{{tianchi.qq}}</span>
+                            <span>微信：{{tianchi.weixin}}</span>
+                            <span><a href="/mobile/info/guanzhuhan?userid={{tianchi.id}}" class="gz">关注函</a></span>
+                            <span>领英：{{tianchi.linkedin}}</span>
+                            <span>电话：{{tianchi.shoujihao}}</span>
+                            <span><a href="/mobile/info/gerenjianjie?userid={{tianchi.id}}" class="lv">履历表</a></span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="pages">
+        {% ifnotequal page 1 %}
+            <a href="/mobile/tianchi?gread={{gread}}&page={{page | add:-1}}">上一页</a>
+        {% endifnotequal %}
+        <a>{{page}}/{{total_page}}页</a>
+        {% ifnotequal page total_page %}
+            <a href="/mobile/tianchi?gread={{gread}}&page={{page | add:1}}">下一页</a>
+        {% endifnotequal %}
+    </div>
+</div>
+<div class="clear" style="height:20px;"></div>
+    <script>
+        $('.add_name span').click(function(e){
+            var gread = $(this).attr('gread');
+            var url = '/mobile/tianchi?gread='+ gread;
+            location.href = url;
+        });
+    </script>
+{% endblock %}

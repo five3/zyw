@@ -1,0 +1,15 @@
+{% extends "mobile/base.html" %}
+{% block main %}
+<div class="nav_add">
+    <div class="nav_top">
+        我的品牌
+    </div>
+    <div class="add_aera">
+        <p><img src="../static/members/cy_images/images/piont01.png" width="45" height="45">亲爱的{{info.nickname}}，今天有<label>{{count.hudie_today}}</label>只蝴蝶进了您的花园，截止现在一共<em>{{count.hudie}}</em>只蝴蝶闻到了您的香味，加油啊！</p>
+        <p><img src="../static/members/cy_images/images/piont02.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<label>{{count.comment_today}}</label>朵茉莉，截止现在您一共收到<em>{{count.comment}}</em>朵茉莉，真幸福！</p>
+        <p><img src="../static/members/cy_images/images/piont03.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<label>{{count.shuoshuo_today}}</label>朵文心半，截止现在您一共收到<em>{{count.shuoshuo}}</em>朵文心兰，好好数数哦！</p>
+        <p></p>
+    </div>
+</div>
+<div class="clear" style="height:20px;"></div>
+{% endblock %}
