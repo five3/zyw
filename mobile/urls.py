@@ -19,10 +19,12 @@ urlpatterns = patterns('mobile.views',
     url("^post/(.*)$", 'post'),
     url("^myarts", 'myarts'),
     url("^xiangwang", 'xiangwang'),
-    url("^navigate", 'navigate'),
+    url("^navigate/(.*)$", 'navigate'),
     url("^tianchi", 'tianchi'),
     url("^pinpai", 'pinpai'),
     url("^caifu", 'caifu'),
+    url("^money", 'money'),
+    url("^info/(.*)$", 'info'),
 )
 
 handler404 = "mezzanine.core.views.page_not_found"

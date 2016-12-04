@@ -102,7 +102,7 @@
                             </li>
                         {% endifequal %}
                         <li>
-                            <a href="/mobile/navigate"><label>我的导航</label></a>
+                            <a href="/mobile/navigate/"><label>我的导航</label></a>
                         </li>
                     </ul>
                 </li>
@@ -112,14 +112,14 @@
                         <label>我的财富</label>
                     </a>
                     <ul id="menu_list3" class="menu_font" style=" display:none">
-                        <li>
-                            <a href="/mobile/tianchi"><label>天池水</label></a>
-                        </li>
                         {% ifequal request.session.info.utype 'ktq' %}
                             <li>
-                                <a href="/mobile/pinpai"><label>我的品牌</label></a>
+                                <a href="/mobile/tianchi"><label>天池水</label></a>
                             </li>
                         {% endifequal %}
+                        <li>
+                            <a href="/mobile/pinpai"><label>我的品牌</label></a>
+                        </li>
                         <li>
                             <a href="/mobile/caifu"><label>金钱树</label></a>
                         </li>

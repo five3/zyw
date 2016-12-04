@@ -1,54 +1,32 @@
 {% extends "mobile/base.html" %}
 {% block main %}
-
-<div class="news">
-	<div class="title">
-    	<span>我的向往</span><a href="#">更多></a>
+<div class="nav_add">
+    <div class="nav_top">
+        我的向往
+    </div><div class="clear"></div>
+    <div class="add_aera">
+        {% for xiangwang in my_xiangwang %}
+            <div class="add_list">
+                <div class="add_img">
+                <a href="{{xiangwang.url}}" target="_blank"><img src="{{xiangwang.logo}}" width="229" height="212"></a>
+                </div>
+                <div class="add_w">
+                <b><a href="/zhiyuw/member?userid={{xiangwang.id}}&t={{xiangwang.utype}}" target="_blank" title="{{xiangwang.qiyeming}}">{{xiangwang.qiyeming | slice:"18"}}</a></b>
+                <span>等级：{{xiangwang.dengji}}</span>
+                <span>行业：{{xiangwang.hangye}}</span>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    <div class="news_show">
-        <div class="news_list01">
-            <div class="news_map01">
-            <a href="#"><img src="/static/mobile/cy_images/images/news_show.jpg" /></a>
-            </div>
-            <div class="news_area">
-                <a href="#">上市去吧</a>
-                <span>等级：恩平榕</span>
-                <span>行业：咨询/培训</span>
-            </div>
-        </div>
-        
-        <div class="news_list01">
-            <div class="news_map01">
-            <a href="#"><img src="/static/mobile/cy_images/images/news_show.jpg" /></a>
-            </div>
-            <div class="news_area">
-                <a href="#">上市去吧</a>
-                <span>等级：恩平榕</span>
-                <span>行业：咨询/培训</span>
-            </div>
-        </div>
-
-        <div class="news_list01">
-            <div class="news_map01">
-            <a href="#"><img src="/static/mobile/cy_images/images/news_show.jpg" /></a>
-            </div>
-            <div class="news_area">
-                <a href="#">上市去吧</a>
-                <span>等级：恩平榕</span>
-                <span>行业：咨询/培训</span>
-            </div>
-        </div>
-
-        <div class="news_list01">
-            <div class="news_map01">
-            <a href="#"><img src="/static/mobile/cy_images/images/news_show.jpg" /></a>
-            </div>
-            <div class="news_area">
-                <a href="#">上市去吧</a>
-                <span>等级：恩平榕</span>
-                <span>行业：咨询/培训</span>
-            </div>
-        </div>
+    <div class="clear"></div>
+    <div class="pages">
+        {% ifnotequal page 1 %}
+            <a href="/mobile/xiangwang?page={{page | add:-1}}">上一页</a>
+        {% endifnotequal %}
+        <a>{{page}}/{{total_page}}页</a>
+        {% ifnotequal page total_page %}
+            <a href="/mobile/xiangwang?page={{page | add:1}}">下一页</a>
+        {% endifnotequal %}
     </div>
 </div><div class="clear"></div>
 

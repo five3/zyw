@@ -5,44 +5,83 @@
         我的导航
     </div>
     <div id="box">
-        <span>编辑</span>
+        <span class="edit_navigate">编辑</span>
     </div><div style="clear:both;"></div>
     <ol class="list">
-        <li>
-            <div class="pro_name">
-                <div class="nav-del"><div class="del-icon" nid="1"></div></div>
-                <a href="http://www.baidu.com/" target="_blank" nid="1">百度</a>
-                <div class="nav-text"><div class="nav-item-edit"></div></div>
-            </div>
-        </li>
-        <li>
-            <div class="pro_name">
-                <div class="nav-del"><div class="del-icon" nid="2"></div></div>
-                <a href="http://www.sina.com.cn/" target="_blank" nid="2">新浪</a>
-                <div class="nav-text"><div class="nav-item-edit"></div></div>
-            </div>
-        </li>
-        <li>
-            <div class="pro_name">
-                <div class="nav-del"><div class="del-icon" nid="3"></div></div>
-                <a href="http://www.taobao.com/" target="_blank" nid="3">淘宝</a>
-                <div class="nav-text"><div class="nav-item-edit"></div></div>
-            </div>
-        </li>
-        <li>
-            <div class="pro_name">
-                <div class="nav-del"><div class="del-icon" nid="4"></div></div>
-                <a href="http://www.youku.com/" target="_blank" nid="4">优酷</a>
-                <div class="nav-text"><div class="nav-item-edit"></div></div>
-            </div>
-        </li>
+        {% for url in urls %}
+            <li>
+                <div class="pro_name">
+                    <div class="nav-del"><div class="del-icon" nid="{{url.id}}"></div></div>
+                    <a href="{{url.url}}" target="_blank" nid="{{url.id}}">{{url.name}}</a>
+                    <div class="nav-text"><div class="nav-item-edit"></div></div>
+                </div>
+            </li>
+        {% endfor %}
         <li class="add_navigate"><div class="pro_name"><a href="javascript:void(0);">+</a></div></li>
-    </ol>
-</div><div class="clear"></div>
-<div id="car" class="car">
-	<div class="head_row hid">
-		<div class="name left"></div>		
-		<div class="ctrl left"></div>
-	</div>
-</div>	
+    </ol><div class="clear"></div>
+    <form id="navigate" action="/mobile/navigate/save" onclick="return false;">
+        <input type="hidden" name="nid" value="">
+        <input type="text" value="" name="name" placeholder="请输入网站名称">
+        <input type="text" value="" name="url" placeholder="请输入网站URL" style="width: 300px;">
+        <span class="navigate_submit button">确定</span>
+    </form>
+</div>
+<div class="clear"></div>
+<script>
+    $('.navigate_submit').click(function(e){
+        var form = $('#navigate');
+        $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            dataType:'json',
+            data: form.serializeArray(),
+            success: function(msg) {
+                if(msg.errorCode==0){
+                        location = location.href;
+                        alert('操作成功')
+                    }else{
+                        alert(msg.msg)
+                    }
+            }
+        });
+    });
+    $('.add_navigate').click(function(e){
+        $('#navigate input[name="nid"]').val('');
+        $('#navigate input[name="name"]').val('');
+        $('#navigate input[name="url"]').val('');
+        $('#navigate').show();
+    });
+    $('#box .edit_navigate').click(function(e){
+        $('.pro_name .nav-del').css('display', 'inline-block');
+        $('.pro_name .nav-text').css('display', 'inline-block');
+    });
+    $('.nav-item-edit').click(function(e){
+        var link = $(this).parent().parent().find('a');
+        var url = link.attr('href');
+        var nid = link.attr('nid');
+        var name = link.html();
+        $('#navigate input[name="nid"]').val(nid);
+        $('#navigate input[name="name"]').val(name);
+        $('#navigate input[name="url"]').val(url);
+        $('#navigate').show();
+    });
+    $('.del-icon').click(function(e){
+        if(confirm('确认删除么？')){
+            $.ajax({
+                url: '/mobile/navigate/delete',
+                type: 'post',
+                dataType:'json',
+                data: 'nid='+$(this).attr('nid'),
+                success: function(msg) {
+                    if(msg.errorCode==0){
+                        location = location.href;
+                        alert('删除成功')
+                    }else{
+                        alert(msg.msg)
+                    }
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

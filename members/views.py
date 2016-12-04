@@ -231,8 +231,8 @@ def daohang(req, action):
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
     info = controller2.get_user_info(data)
-    urls = controller.get_user_urls(uid)
     if req.method=='GET':
+        urls = controller.get_user_urls(uid)
         return render_to_response("members/daohang.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = req.POST

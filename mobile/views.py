@@ -23,7 +23,7 @@ def valid_code(func):
 def request_login(func):
     def __warp(req, *args):
         if not req.session.get('isLogin'):
-            msg = '你需要登录才能发表评论'
+            msg = '你需要先登录才能访问'
             return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
         if (args):
             return func(req, *args)
@@ -229,44 +229,139 @@ def myarts(req):
     total_page = fun.get_total_page(total, 20)
     return render_to_response("mobile/myarts.html", locals(), context_instance = RequestContext(req))
 
-def xiangwang(req):
-    logo_image = fun.get_site_logo(req)
-    packagelist = None
-    cate_name =  '我的书咖'
-    blog_list = controller.get_cate_list(req, 'bw', 10)
-    return render_to_response("mobile/xiangwang.html", locals(), context_instance = RequestContext(req))
-
 @request_login
-def navigate(req):
+def xiangwang(req):
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
     info = controller.get_user_info(data)
     if req.method=='GET':
-        return render_to_response("mobile/navigate.html", locals(), context_instance = RequestContext(req))
+        total_page = controller2.get_xiangwang_count(uid)
+        page = int(req.GET.get('page', 1))
+        if page<1:
+            page = 1
+        if page>total_page and total_page>0:
+            page = total_page
+        my_xiangwang = controller2.get_xiangwang(uid, page)
+        return render_to_response("mobile/xiangwang.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def tianchi(req):
-    logo_image = fun.get_site_logo(req)
-    packagelist = None
-    cate_name =  '我的财富'
-    blog_list = controller.get_cate_list(req, 'bw', 10)
-    return render_to_response("mobile/caifu.html", locals(), context_instance = RequestContext(req))
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller.get_user_info(data)
+    if req.method=='GET':
+        focus_count = controller2.get_focus_count(uid)
+        page = int(req.GET.get('page', 1))
+        gread = req.GET.get('gread', '')
+        total_page = controller2.get_tianchi_count(uid, gread)
+        if page<1:
+            page = 1
+        if page>total_page and total_page>0:
+            page = total_page
+        my_tianchi = controller2.get_tianchi(uid, gread, page)
+        # print my_tianchi
+        return render_to_response("mobile/tianchi.html", locals(), context_instance = RequestContext(req))
 
+@request_login
+def navigate(req, action):
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller.get_user_info(data)
+    if req.method=='GET':
+        urls = controller2.get_user_urls(uid)
+        return render_to_response("mobile/navigate.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        data = req.POST
+        result = {'errorCode':0, 'msg':''}
+        if action=='save':
+            nid = data.get('nid', '').strip()
+            name = data.get('name', '')
+            url = data.get('url', '')
+            if not name.strip() or not url.strip():
+                result = {'errorCode':-1, 'msg':'字段不能为空'}
+                return HttpResponse(json.dumps(result),content_type="application/json")
+            r = controller2.save_url(uid, nid, name, url)
+            if r:
+                return HttpResponse(json.dumps(result),content_type="application/json")
+            else:
+                result = {'errorCode':-2, 'msg':'保存失败'}
+                return HttpResponse(json.dumps(result),content_type="application/json")
+        elif action=='delete':
+            nid = data.get('nid', '')
+            if nid.strip():
+                r = controller2.del_url(uid, nid)
+                if r:
+                    return HttpResponse(json.dumps(result),content_type="application/json")
+                else:
+                    result = {'errorCode':-3, 'msg':'删除失败'}
+                    return HttpResponse(json.dumps(result),content_type="application/json")
+            else:
+                return HttpResponse('no nid',content_type="application/json")
+        else:
+            return HttpResponse('not well',content_type="application/json")
+
+@request_login
 def pinpai(req):
-    logo_image = fun.get_site_logo(req)
-    packagelist = None
-    cate_name =  '我的财富'
-    blog_list = controller.get_cate_list(req, 'bw', 10)
-    return render_to_response("mobile/caifu.html", locals(), context_instance = RequestContext(req))
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller.get_user_info(data)
+    cate_name =  '我的品牌'
+    if req.method=='GET':
+        count = controller2.get_count(uid)
+        return render_to_response("mobile/pinpai.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def caifu(req):
-    logo_image = fun.get_site_logo(req)
-    packagelist = None
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller.get_user_info(data)
     cate_name =  '我的财富'
-    blog_list = controller.get_cate_list(req, 'bw', 10)
-    return render_to_response("mobile/caifu.html", locals(), context_instance = RequestContext(req))
+    if req.method=='GET':
+        count = controller2.get_count(uid)
+        return render_to_response("mobile/caifu.html", locals(), context_instance = RequestContext(req))
 
+@request_login
+def money(req):
+    uid = req.session['info']['id']
+    if req.method=='GET':
+        utype = req.session['info']['utype']
+        data = {'userid':uid, 't':utype}
+        info = controller.get_user_info(data)
+        history = controller2.get_money_history(uid)
+        return render_to_response("mobile/money_history.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        account = req.POST.get('account')
+        num = req.POST.get('money', '0').strip()
+        error = 0
+        if not num.isdigit():
+            error = -1
+        elif int(num)<0:
+            error = -2
+        if error<0:
+            result = {'errorCode':-1, 'msg':'输入错误'}
+            return HttpResponse(json.dumps(result),content_type="application/json")
+        r = controller2.log_money(uid, account, int(num))
+        if r:
+            result = {'errorCode':0, 'msg':''}
+            return HttpResponse(json.dumps(result),content_type="application/json")
+        else:
+            result = {'errorCode':-1, 'msg':'赠送失败'}
+            return HttpResponse(json.dumps(result),content_type="application/json")
 
-
-
-
+def info(req, action):
+    uid = req.session['info']['id']
+    utype = req.session['info']['utype']
+    data = {'userid':uid, 't':utype}
+    info = controller.get_user_info(data)
+    if req.method=='GET':
+        info = controller2.get_user_profile(req.GET.get('userid','0'), action)
+        if info:
+            info = info[action]
+        else:
+            info = ''
+        return render_to_response("mobile/info.html", locals(), context_instance = RequestContext(req))

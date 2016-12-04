@@ -1,7 +1,45 @@
 {% extends "mobile/base.html" %}
 {% block main %}
-<div class="wealth">
-	<span>点击内容效果：可以赠送金钱树，按对方账号为准，并记录赠送历史</span>
+<div class="nav_add">
+    <div class="nav_top">
+        金钱树
+    </div>
+    <div class="add_aera">
+        <p><img src="../static/members/cy_images/images/piont04.png" width="45" height="45">亲爱的{{info.nickname}}，今天您一共收到<label>{{count.money_in}}</label>棵金钱树，送出<label>{{count.money_out}}</label>棵金钱树，您一共拥有<em>{{count.money}}</em>棵金钱树，恭喜恭喜！</p>
+    </div><div class="clear" style="height: 20px;"></div>
+    <form id="money" action="/mobile/money" method="post" onsubmit="return false;" style="margin: 0 15px;">
+        <p>
+            <label style="font-size:18px;">对方账号：</label>
+            <input type="text" name="account" value="">
+        </p>
+        <p>
+            <label style="font-size:18px;">赠送数量：</label>
+            <input type="text" name="money" value="">
+        </p>
+        <p>
+            <span class="button" id="money_submit" style="height: 30px;">赠送金钱树</span>
+            <a id="money_history" style="font-size:18px;height: 30px;" href="/mobile/money" target="_blank">查看明细</a>
+        </p>
+    </form>
 </div>
 <div class="clear"></div>
+    <script>
+    $('#money_submit').click(function(e){
+        var form = $('#money');
+        $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            dataType:'json',
+            data: form.serializeArray(),
+            success: function(msg) {
+                if(msg.errorCode==0){
+                        location = location.href;
+                        alert('操作成功')
+                }else{
+                    alert(msg.msg)
+                }
+            }
+        });
+    });
+    </script>
 {% endblock %}

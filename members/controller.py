@@ -433,3 +433,8 @@ def get_focus_count(uid):
     if r2:
         d.update(r2)
     return d
+
+def get_user_profile(uid, label):
+    sql = '''SELECT %s FROM ww_member_normal WHERE id=%s''' % (label, uid)
+    # print sql
+    return unio().fetchOne(sql)
