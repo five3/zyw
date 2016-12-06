@@ -198,13 +198,21 @@ def get_child_list(req, cate):
 def auth(req, data):
     username = data.get('username')
     password = data.get('password')
-    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo from ww_member where site_id=%s and username='%s'
-        ''' % (fun.get_site_id(req), username)
+    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
+            from ww_member
+            where site_id=%s and (username='%s' or email='%s')
+        ''' % (fun.get_site_id(req), username, username)
     # print sql
     r = unio().fetchOne(sql)
+    # print r
     if not r:
-        return None
-    if r.pop('password')==fun.mk_md5(password):
+        sql = '''select password,ww_member.id,nickname,username,utype,email,bgmusic,credits,logo
+                from ww_member, ww_member_normal
+                where site_id=%s and ww_member.id=ww_member_normal.id and ww_member_normal.shoujihao='%s'
+            ''' % (fun.get_site_id(req), username)
+        # print sql
+        r = unio().fetchOne(sql)
+    if r and r.pop('password')==fun.mk_md5(password):
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
         unio().execute(sql)
         return fun.convert_dengji_list(r)[0]

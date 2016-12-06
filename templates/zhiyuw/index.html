@@ -66,10 +66,10 @@
                  <form method="post" action="/zhiyuw/login" name="formktz" onsubmit="return validate()">
                  <input type="hidden" name="submit" value="tj" />
                 <p>
-                帐号:<input type="text" name="username" id="username" value="" class="reg_field">
+                帐号:<input type="text" name="username" id="username" value="" class="reg_field" placeholder="账号/邮箱/手机号">
                 </p>
                 <p>
-                密码:<input type="password" name="password" id="password" value="" class="reg_field">
+                密码:<input type="password" name="password" id="password" value="" class="reg_field" placeholder="账号密码">
                 </p>
                 {% if req.session.settings.logincode %}
                 <p>
