@@ -119,8 +119,8 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 	</div>
 	<div id="kinMaxShow01" style="height:740px;">
         {% for i in req.session.banner_list_ydy %}
-            <div>
-                <a href="{{i.url}}"><img src="{{i.src}}"></a>
+            <div style="height:740px;">
+                <a href="{{i.url}}" style="height:740px;"><img src="{{i.src}}" style="height:740px;"></a>
             </div>
         {% endfor %}
 	</div>
