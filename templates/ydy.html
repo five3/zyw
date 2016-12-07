@@ -117,12 +117,12 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
             </div>
         </form>
 	</div>
-	<div id="focus_m" class="focus_m">
-		<ul>
-            {% for i in req.session.banner_list_ydy %}
-			    <li style="background: url({{i.src}}) center 0 no-repeat;"><a href="{{i.url}}" hidefocus="true"></a></li>
-            {% endfor %}
-		</ul>
+	<div id="kinMaxShow01" style="height:740px;">
+        {% for i in req.session.banner_list_ydy %}
+            <div>
+                <a href="{{i.url}}"><img src="{{i.src}}"></a>
+            </div>
+        {% endfor %}
 	</div>
 </div>
 <div class="clear"></div>
@@ -146,7 +146,12 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 </div>
 <script type="text/javascript" src="/static/cy_images/js/jquery.js"></script>
 <script type="text/javascript" src="/static/cy_images/js/script.js"></script>
+<script type="text/javascript" src="/static/zhiyuw/cy_images/js/jquery.kinMaxShow-1.0.min.js"></script>
 <script type="text/javascript">
+    $(function(){
+        $("#kinMaxShow01").kinMaxShow();
+    });
+
     function checkpass(){
         if ($('#password').val()!=$('#password2').val()){
             $('#errormsg').text('两次密码不一致');
