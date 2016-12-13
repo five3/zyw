@@ -1,8 +1,17 @@
 {% extends "backend/base.html" %}
 {% block main %}
+        <form class="module width_full">
+
+
+        </form>
 		<article class="module width_full"> <!-- class=width_3_quarter -->
-		<header><h3 class="tabs_involved">用户管理</h3>
-		</header>
+		    <header>
+                <h3 class="tabs_involved">用户管理</h3>
+                <span style="margin:6px 0 0 0;display: inline-block;">
+                    <input type="text" id="keys" value="" placeholder="请输入用户名进行搜索">
+                    <input type="button" onclick="search_user();" value="搜索用户">
+                </span>
+		    </header>
 
 		<div class="tab_container">	
 			<div id="tab1" class="tab_content">
@@ -45,10 +54,10 @@
 		</article><!-- end of content manager article -->
 		<div style="margin-bottom:10px; padding:10px 20px">
             <ul class="tabs">
-                <li><a href="/backend/users/list/?page=1">首页</a></li>
-                <li><a href="/backend/users/list/?page={{page|add:-1}}">上一页</a></li>
-                <li><a href="/backend/users/list/?page={{page|add:1}}">下一页</a></li>
-                <li><a href="/backend/users/list/?page={{last_page}}">末页</a></li>
+                <li><a href="/backend/users/list/?page=1&keys={{keys}}">首页</a></li>
+                <li><a href="/backend/users/list/?keys={{keys}}&page={{page|add:-1}}">上一页</a></li>
+                <li><a href="/backend/users/list/?keys={{keys}}&page={{page|add:1}}">下一页</a></li>
+                <li><a href="/backend/users/list/?keys={{keys}}&page={{last_page}}">末页</a></li>
             </ul>
         </div>
 
@@ -90,6 +99,10 @@ function reset_passwd(id){
             location.reload();
         });
     }
+}
+function search_user(){
+    var keys = $('#keys').val();
+    location.href = '/backend/users/list/?page=1&keys='+keys;
 }
 </script>
 {% endblock %}

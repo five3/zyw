@@ -290,7 +290,6 @@ def qiye_comment(req):
             msg = '提交说说失败'
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
 
-@request_login
 def guanzhu(req):
     result = {'errorCode':0, 'msg':''}
     if not req.session.get('isLogin'):

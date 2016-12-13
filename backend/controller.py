@@ -158,15 +158,18 @@ def auth(req, data):
         return True
 
 
-def get_user_list(req, page, num=10):
+def get_user_list(req, page, num=10, keys=None):
     if page:
         page = int(page)
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select id, username, created, regip, status,utype from ww_member where site_id=%s order by created desc limit %s,%s''' % (
-        fun.get_site_id(req), index, num)
-    # print sql
+    where = ' and 1=1 '
+    if keys:
+        where = ' and username like "%%' + keys + '%%" '
+    sql = '''select id, username, created, regip, status,utype from ww_member where site_id=%s %s order by created desc limit %s,%s''' % (
+        fun.get_site_id(req), where, index, num)
+    print sql
     return unio().fetchAll(sql)
 
 
