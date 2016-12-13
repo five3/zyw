@@ -1,0 +1,23 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}找回密码{% endblock %}
+{% block position %}{% endblock %}
+{% block main %}
+<div class="showMsg" style="text-align:center">
+    <div class="content guery" style="padding:40px;width:90%; margin:40px auto;">
+        <form action="/zhiyuw/fgpassword" method="post" class="resetpw">
+            <p>
+                <div style="font-size: 1.6em;"><b>找回密码流程：</b>输入账户 -> 验证身份 -> 重置密码</div>
+            </p>
+            <p>
+                <input type="text" autocomplete="off" class="input-default" name="username" id="username" placeholder="请输入用户名或邮箱找回密码" value="" tabindex="1">
+            </p>
+            <p>
+                <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+            </p>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
