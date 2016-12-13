@@ -201,6 +201,7 @@ def ydy(req):
     logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
     req.session['banner_list_ydy']  = global_settings['banner_list_ydy']
+    req.session['settings'] = global_settings['settings']
     if req.method=='GET':
         express, express_id = controller.get_valid_code()
         fun.get_valid_code()
@@ -307,3 +308,8 @@ def guanzhu(req):
         else:
             result = {'errorCode':-2, 'msg':'已关注 '}
             return HttpResponse(json.dumps(result),content_type="application/json")
+
+def fgpassword(req):
+    if req.method=="GET":
+        logo_image = fun.get_site_logo(req)
+        return render_to_response("zhiyuw/forgotpw.html", locals(), context_instance = RequestContext(req))

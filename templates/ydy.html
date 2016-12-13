@@ -2,7 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>职语网—引导页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="{{ request.session.settings.keywords }}">
+<meta name="description" content="{{ request.session.settings.desc }}">
+<title>引导页 | {{ request.session.settings.title }}</title>
 <link rel="stylesheet" type="text/css" href="/static/cy_images/css/basic.css" />
 <link rel="stylesheet" type="text/css" href="/static/cy_images/css/style.css" />
 <script type="text/javascript">

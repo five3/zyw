@@ -378,3 +378,16 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     float: none;
     font-family: "微软雅黑";
     border: 0px;
+}
+.input-default{
+    width: 240px;
+    height: 26px;
+    line-height: 26px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    color: #919191;
+}
+.resetpw p {
+    margin: 20px;
+}

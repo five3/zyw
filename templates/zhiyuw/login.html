@@ -36,10 +36,10 @@
                     <p>
                     验证:<input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" onClick="createCode()" />
                     <input type="text"  id="id_code" name="code" class="reg_field" style="width:80px;text-align: center;" tabindex="4"/>
-                    <br><span class="red" id="err_code">&nbsp;</span>
+                    <span style="text-align:left; rgb(0, 124, 204); display: block;"><a href="/zhiyuw/fgpassword" target="_blank">忘记密码？</a><span class="red" id="err_code">&nbsp;</span></span>
                     </p>
                     {% endif %}
-                    <p>
+                    <p style="margin-top:0px;">
                     <input type="image" src="{% static "zhiyuw/cy_images/images/login01.jpg" %}" id="image" onclick="javascript:formktz.submit();">
                     <a href="/zhiyuw/register"><img id="image"  src="{% static "zhiyuw/cy_images/images/login.jpg" %}"></a>
                     </p>
