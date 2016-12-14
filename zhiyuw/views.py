@@ -310,6 +310,52 @@ def guanzhu(req):
             return HttpResponse(json.dumps(result),content_type="application/json")
 
 def fgpassword(req):
+    logo_image = fun.get_site_logo(req)
     if req.method=="GET":
-        logo_image = fun.get_site_logo(req)
-        return render_to_response("zhiyuw/forgotpw.html", locals(), context_instance = RequestContext(req))
+        data = req.GET
+        user_name = data.get('userName')
+        sid = data.get('sid')
+        if user_name and sid:
+            r = controller.get_reset(user_name)
+            d = datetime.datetime.now()
+            if r.sid==sid and r.ttl>d.ctime(): ##
+                ##set inactive
+                return render_to_response("zhiyuw/forgotpw3.html", locals(), context_instance = RequestContext(req))
+            else:
+                message = "链接无效或已过期！"
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        else:
+            return render_to_response("zhiyuw/forgotpw.html", locals(), context_instance = RequestContext(req))
+    if req.method=="POST":
+        import uuid, datetime, hashlib
+        data = req.POST
+        account = data.get('account')
+        password = data.get('password')
+        if account:
+            email = controller.get_email_by_account(account)
+            if email:
+                d1 = datetime.datetime.now()
+                d2 = d1 + datetime.timedelta(hours=0.5)
+                sid = '%s$%s$%s' % (email, d2.ctime(), uuid.uuid1())
+                m2 = hashlib.md5()
+                m2.update(sid)
+                sid = m2.hexdigest()
+                host = req.META['HTTP_HOST'].split(':')[0]
+                r = controller.add_reset(email, sid, d2.ctime())
+                if r:
+                    url = 'http://%s/zhiyuw/fgpassword?sid=%s&userName=%s' % (host, sid, email)
+                    print url
+                    ##TODO:send email with url
+                return render_to_response("zhiyuw/forgotpw2.html", locals(), context_instance = RequestContext(req))
+            else:
+                message = "无效的账户！"
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        elif password:
+            if True:
+                return render_to_response("zhiyuw/forgotpw4.html", locals(), context_instance = RequestContext(req))
+            else:
+                message = "密码重置失败！"
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        else:
+            message = "访问无效！"
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))

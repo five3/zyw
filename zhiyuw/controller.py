@@ -354,3 +354,20 @@ def add_guanzhu(data):
     # print sql
     return unio().execute(sql)
 
+def get_email_by_account(account):
+    account = account.replace(' ', '')
+    sql = '''SELECT email FROM ww_member WHERE (username='%s' or email='%s') and status=1;''' % (account, account)
+    print sql
+    r = unio.fetchOne()
+    if r:
+        return r['email']
+
+def add_reset(email, sid, ttl):
+    sql = '''INSERT INTO ww_reset (email, sid, ttl, status) VALUES ('%s', '%s', '%s', '1')''' % (email, sid, ttl)
+    print sql
+    return unio.executeInsert()
+
+def get_reset(email):
+    sql = '''SELECT sid, ttl FROM ww_reset WHERE email='%s' and status=1''' % email
+    print sql
+    return unio.fetchOne()
