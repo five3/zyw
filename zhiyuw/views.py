@@ -7,7 +7,7 @@ import function as fun
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 import json
-
+from utils.function import send_reset_email
 # reset_setting(global_settings)
 # print global_settings
 def valid_code(func):
@@ -308,7 +308,7 @@ def guanzhu(req):
         else:
             result = {'errorCode':-2, 'msg':'已关注 '}
             return HttpResponse(json.dumps(result),content_type="application/json")
-
+import datetime
 def fgpassword(req):
     logo_image = fun.get_site_logo(req)
     if req.method=="GET":
@@ -318,16 +318,15 @@ def fgpassword(req):
         if user_name and sid:
             r = controller.get_reset(user_name)
             d = datetime.datetime.now()
-            if r.sid==sid and r.ttl>d.ctime(): ##
-                ##set inactive
+            if r.get('sid')==sid and r.get('ttl')>time.mktime(d.timetuple()):
                 return render_to_response("zhiyuw/forgotpw3.html", locals(), context_instance = RequestContext(req))
             else:
-                message = "链接无效或已过期！"
+                msg = "链接无效或已过期！"
                 return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         else:
             return render_to_response("zhiyuw/forgotpw.html", locals(), context_instance = RequestContext(req))
     if req.method=="POST":
-        import uuid, datetime, hashlib
+        import uuid, hashlib
         data = req.POST
         account = data.get('account')
         password = data.get('password')
@@ -341,21 +340,33 @@ def fgpassword(req):
                 m2.update(sid)
                 sid = m2.hexdigest()
                 host = req.META['HTTP_HOST'].split(':')[0]
-                r = controller.add_reset(email, sid, d2.ctime())
+                r = controller.add_reset(email, sid, time.mktime(d2.timetuple()))
                 if r:
                     url = 'http://%s/zhiyuw/fgpassword?sid=%s&userName=%s' % (host, sid, email)
                     print url
-                    ##TODO:send email with url
-                return render_to_response("zhiyuw/forgotpw2.html", locals(), context_instance = RequestContext(req))
+                    send_reset_email(url, email)
+                    email_pre = email.split('@')[0]
+                    index = len(email_pre)/3
+                    email_mix = email[:index]+'**'+email[index+2:]
+                    return render_to_response("zhiyuw/forgotpw2.html", locals(), context_instance = RequestContext(req))
+                else:
+                    msg = '找回密码失败'
             else:
-                message = "无效的账户！"
-                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+                msg = "无效的账户！"
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         elif password:
-            if True:
-                return render_to_response("zhiyuw/forgotpw4.html", locals(), context_instance = RequestContext(req))
+            sid = data.get('sid')
+            user_name = data.get('userName')
+            r = controller.get_reset(user_name)
+            d = datetime.datetime.now()
+            if r.get('sid')==sid and r.get('ttl')>time.mktime(d.timetuple()):
+                if controller.reset_passwd(password, user_name):
+                    return render_to_response("zhiyuw/forgotpw4.html", locals(), context_instance = RequestContext(req))
+                else:
+                    msg = "密码更新失败"
             else:
-                message = "密码重置失败！"
-                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+                msg = "当前链接已过期！"
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         else:
-            message = "访问无效！"
+            msg = "访问无效！"
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
