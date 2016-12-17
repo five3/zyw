@@ -137,6 +137,7 @@
                                 {% endif %}
                             </script>
 						</fieldset>
+                        <div style="clear:both; margin:100px 0;">
 						<fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
 							<label>分类</label>
 							<select name="cate" style="width:92%;">
@@ -161,12 +162,12 @@
                                 {% endfor %}
 							</select>
 						</fieldset>
-                        <fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                        <fieldset style="clear:both; width:48%;"> <!-- to make two field float next to one another, adjust values accordingly -->
 							<label>自定义分类</label>
                             <input type="text" name="cate3" value="{{post_info.cate3}}" style="width:92%;">
                             <input type="hidden" name="views" value="{{post_info.views}}" style="width:92%;">
 						</fieldset>
-
+                        </div>
 				</div>
 			<footer>
 				<div class="submit_link">
