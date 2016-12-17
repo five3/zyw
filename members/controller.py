@@ -456,6 +456,6 @@ def get_user_profile(uid, label):
     return unio().fetchOne(sql)
 
 def get_user_cates(uid):
-    sql = '''SELECT distinct cate3 as name FROM blog_blogpost WHERE user_id=%s AND cate3!=null;''' % uid
+    sql = '''SELECT distinct cate3 as name FROM blog_blogpost WHERE user_id=%s AND cate3 is not NULL;''' % uid
     # print sql
     return unio().fetchAll(sql)
