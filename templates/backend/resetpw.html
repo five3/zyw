@@ -1,0 +1,40 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<form action="/backend/resetpw/" method="post" id="reset">
+		<article class="module width_full">
+			<header><h3>密码修改</h3></header>
+				<div class="module_content">
+                    <label>旧密码: </label>
+                    <input type="password" id="oldpasswd" name="oldpasswd" value="">
+				</div>
+				<div class="module_content">
+                    <label>新密码: </label>
+                    <input type="password" id="passwd" name="passwd" value="">
+				</div>
+				<div class="module_content">
+                    <label>重复新密码: </label>
+                    <input type="password" id="repasswd"  value="">
+				</div>
+				<div class="submit_link">
+					<input type="button" value="发布" class="alt_btn" onclick="check()">
+				</div>
+                <div class="clear"></div>
+		</article><!-- end of post new article -->
+		</form>
+<script>
+    function check(){
+        var old = $('#oldpasswd').val().trim();
+        var reset = $('#passwd').val().trim();
+        var reset2 = $('#repasswd').val().trim();
+        if(old=='' || old.length<6 || reset=='' || reset2=='' || reset.length<6 || reset2.length<6){
+            alert('密码长度至少为6位');
+            return false;
+        }
+        if (reset!=reset2){
+            alert('两次密码输入不相同！')
+            return false;
+        }
+        $('#reset').submit();
+    }
+</script>
+{% endblock %}
