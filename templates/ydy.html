@@ -63,6 +63,11 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
                                             <input type="email" autocomplete="off" name="email" id="email" placeholder="请输入邮箱" value="" tabindex="2"></td>
                                     </tr>
                                     <tr>
+                                        <td class="td_0">手机：</td>
+                                        <td class="td_1">
+                                            <input type="text" autocomplete="off" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2"></td>
+                                    </tr>
+                                    <tr>
                                         <td class="td_0">账号密码：</td>
                                         <td class="td_1">
                                             <input type="password" autocomplete="off" name="password" id="password" placeholder="请输入密码" value="" tabindex="3"></td>
@@ -165,8 +170,13 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 
     $('#reg_form').on('submit', function(e){
         var email = $('#email').val().trim();
+        var phone = $('#phone').val().trim();
         if (email==''){
             alert('邮箱不能为空');
+            return false;
+        }
+        if (phone==''){
+            alert('手机号不能为空');
             return false;
         }
         var id_code = $('#id_code').val().trim();

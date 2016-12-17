@@ -227,7 +227,7 @@ def register(req):
             r = controller.reg_user(req, data)
             # print r
             if r>0:
-                msg = '注册用户成功，你现在可以登录了'
+                return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
             else:
                 msg = '该用户名或邮箱已注册,'
         return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))

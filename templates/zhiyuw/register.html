@@ -42,6 +42,10 @@
                 电子邮箱:<input type="email" name="email" id="email" value=""  class="reg_field"><span class="red" id="err_email">
                     &nbsp;
                     </span>
+                </p><p>
+                手机号&nbsp;:<input type="text" name="phone" id="phone" value=""  class="reg_field"><span class="red" id="err_phone">
+                    &nbsp;
+                    </span>
                 </p>
                 {% if req.session.settings.logincode %}
                     <p>
@@ -85,8 +89,13 @@
 
     $('#reg_form').on('submit', function(e){
         var email = $('#email').val().trim();
+        var phone = $('#phone').val().trim();
         if (email==''){
             alert('邮箱不能为空');
+            return false;
+        }
+        if (phone==''){
+            alert('号码不能为空');
             return false;
         }
         var id_code = $('#id_code').val().trim();

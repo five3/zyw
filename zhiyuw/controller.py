@@ -231,13 +231,13 @@ def reg_user(req, data):
         if not r:
             return -1
         if data['utype']=='gyq':
-            sql = '''insert into ww_member_normal (id) values (%s)''' % r
+            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (r, data['phone'])
             r2 = unio().execute(sql)
         elif data['utype']=='ktq':
-            sql = '''insert into ww_member_vip (id) values (%s)''' % r
+            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data['phone'])
             r2 = unio().execute(sql)
         if r2:
-            sql = '''INSERT INTO ww_account (id) VALUES (%s)''' % r
+            sql = '''INSERT INTO ww_count (id) VALUES (%s)''' % r
             return unio().execute(sql)
 
     except Exception, e:
