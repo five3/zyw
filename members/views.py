@@ -313,10 +313,10 @@ def cate(req):
         return HttpResponseRedirect('/zhiyuw/login')
     data = fun.warp_data(req.GET)
     uid = req.session['info'].get('id', 0)
-    cate = data.get('cate','')
+    name = data.get('name','')
     page = req.GET.get('page')
     if not page or int(page)==0:
         page = 1
-    post_list = controller.get_cate3_list(req, uid, cate, page)
+    post_list = controller.get_cate3_list(req, uid, name, page)
     cates = controller.get_user_cates(uid)
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))

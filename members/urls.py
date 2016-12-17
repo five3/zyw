@@ -16,6 +16,7 @@ urlpatterns = patterns('members.views',
     url("^money/?$", 'money'),
     url("^daohang/(.*)/?$", 'daohang'),
     url("^post/(.*)/$", 'post'),
+    url("^cate/?$", 'cate'),
     url("^$", 'index'),
 )
 
