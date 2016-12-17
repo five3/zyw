@@ -279,6 +279,24 @@ def profile(req):
     else:
         return HttpResponse({'errorCode' : 'method not supported!'},content_type="application/json")
 
+@login_required
+def resetpw(req):
+    settings = setting
+    if req.method=='GET':
+        return render_to_response("backend/resetpw.html", locals())
+    else:
+        uid = req.user.id
+        username = req.user.username
+        data = req.POST
+        oldpasswd = data.get('oldpasswd')
+        passwd = data.get('passwd')
+        r = controller.update_admin_passwd(uid, username, oldpasswd, passwd)
+        if r:
+            msg = '密码修改成功'
+        else:
+            msg = '密码修改失败,请确认密码输入正确'
+        return render_to_response("backend/msg.html", locals())
+
 def login(req):
     settings = setting
     if req.method=='GET':
