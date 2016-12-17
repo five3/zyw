@@ -55,6 +55,7 @@ def convert_dengji_list(*l):
     for i in l:
         if i['utype'] == 'gyq':
             i['dengji'] = convert_geren_dengji(i['credits'])
+
         else:
             i['dengji'] = convert_qiye_dengji(i['credits'])
         tl.append(i)

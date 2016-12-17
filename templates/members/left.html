@@ -26,7 +26,12 @@
             <dt>平台设置<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
             <dd class="first_dd"><a href="/members/bgmusic">背景音乐</a></dd>
         </dl>
-
+        <dl class="source">
+			<dt>我的分类<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
+            {% for cate in cates %}
+			    <dd><a href="/members/cate?name={{cate.name}}">{{cate.name}}</a></dd>
+            {% endfor %}
+		</dl>
 		<dl class="source">
 			<dt>我的书咖<img src="/static/members/cy_images/images/left/select_xl01.png"></dt>
 			<dd class="first_dd"><a href="/members?cate=myanli">我的案例</a></dd>

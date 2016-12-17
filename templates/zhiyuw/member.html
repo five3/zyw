@@ -65,7 +65,15 @@
                 <p>会员名称：{{info.name}}</p>
                 <p>会员类型：{% ifequal info.utype 'ktq' %}开拓圈{% else %}耕耘群{% endifequal %}</p>
                 <p>会员等级：{{info.dengji}}</p>
+                {% ifequal info.utype 'gyq' %}
+                    <p>会员QQ：{{info.qq}}</p>
+                    <p>会员微信：{{info.weixin}}</p>
+                    <p>会员领英：{{info.linkedin}}</p>
+                {% endifequal %}
                 <p>联系邮箱：{{info.email}}</p>
+                {% ifequal info.utype 'ktq' %}
+                    <p>企业网址：{{info.qiyewangzhi}}</p>
+                {% endifequal %}
               </div>
           </div><div class="clear"></div>
 

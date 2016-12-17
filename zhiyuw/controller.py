@@ -264,11 +264,11 @@ def get_user_info(data):
         return {}
    # print t
     if t=='gyq':
-        sql = '''select ww_member.id, username, utype, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
+        sql = '''select ww_member.id, qq, weixin, linkedin,username, utype, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
 		        from ww_member, ww_member_normal
 		        where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % uid
     elif t=='ktq':
-        sql = '''select ww_member.id, username, utype, nickname,email,credits,vip.qiyejianjie,ww_member.logo, vip.qiyeming as name
+        sql = '''select ww_member.id, username, qiyewangzhi, utype, nickname,email,credits,vip.qiyejianjie,ww_member.logo, vip.qiyeming as name
 				from ww_member,ww_member_vip vip 
 				where ww_member.id=%s and ww_member.id=vip.id''' % uid
 

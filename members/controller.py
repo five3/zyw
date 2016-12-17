@@ -26,7 +26,7 @@ def get_cate_list():
     return cate1, cate2
 
 def get_post_info(id):
-    sql = '''select post.id, post.title, post.content, post.views, post.cate2, post.status, cate.id as cate
+    sql = '''select post.id, post.title, post.content, post.views, post.cate2, cate3, post.status, cate.id as cate
             from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
             where post.id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id''' % id
     # print sql
@@ -64,6 +64,22 @@ def get_post_list(req, uid, cate=None, page=1, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+def get_cate3_list(req, uid, cate, page=1, num=10):
+    if page<1:
+        return []
+    if cate:
+        condition = ' post.cate3="%s" and ' % cate
+    else:
+        condition = ''
+    index = (int(page)-1)*num
+    sql = '''select post.id, post.title, post.status, short_url, mobile_url, post.content, post.views,
+            post.cate2, description, featured_image, post.created, cate.title as cate
+            from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
+            where %s post.user_id=%s and post.site_id=%s and post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id
+            order by post.created desc limit %s,%s''' % (condition, uid, fun.get_site_id(req), index, num)
+    # print sql
+    return unio().fetchAll(sql)
+
 def save_post(req, data, uid, uname):
     id = data.get('id', 0)
     views = data.get('views')
@@ -75,9 +91,9 @@ def save_post(req, data, uid, uname):
 
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s', featured_image='%s',
-                description='%s',created='%s', views='%s'
+                description='%s',created='%s', views='%s', cate3='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'), data.get('cate2'),
-                                  featured_image, data.get('description', ''), fun.now(), views, id)
+                                  featured_image, data.get('description', ''), fun.now(), views, data.get('cate3'), id)
         # print sql
         r = unio().execute(sql)
         if r:
@@ -88,10 +104,10 @@ def save_post(req, data, uid, uname):
     else:
         short_url = '/zhiyuw/%s/show-%s.html' % ('xxx',0)
         sql = '''insert into blog_blogpost (comments_count, site_id, title, slug, created, status, publish_date,
-                short_url, content, user_id, user_name, allow_comments, views, cate2, featured_image, description)
-                values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
+                short_url, content, user_id, user_name, allow_comments, views, cate2, cate3, featured_image, description)
+                values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
                   (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), 1,
-                  fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'),
+                  fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'),data.get('cate3'),
                   featured_image, data.get('description'))
         # print sql
         lastid = unio().executeInsert(sql)
@@ -438,3 +454,8 @@ def get_user_profile(uid, label):
     sql = '''SELECT %s FROM ww_member_normal WHERE id=%s''' % (label, uid)
     # print sql
     return unio().fetchOne(sql)
+
+def get_user_cates(uid):
+    sql = '''SELECT distinct cate3 as name FROM blog_blogpost WHERE user_id=%s AND cate3!=null;''' % uid
+    # print sql
+    return unio().fetchAll(sql)

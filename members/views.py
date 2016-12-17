@@ -19,12 +19,16 @@ def index(req):
     if not page or int(page)==0:
         page = 1
     post_list = controller.get_post_list(req, uid, cate, page)
+    cates = controller.get_user_cates(uid)
+    print cates
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
 
 def post(req, action):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
+    uid = req.session['info'].get('id', 0)
     if req.method=='GET':
+        cates = controller.get_user_cates(uid)
         cate_list1, cate_list2 = controller.get_cate_list()
         if action=='new':
             post_info = {}
@@ -73,6 +77,7 @@ def postimage(req):
     if 'editorid' in req.GET or 'type' in req.GET:
         return HttpResponse(json.dumps(data),content_type="application/json")
 
+    cates = controller.get_user_cates(uid)
     if data['state']=='SUCCESS':
         if controller.update_photo_img(data['abs_url'], utype, uid):
             return HttpResponseRedirect('/members/profile')
@@ -85,6 +90,7 @@ def profile(req):
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     if req.method=='GET':
+        cates = controller.get_user_cates(uid)
         info = controller.get_profile(uid, utype)
         if utype=='ktq':
             zhuanye = controller.get_zhuanye_list()
@@ -106,6 +112,7 @@ def password(req):
     if not req.session.get('isLogin'):
         return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
+    cates = controller.get_user_cates(uid)
     if req.method=='GET':
         return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
     else:
@@ -126,6 +133,7 @@ def bgmusic(req):
         return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     if req.method=='GET':
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))
     else:
         src = req.POST.get('src', None)
@@ -144,6 +152,7 @@ def zhaopin(req):
     uid = req.session['info']['id']
     uname = req.session['info']['username']
     if req.method=='GET':
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/zhaopin.html", locals(), context_instance = RequestContext(req))
     else:
         data = fun.warp_data(req.POST)
@@ -168,6 +177,7 @@ def shuoshuo(req):
                 controller.del_qiye_comment(id)
         page = req.GET.get('page', 1)
         shuoshuo_list = controller.get_shuoshuo_list(uid, page)
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/shuoshuo.html", locals(), context_instance = RequestContext(req))
     else:
         data = fun.warp_data(req.POST)
@@ -183,6 +193,7 @@ def pinpai(req):
     bg_img = '/static/members/cy_images/images/bg01.jpg'
     if req.method=='GET':
         count = controller.get_count(uid)
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/pinpai.html", locals(), context_instance = RequestContext(req))
 
 def tianchi(req):
@@ -204,6 +215,7 @@ def tianchi(req):
             page = total_page
         my_tianchi = controller.get_tianchi(uid, gread, page)
         # print my_tianchi
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/tianchi.html", locals(), context_instance = RequestContext(req))
 
 def xiangwang(req):
@@ -222,6 +234,7 @@ def xiangwang(req):
         if page>total_page and total_page>0:
             page = total_page
         my_xiangwang = controller.get_xiangwang(uid, page)
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/xiangwang.html", locals(), context_instance = RequestContext(req))
 
 def daohang(req, action):
@@ -233,6 +246,7 @@ def daohang(req, action):
     info = controller2.get_user_info(data)
     if req.method=='GET':
         urls = controller.get_user_urls(uid)
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/daohang.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = req.POST
@@ -273,6 +287,7 @@ def money(req):
         data = {'userid':uid, 't':utype}
         info = controller2.get_user_info(data)
         history = controller.get_money_history(uid)
+        cates = controller.get_user_cates(uid)
         return render_to_response("members/money_history.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         account = req.POST.get('account')
@@ -292,3 +307,16 @@ def money(req):
         else:
             result = {'errorCode':-1, 'msg':'赠送失败'}
             return HttpResponse(json.dumps(result),content_type="application/json")
+
+def cate(req):
+    if not req.session.get('isLogin'):
+        return HttpResponseRedirect('/zhiyuw/login')
+    data = fun.warp_data(req.GET)
+    uid = req.session['info'].get('id', 0)
+    cate = data.get('cate','')
+    page = req.GET.get('page')
+    if not page or int(page)==0:
+        page = 1
+    post_list = controller.get_cate3_list(req, uid, cate, page)
+    cates = controller.get_user_cates(uid)
+    return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))

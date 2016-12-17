@@ -161,10 +161,12 @@
                                 {% endfor %}
 							</select>
 						</fieldset>
-                        <fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
-							<label>阅历量</label>
-							<input type="text" name="views" value="{{post_info.views}}" style="width:92%;">
-						</fieldset><div class="clear"></div>
+                        <fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+							<label>自定义分类</label>
+                            <input type="text" name="cate3" value="{{post_info.cate3}}" style="width:92%;">
+                            <input type="hidden" name="views" value="{{post_info.views}}" style="width:92%;">
+						</fieldset>
+
 				</div>
 			<footer>
 				<div class="submit_link">
