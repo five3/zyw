@@ -1,0 +1,63 @@
+{% extends "zhiyuw/base.html" %}
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+
+{% block meta_title %}{{cate_name}}{% endblock %}
+
+{% block position %}{% endblock %}
+
+{% block main %}
+<div id="main" >
+	<div class="main w1000">
+    <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>{{cate_name}}</b><span>当前位置：<a href="/">首页</a> >>{{cate_name}}</span></p>
+        </div>
+        <div>
+            账户已注册成功，如果要使用网站全部功能；需要去<a href="/members/profile">个人资料</a>>页完善个人资料，现在就去？
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div id="right" class="fr">
+        {% include "zhiyuw/latest_blog.html" %}
+        {% include "zhiyuw/contact_small.html" %}
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+{% endblock %}
+
+{% block foot_extra %}
+<script type="text/javascript">
+    function checkpass(){
+        if ($('#password').val()!=$('#password2').val()){
+            $('#err_password2').text('两次密码不一致');
+        }
+    }
+
+    $('#reg_form').on('submit', function(e){
+        var email = $('#email').val().trim();
+        var phone = $('#phone').val().trim();
+        if (email==''){
+            alert('邮箱不能为空');
+            return false;
+        }
+        if (phone==''){
+            alert('号码不能为空');
+            return false;
+        }
+        var id_code = $('#id_code').val().trim();
+        if (id_code==''){
+            alert('请填写验证码');
+            return false;
+        }
+        var is_agreen = $('#agreen').is(':checked');
+        if (is_agreen){
+        }else{
+            alert('请先查看并勾选注册协议！')
+            return false;
+        }
+    })
+</script>
+{% endblock %}
