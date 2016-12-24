@@ -24,6 +24,7 @@ urlpatterns = patterns('zhiyuw.views',
     url("^comment", 'comment'),
     url("^guanzhu", 'guanzhu'),
     url("^fgpassword", 'fgpassword'),
+    url("^baoming", 'baoming'),
     url("^(.*)/show-(\d+)\.html$", 'article'),
 )
 

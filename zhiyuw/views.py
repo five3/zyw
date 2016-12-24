@@ -172,6 +172,7 @@ def article(req, cate, id):
     referer = req.path
     timestamp = int(time.time())
     comments = controller.get_comments(id)
+    print cate
     pre_page, next_page = controller.get_context_page(req, cate, id)
     return render_to_response("zhiyuw/article.html", locals(), context_instance = RequestContext(req))
 
@@ -227,6 +228,9 @@ def register(req):
             r = controller.reg_user(req, data)
             # print r
             if r>0:
+                info = controller.auth(req, data)
+                req.session['isLogin'] = True
+                req.session['info'] = info
                 return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
             else:
                 msg = '该用户名或邮箱已注册,'
@@ -370,3 +374,24 @@ def fgpassword(req):
         else:
             msg = "访问无效！"
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+
+def baoming(req):
+    data = req.POST
+    login = data.get('login')
+    if login=='true':
+        uid = req.session['info'].get('id', 0)
+        t = req.session['info'].get('utype', 0)
+        if t=='ktq':
+            result = {'errorCode':-2, 'msg':'开拓圈用户不可报名 '}
+            return HttpResponse(json.dumps(result),content_type="application/json")
+        data = {'t': t, 'userid':uid}
+        info = controller.get_user_info(data)
+        info['zhuanye'] = data.get('zhuanye')
+        info['company'] = data.get('company')
+        data = info
+    r = controller.baoming(data)
+    if r:
+        result = {'errorCode':0, 'msg':'报名成功 '}
+    else:
+        result = {'errorCode':-1, 'msg':'报名失败 '}
+    return HttpResponse(json.dumps(result),content_type="application/json")

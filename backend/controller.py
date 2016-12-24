@@ -3,7 +3,6 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
-from django.contrib.auth import authenticate, login
 
 
 def get_cate_list():
@@ -149,6 +148,7 @@ def get_gbook_info(id):
 
 
 def auth(req, data):
+    from django.contrib.auth import authenticate, login
     username = data.get('username')
     password = data.get('password')
     user = authenticate(username=username, password=password)
@@ -246,6 +246,7 @@ def reset_admin_passwd(id):
     return unio().execute(sql)
 
 def update_admin_passwd(id, username, old, new):
+    from django.contrib.auth import authenticate
     user = authenticate(username=username, password=old)
     print user
     if user and user.is_active:

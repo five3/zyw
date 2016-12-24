@@ -237,7 +237,7 @@ def reg_user(req, data):
             sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data['phone'])
             r2 = unio().execute(sql)
         if r2:
-            sql = '''INSERT INTO ww_count (id) VALUES (%s)''' % r
+            sql = '''INSERT INTO ww_count (uid) VALUES (%s)''' % r
             return unio().execute(sql)
 
     except Exception, e:
@@ -264,7 +264,7 @@ def get_user_info(data):
         return {}
    # print t
     if t=='gyq':
-        sql = '''select ww_member.id, qq, weixin, linkedin,username, utype, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name
+        sql = '''select ww_member.id, qq, weixin, linkedin,username, utype, nickname,email,credits,ww_member.logo,ww_member_normal.xingming as name,shoujihao as phone,zhiwei as zhuanye,sex
 		        from ww_member, ww_member_normal
 		        where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % uid
     elif t=='ktq':
@@ -378,3 +378,10 @@ def reset_passwd(passwd, user_name):
     sql = '''UPDATE ww_member SET password='%s' WHERE email='%s' AND status=1''' % (fun.mk_md5(passwd), user_name)
     # print sql
     return unio().execute(sql)
+
+def baoming(data):
+    sql = '''INSERT INTO ww_baoming (name, sex, phone, zhuanye, zhiwei, company) VALUES
+            ('%s','%s','%s','%s','%s','%s')''' % (data.get('name'), data.get('sex'),
+                        data.get('phone'), data.get('zhuanye'), data.get('zhiwei'), data.get('company'))
+    # print sql
+    return unio().executeInsert(sql)

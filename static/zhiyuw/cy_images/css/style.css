@@ -391,3 +391,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .resetpw p {
     margin: 20px;
 }
+#baoming .text{
+    width: 200px;
+    height: 33px;
+    margin-right: 20px;
+}
+#baoming{
+    font-size:16px;
+}
