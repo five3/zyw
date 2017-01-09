@@ -1,0 +1,78 @@
+{% extends "zhiyuw/base.html" %}
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+
+{% block meta_title %}第三方登录引导{% endblock %}
+
+{% block position %}{% endblock %}
+
+{% block main %}
+<div id="main" >
+	<div class="main w1000">
+    <div id="left" class="fl">
+    	<div class="left_title">
+            <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
+            <p><b>第三方登录引导</b><span>当前位置：<a href="/">首页</a> >>第三方登录引导</span></p>
+        </div>
+        <form style="font-size: 16px;margin: 50px;" action="" method="post">
+            <p>
+                <label>用户类型: </label>
+                <select name="utype" tabindex="1" style="width:240px; height:26px;">
+                    <option value="ktq">开拓圈</option>
+                    <option value="gyq">耕耘群</option>
+                </select>
+            </p>
+            <p>
+                <label>手机号: </label>
+                <input type="text" autocomplete="off" class="input-default" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2">
+            </p>
+            <p>
+                <label>EMAIL: </label>
+                <input type="text" autocomplete="off" class="input-default" name="email" id="email" placeholder="请输入Email" value="" tabindex="3">
+            </p>
+            <input type="submit" value="提交" class="btn btn-primary btn6 mr10">
+        </form>
+        <div class="clear"></div>
+    </div>
+
+    <div id="right" class="fr">
+        {% include "zhiyuw/latest_blog.html" %}
+        {% include "zhiyuw/contact_small.html" %}
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+{% endblock %}
+
+{% block foot_extra %}
+<script type="text/javascript">
+    function checkpass(){
+        if ($('#password').val()!=$('#password2').val()){
+            $('#err_password2').text('两次密码不一致');
+        }
+    }
+
+    $('#reg_form').on('submit', function(e){
+        var email = $('#email').val().trim();
+        var phone = $('#phone').val().trim();
+        if (email==''){
+            alert('邮箱不能为空');
+            return false;
+        }
+        if (phone==''){
+            alert('号码不能为空');
+            return false;
+        }
+        var id_code = $('#id_code').val().trim();
+        if (id_code==''){
+            alert('请填写验证码');
+            return false;
+        }
+        var is_agreen = $('#agreen').is(':checked');
+        if (is_agreen){
+        }else{
+            alert('请先查看并勾选注册协议！')
+            return false;
+        }
+    })
+</script>
+{% endblock %}

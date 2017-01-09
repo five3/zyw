@@ -1,0 +1,12 @@
+{% extends "zhiyuw/base.html" %}
+{% load i18n %}
+
+{% block meta_title %}微信登录页{% endblock %}
+{% block position %}{% endblock %}
+{% block main %}
+<div class="showMsg" style="text-align:center">
+    <div class="content guery" style="height: 30px; padding:40px;width:auto; margin:40px auto;font-size: 16px;">
+        <p>{{get_token_url}}</p>
+    </div>
+</div>
+{% endblock %}
