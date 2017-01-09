@@ -195,6 +195,17 @@ def get_child_list(req, cate):
         d.append({'title':i['title'], 'more':i['slug'], 'cate_list':unio().fetchAll(sql)})
     return d
 
+def auth_3rd(req, openid, utype):
+    sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
+            from ww_member
+            where site_id=%s and 3rd_id=%s and 3rd_type='%s';''' % (fun.get_site_id(req), openid, utype)
+    print sql
+    r = unio().fetchOne(sql)
+    if r:
+        sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
+        unio().execute(sql)
+        return fun.convert_dengji_list(r)[0]
+
 def auth(req, data):
     username = data.get('username')
     password = data.get('password')
@@ -216,6 +227,46 @@ def auth(req, data):
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
         unio().execute(sql)
         return fun.convert_dengji_list(r)[0]
+
+def add_3rd_user(req, info, third_type):
+    if third_type=='qq':
+        openid = info['openid']
+        logo = info['figureurl_qq_2']
+        username = password = info['nickname']
+    elif third_type=='weixin':
+        openid = info['unicodeid']
+        logo = info['flx']
+        username = password = info['nickname']
+    utype = email = ''
+    if req.META.has_key('HTTP_X_FORWARDED_FOR'):
+        ip =  req.META['HTTP_X_FORWARDED_FOR']
+    else:
+        ip = req.META['REMOTE_ADDR']
+    site_id = fun.get_site_id(req)
+    bg_music = '/static/members/cy_images/music/gohome.mp3'
+    sql = '''insert into ww_member (3rd_id, 3rd_type, username, nickname, password, email, logo,
+                                    created, regip, status, utype, site_id, bgmusic, credits)
+            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
+            ''' % (openid, third_type, username, username, password, email, logo,
+                   fun.now(), ip, utype, site_id, bg_music)
+    # print sql
+    try:
+        r = unio().executeInsert(sql)
+        if not r:
+            return -1
+        if data['utype']=='gyq':
+            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (r, data['phone'])
+            r2 = unio().execute(sql)
+        elif data['utype']=='ktq':
+            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data['phone'])
+            r2 = unio().execute(sql)
+        if r2:
+            sql = '''INSERT INTO ww_count (uid) VALUES (%s)''' % r
+            return unio().execute(sql)
+
+    except Exception, e:
+        print e
+        return -2
 
 def reg_user(req, data):
     if data['utype']=='gyq':
@@ -385,3 +436,8 @@ def baoming(data):
                         data.get('phone'), data.get('zhuanye'), data.get('zhiwei'), data.get('company'))
     # print sql
     return unio().executeInsert(sql)
+
+def is_3rd_exist(uid):
+    sql = '''SELECT id,utype FROM ww_member WHERE 3rd_id=%s''' % uid
+    print sql
+    return unio().fetchOne(sql)

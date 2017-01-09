@@ -4,7 +4,7 @@
 {% block meta_title %}首页{% endblock %}
 
 {% block main %}
-
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101373589" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
 <!-- {% load pages_tags mezzanine_tags i18n future staticfiles %}  -->
 
 <div id="news" >
@@ -81,6 +81,31 @@
                 <p style="margin-top:0px;">
                 <input type="image" src="{% static "zhiyuw/cy_images/images/login01.jpg" %}" id="image" onclick="javascript:formktz.submit();">
                 <a href="/zhiyuw/register"><img id="image"  src="{% static "zhiyuw/cy_images/images/login.jpg" %}"></a>
+                </p>
+                <p>
+                    <span>第三方登录: </span>
+                    <span id="qqLoginBtn"></span>
+                    <span id="weixinLoginBtn">
+                        <a target="_blank" href="https://open.weixin.qq.com/connect/qrconnect?appid=wxfa9b417b73f5def8&redirect_uri=http%3A%2F%2Fwww.zhiyuw.com%2Fzhiyuw%2F3rd_weixin_login&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e">
+                            <img src="/static/zhiyuw/cy_images/images/weixin_icon_64.png" alt="微信登录" border="0" style="width:16px;">
+                        </a></span>
+                    <script type="text/javascript">
+                        QC.Login({
+                               btnId:"qqLoginBtn",
+                               scope:"all",
+                               //按钮尺寸，可用值[A_XL| A_L| A_M| A_S| B_M| B_S| C_S]，可选，默认B_S
+                               size: "C_S"
+                           }, function(reqData, opts){//登录成功
+                                console.log(reqData);
+                                console.log(opts);
+                                $.post("/zhiyuw/3rd_qq_login", reqData, function(err, data){
+                                    console.log(data);
+                                });
+                           }, function(opts){//注销成功
+                                 alert('QQ登录 注销成功');
+                           }
+                        );
+                    </script>
                 </p>
                 </form>
                 </div>

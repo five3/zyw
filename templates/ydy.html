@@ -22,6 +22,7 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 	}
 }
 </script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101373589" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
 </head>
 
 <body>
@@ -101,7 +102,38 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
                                     <tr>
                                         <td class="td_0"></td>
                                         <td class="td_3" style="padding-top: 0;">
-                                            <label style="line-height: 24px; height: 24px; display: inline-block; float: left;">已有账号？<a href="/zhiyuw/login">登录</a></label><span><img src="/static/zhiyuw/cy_images/images/qq_icon.png" style="margin-left:10px;"></span>
+                                            <label style="line-height: 24px; height: 24px; display: inline-block; float: left;">已有账号？<a href="/zhiyuw/login">登录 </a>
+                                                <span style="display: none;"><img src="/static/zhiyuw/cy_images/images/qq_icon.png" style="margin-left:10px;"></span>
+                                                <span>,第三方登录: </span>
+                                                <span id="qqLoginBtn" style="width:16px;"></span>
+                                                <span id="weixinLoginBtn">
+                                                    <a target="_blank" href="https://open.weixin.qq.com/connect/qrconnect?appid=wxfa9b417b73f5def8&redirect_uri=http%3A%2F%2Fwww.zhiyuw.com%2Fzhiyuw%2F3rd_weixin_login&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e">
+                                                        <img src="/static/zhiyuw/cy_images/images/weixin_icon_64.png" alt="微信登录" border="0" style="width:16px;">
+                                                    </a>
+                                                </span>
+                                            </label>
+                                            <script type="text/javascript">
+                                                QC.Login({
+                                                       btnId:"qqLoginBtn",
+                                                       scope:"all",
+                                                       //按钮尺寸，可用值[A_XL| A_L| A_M| A_S| B_M| B_S| C_S]，可选，默认B_S
+                                                       size: "C_S"
+                                                   }, function(reqData, opts){//登录成功
+                                                        console.log(reqData);
+                                                        console.log(opts);
+                                                        $.post("/zhiyuw/3rd_qq_login", reqData, function(data, status){
+                                                            console.log(data);
+                                                            if(data.errorCode==0){
+                                                                location = data.url;
+                                                            }else{
+                                                                alert(data.msg);
+                                                            }
+                                                        });
+                                                   }, function(opts){//注销成功
+                                                         alert('QQ登录 注销成功');
+                                                   }
+                                                );
+                                            </script>
                                         </td>
                                     </tr>
                                     <tr style="display:none;">

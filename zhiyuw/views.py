@@ -7,7 +7,7 @@ import function as fun
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 import json
-from utils.function import send_reset_email
+from utils.function import send_reset_email, send_http
 # reset_setting(global_settings)
 # print global_settings
 def valid_code(func):
@@ -395,3 +395,45 @@ def baoming(req):
     else:
         result = {'errorCode':-1, 'msg':'报名失败 '}
     return HttpResponse(json.dumps(result),content_type="application/json")
+
+def qq_login(req):
+    if req.method=='GET':
+        data = req.GET
+        msg = '正在进行QQ登录操作，请稍后...'
+        return render_to_response("zhiyuw/qq.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        qq_info = req.POST
+        print qq_info
+        r = controller.is_3rd_exist(qq_info.get('openid'))
+        if r:
+            if r.get('utype'):
+                result = {'errorCode':0, 'msg':'成功 ', 'url':'/members'}
+            else:
+                result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/3rd_yd'}
+        else:
+            r = controller.add_3rd_user(req, qq_info ,'qq')
+            result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/reg_yd'}
+        info = controller.auth_3rd(req, r.get('id'), 'qq')
+        req.session['isLogin'] = True
+        req.session['info'] = info
+        return HttpResponse(json.dumps(result),content_type="application/json")
+
+def weixin_login(req):
+    if req.method=='GET':
+        data = req.GET
+        code = data.get('code')
+        get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % ('wxfa9b417b73f5def8', 'secret', code)
+        print get_token_url
+        access_info = send_http(get_token_url)
+        print access_info
+        call_api_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s' % (access_info.get('access_token'), access_info.get('openid'))
+        weixin_info = send_http(call_api_url)
+        #TODO:
+        return render_to_response("zhiyuw/3rd_yd.html", locals(), context_instance = RequestContext(req))
+
+def third_yd(req):
+    logo_image = fun.get_site_logo(req)
+    if req.method=='GET':
+        return render_to_response("zhiyuw/3rd_yd.html", locals(), context_instance = RequestContext(req))
+    elif req.method=='POST':
+        return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))

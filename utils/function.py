@@ -60,3 +60,12 @@ def send_reset_email(url, to_email):
             ''' % (url, url)
     files = ['top_category.txt']
     send_mail(server, fro, to, subject, text)
+
+def send_http(url, method='GET', type='JSON'):
+    import requests
+    r = requests.get(url)
+    try:
+        return r.json()
+    except Exception, ex:
+        print ex.message
+        return None
