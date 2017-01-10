@@ -33,8 +33,8 @@
     .leftsidebar_box dl dd:last-child{padding-bottom:10px;}
 </style>
 {% block css %}{% endblock %}
-
 <script type="text/javascript" src="/static/members/cy_images/js/jquery.js"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="{{third_appid}}" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
 {% block js %}{% endblock %}
 
 </head>
@@ -58,7 +58,7 @@
         </div>
         <div class="top_title fr">
         	<ul>
-                <li><a href="/zhiyuw/logout">退出</a></li>
+                <li><a href="javascript:void(0)" onclick="javascript:QC.Login.signOut(); location='/zhiyuw/logout';">退出</a></li>
                 <li>{{request.session.info.username}}</li>
                 <li>您好</li>
              </ul>
@@ -76,7 +76,7 @@
             	<li><a href="/members">用户中心</a></li>
                 <li style="display:none;"><a href="#">信息管理</a></li>
                 <li><a href="javascript:void(0);" onclick="$('#bgmusic').attr('src','');$('#bgmusic').attr('data','');">停止音乐</a></li>
-                <li><a href="/zhiyuw/logout">退出系统</a></li>
+                <li><a href="javascript:void(0)" onclick="javascript:QC.Login.signOut(); location='/zhiyuw/logout';">退出系统</a></li>
                 <li><a href="/">返回首页</a></li>
             </ul>
         </div>

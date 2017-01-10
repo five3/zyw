@@ -158,7 +158,7 @@
 	<div class="top w1000">
     <p>欢迎光临职语网！
         {% if request.session.isLogin %}
-            <label><a href="/members" id="loginuser">{{request.session.info.username}}</a></label><a href="/zhiyuw/logout">退出</a>
+            <label><a href="/members" id="loginuser">{{request.session.info.username}}</a></label><a href="javascript:void(0)" onclick="javascript:QC.Login.signOut(); location='/zhiyuw/logout';">退出</a>
         {% else %}
             <a href="/zhiyuw/login">登录</a><a href="/zhiyuw/register">注册</a>
         {% endif %}
@@ -259,7 +259,6 @@
 {% block main %}{% endblock %}
 
 {% block link %}{% endblock %}
-
 {% include "zhiyuw/footer.html" %}
 {% block foot_extra %}{% endblock %}
 </body>

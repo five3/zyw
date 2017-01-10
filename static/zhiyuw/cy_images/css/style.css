@@ -399,3 +399,6 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 #baoming{
     font-size:16px;
 }
+.third_profile p{
+    margin: 10px;
+}

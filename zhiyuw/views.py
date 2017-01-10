@@ -1,7 +1,7 @@
 #！encoding: utf-8
 
 from django.shortcuts import render_to_response
-from config import global_settings, reset_setting
+from config import global_settings, reset_setting, qq_appid
 import controller
 import function as fun
 from django.http import HttpResponseRedirect, HttpResponse
@@ -50,6 +50,7 @@ def index(req):
     zpcj_list = controller.get_cate_list(req, 'zpcj', 5)
     zxcj_list = controller.get_cate_list(req, 'zxcj', 5)
     gyrc_list = controller.get_cate_list(req, 'gyrc', 5)
+    third_appid = qq_appid
     return render_to_response("zhiyuw/index.html", locals(), context_instance = RequestContext(req))
 
 def kaituoqquan(req):
@@ -180,6 +181,7 @@ def login(req):
     logo_image = fun.get_site_logo(req)
     cate_name = '用户登录'
     if req.method=='GET':
+        third_appid = qq_appid
         return render_to_response("zhiyuw/login.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = fun.warp_data(req.POST)
@@ -206,6 +208,7 @@ def ydy(req):
     if req.method=='GET':
         express, express_id = controller.get_valid_code()
         fun.get_valid_code()
+        third_appid = qq_appid
         return render_to_response("ydy.html", locals(), context_instance = RequestContext(req))
 
 @valid_code
@@ -404,19 +407,21 @@ def qq_login(req):
     elif req.method=='POST':
         qq_info = req.POST
         print qq_info
-        r = controller.is_3rd_exist(qq_info.get('openid'))
+        open_id = qq_info['openId']
+        r = controller.is_3rd_exist(open_id)
         if r:
             if r.get('utype'):
                 result = {'errorCode':0, 'msg':'成功 ', 'url':'/members'}
             else:
                 result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/3rd_yd'}
+                req.session['3rd_init'] = False
         else:
-            r = controller.add_3rd_user(req, qq_info ,'qq')
             result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/reg_yd'}
-        info = controller.auth_3rd(req, r.get('id'), 'qq')
+            uid = controller.add_3rd_user(req, qq_info ,'qq')
+        info = controller.auth_3rd(req, open_id, 'qq')
         req.session['isLogin'] = True
         req.session['info'] = info
-        return HttpResponse(json.dumps(result),content_type="application/json")
+        return HttpResponse(json.dumps(result), content_type="application/json")
 
 def weixin_login(req):
     if req.method=='GET':

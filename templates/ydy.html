@@ -22,7 +22,7 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 	}
 }
 </script>
-<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101373589" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="{{third_appid}}" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
 </head>
 
 <body>
@@ -121,13 +121,17 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
                                                    }, function(reqData, opts){//登录成功
                                                         console.log(reqData);
                                                         console.log(opts);
-                                                        $.post("/zhiyuw/3rd_qq_login", reqData, function(data, status){
-                                                            console.log(data);
-                                                            if(data.errorCode==0){
-                                                                location = data.url;
-                                                            }else{
-                                                                alert(data.msg);
-                                                            }
+                                                        QC.Login.getMe(function(openId, accessToken){
+                                                            console.log(openId);
+                                                            reqData.openId = openId;
+                                                            $.post("/zhiyuw/3rd_qq_login", reqData, function(data, status){
+                                                                console.log(data);
+                                                                if(data.errorCode==0){
+                                                                    location = data.url;
+                                                                }else{
+                                                                    alert(data.msg);
+                                                                }
+                                                            });
                                                         });
                                                    }, function(opts){//注销成功
                                                          alert('QQ登录 注销成功');

@@ -13,20 +13,21 @@
             <img src="/static/zhiyuw/cy_images/images/piont09.jpg" width="18" height="15" />
             <p><b>第三方登录引导</b><span>当前位置：<a href="/">首页</a> >>第三方登录引导</span></p>
         </div>
-        <form style="font-size: 16px;margin: 50px;" action="" method="post">
+        <form style="font-size: 16px;margin: 50px;" action="" method="post" class="third_profile">
+            <p>请在继续操作前完善以下账户资料，感谢您的配合。</p>
             <p>
-                <label>用户类型: </label>
-                <select name="utype" tabindex="1" style="width:240px; height:26px;">
+                <label style="display: inline-block; width:100px;">用户类型: </label>
+                <select name="utype" tabindex="1" style="width:240px; height:26px;border: 1px solid #ccc">
                     <option value="ktq">开拓圈</option>
                     <option value="gyq">耕耘群</option>
                 </select>
             </p>
             <p>
-                <label>手机号: </label>
+                <label style="display: inline-block; width:110px;">手机号: </label>
                 <input type="text" autocomplete="off" class="input-default" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2">
             </p>
             <p>
-                <label>EMAIL: </label>
+                <label style="display: inline-block; width:110px;">EMAIL: </label>
                 <input type="text" autocomplete="off" class="input-default" name="email" id="email" placeholder="请输入Email" value="" tabindex="3">
             </p>
             <input type="submit" value="提交" class="btn btn-primary btn6 mr10">

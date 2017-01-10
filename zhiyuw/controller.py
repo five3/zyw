@@ -198,7 +198,7 @@ def get_child_list(req, cate):
 def auth_3rd(req, openid, utype):
     sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
             from ww_member
-            where site_id=%s and 3rd_id=%s and 3rd_type='%s';''' % (fun.get_site_id(req), openid, utype)
+            where site_id=%s and 3rd_id='%s' and 3rd_type='%s';''' % (fun.get_site_id(req), openid, utype)
     print sql
     r = unio().fetchOne(sql)
     if r:
@@ -230,14 +230,15 @@ def auth(req, data):
 
 def add_3rd_user(req, info, third_type):
     if third_type=='qq':
-        openid = info['openid']
+        openid = info['openId']
         logo = info['figureurl_qq_2']
         username = password = info['nickname']
     elif third_type=='weixin':
         openid = info['unicodeid']
         logo = info['flx']
         username = password = info['nickname']
-    utype = email = ''
+    utype = ''
+    email = openid + '@qq.com'
     if req.META.has_key('HTTP_X_FORWARDED_FOR'):
         ip =  req.META['HTTP_X_FORWARDED_FOR']
     else:
@@ -251,22 +252,10 @@ def add_3rd_user(req, info, third_type):
                    fun.now(), ip, utype, site_id, bg_music)
     # print sql
     try:
-        r = unio().executeInsert(sql)
-        if not r:
-            return -1
-        if data['utype']=='gyq':
-            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (r, data['phone'])
-            r2 = unio().execute(sql)
-        elif data['utype']=='ktq':
-            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data['phone'])
-            r2 = unio().execute(sql)
-        if r2:
-            sql = '''INSERT INTO ww_count (uid) VALUES (%s)''' % r
-            return unio().execute(sql)
-
+        return unio().executeInsert(sql)
     except Exception, e:
         print e
-        return -2
+        return None
 
 def reg_user(req, data):
     if data['utype']=='gyq':
@@ -438,6 +427,6 @@ def baoming(data):
     return unio().executeInsert(sql)
 
 def is_3rd_exist(uid):
-    sql = '''SELECT id,utype FROM ww_member WHERE 3rd_id=%s''' % uid
+    sql = '''SELECT id,utype FROM ww_member WHERE 3rd_id='%s';''' % uid
     print sql
     return unio().fetchOne(sql)

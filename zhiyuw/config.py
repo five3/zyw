@@ -7,6 +7,8 @@ sql2 = '''SELECT * FROM ww_banner where t='web' order by id desc limit 0,10'''
 sql3 = '''SELECT * FROM ww_banner where t='mobile' order by id desc limit 0,10'''
 sql4 = '''SELECT * FROM ww_banner where t='ydy' order by id desc limit 0,10'''
 
+qq_appid = '101379426'
+
 global_settings = {
     'settings' : unio().fetchOne(sql),
     'banner_list' : unio().fetchAll(sql2),
