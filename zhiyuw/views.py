@@ -23,15 +23,12 @@ def valid_code(func):
 
 def request_login(func):
     def __warp(req):
-        if req.method=='POST':
-            if not req.session.get('isLogin'):
-                msg = '你需要登录才能执行操作'
-                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
-            ret = func(req)
-            return ret
-        else:
-            msg = '请求方法不支持'
+        if not req.session.get('isLogin'):
+            msg = '你需要登录才能执行操作'
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        ret = func(req)
+        return ret
+
 
     return __warp
 
@@ -210,6 +207,12 @@ def ydy(req):
         fun.get_valid_code()
         third_appid = qq_appid
         return render_to_response("ydy.html", locals(), context_instance = RequestContext(req))
+
+@request_login
+def reg_yd(req):
+    logo_image = fun.get_site_logo(req)
+    if req.method=='GET':
+        return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
 
 @valid_code
 def register(req):
