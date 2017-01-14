@@ -141,6 +141,8 @@ def admin(req, action):
         elif action=='banner':
             banners = controller.get_banners()
             return render_to_response("backend/banner.html", locals())
+        elif action=='userdata':
+            return render_to_response("backend/userdata.html", locals())
     elif req.method=='POST':
         if action=='new':
             r = controller.add_admin(req.POST)
