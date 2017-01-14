@@ -63,7 +63,8 @@ def send_reset_email(url, to_email):
 
 def send_http(url, method='GET', type='JSON'):
     import requests
-    r = requests.get(url)
+    r = requests.get(url, verify=False)
+    r.encoding = 'utf-8'
     try:
         return r.json()
     except Exception, ex:

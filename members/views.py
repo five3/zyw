@@ -8,9 +8,18 @@ from zhiyuw import function as fun
 from django.template import RequestContext
 from zhiyuw import controller as controller2
 
+def request_login(func):
+    def __warp(req):
+        if not req.session.get('isLogin'):
+            return HttpResponseRedirect('/zhiyuw/login')
+        if req.session.get('3rd_not_init'):
+            return HttpResponseRedirect('/zhiyuw/3rd_yd?uid=%s' % req.session['info']['id'])
+        ret = func(req)
+        return ret
+    return __warp
+
+@request_login
 def index(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     data = fun.warp_data(req.GET)
     # print req.session['info']
     uid = req.session['info'].get('id', 0)
@@ -23,9 +32,8 @@ def index(req):
     print cates
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def post(req, action):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info'].get('id', 0)
     if req.method=='GET':
         cates = controller.get_user_cates(uid)
@@ -64,9 +72,8 @@ def post(req, action):
             return HttpResponse(json.dumps(result),content_type="application/json")
 
 from um import imageUp
+@request_login
 def postimage(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     if req.method=='GET':
@@ -84,11 +91,11 @@ def postimage(req):
         msg = '上传头像失败'
         return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def profile(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
+    # print req.session['info']
     if req.method=='GET':
         cates = controller.get_user_cates(uid)
         info = controller.get_profile(uid, utype)
@@ -108,9 +115,8 @@ def profile(req):
             msg = '更新资料失败'
         return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def password(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     cates = controller.get_user_cates(uid)
     if req.method=='GET':
@@ -128,9 +134,8 @@ def password(req):
             msg = '确认密码不一致'
         return render_to_response("members/password.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def bgmusic(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     if req.method=='GET':
         cates = controller.get_user_cates(uid)
@@ -146,9 +151,8 @@ def bgmusic(req):
             msg = '背景音乐设置失败'
         return render_to_response("members/bgmusic.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def zhaopin(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     uname = req.session['info']['username']
     if req.method=='GET':
@@ -162,9 +166,8 @@ def zhaopin(req):
             msg = '职位发布失败'
         return render_to_response("members/msg.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def shuoshuo(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     if req.method=='GET':
         id = req.GET.get('id')
@@ -183,9 +186,8 @@ def shuoshuo(req):
         data = fun.warp_data(req.POST)
         pass
 
+@request_login
 def pinpai(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
@@ -196,9 +198,8 @@ def pinpai(req):
         cates = controller.get_user_cates(uid)
         return render_to_response("members/pinpai.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def tianchi(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
@@ -218,9 +219,8 @@ def tianchi(req):
         cates = controller.get_user_cates(uid)
         return render_to_response("members/tianchi.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def xiangwang(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
@@ -237,9 +237,8 @@ def xiangwang(req):
         cates = controller.get_user_cates(uid)
         return render_to_response("members/xiangwang.html", locals(), context_instance = RequestContext(req))
 
+@request_login
 def daohang(req, action):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     utype = req.session['info']['utype']
     data = {'userid':uid, 't':utype}
@@ -278,9 +277,8 @@ def daohang(req, action):
         else:
             return HttpResponse('not well',content_type="application/json")
 
+@request_login
 def money(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     uid = req.session['info']['id']
     if req.method=='GET':
         utype = req.session['info']['utype']
@@ -308,9 +306,8 @@ def money(req):
             result = {'errorCode':-1, 'msg':'赠送失败'}
             return HttpResponse(json.dumps(result),content_type="application/json")
 
+@request_login
 def cate(req):
-    if not req.session.get('isLogin'):
-        return HttpResponseRedirect('/zhiyuw/login')
     data = fun.warp_data(req.GET)
     uid = req.session['info'].get('id', 0)
     name = data.get('name','')

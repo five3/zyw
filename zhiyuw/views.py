@@ -28,8 +28,6 @@ def request_login(func):
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         ret = func(req)
         return ret
-
-
     return __warp
 
 def index(req):
@@ -318,6 +316,7 @@ def guanzhu(req):
         else:
             result = {'errorCode':-2, 'msg':'已关注 '}
             return HttpResponse(json.dumps(result),content_type="application/json")
+
 import datetime
 def fgpassword(req):
     logo_image = fun.get_site_logo(req)
@@ -416,32 +415,67 @@ def qq_login(req):
             if r.get('utype'):
                 result = {'errorCode':0, 'msg':'成功 ', 'url':'/members'}
             else:
-                result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/3rd_yd'}
-                req.session['3rd_init'] = False
+                result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/3rd_yd?uid=%s'%r.get('id')}
+                req.session['3rd_not_init'] = True
         else:
-            result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/reg_yd'}
+            req.session['3rd_not_init'] = True
             uid = controller.add_3rd_user(req, qq_info ,'qq')
+            result = {'errorCode':0, 'msg':'成功 ', 'url':'/zhiyuw/3rd_yd?uid=%s'% uid}
         info = controller.auth_3rd(req, open_id, 'qq')
         req.session['isLogin'] = True
         req.session['info'] = info
         return HttpResponse(json.dumps(result), content_type="application/json")
 
 def weixin_login(req):
+    from config import weixin_id, weixin_secret
+    logo_image = fun.get_site_logo(req)
     if req.method=='GET':
         data = req.GET
         code = data.get('code')
-        get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % ('wxfa9b417b73f5def8', 'secret', code)
+        print weixin_id, weixin_secret, code
+        get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=%s&secret=%s&code=%s&grant_type=authorization_code' % (weixin_id, weixin_secret, code)
         print get_token_url
         access_info = send_http(get_token_url)
         print access_info
-        call_api_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s' % (access_info.get('access_token'), access_info.get('openid'))
+        access_token = access_info.get('access_token')
+        openid = access_info.get('openid')
+        unionid = access_info.get('unionid')
+        call_api_url = 'https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s' % (access_token, openid)
         weixin_info = send_http(call_api_url)
-        #TODO:
-        return render_to_response("zhiyuw/3rd_yd.html", locals(), context_instance = RequestContext(req))
+        print weixin_info
+        r = controller.is_3rd_exist(unionid)
+        if r:
+            if r.get('utype'):
+                page = '/members'
+            else:
+                page = '/zhiyuw/3rd_yd?uid=%s'%r.get('id')
+                req.session['3rd_not_init'] = True
+        else:
+            req.session['3rd_not_init'] = True
+            uid = controller.add_3rd_user(req, weixin_info ,'weixin')
+            page = '/zhiyuw/3rd_yd?uid=%s'% uid
+        info = controller.auth_3rd(req, unionid, 'weixin')
+        req.session['isLogin'] = True
+        req.session['info'] = info
+        return HttpResponseRedirect(page)
 
 def third_yd(req):
     logo_image = fun.get_site_logo(req)
     if req.method=='GET':
+        uid = req.GET.get('uid')
         return render_to_response("zhiyuw/3rd_yd.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
-        return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
+        data = req.POST
+        print data
+        if not data.get('uid') or data.get('uid')=='None':
+            msg = '当前为非法提交'
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        r = controller.bind_3rd_info(data)
+        if r:
+            req.session['3rd_not_init'] = False
+            req.session['info']['utype'] = data.get('utype')
+            print req.session['info']
+            return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
+        else:
+            msg = '手机或Email信息已绑定，添加信息失败。'
+            return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))

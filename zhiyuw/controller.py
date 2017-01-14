@@ -234,9 +234,10 @@ def add_3rd_user(req, info, third_type):
         logo = info['figureurl_qq_2']
         username = password = info['nickname']
     elif third_type=='weixin':
-        openid = info['unicodeid']
-        logo = info['flx']
+        openid = info['unionid']
+        logo = info['headimgurl']
         username = password = info['nickname']
+        print username
     utype = ''
     email = openid + '@qq.com'
     if req.META.has_key('HTTP_X_FORWARDED_FOR'):
@@ -430,3 +431,27 @@ def is_3rd_exist(uid):
     sql = '''SELECT id,utype FROM ww_member WHERE 3rd_id='%s';''' % uid
     print sql
     return unio().fetchOne(sql)
+
+def bind_3rd_info(data):
+    utype = data.get('utype')
+    phone = data.get('phone')
+    email = data.get('email')
+    uid = data.get('uid')
+    sql = '''UPDATE ww_member SET utype='%s',email='%s',status=1 WHERE id='%s';''' % (utype, email, uid)
+    try:
+        r = unio().execute(sql)
+        # print r
+        if utype=='gyq':
+            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (uid, phone)
+        elif utype=='ktq':
+            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (uid, phone)
+        print sql
+        r2 = unio().execute(sql)
+        # print r2
+        if r2:
+            sql = '''INSERT INTO ww_count (uid) VALUES (%s)''' % uid
+            print sql
+            return unio().executeInsert(sql)
+    except Exception,e:
+        print e
+        return None

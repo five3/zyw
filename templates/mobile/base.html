@@ -39,6 +39,9 @@
 	}
 </script>
 <!--移动端版本兼容 end -->
+{% block extra_head %}
+    <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="{{third_appid}}" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
+{% endblock %}
 </head>
 <body>
 <div class="header">
@@ -49,8 +52,9 @@
         <div class="personal">
             {% if request.session.isLogin %}
                 <div class="auth">
-                    <label>您好：<a href="/mobile">{{request.session.info.username}}</a></label>
-                    &nbsp;&nbsp;<a href="/mobile/logout">退出</a>
+                    <label style="display: inline-block;width: 140px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">您好：<a href="/mobile">{{request.session.info.username}}</a></label>
+                    &nbsp;
+                    <label style="float: right;"><a href="javascript:void(0)" onclick="javascript:QC.Login.signOut(); location='/mobile/logout';">退出</a></label>
                 </div>
             {% else %}
                 <a href="/mobile/login"><img src="/static/mobile/cy_images/images/personal.jpg" /></a>

@@ -38,6 +38,8 @@
 	}
 </script>
 <!--移动端版本兼容 end -->
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="{{third_appid}}" data-redirecturi="http://www.zhiyuw.com/zhiyuw/3rd_qq_login" charset="utf-8"></script>
+
 </head>
 
 <body>
@@ -76,12 +78,37 @@
     <div class="third-area">
         <div class="third-area-a"><font color="#d8d8d8">————————————</font>&nbsp;使用合作网站帐号登录&nbsp;<font color="#d8d8d8">————————————</font></div>
         <div class="third-list">
-            <a class="ta-qq" href="user.php?act=oath&type=qq"  title="QQ">QQ登录</a>
-            <a class="ta-weixin" href="user.php?act=oath&type=weixin" title="weixin">微信登录</a>
+            <a class="ta-qq" href="javascript:void(0)" id="qq_login" title="QQ">QQ登录</a>
+            <a class="ta-weixin" href="https://open.weixin.qq.com/connect/qrconnect?appid=wxfa9b417b73f5def8&redirect_uri=http%3A%2F%2Fwww.zhiyuw.com%2Fmobile%2F3rd_weixin_login&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e" title="weixin">微信登录</a>
         </div>
     </div>
 </div>
 			
 <div class="clear"></div>
+<script>
+    $('#qq_login').click(function(e){
+        QC.Login.showPopup({
+           appId:"{{third_appid}}",
+           redirectURI:"http://www.zhiyuw.com/zhiyuw/3rd_qq_login"
+        });
+    });
+    var cbLoginFun = function(reqData, opts){
+            console.log(reqData);
+            console.log(opts);
+            QC.Login.getMe(function(openId, accessToken){
+                console.log(openId);
+                reqData.openId = openId;
+                $.post("/mobile/3rd_qq_login", reqData, function(data, status){
+                    console.log(data);
+                    if(data.errorCode==0){
+                        location = data.url;
+                    }else{
+                        alert(data.msg);
+                    }
+                });
+            });
+        };
+    QC.Login({btnId:"qqLoginBtn"}, cbLoginFun);
+</script>
 </body>
 </html>
