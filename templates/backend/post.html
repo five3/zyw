@@ -123,7 +123,8 @@
 						</fieldset>
                         <fieldset>
 							<label>摘要图片</label>
-							<input name="featured_image" type="text"  value="{{post_info.featured_image}}" placeholder="文章图片">
+                            <span id="postimg" style="cursor: pointer;border: 1; border: 1px solid #bababd;padding: 5px;border-radius: 3px;">选择文件</span>
+							<input name="featured_image" id="featured_image" type="text"  value="{{post_info.featured_image}}" placeholder="文章图片URL">
 						</fieldset>
 						<fieldset>
 							<label>内容</label><div class="clear"></div>
@@ -177,6 +178,9 @@
 			</footer>
 		</article><!-- end of post new article -->
 		</form>
+        <form id="postimgform" action="/backend/imageUp" method="post" enctype="multipart/form-data">
+            <input type="file" id="postimg_copy" name="upfile" value="" style="display:none;">
+        </form>
 {% endblock %}
 
 {% block bottom %}
@@ -289,5 +293,26 @@
         alert(content);
         $("#content").val(content);
     }
+    $('#postimg').click(function(){
+        $('#postimg_copy').click();
+    });
+    $('#postimg_copy').change(function(){
+        var formData = new FormData($('#postimgform')[0]);
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'POST',
+            data: formData,
+            async: true,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                $('#featured_image').val(data.url);
+            },error: function(){
+                alert('imgUploader upload fail, data:' +  data);
+            }
+        });
+        return;
+    })
 </script>
 {% endblock %}

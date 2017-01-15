@@ -393,8 +393,11 @@ def get_count(uid):
     if not r2:
         r2 = {'hudie_today': 0, 'comment_today': 0, 'shuoshuo_today': 0, 'money_in': 0, 'money_out': 0}
     d.update(r2)
-    d['hudie'] = member_totle + article_totle
-    d['comment'] = comment
+    sql = '''SELECT article, comment FROM ww_count WHERE uid=%s''' % uid
+    print sql
+    r3 = unio().fetchOne(sql)
+    d['hudie'] = member_totle + article_totle + r3.get('article')
+    d['comment'] = comment + r3.get('comment')
     # print d
     return d
 

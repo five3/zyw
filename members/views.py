@@ -9,12 +9,12 @@ from django.template import RequestContext
 from zhiyuw import controller as controller2
 
 def request_login(func):
-    def __warp(req):
+    def __warp(req, *args):
         if not req.session.get('isLogin'):
             return HttpResponseRedirect('/zhiyuw/login')
         if req.session.get('3rd_not_init'):
             return HttpResponseRedirect('/zhiyuw/3rd_yd?uid=%s' % req.session['info']['id'])
-        ret = func(req)
+        ret = func(req, *args)
         return ret
     return __warp
 

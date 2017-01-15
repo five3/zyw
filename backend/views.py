@@ -142,6 +142,11 @@ def admin(req, action):
             banners = controller.get_banners()
             return render_to_response("backend/banner.html", locals())
         elif action=='userdata':
+            account = req.GET.get('account', '')
+            if account:
+                user_data = controller.get_user_data(account)
+            else:
+                user_data = {}
             return render_to_response("backend/userdata.html", locals())
     elif req.method=='POST':
         if action=='new':
@@ -184,6 +189,15 @@ def admin(req, action):
                 else:
                     msg = '保存图片失败'
                 return render_to_response('backend/msg.html', locals())
+        elif action=='userdata':
+            data = req.POST
+            if controller.update_user_data(data):
+                msg = '更新数据成功'
+            else:
+                msg = '无数据被更新'
+            user_data = data
+            return render_to_response('backend/userdata.html', locals())
+
 
         id = req.POST.get('id', 0)
         if id:

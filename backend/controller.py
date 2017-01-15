@@ -391,3 +391,17 @@ def update_agreen(content):
     sql = '''UPDATE ww_agreen SET content='%s' where 1=1''' % content
     print sql
     return unio().execute(sql)
+
+def get_user_data(account):
+    sql = '''SELECT ww_count.* FROM ww_count,ww_member
+            WHERE ww_member.email='%s' AND ww_member.id=ww_count.uid''' % account
+    print sql
+    return unio().fetchOne(sql)
+
+def update_user_data(data):
+    sql = '''UPDATE ww_count
+            SET article=%s, comment=%s, shuoshuo=%s, money=%s, focus=%s
+            WHERE uid=%s''' % (data['article'], data['comment'], data['shuoshuo'], data['money'],  data['focus'], data['uid'])
+    print sql
+    return unio().execute(sql)
+
