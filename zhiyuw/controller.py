@@ -421,8 +421,8 @@ def reset_passwd(passwd, user_name):
     return unio().execute(sql)
 
 def baoming(data):
-    sql = '''INSERT INTO ww_baoming (name, sex, phone, zhuanye, zhiwei, company) VALUES
-            ('%s','%s','%s','%s','%s','%s')''' % (data.get('name'), data.get('sex'),
+    sql = '''INSERT INTO ww_baoming (name, sex, phone, zhuanye, zhiwei, company, created) VALUES
+            ('%s','%s','%s','%s','%s','%s',now())''' % (data.get('name'), data.get('sex'),
                         data.get('phone'), data.get('zhuanye'), data.get('zhiwei'), data.get('company'))
     # print sql
     return unio().executeInsert(sql)
