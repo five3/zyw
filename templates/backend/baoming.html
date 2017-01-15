@@ -1,0 +1,54 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">招聘报名管理</h3>
+		</header>
+
+		<div class="tab_container">	
+			<div id="tab1" class="tab_content">
+			<table class="tablesorter" cellspacing="0"> 
+			<thead> 
+				<tr>
+    				<th>报名人</th>
+   					<th>性别</th>
+                    <th>联系电话</th>
+                    <th>专业</th>
+    				<th>职位</th>
+    				<th>公司</th>
+    				<th>报名时间</th>
+				</tr> 
+			</thead> 
+			<tbody>
+                {% for i in baoming_list%}
+				<tr>
+    				<td><a href="#">{{i.name}}</a></td>
+    				<td>{{i.sex}}</td>
+    				<td>{{i.phone}}</td>
+    				<td>{{i.zhuanye}}</td>
+    				<td>{{i.zhiwei}}</td>
+    				<td>{{i.company}}</td>
+    				<td>{{i.created}}</td>
+				</tr>
+                {% endfor %}
+			</tbody> 
+			</table>
+			</div><!-- end of #tab1 -->
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+		<div style="margin-bottom:10px; padding:10px 20px">
+            <ul class="tabs">
+                <li><a href="/backend/baoming/list/?page={{page|add:-1}}">上一页</a></li>
+                <li><a href="/backend/baoming/list/?page={{page|add:1}}">下一页</a></li>
+            </ul>
+        </div>
+
+{% endblock %}
+{% block bottom %}
+<script>
+function del_gbook(id){
+    if (confirm('确定删除？')){
+        location.href = '/backend/gbook/del/?id='+id;
+    }
+}
+</script>
+{% endblock %}

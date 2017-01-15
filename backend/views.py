@@ -114,6 +114,21 @@ def gbook(req, action):
         gbook_list = controller.get_gbook_list(req, page)
         return render_to_response("backend/gbooklist.html", locals())
 
+@login_required
+def baoming(req, action):
+    settings = setting
+    if req.method=='GET':
+        if action=='view':
+            id = req.GET.get('id')
+            msg = controller.get_baoming_info(id)
+            return render_to_response("backend/raw.html", locals())
+        elif action=='del':
+            id = req.GET.get('id')
+            controller.del_baoming(id)
+        page = req.GET.get('page',1)
+        baoming_list = controller.get_baoming_list(req, page)
+        return render_to_response("backend/baoming.html", locals())
+
 from django import forms
 class bannerForm(forms.Form):
     url = forms.CharField(max_length=1024)

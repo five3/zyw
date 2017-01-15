@@ -131,6 +131,15 @@ def get_gbook_list(req, page, num=10):
     # print sql
     return unio().fetchAll(sql)
 
+def get_baoming_list(req, page, num=10):
+    if page:
+        page = int(page)
+    else:
+        page = 1
+    index = (page-1)*num
+    sql = '''select * from ww_baoming where 1=1 limit %s,%s''' % (index, num)
+    # print sql
+    return unio().fetchAll(sql)
 
 def del_gbook(id):
     sql = '''delete from ww_gbook where id=%s''' % id
