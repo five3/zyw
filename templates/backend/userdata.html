@@ -1,0 +1,60 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<article class="module width_full"> <!-- class=width_3_quarter -->
+		<header><h3 class="tabs_involved">用户数据管理</h3></header>
+
+		<div class="tab_container">
+			<div id="tab1" class="tab_content">
+			<form class="module_content" action="" method="get">
+                    <fieldset>
+                        <label style="width:60px;">用户账号:</label>
+                        <input type="text" name="account" value="{{account}}" style="width:300px;" placeholder="请输入账户Email">
+                        <input type="submit" value="查询" class="alt_btn">
+                        <label style="color:#f00;width:100px;">{{msg}}</label>
+                    </fieldset>
+                    <div class="clear"></div>
+            </form>
+			</div><!-- end of #tab1 -->
+		</div><!-- end of .tab_container -->
+		</article><!-- end of content manager article -->
+
+		<form action="/backend/admin/userdata/" method="post">
+		<article class="module width_full">
+			<header><h3>用户数据详情</h3></header>
+            <div class="module_content">
+                    <fieldset>
+                        <label>蝴蝶数(该数据为增量数据)</label>
+                        <input type="hidden" name="uid" value="{{user_data.uid}}">
+                        <input type="text" name="article" value="{{user_data.article}}">
+                    </fieldset>
+                    <fieldset>
+                        <label>茉莉数(该数据为增量数据)</label>
+                        <input type="text" name="comment" value="{{user_data.comment}}">
+                    </fieldset>
+                    <fieldset>
+                        <label>文心兰</label>
+                        <input type="text" name="shuoshuo" value="{{user_data.shuoshuo}}">
+                    </fieldset>
+                    <fieldset>
+                        <label>天池水</label>
+                        <input type="text" name="focus" value="{{user_data.focus}}">
+                    </fieldset>
+                    <fieldset>
+                        <label>金钱树</label>
+                        <input type="text" name="money" value="{{user_data.money}}">
+                    </fieldset>
+                    <div class="clear"></div>
+            </div>
+			<footer>
+				<div class="submit_link">
+					<input type="submit" value="提交" class="alt_btn">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
+{% block bottom %}
+<script>
+
+</script>
+{% endblock %}
