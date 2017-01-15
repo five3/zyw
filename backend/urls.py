@@ -19,6 +19,7 @@ urlpatterns = patterns('backend.views',
     url("^login/?$", 'login'),
     url("^logout/?$", views.logout_then_login, {'login_url': '/backend/login/'}),
     url("^imageUp/?$", 'postimage'),
+    url("^imageUp/?$", 'postimage'),
     url("^$", 'index'),
 )
 

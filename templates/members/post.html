@@ -210,9 +210,10 @@
         $('#postimg_copy').click();
     });
     $('#postimg_copy').change(function(){
-        var formData = new FormData($('#postimgform')[0]);
+		var $form = $('#postimgform');
+        var formData = new FormData($form[0]);
         $.ajax({
-            url: $(form).attr('action'),
+            url: $form.attr('action'),
             type: 'POST',
             data: formData,
             async: true,
@@ -220,7 +221,7 @@
             contentType: false,
             processData: false,
             success: function(data){
-                $('#featured_image').val(data.url);
+                $('#featured_image').val(data.abs_url);
             },error: function(){
                 alert('imgUploader upload fail, data:' +  data);
             }
