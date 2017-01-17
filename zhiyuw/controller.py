@@ -232,12 +232,14 @@ def add_3rd_user(req, info, third_type):
     if third_type=='qq':
         openid = info['openId']
         logo = info['figureurl_qq_2']
-        username = password = info['nickname']
+        username = openid
+        password = info['nickname']
     elif third_type=='weixin':
         openid = info['unionid']
         logo = info['headimgurl']
-        username = password = info['nickname']
-        print username
+        username = openid
+        password = info['nickname']
+    print username
     utype = ''
     email = openid + '@qq.com'
     if req.META.has_key('HTTP_X_FORWARDED_FOR'):
