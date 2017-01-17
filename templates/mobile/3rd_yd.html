@@ -1,26 +1,26 @@
 {% extends "mobile/base.html" %}
 {% block main %}
     <div class="showMsg" style="text-align:center">
-        <div class="content guery" style="height: auto; width:100%; margin:40px auto; font-size:1.5em;">
-            <form id="3rd_bind" style="font-size: 16px;margin: 50px;" action="" method="post" class="third_profile">
-                <p>请在继续操作前完善以下账户资料，否则部分功能将无法使用。<br>感谢您的配合。</p>
+        <div class="content guery" style="height: auto; width:100%; margin:10px auto 30px auto; font-size:1.5em;">
+            <form id="3rd_bind" style="font-size: 21px;margin: 50px;" action="" method="post" class="third_profile">
+                <p>请在继续操作前完善以下账户资料<br>感谢您的配合。</p>
                 <p>
                     <input type="hidden" name="uid" value="{{uid}}">
                     <label style="display: inline-block; width:100px;">用户类型: </label>
-                    <select name="utype" tabindex="1" style="width:240px; height:26px;border: 1px solid #ccc">
+                    <select name="utype" tabindex="1" style="width:240px; height:35px;border: 1px solid #ccc">
                         <option value="ktq">开拓圈</option>
                         <option value="gyq">耕耘群</option>
                     </select>
                 </p>
                 <p>
                     <label style="display: inline-block; width:110px;">手机号: </label>
-                    <input type="text" style="width:245px;" autocomplete="off" class="input-default" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2">
+                    <input type="text" style="width:245px; height: 35px;" autocomplete="off" class="input-default" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2">
                 </p>
                 <p>
                     <label style="display: inline-block; width:110px;">EMAIL: </label>
-                    <input type="email" style="width:245px;" autocomplete="off" class="input-default" name="email" id="email" placeholder="请输入Email" value="" tabindex="3">
+                    <input type="email" style="width:245px; height: 35px;" autocomplete="off" class="input-default" name="email" id="email" placeholder="请输入Email" value="" tabindex="3">
                 </p>
-                <input type="submit" value="提交" class="btn btn-primary btn6 mr10">
+                <input type="submit"  value="提交" class="btn btn-primary btn6 mr10 css_button">
             </form>
             <div class="clear"></div>
         </div>

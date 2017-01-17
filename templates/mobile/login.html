@@ -64,7 +64,8 @@
             </dl>
             <dl style="border:none;">
             <dt>密码:</dt>
-            <dd> <input type="password" name="password" placeholder="密码" id="p_password"/> </dd>
+            <dd> <input type="password" name="password" placeholder="密码" id="p_password" style="width:80%;"/>
+                <a id="forgotpwd" href="/mobile/fotgotpwd" style="width:60%;">忘记密码？</a></dd>
             </dl>
         </div>
     </div>
@@ -89,7 +90,7 @@
     $('#qq_login').click(function(e){
         QC.Login.showPopup({
            appId:"{{third_appid}}",
-           redirectURI:"http://www.zhiyuw.com/zhiyuw/3rd_qq_login"
+           redirectURI:"http://www.zhiyuw.com/mobile/3rd_qq_login"
         });
     });
     var cbLoginFun = function(reqData, opts){

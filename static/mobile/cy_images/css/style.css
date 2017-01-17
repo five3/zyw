@@ -528,3 +528,11 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     color: #77BACE;
     text-decoration: none;
 }
+.css_button {
+    background-color: #007aff;
+    color: #fff;
+    width: 80px;
+    height: 35px;
+    border: 1px solid #007aff;
+    border-radius: 3px;
+}

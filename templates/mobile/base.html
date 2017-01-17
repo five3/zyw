@@ -52,7 +52,7 @@
         <div class="personal">
             {% if request.session.isLogin %}
                 <div class="auth">
-                    <label style="display: inline-block;width: 140px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">您好：<a href="/mobile">{{request.session.info.username}}</a></label>
+                    <label style="display: inline-block;width: 140px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">您好：<a href="/mobile" title="{{request.session.info.nickname}}">{{request.session.info.nickname}}</a></label>
                     &nbsp;
                     <label style="float: right;"><a href="javascript:void(0)" onclick="javascript:QC.Login.signOut(); location='/mobile/logout';">退出</a></label>
                 </div>
