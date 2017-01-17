@@ -199,8 +199,8 @@
 .case ul li a:hover{ background:#70D89F; float:left; padding-left:10px; padding-right:10px; display:block; color:#fff; height:25px;}
 
 .case_area{ width:1000px; float:left; display:block; background:#FFF; height:auto; margin-top:20px; margin-bottom:20px;}
-.case_map{ width:194px; height:286px; float:left; display:block; margin:30px 30px 0px 25px;}
-.case_map a{ float:left; display:block; width:194px; height:148px;}
+.case_map{ width:194px; height:300px; float:left; display:block; margin:30px 30px 0px 25px;}
+.case_map a{ float:left; display:block; width:194px; height:194px;}
 .caption{ width:194px; height:25px;  float:left; display:block; margin-top:5px;}
 .caption img{ float:right; width:30px; height:25px; margin-right:5px;} 
 .case_map p{ width:194px; height:25px; line-height:25px; text-align:left; padding-left:5px; float:left;}

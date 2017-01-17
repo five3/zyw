@@ -286,7 +286,7 @@ def get_user_info(data):
                 where ww_member.id=%s and ww_member.id=ww_member_vip.id''' % data.get('userid')
     else:
         sql = '''select username, email, nickname, logo, utype,
-                xingming, shoujihao, qq, zuoyouming, gerenjianjie, zhiwei, sex
+                xingming, shoujihao, qq, weixin, linkedin, zuoyouming, gerenjianjie, zhiwei, sex
                 from ww_member, ww_member_normal
                 where ww_member.id=%s and ww_member.id=ww_member_normal.id''' % data.get('userid')
     # print sql
