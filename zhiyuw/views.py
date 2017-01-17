@@ -468,6 +468,8 @@ def third_yd(req):
         data = req.POST
         print data
         if not data.get('uid') or data.get('uid')=='None':
+            req.session['isLogin'] = False
+            req.session['info'] = {}
             msg = '当前为非法提交'
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         r = controller.bind_3rd_info(data)
