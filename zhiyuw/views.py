@@ -453,10 +453,15 @@ def weixin_login(req):
         else:
             req.session['3rd_not_init'] = True
             uid = controller.add_3rd_user(req, weixin_info ,'weixin')
-            page = '/zhiyuw/3rd_yd?uid=%s'% uid
+            if uid:
+                page = '/zhiyuw/3rd_yd?uid=%s'% uid
+            else:
+                msg = "绑定用户失败，该用户可能已经登录过，请联系管理员"
+                return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
         info = controller.auth_3rd(req, unionid, 'weixin')
-        req.session['isLogin'] = True
-        req.session['info'] = info
+        if info:
+            req.session['isLogin'] = True
+            req.session['info'] = info
         return HttpResponseRedirect(page)
 
 def third_yd(req):
