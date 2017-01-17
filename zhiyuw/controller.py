@@ -233,12 +233,12 @@ def add_3rd_user(req, info, third_type):
         openid = info['openId']
         logo = info['figureurl_qq_2']
         username = openid
-        password = info['nickname']
+        nickname = password = info['nickname']
     elif third_type=='weixin':
         openid = info['unionid']
         logo = info['headimgurl']
         username = openid
-        password = info['nickname']
+        nickname = password = info['nickname']
     print username
     utype = ''
     email = openid + '@qq.com'
@@ -251,7 +251,7 @@ def add_3rd_user(req, info, third_type):
     sql = '''insert into ww_member (3rd_id, 3rd_type, username, nickname, password, email, logo,
                                     created, regip, status, utype, site_id, bgmusic, credits)
             values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
-            ''' % (openid, third_type, username, username, password, email, logo,
+            ''' % (openid, third_type, username, nickname, password, email, logo,
                    fun.now(), ip, utype, site_id, bg_music)
     # print sql
     try:
