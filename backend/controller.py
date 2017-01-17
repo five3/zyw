@@ -80,7 +80,8 @@ def save_post(req, data):
             r = unio().fetchOne(sql)
             slug = r.get('slug')
             short_url = '/zhiyuw/%s/show-%s.html' % (slug, lastid)
-            sql = '''update blog_blogpost set short_url='%s' where id=%s''' %(short_url, lastid)
+            mobile_url = '/mobile/%s/show-%s.html' % (slug, lastid)
+            sql = '''update blog_blogpost set short_url='%s', mobile_url='%s' where id=%s''' %(short_url, mobile_url, lastid)
             return unio().execute(sql)
 
 
