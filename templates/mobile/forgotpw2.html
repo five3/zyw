@@ -6,13 +6,10 @@
         <div class="content guery" style="height: auto; width:100%; margin:10px auto 70px auto; font-size:1.5em;">
             <form action="/mobile/forgotpwd" method="post" class="resetpw">
                 <p>
-                    <div style="font-size:22px;"><b>找回密码流程：</b><b>输入账户</b> -> 验证身份 -> 重置密码</div>
+                    <div style="font-size:22px;"><b>找回密码流程：</b>输入账户 -> <b>验证身份</b> -> 重置密码</div>
                 </p>
-                <p>
-                    <input type="text" autocomplete="off" class="input-default" style="font-size: 22px; width: 350px;height: 35px;" name="account" id="account" placeholder="请输入用户名或邮箱找回密码" value="" tabindex="1">
-                </p>
-                <p>
-                    <input class="btn btn-primary btn6 mr10 css_button" value="提交" style="font-size: 20px;" type="submit">
+                <p style="font-size: 22px;">
+                    重置密码链接已发送至注册邮箱：{{email_mix}}，<br>请在30分钟内尽快登录邮箱并激活链接进行密码重置。
                 </p>
             </form>
         </div>

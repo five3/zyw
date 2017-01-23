@@ -453,15 +453,14 @@ def third_yd(req):
             return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
 
 import datetime
-def fotgotpwd(req):
-    from zhiyuw import controller as controller2
+def forgotpwd(req):
     logo_image = fun.get_site_logo(req)
     if req.method=="GET":
         data = req.GET
         user_name = data.get('userName')
         sid = data.get('sid')
         if user_name and sid:
-            r = controller2.get_reset(user_name)
+            r = controller.get_reset(user_name)
             d = datetime.datetime.now()
             if r.get('sid')==sid and r.get('ttl')>time.mktime(d.timetuple()):
                 return render_to_response("mobile/forgotpw3.html", locals(), context_instance = RequestContext(req))
@@ -470,7 +469,7 @@ def fotgotpwd(req):
                 return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
         else:
             return render_to_response("mobile/forgotpw.html", locals(), context_instance = RequestContext(req))
-    if req.method=="POST":
+    elif req.method=="POST":
         import uuid, hashlib
         from utils.function import send_reset_email
         data = req.POST
@@ -488,7 +487,7 @@ def fotgotpwd(req):
                 host = req.META['HTTP_HOST'].split(':')[0]
                 r = controller.add_reset(email, sid, time.mktime(d2.timetuple()))
                 if r:
-                    url = 'http://%s/mobile/fotgotpwd?sid=%s&userName=%s' % (host, sid, email)
+                    url = 'http://%s/mobile/forgotpwd?sid=%s&userName=%s' % (host, sid, email)
                     print url
                     send_reset_email(url, email)
                     email_pre = email.split('@')[0]
@@ -509,7 +508,7 @@ def fotgotpwd(req):
                 if controller.reset_passwd(password, user_name):
                     return render_to_response("mobile/forgotpw4.html", locals(), context_instance = RequestContext(req))
                 else:
-                    msg = "密码更新失败"
+                    msg = "密码已被更新"
             else:
                 msg = "当前链接已过期！"
             return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))

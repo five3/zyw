@@ -28,7 +28,7 @@ urlpatterns = patterns('mobile.views',
     url("^3rd_qq_login", 'qq_login'),
     url("^3rd_yd", 'third_yd'),
     url("^3rd_weixin_login", 'weixin_login'),
-    url("^fotgotpwd", 'fotgotpwd'),
+    url("^forgotpwd", 'forgotpwd'),
 )
 
 handler404 = "mezzanine.core.views.page_not_found"
