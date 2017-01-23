@@ -1,0 +1,17 @@
+{% extends "mobile/base.html" %}
+
+{% block meta_title %}找回密码{% endblock %}
+{% block main %}
+    <div class="showMsg" style="text-align:center">
+        <div class="content guery" style="height: auto; width:100%; margin:10px auto 70px auto; font-size:1.5em;">
+            <form action="/mobile/forgotpwd" method="post" class="resetpw">
+                <p>
+                    <div style="font-size:22px;"><b>找回密码流程：</b>输入账户 -> <b>验证身份</b> -> 重置密码</div>
+                </p>
+                <p style="font-size: 22px;">
+                    密码重置成功，您现在可以通过新密码登录账户了。
+                </p>
+            </form>
+        </div>
+    </div>
+{% endblock %}
