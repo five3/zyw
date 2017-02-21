@@ -72,8 +72,8 @@
                 </p>
                 {% if req.session.settings.logincode %}
                 <p>
-                验证:<input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" onClick="createCode()" />
-                    <input type="text"  id="id_code" name="code" class="reg_field" style="width:80px;text-align: center;" tabindex="4"/>
+                验证:<input type="text" readonly id="checkCode" class="reg_field" style="width:88px; text-align: center;background-color: #cccccc;" onClick="createCode()"  tabindex="4"/>
+                    <input type="text"  id="id_code" name="code" class="reg_field" style="width:80px;text-align: center;"/>
                     <span style="text-align:left; rgb(0, 124, 204); display: block;"><a href="/zhiyuw/fgpassword" target="_blank">忘记密码？</a><span class="red" id="err_code">&nbsp;</span></span>
                 </p>
                 {% endif %}
@@ -219,9 +219,9 @@
 
 
 <div id="auto_information" >
+    <div class="case_information_list w1000">
     {% if zpcj_list %}
-        <div class="case_information_list w1000">
-            <div class="case_information fl">
+        <div class="case_information fl">
             <div class="case_information_title">
                 <img src="{% static "zhiyuw/cy_images/images/piont07.jpg" %}" width="15" height="15" /><p>招聘</p><a href="/zhiyuw/zpcj">MORE>></a>
             </div>

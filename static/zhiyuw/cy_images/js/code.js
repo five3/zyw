@@ -14,17 +14,19 @@ function createCode(){
 	   var charIndex = Math.floor(Math.random()*11);
 	   codeArr.push(selectChar[charIndex]);
 	}
-    var selectFlag = new Array('+', '-', '*', '/');
-    var flagIndex = Math.floor(Math.random()*4);
+    var selectFlag = new Array('+', '-', '*');
+    var txtFlag = new Array('＋', '－', '×');
+    var flagIndex = Math.floor(Math.random()*3);
     var flag = selectFlag[flagIndex];
+    var flagTxt = txtFlag[flagIndex];
 
 	if(codeArr.length != codeLength){
 	   createCode();
 	}
-
 	var exp = '' + codeArr[0] + flag + codeArr[1];
     code = eval(exp);
-	checkCode.val(exp);
+    var expTxt = '' + codeArr[0] + flagTxt + codeArr[1];
+	checkCode.val(expTxt);
 }
 createCode();
 

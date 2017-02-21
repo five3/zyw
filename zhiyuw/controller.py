@@ -41,7 +41,7 @@ def get_cate_list(req, cate, n, page=1):
     sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug='%s' and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by created desc limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
+            and cate.blogpost_id=post.id order by post.created DESC limit %s,%s;''' % (fun.get_site_id(req), cate, index, n)
     # print sql
     return unio().fetchAll(sql)
 
@@ -170,7 +170,7 @@ def get_gyq_total(req, zhiwei=None):
 def get_search_result(req, kw):
     sql = '''select short_url as url, title, user_name, updated
             from blog_blogpost
-            where post.status=2 and site_id='''+ str(fun.get_site_id(req)) +''' and title like '%%'''+kw+"%%'"
+            where status=2 and site_id='''+ str(fun.get_site_id(req)) +''' and title like '%%'''+kw+"%%'"
     # print sql
     return unio().fetchAll(sql)
 

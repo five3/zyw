@@ -485,4 +485,5 @@ def third_yd(req):
             return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
         else:
             msg = '手机或Email信息已绑定，添加信息失败。'
+            url = '/zhiyuw/logout'
             return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
