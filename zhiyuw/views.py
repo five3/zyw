@@ -183,6 +183,7 @@ def login(req):
         r = controller.auth(req, data)
         if r:
             # print r
+            req.session['3rd_not_init'] = False
             req.session['isLogin'] = True
             req.session['info'] = r
             return HttpResponseRedirect("/members")
