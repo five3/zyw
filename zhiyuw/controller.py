@@ -199,7 +199,7 @@ def auth_3rd(req, openid, utype):
     sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
             from ww_member
             where site_id=%s and 3rd_id='%s' and 3rd_type='%s';''' % (fun.get_site_id(req), openid, utype)
-    print sql
+    # print sql
     r = unio().fetchOne(sql)
     if r:
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
@@ -239,7 +239,7 @@ def add_3rd_user(req, info, third_type):
         logo = info['headimgurl']
         username = openid
         nickname = password = info['nickname']
-    print username
+    # print username
     utype = ''
     email = openid + '@qq.com'
     if req.META.has_key('HTTP_X_FORWARDED_FOR'):
@@ -431,7 +431,7 @@ def baoming(data):
 
 def is_3rd_exist(uid):
     sql = '''SELECT id,utype FROM ww_member WHERE 3rd_id='%s';''' % uid
-    print sql
+    # print sql
     return unio().fetchOne(sql)
 
 def bind_3rd_info(data):
