@@ -24,26 +24,27 @@
 .nav ul li.last{ background:none;}
 .nav ul li a{ font-family:"微软雅黑"; font-size:14px; color:#fff; width:90.5px; height:41px; float:left; display:block;}
 .nav ul li a:hover{ background:url(../images/li.jpg) center no-repeat; width:93.5px; height:40px; float:left; display:block; margin-top:-2px; margin-left:-3px; color:#000;}
-#kinMaxShow{visibility:hidden;width:100%; height:400px; overflow:hidden;text-align:left; *margin-top:-4px;}
+#kinMaxShow{visibility:hidden;width:100%; height:347px; overflow:hidden;text-align:left; *margin-top:-4px;}
 
 #news{ width:100%; height:auto;  margin:0px auto;  background:url(../images/bg.jpg) center repeat; float:left; display:block; ;}
-.information{ background:url(../images/information_bg.jpg) no-repeat; width:328px; height:377px; margin-right:15px; margin-top:5px;}
-.information_title{ width:328px; height:32px;  overflow:hidden;}
-.information_title img{ float:left; padding-left:5px; margin-top:8px;}
-.information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff; float:left;}
-.information_title a{ float:right; display:block; font-family:"微软雅黑"; font-size:12px; color:#ADADAD; line-height:32px; padding-right:20px;}
+.information{  width:328px; height:420px; margin-right:9px; margin-top:5px ; box-shadow:1px 1px 10px #DBDBDB;}
+.information_title{ width:328px; height:32px;  overflow:hidden; background-color:#6FA8ED; display:block; float:left;}
+.information_title img{ padding-left:5px; margin-top:8px; width:15px; height:15px; float:left;}
+.information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff;  width:100px; float:left;}
+.information_title a{  display:block; font-family:"微软雅黑"; font-size:12px; color:#ADADAD; line-height:32px; padding-right:20px; width:183px; float:left; background:#F4F4F4; text-align:right;}
 .information_title a:hover{ color:#208DCE;}
 .information_area{
     width: 310px;
     height: auto;
     float: left;
-    text-align: left;}
+    text-align: left; margin-left:5px; margin-top:3px;}
 .information_img {
     float: left;
     display: block;
     margin-right: 5px;
     margin-top: 3px;
 }
+.information_img img{ padding:2px; border:1px solid #DCDCDC; background:#fff;}
 .information_area b {
     float: left;
     display: block;
@@ -52,8 +53,9 @@
     line-height: 28px;
     font-family: "微软雅黑";
     font-size: 14px;
-    color: #333333 !important;
+    color: #555 !important;
 }
+
 .information_area span a {
     float: left;
     display: block;
@@ -65,7 +67,7 @@
     color: #999999;
 }
 
-.login{ width:312px; height:347px;  background:url(../images/login_bg.jpg) no-repeat; margin-top:5px;}
+.login{ width:312px; height:420px; background:#fff; margin-top:5px; box-shadow:1px 1px 10px #DBDBDB;}
 .qiehuan3{width:304px; height:34px; margin-top:3px; margin-left:4px;}
 .qiehuan3 ul{margin:0;padding:0;}
 .qiehuan3 li{float:left;height:34px;line-height:34px;text-align:center; cursor:pointer; width:152px; font-family:"微软雅黑"; font-size:14px; display:block;}
@@ -89,7 +91,7 @@
 .comments {text-align:left; display:block; margin:20px 0;padding:0 20px; background: #FFF;}
 .comments_user {font-size: 20px; color: #1233DB; padding: 10px;}
 .comments_content {font-size:18px; padding: 10px 20px;}
-#develop{ width:100%; height:auto; margin:0px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px; }
+#develop{ width:100%; height:auto; margin:20px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px; }
 .develop{ width:1000px; height:32px; border-bottom:1px solid #C8C8C8;}
 .develop_title{ width:160px; height:32px; background:#007CCC; float:left;}
 .develop_title img{ float:left; margin-top:9px; padding-left:5px;}
@@ -101,32 +103,32 @@
 .develop_area{ width:194px; height:153px; }
 .develop_area img{ margin-top:15px; border: 1px solid rgb(218, 217, 217);}
 .develop_words{width:194px; height:50px;  float:left; display:block;}
-.develop_words p{ text-align:left; line-height:25px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#000; float:left; width:95%; display:block; height:25px;}
+.develop_words p{ text-align:left; line-height:25px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#454545; float:left; width:95%; display:block; height:25px;}
 .develop_words a{ float:left; display:block; font-family:"微软雅黑"; font-size:12px; color:#454545; line-height:25px; width:95%; height:25px; text-align:left; padding-left:5px;}
 .develop_words a:hover{ color:#208DCE;}
 
 
 #case_information{ width:100%; height:auto;  background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px;}
-.case_information{ background:url(../images/case_bg.jpg) no-repeat; width:328px; height:375px; margin-right:5px; margin-top:10px;}
-.case_information_title{ width:328px; height:32px;  overflow:hidden;}
-.case_information_title img{ float:left; padding-left:5px; margin-top:8px;}
-.case_information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff; float:left;}
-.case_information_title a{ float:right; display:block; font-family:"微软雅黑"; font-size:12px; color:#ADADAD; line-height:32px; padding-right:20px;}
+.case_information{  width:328px; height:420px; margin-right:5px; margin-top:5px ; box-shadow:1px 1px 10px #DBDBDB;}
+.case_information_title{ width:328px; height:32px;  overflow:hidden; background-color:#6FA8ED; display:block; float:left;}
+.case_information_title img{ padding-left:5px; margin-top:8px; width:15px; height:15px; float:left;}
+.case_information_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff;  width:100px; float:left;}
+.case_information_title a{display:block; font-family:"微软雅黑"; font-size:12px; color:#ADADAD; line-height:32px; padding-right:20px; width:183px; float:left; background:#F4F4F4; text-align:right;}
 .case_information_title a:hover{ color:#208DCE;}
-.case_information_area{ width:310px; height:300px; }
+.case_information_area{ width:310px; height: auto; float:left; margin-top:3px; margin-left:5px; }
 .case_information_area ul li{ float:left; display:block; width:310px; line-height:25px; text-align:left; background:url(../images/piont02.jpg) left center no-repeat; margin-left:5px;}
 .case_information ul li a{ padding-left:10px; color:#454545;}
 .case_information ul li a:hover{ color:#208DCE;}
 
 
-#link{ width:100%; height:auto;  margin:0px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px;}
+#link{ width:100%; height:auto;  margin:20px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block; *margin-top:-5px;}
 .link{ width:1000px; height:auto; display:block; margin-top:10px;}
 .link_title{ width:1000px; height:26px; overflow:hidden;}
 .link_title img{ margin-left:-3px;}
-.link_area{ width:1000px; height:auto; float:left; display:block; background:#EFEFEF; margin-bottom:20px;}
+.link_area{ width:1000px; height:auto; float:left; display:block; background:#EFEFEF; margin-top:5px;}
 .link_area img{ margin-bottom:10px; margin-top:10px; margin-left:15px; float:left; display:block; }
 
-#links{ width:100%; height:auto;  margin:0px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block;}
+#links{ width:100%; height:auto;  margin:5px auto; background:url(../images/bg.jpg) center repeat; float:left; display:block;}
 .links{ width:1000px; height:auto; display:block; margin-top:10px; margin-bottom:20px; }
 .links_title{ width:70px; height: auto;  float:left; display:block;}
 .links_title p{ text-align:left; line-height:25px; font-family:"微软雅黑"; font-size:14px; color:#007CCC;  float:left;}
@@ -177,7 +179,7 @@
 .right_title{ height:30px; width:302px; background:#007CCC; border:1px solid #D6D6D6;}
 .right_title img{ float:left; padding-left:5px; margin-top:8px; margin-right:5px;}
 .right_title p{ text-align:left; line-height:30px; padding-left:5px; font-family:"微软雅黑"; font-size:16px; color:#fff; display:block; }
-.right_news ul li{ float:left; display:block; background:url(../images/piont11.jpg) left center no-repeat; line-height:30px; text-align:left; margin-left:5px; width:280px; }
+.right_news ul li{ float:left;  background:url(../images/piont11.jpg) left center no-repeat; line-height:30px; text-align:left; margin-left:5px; width:280px; display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;  }
 .right_news ul li a{ color:#454545; padding-left:20px;}
 .right_news ul li a:hover{color:#208DCE; }
 .right_contact{ width:304px; height: 185px; float:left; display:block; margin-top:20px; background:#FFF; overflow:hidden;}
