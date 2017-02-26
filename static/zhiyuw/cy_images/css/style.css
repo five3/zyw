@@ -160,7 +160,7 @@
 .left_title p span a{ color:#454545;}
 .left_title p span a:hover{ color:#208DCE;}
 
-.left_area{ width:670px; height:auto; float:left; display:block; margin-top:20px; padding-top: 30px; background:#FFF;}
+.left_area{ width:670px; height:auto; float:left; display:block; margin-top:0px; padding-top: 10px; background:#FFF;}
 .articles{  width:670px; height:30px; background:#007CCC; border:1px solid #D6D6D6;}
 .articles p{ text-align:left; color:#FFF; font-size:15px; font-family:"微软雅黑"; line-height:30px; padding-left:8px;}
 .left_area_news ul li{ float:left; display:block;  text-align:left; line-height:30px; width:650px; background: url(../images/li_bg.jpg) bottom repeat-x; margin-left:5px;}
@@ -227,15 +227,15 @@
 	}
 .tab1 li.now{color: #fff;background: url(../images/li_bg01.jpg)  no-repeat;  float:left; display:block; width:87px; height:39px;}
 
-.tablist{width:670px; height: auto; font-size:12px; line-height:25px; border:1px #DAD9D7 solid; display:none;  background:#fff;  margin-top:20px; margin-left:4px;}
+.tablist{width:668px; height: auto; font-size:12px; line-height:25px;  display:none;  background:#fff;  margin-top:0px; }
 .block{display:block;}
 
-#test1_1{ width:660px; height:auto; float:left; display:block; margin-top:20px; background:#FFF;}
+#test1_1{ width:660px; height:auto; float:left; display:block; margin-top:0px; background:#FFF;}
 .test1_1_title{ width:660px; border-bottom:1px solid #E5E5E5; height:30px; }
 .test1_1_title p{ line-height:30px; text-align:left; margin-left:5px; color:#208DCE;}
 .test1_1_area ul li{ float:left; display:block;  text-align:left; line-height:35px; width:650px; background: url(../images/li_bg.jpg) bottom repeat-x; margin-left:5px;}
 .test1_1_area ul li a{ float:left; display:block; background:url(../images/piont02.jpg) left center no-repeat; padding-left:10px; width:450px;}
-.test1_1_area ul li a.name{ background:none; display:block; width:100px;  text-align:center;}
+.test1_1_area ul li a.name{ background:none; display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:110px;  text-align:center; }
 .test1_1_area ul li span{ float:right; display:block;}
 .test1_1_area ul li a{ color:#454545;}
 .test1_1_area ul li a:hover{color:#208DCE; }
