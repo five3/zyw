@@ -61,7 +61,7 @@ def get_cate_total(req, cate):
 def get_article(id):
     sql = '''select id, title, content, user_id, user_name, created, allow_comments,views
             from blog_blogpost post
-            where id=%s and status=2''' % id
+            where id=%s''' % id
     # print sql
     r = unio().fetchOne(sql)
     if r:
