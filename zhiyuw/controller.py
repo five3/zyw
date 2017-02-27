@@ -18,7 +18,7 @@ def get_fsb_list(req, n):
     sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('bjys','wxjl', 'ylxw', 'sh', 'sy', 'fsb') and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
+            and cate.blogpost_id=post.id order by created desc limit 0,%s;''' % (fun.get_site_id(req),n)
     # print sql
     return unio().fetchAll(sql)
 
@@ -26,8 +26,8 @@ def get_alh_list(req, n):
     sql = '''select post.title, short_url as url, mobile_url, user_name, created, description, featured_image
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
-            and cate.blogpost_id=post.id order by updated desc limit 0,%s;''' % (fun.get_site_id(req),n)
-    # print sql
+            and cate.blogpost_id=post.id order by created desc limit 0,%s;''' % (fun.get_site_id(req),n)
+    print sql
     return unio().fetchAll(sql)
 
 def get_cate_list(req, cate, n, page=1):
@@ -59,12 +59,12 @@ def get_cate_total(req, cate):
 
 
 def get_article(id):
-    sql = '''select id, title, content, user_id, user_name, created, allow_comments,views
+    sql = '''select id, title, content, user_id, user_name, created, allow_comments, views, status
             from blog_blogpost post
             where id=%s''' % id
     # print sql
     r = unio().fetchOne(sql)
-    if r:
+    if r and r.get('status') == 2:
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['user_id']
         unio().execute(sql)
 
