@@ -127,6 +127,10 @@
 							<input name="title" type="text"  value="{{post_info.title}}">
 						</fieldset>
                         <fieldset>
+							<label>自定义分类</label>
+							<input name="cate3" type="text" value="{{post_info.cate3}}" placeholder="自定义分类">
+						</fieldset>
+                        <fieldset>
 							<label>摘要</label>
 							<input name="description" type="text" value="{{post_info.description}}" placeholder="文章摘要">
 						</fieldset>
@@ -170,12 +174,9 @@
                                     {% endifequal %}
                                 {% endfor %}
 							</select>
-						</fieldset>
-                        <fieldset style="clear:both; width:48%;"> <!-- to make two field float next to one another, adjust values accordingly -->
-							<label>自定义分类</label>
-                            <input type="text" name="cate3" value="{{post_info.cate3}}" style="width:92%;">
                             <input type="hidden" name="views" value="{{post_info.views}}" style="width:92%;">
 						</fieldset>
+                        <div style="clear:both;">
                         </div>
 				</div>
 			<footer>

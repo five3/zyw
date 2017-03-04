@@ -29,7 +29,7 @@ def index(req):
         page = 1
     post_list = controller.get_post_list(req, uid, cate, page)
     cates = controller.get_user_cates(uid)
-    print cates
+    # print cates
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
 
 @request_login

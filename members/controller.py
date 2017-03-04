@@ -81,6 +81,7 @@ def get_cate3_list(req, uid, cate, page=1, num=10):
     return unio().fetchAll(sql)
 
 def save_post(req, data, uid, uname):
+    # print data
     id = data.get('id', 0)
     views = data.get('views')
     if not views:
@@ -93,7 +94,7 @@ def save_post(req, data, uid, uname):
         sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s', featured_image='%s',
                 description='%s',created='%s', views='%s', cate3='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'), data.get('cate2'),
-                                  featured_image, data.get('description', ''), fun.now(), views, data.get('cate3'), id)
+                                  featured_image, data.get('description', ''), fun.now(), views, data.get('cate3', ''), id)
         # print sql
         r = unio().execute(sql)
         if r:
@@ -107,7 +108,7 @@ def save_post(req, data, uid, uname):
                 short_url, content, user_id, user_name, allow_comments, views, cate2, cate3, featured_image, description)
                 values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
                   (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), 1,
-                  fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'),data.get('cate3'),
+                  fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'),data.get('cate3', ''),
                   featured_image, data.get('description'))
         # print sql
         lastid = unio().executeInsert(sql)
