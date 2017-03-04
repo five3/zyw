@@ -173,14 +173,33 @@ def get_user_list(req, page, num=10, keys=None):
     else:
         page = 1
     index = (page-1)*num
-    where = ' and 1=1 '
-    if keys:
-        where = ' and username like "%%' + keys + '%%" '
-    sql = '''select id, username, created, regip, status,utype from ww_member where site_id=%s %s order by created desc limit %s,%s''' % (
-        fun.get_site_id(req), where, index, num)
-    print sql
-    return unio().fetchAll(sql)
 
+    if keys:
+        where = ' and (username like "%%' + keys + '%%" or n.shoujihao="'+keys+'") '
+        sql = '''select a.id, username, a.created, regip, a.status, a.utype
+                from ww_member a, ww_member_normal n
+                where (a.id=n.id) and a.site_id=%s %s order by a.created desc limit %s,%s''' % (
+                 fun.get_site_id(req), where, index, num)
+        # print sql
+        r = unio().fetchAll(sql)
+        if r and len(r)>0:
+            return r
+
+        where = ' and (username like "%%' + keys + '%%" or v.lianxifangshi="'+keys+'") '
+        sql = '''select a.id, username, a.created, regip, a.status, a.utype
+                from ww_member a, ww_member_vip v
+                where (a.id=v.id) and a.site_id=%s %s order by a.created desc limit %s,%s''' % (
+                 fun.get_site_id(req), where, index, num)
+        # print sql
+        return unio().fetchAll(sql)
+    else:
+        where = ' and 1=1 '
+        sql = '''select a.id, username, a.created, regip, a.status, a.utype
+                from ww_member a
+                where a.site_id=%s %s order by a.created desc limit %s,%s''' % (
+                 fun.get_site_id(req), where, index, num)
+        # print sql
+        return unio().fetchAll(sql)
 
 def get_admin_list(req, page, num=10):
     if page:
@@ -356,6 +375,14 @@ def add_banner(url, file_path, t):
     except:
         pass
 
+def save_banner(id, url, file_path, t):
+    src = '/static' + file_path.split('static')[1].replace('\\', '/')
+    sql ='''UPDATE ww_banner SET src='%s', url='%s', t='%s' WHERE id='%s';''' % (src, url, t, id)
+    print sql
+    try:
+        return unio().execute(sql)
+    except:
+        pass
 
 def save_content(data):
     short_url = '/xx/xx'

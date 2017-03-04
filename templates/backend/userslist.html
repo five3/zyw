@@ -1,14 +1,12 @@
 {% extends "backend/base.html" %}
 {% block main %}
         <form class="module width_full">
-
-
         </form>
 		<article class="module width_full"> <!-- class=width_3_quarter -->
 		    <header>
                 <h3 class="tabs_involved">用户管理</h3>
                 <span style="margin:6px 0 0 0;display: inline-block;">
-                    <input type="text" id="keys" value="" placeholder="请输入用户名进行搜索">
+                    <input type="text" id="keys" value="" placeholder="请输入用户名/手机号进行搜索" style="width: 200px;">
                     <input type="button" onclick="search_user();" value="搜索用户">
                 </span>
 		    </header>

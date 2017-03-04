@@ -13,7 +13,7 @@
     				<th width="40%">src</th>
     				<th width="40%">url</th>
     				<th width="10%">类型</th>
-    				<th width="10%">操作</th>
+    				<th width="20%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,7 +23,8 @@
     				<td><a href="{{i.src}}" target="_blank">{{i.src}}</a></td>
     				<td>{{i.url}}</td>
     				<td>{{i.t}}</td>
-                    <td><a href="javascript:void(0);" onclick="del_banner({{i.id}});">删除</a>&nbsp;</td>
+                    <td><a href="javascript:void(0);" onclick="modify_banner({{i.id}},'{{i.url}}', '{{i.t}}');">修改</a>&nbsp;
+                        <a href="javascript:void(0);" onclick="del_banner({{i.id}});">删除</a></td>
 				</tr>
                 {% endfor %}
 			</tbody>
@@ -32,21 +33,22 @@
 		</div><!-- end of .tab_container -->
 		</article><!-- end of content manager article -->
 
-		<form action="/backend/admin/banner/" method="post" enctype="multipart/form-data">
+		<form action="/backend/admin/banner/" method="post" enctype="multipart/form-data" name="banner_form" onsubmit="return check();">
 		<article class="module width_full">
 			<header><h3>Banner新建（最多添加10条记录）</h3></header>
 				<div class="module_content">
 						<fieldset>
 							<label>上传图片</label>
-							<input type="file" name="src" value=""> <span>文件大小为5M以内，分辨率为1200*350</span>
+                            <input type="hidden" id="banner_id" name="id" value="">
+							<input type="file" id="imgfile" name="src" value=""> <span>文件大小为5M以内，分辨率为1200*350</span>
 						</fieldset>
                         <fieldset>
 							<label>跳转地址</label>
-							<input type="text" name="url" value="">
+							<input type="text" id="banner_url" name="url" value="">
 						</fieldset>
                         <fieldset>
 							<label>Banner类型</label>
-                            <select name="t">
+                            <select name="t" id="banner_type" >
                                 <option value="web">主页</option>
                                 <option value="mobile">手机</option>
                                 <option value="ydy">引导页</option>
@@ -56,7 +58,7 @@
 				</div>
 			<footer>
 				<div class="submit_link">
-					<input type="submit" value="提交" class="alt_btn">
+					<input type="submit" id="submit" value="提交" class="alt_btn">
 				</div>
 			</footer>
 		</article><!-- end of post new article -->
@@ -66,7 +68,7 @@
 <script>
 function del_banner(id){
     if (confirm('确定操作？')){
-        $.post("/backend/admin/banner/",{id:id},function(result){
+        $.post("/backend/admin/banner/",{id:id, action:'delete'},function(result){
             if (result.errorCode==0){
                 alert('操作成功');
             }else{
@@ -76,5 +78,18 @@ function del_banner(id){
         });
     }
 }
+function modify_banner(id, url, type){
+    $('#banner_id').val(id);
+    $('#banner_url').val(url);
+    $('#banner_type').val(type);
+}
+var check = function(){
+    var img = $('#imgfile').val();
+    if(img==''){
+        alert('请先选择一个图片');
+        return false;
+    }
+};
+
 </script>
 {% endblock %}

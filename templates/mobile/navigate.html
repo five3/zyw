@@ -1,11 +1,25 @@
 {% extends "mobile/base.html" %}
+{% block title %}我的导航{% endblock %}
 {% block main %}
+<style>
+    .field {
+        width: 70%;
+        height: 35px;
+        margin: 5px 20px;
+    }
+    .true{
+        height: 33px;
+        line-height: 33px;
+        width: 65px;
+        display: inline-block;
+    }
+</style>
 <div class="nav_add">
     <div class="nav_top">
         我的导航
     </div>
     <div id="box">
-        <span class="edit_navigate">编辑</span>
+        <span class="edit_navigate" style="width: 55px;">编辑</span>
     </div><div style="clear:both;"></div>
     <ol class="list">
         {% for url in urls %}
@@ -21,15 +35,29 @@
     </ol><div class="clear"></div>
     <form id="navigate" action="/mobile/navigate/save" onclick="return false;">
         <input type="hidden" name="nid" value="">
-        <input type="text" value="" name="name" placeholder="请输入网站名称">
-        <input type="text" value="" name="url" placeholder="请输入网站URL" style="width: 300px;">
-        <span class="navigate_submit button">确定</span>
+        <input type="text" value="" name="name" placeholder="请输入网站名称" class="field">
+        <input type="text" value="" name="url" placeholder="请输入网站URL" class="field">
+        <span class="navigate_submit button true">确定</span>
     </form>
 </div>
 <div class="clear"></div>
 <script>
     $('.navigate_submit').click(function(e){
         var form = $('#navigate');
+        var name = $('#navigate input[name="name"]').val();
+        var url = $('#navigate input[name="url"]').val();
+        if(name==''){
+            alert('请填写名称');
+            return;
+        }
+        if(url==''){
+            alert('请填写url');
+            return;
+        }
+        var reg=new RegExp("^http://|https://");
+        if(!reg.test(url)){
+            $('#navigate input[name="url"]').val('http://'+url);
+        }
         $.ajax({
             url: form.attr('action'),
             type: 'post',

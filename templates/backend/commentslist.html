@@ -2,15 +2,15 @@
 {% block main %}
 		
 		<article class="module width_full"> <!-- class=width_3_quarter -->
-		<header><h3 class="tabs_involved">管理评论</h3>
-		<ul class="tabs">
-    		<li><a href="/backend/comments/new/">新建评论</a></li>
-		</ul>
+		<header>
+            <h3 class="tabs_involved" style="width:55px;">管理评论</h3>
+            <a href="javascript:void(0)" id="checkAll" style="height: 30px; display: inline-block;line-height: 30px;margin: 0 10px;">全选</a>&nbsp;
+            <a href="javascript:void(0)" id="deleteAll" style="height: 30px; display: inline-block;line-height: 30px;">删除勾选</a>
 		</header>
 
 		<div class="tab_container">
 			<div id="tab2" class="tab_content">
-			<table class="tablesorter" cellspacing="0"> 
+			<table class="tablesorter" cellspacing="0" id="comment_table">
 			<thead> 
 				<tr> 
    					<th></th> 
@@ -23,7 +23,7 @@
 			<tbody>
             {% for i in comment_list %}
 				<tr> 
-   					<td><input type="checkbox"></td> 
+   					<td><input type="checkbox" val="{{i.id}}"></td>
     				<td>{{i.comment}}</td>
     				<td>{{i.user_name}}</td>
     				<td>{{i.submit_date | date:"Y-m-d"}}</td>
@@ -56,9 +56,29 @@
             if (result.errorCode==0){
                 $(obj).parent().parent().remove();
             }else{
-                alert(errorCode.msg);
+                alert("删除失败");
             }
         });
     }
+    $('#checkAll').on('click', function(e){
+        $('#comment_table input[type="checkbox"]').attr("checked","true");;
+    });
+    $('#deleteAll').on('click', function(e){
+        if (!confirm("是否确认删除？")){
+                return;
+        }
+        $("#comment_table input[type='checkbox']:checked").each(function(){
+            var url = "/backend/comments/del/";
+            var $this = $(this);
+            $.post(url,{id:$(this).attr('val')},function(result){
+                if (result.errorCode==0){
+                    $this.parent().parent().remove();
+                    location.reload();
+                }else{
+                    alert('删除失败');
+                }
+            });
+        });
+    });
 </script>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "mobile/base.html" %}
+{% block title %}{{cate_name}}{% endblock %}
 {% block main %}
     <div class="news">
 	<div class="title">
@@ -18,11 +19,11 @@
     <div class="pages">
         共{{total}}条记录
         {% ifnotequal page 1 %}
-            <a href="/mobile/myarts?page={{page|add:-1}}">上一页</a>
+            <a href="/mobile/{{cate}}?page={{page|add:-1}}">上一页</a>
         {% endifnotequal %}
         <a href="#" class="red">{{page}}/{{total_page}}</a>
         {% ifnotequal page total_page %}
-            <a href="/mobile/myarts?page={{page|add:1}}">下一页</a>
+            <a href="/mobile/{{cate}}?page={{page|add:1}}">下一页</a>
         {% endifnotequal %}
     </div>
     

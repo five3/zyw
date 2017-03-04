@@ -366,7 +366,7 @@ def get_tianchi(uid, gread=None, page=1, num=10):
             WHERE ww_guanzhu.cid=%s AND ww_guanzhu.pid=ww_member.id AND ww_guanzhu.pid=ww_member_normal.id
             AND ww_member_normal.gerenjianjie is not null %s
             order by ww_guanzhu.id desc limit %s,%s''' % (uid, condi, index, num)
-    # print sql
+    print sql
     return unio().fetchAll(sql)
 
 

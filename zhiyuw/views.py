@@ -218,6 +218,7 @@ def register(req):
     logo_image = fun.get_site_logo(req)
     cate_name = '用户注册'
     if req.method=='GET':
+        data = {}
         express, express_id = controller.get_valid_code()
         fun.get_valid_code()
         return render_to_response("zhiyuw/register.html", locals(), context_instance = RequestContext(req))
@@ -239,7 +240,9 @@ def register(req):
                 return render_to_response("zhiyuw/reg_yd.html", locals(), context_instance = RequestContext(req))
             else:
                 msg = '该用户名或邮箱已注册,'
-        return render_to_response("zhiyuw/msg.html", locals(), context_instance = RequestContext(req))
+        express, express_id = controller.get_valid_code()
+        fun.get_valid_code()
+        return render_to_response("zhiyuw/register.html", locals(), context_instance = RequestContext(req))
 
 def agreen(req):
     logo_image = fun.get_site_logo(req)

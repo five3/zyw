@@ -1,9 +1,11 @@
 {% extends "mobile/base.html" %}
+{% block title %}{{cate_name}}{% endblock %}
 {% block main %}
 {% for i in cate_list %}
     <div class="news">
         <div class="title">
             <span>{{i.title}}</span>
+            <a href="/mobile/{{i.more}}">更多&gt;</a>
         </div>
         {% for j in i.cate_list %}
             <div class="news_list">

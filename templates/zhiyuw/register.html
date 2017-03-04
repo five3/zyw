@@ -21,29 +21,31 @@
                 <input type="hidden" name="submit" value="tj" />
                 <p>
                 会员类型:<select name="utype" class="reg_field" style=" border: 1px solid #cccccc;">
-                   <option value="gyq" selected="">耕耘人</option><option value="ktq">开拓人</option></select></select><span id="err_utype">
+                            <option value="gyq" {% ifequal data.utype "gyq" %}selected{% endifequal %}>耕耘人</option>
+                            <option value="ktq" {% ifequal data.utype "ktq" %}selected{% endifequal %}>开拓人</option>
+                        </select><span id="err_utype">
                     &nbsp;
                     </span>
                 </p>
                 <p>
-                会员账号:<input type="text" name="username" id="username" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*用户名不能为空'}"><span class="red" id="err_username">
+                手机号码:<input type="text" name="username" id="username" value="{{data.username}}" placeholder="请输入手机号" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*用户名不能为空'}"><span class="red" id="err_username">
                     &nbsp;
                     </span>
                 </p>
                 <p>
-                账号密码:<input type="password" name="password" id="password" value="" class="reg_field" onblur="if(this.value==''){document.getElementById('err_password').innerText='*密码不能为空'}"><span class="red" id="err_password">
+                账号密码:<input type="password" name="password" id="password" value="" placeholder="请输入6位以上密码"  class="reg_field" onblur="if(this.value==''){document.getElementById('err_password').innerText='*密码不能为空'}"><span class="red" id="err_password">
                     &nbsp;
                     </span>
                 </p><p>
-                密码确认:<input type="password" name="password2" id="password2" value="" onblur="checkpass()"  class="reg_field"><span class="red" id="err_password2">
+                密码确认:<input type="password" name="password2" id="password2" value="" placeholder="请输入确认密码"  onblur="checkpass()"  class="reg_field"><span class="red" id="err_password2">
                     &nbsp;
                     </span>
                 </p><p>
-                电子邮箱:<input type="email" name="email" id="email" value=""  class="reg_field"><span class="red" id="err_email">
+                电子邮箱:<input type="email" name="email" id="email" value="{{data.email}}" placeholder="请输入Email" class="reg_field"><span class="red" id="err_email">
                     &nbsp;
                     </span>
-                </p><p>
-                手机号&nbsp;:<input type="text" name="phone" id="phone" value=""  class="reg_field"><span class="red" id="err_phone">
+                </p><p style="display:none;">
+                手机号&nbsp;:<input type="hidden" name="phone" id="phone" value="{{data.phone}}" placeholder="请输入手机号"  class="reg_field"><span class="red" id="err_phone">
                     &nbsp;
                     </span>
                 </p>
@@ -61,7 +63,10 @@
                     <input type="checkbox" name="agreen" id="agreen" /> 我同意<a href="/zhiyuw/agreen.html" target="_blank">注册协议</a>中相关协议说明
                 </p>
                 <p>
-                <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image"  style="display:block; margin:10px 60px;">
+                {% if msg %}
+                    <span style="color:#f00;">{{msg}}</span><br/>
+                {% endif %}
+                    <input type="image" src="{% static "zhiyuw/cy_images/images/login.jpg" %}" id="image"  style="display:block; margin:10px 60px;">
                 </p>
                 </form>
                 </div>
@@ -94,10 +99,7 @@
             alert('邮箱不能为空');
             return false;
         }
-        if (phone==''){
-            alert('号码不能为空');
-            return false;
-        }
+
         var id_code = $('#id_code').val().trim();
         if (id_code==''){
             alert('请填写验证码');

@@ -193,9 +193,9 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 #box {width:45%; float:left; display:inline-block; height:auto; margin-left:2%;}
 #box span{cursor:pointer;  float:right; display:inline-block; width: auto; background:#069FE6; font-size: 16px; line-height: 27px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; text-align:center; color:#fff; padding:5px 10px; font-family: "Microsoft YaHei"; margin-top:5px; position:absolute; top:0px; right:2%;}
 ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
-.list li {width:85px;float: left;background:#F0F0F0;text-align: center;position: relative;cursor: pointer;margin-bottom:7px; height:42px; line-height:42px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; margin-left:8px; margin-right:8px; margin-top:7px; font-family: "Microsoft YaHei"; font-size: 16px; }
-.pro_name {display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-weight: 400;}
-.pro_name a {color: #333; }
+.list li {width:120px;float: left;background:#F0F0F0;text-align: center;position: relative;cursor: pointer;margin-bottom:7px; height:50px; line-height:50px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; margin-left:8px; margin-right:8px; margin-top:7px; font-family: "Microsoft YaHei"; font-size: 16px; }
+.pro_name {display: block;overflow: hidden;font-weight: 400;}
+.pro_name a {color: #333; display: inline-block;text-overflow: ellipsis;white-space: nowrap;width: 50px;overflow: hidden; }
 .list li:hover .add_btn {display: block;}
 .add_btn {background: #ff6700;height:42px;position: absolute;width: 100%;bottom: 0;left: 0;line-height:42px;display: none;color: #FFF;font-size: 18px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 .car {width: 100%;margin: 20px auto;background: #FFF; float:left; display:block; height:auto; }

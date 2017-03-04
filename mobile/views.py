@@ -23,8 +23,9 @@ def valid_code(func):
 def request_login(func):
     def __warp(req, *args):
         if not req.session.get('isLogin'):
-            msg = '你需要先<a href="/mobile/login" style="color:#069FE6">登录</a>才能访问'
-            return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
+            # msg = '你需要先<a href="/mobile/login" style="color:#069FE6">登录</a>才能访问'
+            # return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
+            return HttpResponseRedirect('/mobile/login')
         if req.session.get('3rd_not_init'):
             return HttpResponseRedirect('/mobile/3rd_yd?uid=%s' % req.session['info']['id'])
         if (args):
@@ -68,6 +69,7 @@ def second_cate(req, cate):
     cate_name = cate_dict.get(cate, '无效分类')
     if cate:
         cate_list = controller.get_child_list(req, cate)
+        # print cate_list
     return render_to_response("mobile/second_cate.html", locals(), context_instance = RequestContext(req))
 
 def contact(req):

@@ -181,14 +181,15 @@ def admin(req, action):
             return render_to_response('backend/msg.html', locals())
         elif action=='banner':
             id = req.POST.get('id', 0)
-            if id: ##delete
+            action = req.POST.get('action')
+            if id and action=='delete':
                 if controller.del_banner(id):
                     msg = '删除成功'
                     reset_setting(global_settings)
                 else:
                     msg = '删除失败'
                 return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
-            else: ##add
+            else: ##add or update
                 import os
                 from um import imageUp
                 img_dir = "%s/static/backend/images/banner" % os.getcwd()
@@ -196,11 +197,18 @@ def admin(req, action):
                 if file_path:
                     url = req.POST.get('url')
                     t = req.POST.get('t')
-                    if controller.add_banner(url, file_path, t):
-                        msg = "添加成功"
-                        reset_setting(global_settings)
-                    else:
-                        msg = '添加失败'
+                    if id: ##update
+                        if controller.save_banner(id, url, file_path, t):
+                            msg = "保存成功"
+                            reset_setting(global_settings)
+                        else:
+                            msg = '保存失败'
+                    else: ##add
+                        if controller.add_banner(url, file_path, t):
+                            msg = "添加成功"
+                            reset_setting(global_settings)
+                        else:
+                            msg = '添加失败'
                 else:
                     msg = '保存图片失败'
                 return render_to_response('backend/msg.html', locals())

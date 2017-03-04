@@ -93,8 +93,8 @@
     </div><div class="clear"></div>
     <div id="tips"></div>
     <div class="dlg-container">
-        <h2>关注函</h2><hr>
-        <div class="content">sfsf士大夫撒旦</div>
+        <h2 claa="tip-title">关注函</h2><hr>
+        <div class="tip-content">该用户未填写相关资料</div>
     </div>
     <script>
         $('.add_name span').click(function(e){
@@ -102,11 +102,12 @@
             var url = '/members/tianchi?gread='+ gread;
             location.href = url;
         });
-        $('.gz').click(show_tips);
-        $('.lv').click(show_tips);
+        $('.gz').on('click', show_tips);
+        $('.lv').on('click', show_tips);
         function show_tips(e){
-            $('.dlg-container h2').text(this.innerText);
-            $('.content').val(this.text);
+            $('.tip-title').text()
+            $('.dlg-container h2').text(this.text);
+            $('.tip-content').text($(this).attr('text'));
             var width = $(window).width();
             var div_width = $('.dlg-container').width();
             $('.dlg-container').css('left', (width-div_width)/2);

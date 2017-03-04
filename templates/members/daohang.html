@@ -77,6 +77,20 @@
 <script>
     $('.navigate_submit').click(function(e){
         var form = $('#navigate');
+        var name = $('#navigate input[name="name"]').val();
+        var url = $('#navigate input[name="url"]').val();
+        if(name==''){
+            alert('请填写名称');
+            return;
+        }
+        if(url==''){
+            alert('请填写url');
+            return;
+        }
+        var reg=new RegExp("^http://|https://");
+        if(!reg.test(url)){
+            $('#navigate input[name="url"]').val('http://'+url);
+        }
         $.ajax({
             url: form.attr('action'),
             type: 'post',
