@@ -25,8 +25,11 @@ def index(req):
     uid = req.session['info'].get('id', 0)
     cate = data.get('cate','')
     page = req.GET.get('page')
-    if not page or int(page)==0:
+    if not page or int(page)<1:
         page = 1
+    total_page = controller.get_post_total(req, uid, cate)
+    if page>total_page:
+        page = total_page
     post_list = controller.get_post_list(req, uid, cate, page)
     cates = controller.get_user_cates(uid)
     # print cates
@@ -303,7 +306,7 @@ def money(req):
             result = {'errorCode':0, 'msg':''}
             return HttpResponse(json.dumps(result),content_type="application/json")
         else:
-            result = {'errorCode':-1, 'msg':'赠送失败'}
+            result = {'errorCode':-1, 'msg':'赠送失败,请确保对方已绑定手机号且号码正确'}
             return HttpResponse(json.dumps(result),content_type="application/json")
 
 @request_login

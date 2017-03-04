@@ -48,6 +48,27 @@ def get_post_total(req, uid, cate=None):
     else:
         return 1
 
+def get_post_total(req, uid, cate, num=10):
+    if cate:
+        condition = ' post.cate2="%s" and ' % cate
+    else:
+        condition = ''
+    sql = '''select count(post.id) as c
+            from blog_blogpost post, blog_blogpost_categories blog_cate, blog_blogcategory cate
+            where %s post.user_id=%s and post.site_id=%s and
+            post.id=blog_cate.blogpost_id and blog_cate.blogcategory_id=cate.id'''  % (
+             condition, uid, fun.get_site_id(req))
+    # print sql
+    r = unio().fetchOne(sql)
+    if r:
+        total = r['c']
+        if total%num==0:
+            return total/num
+        else:
+            return total/num+1
+    else:
+        return 0
+
 def get_post_list(req, uid, cate=None, page=1, num=10):
     if page<1:
         return []
@@ -359,14 +380,14 @@ def get_tianchi(uid, gread=None, page=1, num=10):
     if gread:
         condi = ''' AND ww_member_normal.zhiwei='%s' ''' % gread
     index = (page-1)*num
-    sql = '''SELECT ww_member.id, ww_member.utype, ww_member.logo, ww_member.username, ww_member_normal.qq,
+    sql = '''SELECT ww_guanzhu.msg, ww_member.id, ww_member.utype, ww_member.logo, ww_member.username, ww_member_normal.qq,
             ww_member_normal.shoujihao, ww_member_normal.weixin, ww_member_normal.linkedin, ww_member_normal.gerenjianjie,
             ww_member_normal.guanzhuhan
             FROM ww_guanzhu, ww_member, ww_member_normal
             WHERE ww_guanzhu.cid=%s AND ww_guanzhu.pid=ww_member.id AND ww_guanzhu.pid=ww_member_normal.id
             AND ww_member_normal.gerenjianjie is not null %s
             order by ww_guanzhu.id desc limit %s,%s''' % (uid, condi, index, num)
-    print sql
+    # print sql
     return unio().fetchAll(sql)
 
 
@@ -405,16 +426,22 @@ def get_count(uid):
 def log_money(uid, account, num):
     if num < 0:
         return
-    email = account.strip().split()[0]
-    sql = '''SELECT id FROM ww_member WHERE email='%s' AND 1=1''' % email
+    account = account.strip().split()[0]
+    # sql = '''SELECT id FROM ww_member WHERE email='%s' AND 1=1''' % account
+    sql = '''SELECT a.id FROM ww_member a,ww_member_normal b
+            WHERE a.id=b.id and b.shoujihao='%s' AND 1=1''' % account
     r = unio().fetchOne(sql)
+    if not r:
+        sql = '''SELECT a.id FROM ww_member a,ww_member_vip b
+            WHERE a.id=b.id and b.lianxifangshi='%s' AND 1=1''' % account
+        r = unio().fetchOne(sql)
     if r:
         tid = r.get('id')
     else:
         return
-    sql = '''SELECT money FROM ww_count WHERE uid=%s AND money>%s''' % (uid, num)
+    sql = '''SELECT money FROM ww_count WHERE uid=%s AND (money+100)>%s''' % (uid, num)
     r = unio().fetchOne(sql)
-    if not r:  ##money not enougth
+    if not r:  ##money not enougth,-100
         return
     sql = '''INSERT INTO ww_money (sender_id, recev_id, num, created) VALUES (%s, %s, %s, now())''' % (uid, tid, num)
     r = unio().executeInsert(sql)

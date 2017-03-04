@@ -312,13 +312,16 @@ def guanzhu(req):
         data = fun.warp_data(req.POST)
         data['uid'] = req.session['info'].get('id', 0)
         # print data
+        if not controller.has_complete_profile(data.get('uid')):
+            result = {'errorCode':-2, 'msg':'请先完善个人资料中及履历表 '}
+            return HttpResponse(json.dumps(result),content_type="application/json")
         r = controller.add_guanzhu(data)
         if r:
             controller.add_count(data['userid'], 'focus')
             controller.add_count_history(data['userid'], 'focus')
             return HttpResponse(json.dumps(result),content_type="application/json")
         else:
-            result = {'errorCode':-2, 'msg':'已关注 '}
+            result = {'errorCode':-3, 'msg':'已关注 '}
             return HttpResponse(json.dumps(result),content_type="application/json")
 
 import datetime

@@ -50,6 +50,9 @@
                                 {{h.created | date:'Y-m-d'}}收到<em>{{h.num}}</em>金钱树，对方账号:<span>{{h.username}}</span>，对方EMAIL:<span>{{h.email}}</span>
                             </p>
                         {% endfor %}
+                        {% if history|length == 0%}
+                            <p>当前没有赠送历史</p>
+                        {% endif %}
                     </div>
 
                 </div>

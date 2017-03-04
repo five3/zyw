@@ -5,6 +5,34 @@
 
 {% block position %}{% endblock %}
 {% block main %}
+<style>
+    #tips {
+        display: none;
+        background-color: #808080;
+        left: 0px;
+        opacity: 0.5;
+        position: fixed;
+        top: 0px;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+    }
+    .dlg-container {
+        padding: 10px;
+        background-color: #FFF;
+        left: 350px;
+        position: fixed;
+        top: 100px;
+        z-index: 1001;
+        width: 560px;
+        height: 350px;
+        display: none;
+        overflow: auto;
+        color: #000;
+        text-align: left;
+        font-size: 16px;
+    }
+</style>
 <div id="main" >
 	<div class="main w1000">
         <div id="left" class="fl">
@@ -93,11 +121,47 @@
 </div>
 </div>
 <div class="clear"></div>
+<div id="tips"></div>
+    <div class="dlg-container">
+        <h2 claa="tip-title">关注函</h2><hr>
+        <div class="tip-content">填写精彩的关注内容，并完善好自己的个人资料信息，将能帮助您获得公司领导的青睐！</div>
+        <div>
+            <textarea style="width:560px; height:210px;font-size: 16px;color: #777;margin: 10px 0;" id="guanzhu_msg">请填写您的关注函信息。可以是简短的一段，可以是憧憬之情，可以是向往之意，也可以仅仅是自我的推荐。</textarea>
+        </div>
+        <p>
+            字数在255字以内
+        </p>
+        <div>
+            <input type="button" id="guanzhu_true" value="确定" style="width: 60px;height: 30px; float:right;">
+        </div>
+    </div>
 <script>
-    $('#guanzhu').click(function(e){
-        $.post('/zhiyuw/guanzhu', {'userid':'{{info.id}}', 't':'ktq'}, function(result){
+     $('#guanzhu').click(function(e){
+        var width = $(window).width();
+        var div_width = $('.dlg-container').width();
+        $('.dlg-container').css('left', (width-div_width)/2);
+        $('.dlg-container').show();
+        $('#tips').show();
+        console.log(11)
+     });
+    $('#tips').click(function(e){
+        $('.dlg-container').hide();
+        $('#tips').hide();
+    });
+    $('#guanzhu_true').click(function(e){
+        var msg = $('#guanzhu_msg').val().trim();
+        if(msg==''){
+        alert('请认真修改关注函信息')
+            return
+        }
+        if(msg=='请填写您的关注函信息。可以是简短的一段，可以是憧憬之情，可以是向往之意，也可以仅仅是自我的推荐。'){
+        alert('请认真修改关注函信息')
+            return
+        }
+        $.post('/zhiyuw/guanzhu', {'userid':'{{info.id}}', 't':'ktq', 'msg':msg}, function(result){
             if (result.errorCode==0){
                 alert('关注成功')
+                $('#tips').click();
             }else{
                 alert(result.msg)
             }

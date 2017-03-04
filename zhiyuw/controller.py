@@ -392,10 +392,17 @@ def add_count_history(uid, label, num=1):
     return unio().execute(sql)
 
 def add_guanzhu(data):
-    sql = '''INSERT INTO ww_guanzhu (cid, pid) VALUES (%s, %s)
-            ON DUPLICATE KEY UPDATE pid=%s;''' % (data.get('userid'), data.get('uid'), data.get('uid'))
+    sql = '''INSERT INTO ww_guanzhu (cid, pid, msg) VALUES (%s, %s, '%s')
+            ON DUPLICATE KEY UPDATE pid=%s;''' % (data.get('userid'), data.get('uid'), data.get('msg'), data.get('uid'))
     # print sql
     return unio().execute(sql)
+
+def has_complete_profile(uid):
+    sql = '''SELECT a.id
+            FROM ww_member a, ww_member_normal b
+            WHERE a.id=%s and a.id=b.id and b.gerenjianjie is not null''' % uid
+    # print sql
+    return unio().fetchOne(sql)
 
 def get_email_by_account(account):
     account = account.replace(' ', '')
