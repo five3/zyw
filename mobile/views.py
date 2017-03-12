@@ -169,11 +169,11 @@ def register(req):
             else:
                 data['ip'] = req.META['REMOTE_ADDR']
             r = controller.reg_user(req, data)
-            # print r
+            print r
             if r>0:
-                msg = '注册用户成功，你现在可以登录了'
+                msg = '注册用户成功，你现在可以<a href="/mobile/login" style="color:#069FE6;">登录</a>了'
             else:
-                msg = '该用户名或邮箱已注册,'
+                msg = '该用户名或邮箱已<a href="/mobile/register" style="color:#069FE6;">注册</a>'
         return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
 
 def agreen(req):
@@ -278,6 +278,7 @@ def navigate(req, action):
     info = controller.get_user_info(data)
     if req.method=='GET':
         urls = controller2.get_user_urls(uid)
+        admin_urls = controller2.get_admin_urls()
         return render_to_response("mobile/navigate.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':
         data = req.POST

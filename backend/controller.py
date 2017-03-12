@@ -3,7 +3,7 @@ __author__ = 'macy'
 
 from model import *
 from zhiyuw import function as fun
-
+import re
 
 def get_cate_list():
     sql = '''select id, title
@@ -49,10 +49,15 @@ def save_post(req, data):
     featured_image = data.get('featured_image')
     if not featured_image.strip():
         featured_image = '/static/zhiyuw/cy_images/images/infor.jpg'
+
+    desc = data.get('description', '')
+    if not desc:
+        result, number  =  re .subn(r'<.*?>|</.*?>', '', data.get('editorValue'))
+        desc = len(result)>20 and result[:20] or result
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', featured_image='%s', description='%s', content='%s', status='%s', cate2='%s',
                 created='%s', views='%s'
-                where id=%s''' % (data.get('title'), featured_image, data.get('description'),
+                where id=%s''' % (data.get('title'), featured_image, desc,
                                   data.get('editorValue'), data.get('status'), data.get('cate2'), fun.now(), views, id)
         # print sql
         r = unio().execute(sql)
@@ -66,7 +71,7 @@ def save_post(req, data):
         sql = '''insert into blog_blogpost (featured_image, description, comments_count, site_id, title, slug, created, status, publish_date,
                 short_url, content, user_id, user_name, allow_comments, views, cate2)
                 values ('%s', '%s', %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
-                  (featured_image, data.get('description', ''), 0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
+                  (featured_image, desc, 0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), data.get('status'),
                   fun.now(), short_url, data.get('editorValue'), 1, 'admin', 1, views, data.get('cate2'))
         # print sql
         lastid = unio().executeInsert(sql)
@@ -417,16 +422,34 @@ def save_content(data):
         sql = '''update blog_blogpost set short_url='%s', mobile_url='%s' where id=%s''' %(short_url, mobile_url, lastid)
         return unio().execute(sql)
 
-
 def get_agreen():
     sql = '''SELECT content FROM ww_agreen where 1=1'''
-    print sql
+    # print sql
     return unio().fetchOne(sql)
-
 
 def update_agreen(content):
     sql = '''UPDATE ww_agreen SET content='%s' where 1=1''' % content
-    print sql
+    # print sql
+    return unio().execute(sql)
+
+def get_fav(limit=6):
+    sql = '''SELECT id, name, url FROM ww_navigate_admin where 1=1 limit %s''' % limit
+    # print sql
+    return unio().fetchAll(sql)
+
+def update_fav(data):
+    sql = '''UPDATE ww_navigate_admin SET name='%s', url='%s' where id=%s''' % (data.get('name'), data.get('url'), data.get('id'))
+    # print sql
+    return unio().execute(sql)
+
+def add_fav(data):
+    sql = '''INSERT INTO ww_navigate_admin (name, url, created) VALUES ('%s', '%s', now())''' % (data.get('name'), data.get('url'))
+    # print sql
+    return unio().execute(sql)
+
+def del_fav(id):
+    sql = '''DELETE FROM ww_navigate_admin where id=%s''' % id
+    # print sql
     return unio().execute(sql)
 
 def get_user_data(account):

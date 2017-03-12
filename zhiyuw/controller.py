@@ -27,7 +27,7 @@ def get_alh_list(req, n):
             from blog_blogpost post, blog_blogpost_categories cate, blog_blogcategory blog_category
             where post.status=2 and post.site_id=%s and blog_category.slug in ('zuzhi','geren', 'qtalh', 'alh') and cate.blogcategory_id=blog_category.id
             and cate.blogpost_id=post.id order by created desc limit 0,%s;''' % (fun.get_site_id(req),n)
-    print sql
+    # print sql
     return unio().fetchAll(sql)
 
 def get_cate_list(req, cate, n, page=1):
@@ -265,19 +265,19 @@ def reg_user(req, data):
         logo = '/static/zhiyuw/cy_images/images/gengyunqun.png'
     else:
         logo = '/static/zhiyuw/cy_images/images/kaituoquan.png'
-    sql = '''insert into ww_member (username, nickname, password, email, logo, created, regip, status, utype, site_id, bgmusic, credits)
-            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
-            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['email'], logo, fun.now(), data['ip'], data['utype'], fun.get_site_id(req), '/static/members/cy_images/music/gohome.mp3')
+    sql = '''insert into ww_member (username, nickname, password, phone, email, logo, created, regip, status, utype, site_id, bgmusic, credits)
+            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
+            ''' % (data['username'], data['username'], fun.mk_md5(data['password']), data['username'], data['email'], logo, fun.now(), data['ip'], data['utype'], fun.get_site_id(req), '/static/members/cy_images/music/gohome.mp3')
     # print sql
     try:
         r = unio().executeInsert(sql)
         if not r:
             return -1
         if data['utype']=='gyq':
-            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (r, data['phone'])
+            sql = '''insert into ww_member_normal (id, shoujihao) values (%s, '%s')''' % (r, data.get('phone', ''))
             r2 = unio().execute(sql)
         elif data['utype']=='ktq':
-            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data['phone'])
+            sql = '''insert into ww_member_vip (id, lianxifangshi) values (%s, '%s')''' % (r, data.get('phone', ''),)
             r2 = unio().execute(sql)
         if r2:
             sql = '''INSERT INTO ww_count (uid) VALUES (%s)''' % r

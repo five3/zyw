@@ -54,16 +54,11 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="td_0">会员账号：</td>
+                                        <td class="td_0">会员账户：</td>
                                         <td class="td_1">
-                                            <input type="text" autocomplete="off" name="username" id="username" placeholder="请输入用户名" value="" tabindex="1"></td>
+                                            <input type="text" autocomplete="off" name="username" id="username" placeholder="请输入手机号" value="" tabindex="1"></td>
                                     </tr>
-                                    <tr>
-                                        <td class="td_0">邮箱：</td>
-                                        <td class="td_1">
-                                            <input type="email" autocomplete="off" name="email" id="email" placeholder="请输入邮箱" value="" tabindex="2"></td>
-                                    </tr>
-                                    <tr>
+                                    <tr style="display:none;">
                                         <td class="td_0">手机：</td>
                                         <td class="td_1">
                                             <input type="text" autocomplete="off" name="phone" id="phone" placeholder="请输入手机号" value="" tabindex="2"></td>
@@ -78,6 +73,11 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
                                         <td class="td_1">
                                             <input type="password" autocomplete="off" name="password2" id="password2" placeholder="请确认密码" value="" tabindex="4">
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_0">邮箱：</td>
+                                        <td class="td_1">
+                                            <input type="email" autocomplete="off" name="email" id="email" placeholder="请输入邮箱" value="" tabindex="2"></td>
                                     </tr>
                                     <tr>
                                         <td class="td_0">验证码：</td>
@@ -209,13 +209,18 @@ if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SA
 
     $('#reg_form').on('submit', function(e){
         var email = $('#email').val().trim();
-        var phone = $('#phone').val().trim();
-        if (email==''){
-            alert('邮箱不能为空');
+        var username = $('#username').val().trim();
+        if (username==''){
+            alert('账号不能为空');
             return false;
         }
-        if (phone==''){
-            alert('手机号不能为空');
+        var patt=new RegExp("\\d{11}");
+        if (!patt.test(username)){
+            alert('账号应为正确的手机号码!');
+            return false;
+        }
+        if (email==''){
+            alert('邮箱不能为空');
             return false;
         }
         var id_code = $('#id_code').val().trim();

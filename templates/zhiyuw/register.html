@@ -28,7 +28,7 @@
                     </span>
                 </p>
                 <p>
-                手机号码:<input type="text" name="username" id="username" value="{{data.username}}" placeholder="请输入手机号" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*手机号不能为空'}"><span class="red" id="err_username">
+                会员账户:<input type="text" name="username" id="username" value="{{data.username}}" placeholder="请输入手机号" class="reg_field" onblur="if(this.value==''){document.getElementById('err_username').innerText='*手机号不能为空'}"><span class="red" id="err_username">
                     &nbsp;
                     </span>
                 </p>
@@ -94,12 +94,20 @@
 
     $('#reg_form').on('submit', function(e){
         var email = $('#email').val().trim();
-        var phone = $('#phone').val().trim();
+        var username = $('#username').val().trim();
+        if (username==''){
+            alert('账号不能为空');
+            return false;
+        }
+        var patt=new RegExp("\\d{11}");
+        if (!patt.test(username)){
+            alert('账号应为正确的手机号码!');
+            return false;
+        }
         if (email==''){
             alert('邮箱不能为空');
             return false;
         }
-
         var id_code = $('#id_code').val().trim();
         if (id_code==''){
             alert('请填写验证码');

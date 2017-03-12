@@ -242,6 +242,9 @@ def manage(req, action):
         if action=='agreen':
             agreen = controller.get_agreen()
             return render_to_response("backend/agreen.html", locals())
+        elif action=='favorite':
+            favs = controller.get_fav()
+            return render_to_response("backend/fav.html", locals())
         else:
             msg = '无效url访问'
         return render_to_response("backend/msg.html", locals())
@@ -256,7 +259,27 @@ def manage(req, action):
             else:
                 msg = '内容无效'
             return render_to_response("backend/msg.html", locals())
-
+        elif action=='favorite':
+            fid = req.POST.get('id')
+            if fid: ##update
+                action = req.POST.get('action')
+                if action=='delete':
+                    if controller.del_fav(fid):
+                        msg = '删除成功'
+                        return HttpResponse(json.dumps({'errorCode':0, 'msg' : msg}),content_type="application/json")
+                    else:
+                        msg = '删除失败，请联系管理员'
+                else:
+                    if controller.update_fav(req.POST):
+                        msg = '更新成功'
+                    else:
+                        msg = '更新失败，请联系管理员'
+            else: ##insert
+                if controller.add_fav(req.POST):
+                    msg = '添加成功'
+                else:
+                    msg = '添加失败，请联系管理员'
+            return render_to_response("backend/msg.html", locals())
 
 @login_required
 def users(req, action):

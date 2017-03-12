@@ -56,19 +56,35 @@
                             {% endfor %}
                             <li class="add_navigate"><div class="pro_name"><a href="javascript:void(0);">+</a></div></li>
                         </ol>
-                    </div>
-                    <div id="car" class="car">
-                        <div class="head_row hid">
-                            <form id="navigate" style="display:none;" action="/members/daohang/save" onclick="return false;">
-                                <input type="hidden" name="nid" value="">
-                                <input type="text" value="" name="name" placeholder="请输入网站名称">
-                                <input type="text" value="" name="url" placeholder="请输入网站URL" style="width: 300px;">
-                                <button class="navigate_submit">确定</button>
-                            </form>
-                            <div class="ctrl left"></div>
+
+                        <div id="car" class="car">
+                            <div class="head_row hid">
+                                <form id="navigate" style="display:none;" action="/members/daohang/save" onclick="return false;">
+                                    <input type="hidden" name="nid" value="">
+                                    <input type="text" value="" name="name" placeholder="请输入网站名称">
+                                    <input type="text" value="" name="url" placeholder="请输入网站URL" style="width: 300px;">
+                                    <button class="navigate_submit">确定</button>
+                                </form>
+                                <div class="ctrl left"></div>
+                            </div>
                         </div>
+                        {% if admin_urls %}
+                            <p style="font-size:16px;">下面是为您推荐的网站，喜欢的话请点击添加收藏吧！</p>
+                            <hr>
+                            <ol style="clear:both; margin-top: 10px;">
+                                {% for url in admin_urls %}
+                                    <li>
+                                        <div class="pro_name fav_sites">
+                                            <a href="{{url.url}}" >{{url.name}}</a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        {% endif %}
                     </div>
                 </div>
+
+
                 <div class="clear"></div>
             </div>
         </div>
@@ -144,6 +160,14 @@
                 }
             });
         }
+    });
+    $('.fav_sites a').on('click', function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var name = $(this).text();
+        $('#navigate input[name="url"]').val(url);
+        $('#navigate input[name="name"]').val(name);
+        $('.navigate_submit').click();
     });
 </script>
 {% endblock %}

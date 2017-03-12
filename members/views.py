@@ -248,6 +248,7 @@ def daohang(req, action):
     info = controller2.get_user_info(data)
     if req.method=='GET':
         urls = controller.get_user_urls(uid)
+        admin_urls = controller.get_admin_urls(6)
         cates = controller.get_user_cates(uid)
         return render_to_response("members/daohang.html", locals(), context_instance = RequestContext(req))
     elif req.method=='POST':

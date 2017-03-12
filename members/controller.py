@@ -5,7 +5,7 @@ from model import *
 from zhiyuw import function as fun
 from zhiyuw import controller as controller2
 from datetime import date
-
+import re
 def get_cate_list():
     sql = '''select id, title
             from blog_blogcategory cate where parent_id is null'''
@@ -104,18 +104,22 @@ def get_cate3_list(req, uid, cate, page=1, num=10):
 def save_post(req, data, uid, uname):
     # print data
     id = data.get('id', 0)
-    views = data.get('views')
+    views = data.get('views', 0)
     if not views:
         views = 0
     featured_image = data.get('featured_image', '')
     if not featured_image.strip():
         featured_image = '/static/zhiyuw/cy_images/images/infor.jpg'
 
+    desc = data.get('description', '')
+    if not desc:
+        result, number  =  re .subn(r'<.*?>|</.*?>', '', data.get('editorValue'))
+        desc = len(result)>20 and result[:20] or result
     if id:  ##update
         sql = '''update blog_blogpost set title='%s', content='%s', cate2='%s', featured_image='%s',
                 description='%s',created='%s', views='%s', cate3='%s'
                 where id=%s''' % (data.get('title'), data.get('editorValue'), data.get('cate2'),
-                                  featured_image, data.get('description', ''), fun.now(), views, data.get('cate3', ''), id)
+                                  featured_image, desc, fun.now(), views, data.get('cate3', ''), id)
         # print sql
         r = unio().execute(sql)
         if r:
@@ -130,7 +134,7 @@ def save_post(req, data, uid, uname):
                 values (%s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')''' % \
                   (0, fun.get_site_id(req), data.get('title', 'no title'), data.get('title','no title'), fun.now(), 1,
                   fun.now(), short_url, data.get('editorValue'), uid, uname, 1, views, data.get('cate2'),data.get('cate3', ''),
-                  featured_image, data.get('description'))
+                  featured_image, desc)
         # print sql
         lastid = unio().executeInsert(sql)
         if lastid:
@@ -307,6 +311,11 @@ def del_qiye_comment(id):
 
 def get_user_urls(uid):
     sql = '''SELECT * FROM ww_navigate WHERE uid=%s''' % uid
+    # print sql
+    return unio().fetchAll(sql)
+
+def get_admin_urls(limit=4):
+    sql = '''SELECT url,name FROM ww_navigate_admin WHERE 1=1 order by id limit %s''' % limit
     # print sql
     return unio().fetchAll(sql)
 
