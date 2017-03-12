@@ -3,11 +3,11 @@
 {% block main %}
 <div class="news">
 	<div class="title">
-    	<span>耕耘群</span>
+    	<span>耕耘群</span><span>职位：</span>
     </div>
     <div id="case">
         <div class="case w1000">
-            <span>职位：</span>
+            
             <ul>
                 <li><a href="/mobile/gyq?name=high">高级</a></li>
                 <li><a href="/mobile/gyq?name=middle">中级</a></li>
@@ -32,7 +32,7 @@
                 <div class="clear"></div>
 
                 <div class="pages">
-                    <div id="pages">
+                  <div id="pages">
                         {% ifnotequal page 1 %}
                             <a href="/mobile/gyq?{{prepage}}">上一页</a>
                         {% endifnotequal %}
@@ -45,7 +45,7 @@
                             <input type="button" onclick="location.href='/mobile/gyq{{base_path}}' + $('#page_num').val()" value="Go!">
                         </p>
                     </div>
-                </div>
+                </div><div style="height:40px;"></div>
             </div>
         </div>
     </div>

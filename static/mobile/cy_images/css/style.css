@@ -14,7 +14,7 @@ user-select: none;
 ul,li,form, dl,dt,dd, div{ padding:0px; margin:0px;}
 ul li{ list-style:none; margin: 0;}
 .h1,.h2,.h3,.h4,.h5,.h6,.p{ padding:0px; margin:0px;}
-select,input,em,textarea{ font-size:1em; font-style:normal; color:#585858; font-family:Microsoft YaHei; border-radius:0; -webkit-border-radius:0;}
+select,input,em,textarea{ font-size:1.4em; font-style:normal; color:#585858; font-family:Microsoft YaHei; border-radius:0; -webkit-border-radius:0;}
 img,object{ border:none; max-width:100%; border:0; overflow:hidden; vertical-align:top; margin: 0 auto;}
 a{ color:#585858; text-decoration:none; noline:-webkit-tap-highlight-color:rgba(0,0,0,0);}  /* 去掉链接触摸高亮 */
 a:focus {outline:none; -moz-outline:none;}
@@ -42,29 +42,29 @@ a:focus {outline:none; -moz-outline:none;}
 .header{ width:100%; height:100px; background:#069FE6;}
 .header_area{ width:96%; margin-left:2%; float:left; display:block;  height:auto;}
 .logo{ float:left; display:block;}
-.header_area span{ float:left; display:block; line-height:60px; height:60px; margin-top:20px; margin-left:15px; border-left:1px solid #1BAEF2; padding-left:15px; font-size:18px; font-family: "Microsoft YaHei"; color:#fff;}
+.header_area span{ float:left; display:block; line-height:60px; height:60px; margin-top:20px; margin-left:15px; border-left:1px solid #1BAEF2; padding-left:15px; font-size:1.4em; font-family: "Microsoft YaHei"; color:#fff;}
 .personal{ float:right; display:block;}
 /*个人中心登录*/
 .denglu{ width:100%; height:100%; float:left; display: block; position:relative;  } 
 .bgwhite { width:100%; background:#fff; float:left; display:block; margin-top:5px; border-top:1px solid #E8E9E9; border-bottom:1px solid #E8E9E9; margin-bottom:10px;}
 .Login { width: 96%; margin: auto; overflow: hidden; float:left; display:block;   margin-left:2%; }
-.Login dl { width: 100%; position: relative; overflow: hidden; border-bottom: #d3d3d3 1px solid; margin-bottom:5px; margin-top:5px;}
+.Login dl { width: 100%; position: relative; overflow: hidden; border-bottom: #d3d3d3 1px solid; margin-bottom:10px; margin-top:10px;}
 
-.Login dl dt{ width:15%; float: left; font-size: 18px; color:#3a3a3a; height:40px; line-height:40px;}
-.Login dl dd{ width: 80%; float: left; display:block; }
-
-.Login dl dd input { border: 0; height: 40px; line-height: 40px; width:98%; padding-left:2%; font-size: 17px; color:#DFDFDF; }
-.Login dl dd select { border: 0; height: 40px; line-height: 40px; width:98%; padding-left:2%; font-size: 17px; color:#DFDFDF; background:url(../images/piont01.jpg) right center no-repeat;  }
+.Login dl dt{ width:15%; float: left; font-size: 1.5em; color:#3a3a3a; height:50px; line-height:50px;}
+.Login dl dd{ width: 85%; float: left; display:block;  }
+#forgotpwd{ font-size: 1.4em; }
+.Login dl dd input { border: 0; height: 42px; line-height: 42px; width:70%; padding-left:2%; font-size: 1.4em; color:#333; }
+.Login dl dd select { border: 0; height: 42px; line-height: 42px; width:70%; padding-left:2%; font-size: 1.4em; color:#333; background:url(../images/piont01.jpg) right center no-repeat;  }
 .Login dl dd select option{ font-size:12px;}
 .ng-foot{ width:100%; height:auto; bottom:0px; float:left; display:block;   clear:both;  }
 
-.third-area { line-height: 80px;  color: #737373; float: left; width: 100%; text-align: center; overflow: hidden; margin: auto; }
+.third-area { line-height: 80px;  color: #737373; float: left; width: 100%; text-align: center; overflow: hidden; margin: auto; font-size: 1.4em; }
 .ta-qq{ float:left; display:block; width:50%; font-size:24px; background:url(../images/qq.jpg) 26% center no-repeat;}
 .ta-weixin{ float:right; display:block; width:50%; font-size:24px; background:url(../images/weixin.jpg) 23% center no-repeat;}
 .third-list{ width:100%; height:auto; float:left; display:block; background:#fff;}
-.btn_big1 { display: block; margin: auto; background:#069FE6; font-size: 16px; line-height: 45px; height: 45px; border: 0px; color: #FFF; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
-.btn_big2 { display: block; margin: auto; background:#e8e9e9; font-size: 16px; line-height: 45px; height: 45px; border: 0px; color:#999999; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
-.btn_big3 { display: block; margin: auto; background:#F2F2F2; font-size: 16px; line-height: 45px; height: 45px; border: 0px; color:#999999; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
+.btn_big1 { display: block; margin: auto; background:#069FE6; font-size: 1.4em; line-height: 45px; height: 45px; border: 0px; color: #FFF; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
+.btn_big2 { display: block; margin: auto; background:#e8e9e9; font-size: 1.4em;  line-height: 45px; height: 45px; border: 0px; color:#999999; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
+.btn_big3 { display: block; margin: auto; background:#F2F2F2; font-size: 1.4em;  line-height: 45px; height: 45px; border: 0px; color:#999999; width: 40%; margin: 10px 20px; border-radius: 5px; float:left; }
 
 .nav{ width:100%; height:auto; float:left; display:block;}
 .nav ul li{ float:left; width:20%; line-height:40px; text-align:center; }
@@ -160,7 +160,7 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 #cate19 .pagination {bottom: 60px;}
 
 
-.pages{font-size: 1.4em; width:100%; height:35px;  float:left; display:block; margin-bottom:10px; margin-top:10px; background:#fff; text-align:center; line-height:35px;}
+.pages{font-size: 1.4em; width:100%; height:35px;  float:left; display:block; margin:8% auto; background:#fff; text-align:center; line-height:35px;}
 .red{ color:#F00;}
 .wealth{ width:100%; height:auto; float:left; display:block;  margin-bottom:10px; margin-top:10px;}
 .wealth span{ width:80%; margin-left:10%; height:40px; line-height:40px; text-align:center; background:#fff; float:left; display:block; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; font-family: "Microsoft YaHei";}
@@ -176,20 +176,20 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 .news_area span{float:left; text-align:left; line-height:25px; color:#999999;font-family: "Microsoft YaHei"; width:94%; margin-left:2%; margin-right:2%;}
 
 .content{width:100%; float:left; display:block; height:auto; background:#fff; padding-top:10px; padding-bottom:20px;}
-.content_area{ width:96%; margin-left:2%; height:auto; float:left; display:block; margin-right:2%; }
+.content_area{ width:96%; margin-left:2%; height:auto; float:left; display:block; margin-right:2%; font-size:1.4em;}
 .content_title{ width:100%; float:left; display:block; height:auto; text-align:center; margin-bottom:20px; }
 .content_title p{ width:100%; font-family: "Microsoft YaHei"; color: #333;font-size: 1.5em; line-height:30px;}
-.content_title span{ width:100%; font-family: "Microsoft YaHei"; color: #999; line-height:20px; font-size: 1.4em;}
-
+.content_title span{ width:100%; font-family: "Microsoft YaHei"; color: #999; line-height:1.2em; font-size: 1.2em;}
+.content_c{line-height:1.2em; font-size: 1.2em; }
 .release{ width:100%; height:auto; float:left; display:block; background:#fff; margin-top:5px; margin-bottom:20px; padding-bottom:20px; }
 .release_area { width: 96%; margin: auto; overflow: hidden; float:left; display:block;   margin-left:2%; }
 .release_area dl { width: 100%; position: relative; overflow: hidden; border-bottom: #d3d3d3 1px solid; margin-bottom:5px; margin-top:5px;}
 .release_area dl dd{ width:100%; float: left; display:block; height:auto; }
-.release_area dl dd input { border: 0; float:left; display:block; height: auto; line-height: 40px; width:100%; font-size: 17px; color:#000; }
-.release_area dl dd textarea { border: 0; float:left; display:block; width:100%; font-size: 17px; color:#000; resize: none; }
+.release_area dl dd input { border: 0; float:left; display:block; height: auto; line-height: 40px; width:100%; font-size: 1.4em; color:#000; }
+.release_area dl dd textarea { border: 0; float:left; display:block; width:100%; font-size: 1.4em; color:#000; resize: none; }
 
 .nav_add{background-color: #fff;border-top: medium solid #069fe6; width:100%; float:left; display:block; position:relative;}
-.nav_top{ width:45%; float:left; display:inline-block; line-height:27px; font-family: "Microsoft YaHei"; font-size:20px; margin-left:2%; margin-top:5px;}
+.nav_top{ width:45%; float:left; display:inline-block; line-height:1.5em; font-family: "Microsoft YaHei"; font-size:20px; margin-left:2%; margin-top:5px; font-size: 1.5em; }
 #box {width:45%; float:left; display:inline-block; height:auto; margin-left:2%;}
 #box span{cursor:pointer;  float:right; display:inline-block; width: auto; background:#069FE6; font-size: 16px; line-height: 27px; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; text-align:center; color:#fff; padding:5px 10px; font-family: "Microsoft YaHei"; margin-top:5px; position:absolute; top:0px; right:2%;}
 ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
@@ -211,18 +211,14 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     display: block;
     height: 25px;
     line-height: 25px;
-    text-align: center;
-    margin-left: 20px;
-    margin-top: 10px;
+    text-align: center; width: auto; margin:2% 4% 1% 1%; 
 }
 .case ul li a {
     float: left;
     display: block;
     color: #454545;
     background: #FFF;
-    height: 25px;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: 25px;  font-size:1.4em; width:100%; border-radius:10px; padding-left:10px; padding-right:10px; padding-top:4px; padding-bottom:4px;
 }
 .case_area {
     width: 100%;
@@ -230,31 +226,31 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     display: block;
     background: #FFF;
     height: auto;
-    margin: 20px 0 0 0;
+    margin: 20px 0 0 0; font-size:1.4em; line-height:1.4em;
 }
 .case_map {
-    width: 194px;
-    float: left;
+    width: 48%;
+    float: left; margin:1% 1%;
     display: block;
-    margin: 10px 9px;
 }
 .case_map a {
     float: left;
-    display: block;
-    width: 194px;
-    height: 148px;
+    display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    width: 100%;
+    height: auto;
     color: #0782D2;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑"; font-size:1.2em; 
 }
+.case_map a img{ float:left; display:block; width:320px; height:320px; margin:0 auto; text-align:center;}
 .caption {
-    width: 194px;
+    width: 100%;
     height: 25px;
     float: left;
     display: block;
-    margin-top: 5px;
+    margin-top: 5px;   margin-bottom: 5px;
 }
 .case_map .introduce{
-    height: 63px;
+    height: 32px;  display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .auth{
     height: 100px;
@@ -273,12 +269,13 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     background-color: #fff;
     padding: 0 0 10px 30px;
 }
+#money_submit{font-size:1.4em;}
+#money p{ height:40px; line-height:40px; display:block;}
 .button {
     cursor: pointer;
     width: auto;
     background: #069FE6;
-    font-size: 16px;
-    line-height: 15px;
+    line-height: 1.4em; font-size:1.4em;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -331,15 +328,16 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     background: url(/static/members/cy_images/images/point_icon.png) no-repeat -182px -13px;
     _background: url(/static/members/cy_images/images/point_icon.png) no-repeat -182px -13px;
 }
+.ddd{ line-height:1.4em;}
 .add_aera p {
     float: left;
     display: block;
-    width: 100%;
+    width: 96%;
     height: 45px;
     line-height: 45px;
     text-align: left;
     font-family: "微软雅黑";
-    font-size: 20px;
+    font-size: 1.5em; line-height:1.5em;
     color: #444;
 }
 .add_aera p label {
@@ -368,7 +366,7 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
     width: 100%;
     text-align: left;
     font-family: "微软雅黑";
-    font-size: 18px;
+    font-size: 1.4em; line-height:1.4em;
     color: #444;
 }
 .add_center p label {
@@ -389,7 +387,7 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
 }
 .add_name span {
     font-family: "微软雅黑";
-    font-size: 16px;
+    font-size: 1.4em;
     color: #079FE8;
     font-weight: bold;
     margin: 0 2px;

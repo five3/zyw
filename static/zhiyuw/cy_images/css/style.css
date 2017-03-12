@@ -51,9 +51,9 @@
     width: 225px;
     text-align: left;
     line-height: 28px;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑"; font-weight:normal;
     font-size: 14px;
-    color: #555 !important;
+    color: #000 !important;
 }
 
 .information_area span a {

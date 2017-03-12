@@ -3,14 +3,15 @@
 {% block main %}
 <div class="news">
 	<div class="title">
-    	<span>开拓圈</span>
+    	<span>开拓圈</span> <span>行业：</span>
     </div>
     <div id="case">
         <div class="case w1000">
-            <span>行业：</span>
+           
             <ul>
-                <li><a href="/mobile/ktq?name=smy">商贸业</a></li>
+                
                 <li><a href="/mobile/ktq?name=yyhgny">医药/化工/能源</a></li>
+                <li><a href="/mobile/ktq?name=smy">商贸业</a></li>
                 <li><a href="/mobile/ktq?name=fdcjz">房地产/建筑</a></li>
                 <li><a href="/mobile/ktq?name=nlmy">农林渔业</a></li>
                 <li><a href="/mobile/ktq?name=jsjtx">计算机/通讯</a></li>
@@ -27,7 +28,7 @@
             <div class="case_area">
                 {% for i in ktq_list %}
                       <div class="case_map fl">
-                            <a href="/zhiyuw/member?t=ktq&userid={{i.id}}"><img src="{{i.logo}}" width="193" height="148" /></a>
+                            <a href="/zhiyuw/member?t=ktq&userid={{i.id}}"><img src="{{i.logo}}"  /></a>
                             <div class="caption">
                                 <a href="{{i.url}}" title="{{i.qiyeming}}">{{i.qiyeming | slice:"12"}}</a>
                             </div>
