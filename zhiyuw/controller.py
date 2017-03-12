@@ -323,10 +323,13 @@ def get_user_info(data):
     else:
         return {}
 
-def get_user_article(data, req):
+def get_user_article(data, req, page=1):
+    num = 10
+    start = (page-1) * num
+    end = start + num
     sql = '''select post.title, short_url as url, user_name, created
             from blog_blogpost post
-            where post.site_id=%s and post.status=2 and post.user_id=%s order by updated desc limit 0,%s;''' % (fun.get_site_id(req), data.get('userid',0), 10)
+            where post.site_id=%s and post.status=2 and post.user_id=%s order by updated desc limit %s,%s;''' % (fun.get_site_id(req), data.get('userid',0), start, end)
     # print sql
     return unio().fetchAll(sql)
 

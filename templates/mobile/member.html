@@ -1,0 +1,75 @@
+{% extends "mobile/base.html" %}
+{% block title %}会员中心{% endblock %}
+{% block main %}
+<style>
+.add{ width:100%; float:left; display:block;background:#fff;}
+.add_left{ width:35%; float:left; display:block; margin:2%;}
+.add_left img{ float:left; display:block; width:100%; border-radius:10px; }
+.add_right{ width:57%; float:right; display:block;   margin:2%;}
+.add_right span{ font-size:1.4em; color:#333; line-height:1.4em; width:100%; display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.add_list{ width:100%; float:left; display:block;}
+.add_list ul li{ float:left; display:block;  text-align:left; line-height:40px;  background:url(images/piont02.jpg) left center no-repeat;  margin-left:5px; width:98%; border-bottom:1px solid #EAEAEA;}
+.add_list ul li a{ float:left; display:block; padding-left:10px; width:70%;  color:#454545; font-size:1.4em; display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.add_list ul li span{ float:right; display:block; width:20%; font-size:1.4em;}
+.add_list ul li a:hover{color:#208DCE; }
+.pages{ float:left; display:block;}
+.add_c{ float:left; display:block ; width:100%; background:#fff; padding:20px auto;  margin:10px auto;}
+.add_c a{ margin:2% 8%; display:block; float:left; text-align:center; width:80%; padding:2% 4%; background:#3257A5; border-radius:10px; color:#fff; font-size:1.4em; height:auto; }
+.msg{ background-color: #fff; font-size: 18px;clear: both; padding: 10px;}
+</style>
+<div class="news add">
+	<div class="title">
+    	<span>会员中心</span>
+    </div>
+    <div class="add_left">
+		<img src="{{info.logo}}" />
+    </div>
+    <div class="add_right">
+        <span>会员账号：{{info.username}}</span>
+        <span>会员昵称：{{info.nickname}}</span>
+        <span>会员名称：{{info.name}}</span>
+        <span>会员类型：{% ifequal info.utype 'ktq' %}开拓圈{% else %}耕耘群{% endifequal %}</span>
+        <span>会员等级：{{info.dengji}}</span>
+        {% ifequal info.utype 'gyq' %}
+            <span>会员QQ：{{info.qq}}</span>
+            <span>会员微信：{{info.weixin}}</span>
+            <span>会员领英：{{info.linkedin}}</span>
+        {% endifequal %}
+        <span>联系邮箱：{{info.email}}</span>
+        {% ifequal info.utype 'ktq' %}
+            <span>企业网址：{{info.qiyewangzhi}}</span>
+        {% endifequal %}
+    </div>
+</div>
+<div class="news">
+	<div class="title">
+    	<span>我的文章</span>
+    </div>
+    {% if article_list %}
+        {% for i in article_list %}
+            <div class="news_list">
+                <div class="news_map">
+                    <a href="{{i.mobile_url}}"><img src="{{i.featured_image}}" /></a>
+                </div>
+                <div class="news_l">
+                    <a href="{{i.mobile_url}}" title="{{i.title}}">{{i.title | slice:"30"}}</a>
+                    <span>{{i.description | slice:"50"}}</span>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="pages">
+            共{{total}}条记录
+            {% ifnotequal page 1 %}
+                <a href="/mobile/member?page={{page|add:-1}}">上一页</a>
+            {% endifnotequal %}
+            <a href="#" class="red">{{page}}/{{total_page}}</a>
+            {% ifnotequal page total_page %}
+                <a href="/mobile/member?page={{page|add:1}}">下一页</a>
+            {% endifnotequal %}
+        </div>
+    {% else %}
+        <div class="msg">该用户暂无文章</div>
+    {% endif%}
+</div>
+<div class="clear"></div>
+{% endblock %}

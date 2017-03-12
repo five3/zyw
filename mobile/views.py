@@ -63,6 +63,20 @@ def list(req, cate):
     total_page = fun.get_total_page(total, 20)
     return render_to_response("mobile/list.html", locals(), context_instance = RequestContext(req))
 
+def member(req):
+    page = req.GET.get('page', '1')
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    logo_image = fun.get_site_logo(req)
+    data = fun.warp_data(req.GET)
+    page = data.get('page', 1)
+    info = controller.get_user_info(data)
+    article_list = controller.get_user_article(data, req, page)
+    total_page = controller2.get_post_total(req, data.get('userid',0), None)
+    return render_to_response("mobile/member.html", locals(), context_instance = RequestContext(req))
+
 def second_cate(req, cate):
     logo_image = fun.get_site_logo(req)
     packagelist = None
