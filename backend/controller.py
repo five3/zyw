@@ -161,6 +161,17 @@ def get_gbook_info(id):
              <div class="Murphy_list fl"><strong>留言内容</strong><p>%s</p></div></div>''' % (
             r['name'], r['tel'], r['content'])
 
+def warp_privileges(privileges):
+    d = {}
+    for i in privileges:
+        if i.get('parent', 0):
+            parent_id = i['parent']
+            if parent_id in d:
+                d[parent_id].get('child').append(i)
+        else:
+            i['child'] = []
+            d[i['id']] = i
+    return d
 
 def auth(req, data):
     from django.contrib.auth import authenticate, login
@@ -169,6 +180,11 @@ def auth(req, data):
     user = authenticate(username=username, password=password)
     if user and user.is_active:
         login(req, user)
+        if user.is_superuser:
+            privileges = get_privileges()
+        else:
+            privileges = get_user_privileges(user.id)
+        req.session['privileges'] = warp_privileges(privileges)
         return True
 
 
@@ -300,6 +316,28 @@ def audit_post(data):
     else:
         return {'msg': 'fail', 'errorCode' : -1}
 
+def get_user_privileges(uid):
+    sql = '''select a.id, a.parent, a.name, a.value, a.icon from ww_privilege a, ww_user_privilege b
+            where b.user_id=%s and b.privilege_id=a.id ''' % uid
+    # print sql
+    return unio().fetchAll(sql)
+
+def get_privileges():
+    sql = '''select a.id, a.parent, a.name, a.value, a.icon from ww_privilege a'''
+    # print sql
+    return unio().fetchAll(sql)
+
+def delete_user_privileges(id):
+    sql = '''delete from ww_user_privilege where user_id=%s''' % id
+    # print sql
+    return unio().execute(sql)
+
+def add_user_privileges(id, privileges):
+    sql = '''insert into ww_user_privilege (user_id, privilege_id, created) values '''
+    for i in privileges:
+        sql += '(%s, %s, now()),' % (id, i)
+    print sql
+    return unio().execute(sql[:-1])
 
 def get_user_info(data):
     t = data.get('t')

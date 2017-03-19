@@ -311,6 +311,27 @@ def users(req, action):
             return render_to_response("backend/msg.html", locals())
 
 @login_required
+def privilege(req):
+    settings = setting
+    if req.method=='GET':
+        uid = req.GET.get('uid', 0)
+        name = req.GET.get('name', '')
+        my_privileges = controller.get_user_privileges(uid)
+        my_privileges = [i['name'] for i in my_privileges]
+        privileges = controller.get_privileges()
+        return render_to_response("backend/editprivilege.html", locals())
+    else:
+        id = req.POST.get('id', 0)
+        privileges = req.POST.getlist('privileges', [])
+        r = controller.delete_user_privileges(id)
+        if r>=0:
+            controller.add_user_privileges(id, privileges)
+            msg = '保存成功'
+        else:
+            msg = '保存失败'
+        return render_to_response("backend/msg.html", locals())
+
+@login_required
 def category(req, action):
     settings = setting
     if req.method=='GET':
