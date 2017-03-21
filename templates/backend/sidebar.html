@@ -19,12 +19,13 @@
             {% for i in value.child %}
                 <li class="{{i.icon}}"><a href="{{i.value}}">{{i.name}}</a></li>
             {% endfor %}
-            {% if forloop.last %}
-                <li class="icn_jump_back"><a href="/backend/resetpw">修改密码</a></li>
-			    <li class="icn_jump_back"><a href="/backend/logout">退出</a></li>
-            {% endif %}
             </ul>
 		{% endfor %}
+            <h3>账户管理</h3>
+            <ul class="toggle">
+                <li class="icn_jump_back"><a href="/backend/resetpw">修改密码</a></li>
+			    <li class="icn_jump_back"><a href="/backend/logout">退出</a></li>
+            </ul>
 		<footer>
 			<hr />
 			<p><strong>Copyright &copy; 2015 Website Admin</strong></p>

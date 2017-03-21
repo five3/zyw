@@ -449,6 +449,26 @@ def bind_3rd_info(data):
     phone = data.get('phone')
     email = data.get('email')
     uid = data.get('uid')
+    if utype=='gyq':
+        sql = '''SELECT a.id FROM ww_member a,ww_member_normal b
+                WHERE a.3rd_id is null and a.id=b.id and (a.email='%s' or b.shoujihao='%s');''' % (email, phone)
+    else:
+        sql = '''SELECT a.id FROM ww_member a,ww_member_vip b
+                WHERE a.3rd_id is null and a.id=b.id and (a.email='%s' or b.lianxifangshi='%s');''' % (email, phone)
+    r = unio().fetchOne(sql)
+    if r: ##绑定原有账号
+        old_id = r.get('id')
+        sql = '''SELECT 3rd_id,3rd_type FROM ww_member WHERE id='%s';''' % uid
+        r2 = unio().fetchOne(sql)
+        if r2:
+            sql = '''UPDATE ww_member SET 3rd_id='%s',3rd_type='%s'
+            WHERE id=%s''' % (r2['3rd_id'], r2['3rd_type'], old_id)
+            if unio().execute(sql):
+                sql = '''DELETE FROM ww_member WHERE id=%s''' % uid
+                return unio().execute(sql)
+        else:
+            return
+
     sql = '''UPDATE ww_member SET utype='%s',email='%s',status=1 WHERE id='%s';''' % (utype, email, uid)
     try:
         r = unio().execute(sql)
