@@ -1,0 +1,33 @@
+{% extends "backend/base.html" %}
+{% block main %}
+		<form action="/backend/privilege/" method="post">
+		<article class="module width_full">
+			<header><h3>编辑管理员权限</h3></header>
+				<div class="module_content">
+						<fieldset>
+							<label>用户名</label>
+                            <input type="hidden" name="id" value="{{uid}}">
+							<input type="text" name="name" value="{{name}}" disabled>
+						</fieldset>
+                        <fieldset>
+							<label>权限(可多选)</label>
+							<select name="privileges" multiple style="height:200px;">
+                            {% for privilege in privileges %}
+                                {% if privilege.name in my_privileges %}
+                                    <option value="{{privilege.id}}" selected>{{privilege.name}}</option>
+                                {% else %}
+                                    <option value="{{privilege.id}}">{{privilege.name}}</option>
+                                {% endif %}
+                            {% endfor %}
+                            </select>
+						</fieldset>
+						<div class="clear"></div>
+				</div>
+			<footer>
+				<div class="submit_link">
+					<input type="submit" value="发布" class="alt_btn">
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+		</form>
+{% endblock %}
