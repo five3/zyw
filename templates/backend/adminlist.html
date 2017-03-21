@@ -31,6 +31,7 @@
     				<td style="width:120px;"><a href="javascript:void(0);" onclick="audit_pass({{i.id}});">生效</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" onclick="audit_fail({{i.id}});">失效</a>&nbsp;
                     <a href="javascript:void(0);" onclick="reset_passwd({{i.id}});">重置密码</a>&nbsp;
+                    <a href="/backend/privilege/?uid={{i.id}}&name={{i.username}}">设置权限</a>&nbsp;
 				</tr>
                 {% endfor %}
 			</tbody> 
