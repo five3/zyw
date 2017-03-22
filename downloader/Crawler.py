@@ -31,6 +31,7 @@ class Crawler(threading.Thread):
             doc = pq(url, encoding=self.encoding)
             d = {'index' : index}
             for k, v in self.items.items():
+                print k, doc(v).text()
                 d[k] = doc(v)
             parsed = urlparse(url)
             d['request_info'] = {
@@ -65,9 +66,9 @@ def start_zp():
     if zp_start:
         zp_start = int(zp_start)
     else:
-        zp_start = 13000
+        zp_start = 15460
     print zp_start
-    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='gbk', ite_start=zp_start+1, ite_end=zp_start+10000))
+    threads.append(Crawler(urls['zhaopin_url_format'], zp_items, zp_logger, encoding='GBK', ite_start=zp_start+1, ite_end=zp_start+10000))
 
 def start_zx():
     zx_start = get_index('zx')

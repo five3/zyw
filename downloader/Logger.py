@@ -6,7 +6,7 @@ from Config import config
 import os
 
 
-s = '''<form action="/baoming/" method="post" id="baoming">
+s = u'''<form action="/baoming/" method="post" id="baoming">
         <div style="width:500px; margin:20px auto;">
             <input class="btn btn-primary btn-lg" type="button" value="报名" style="width:100px;" onclick="baoming();">
         </div>
@@ -44,7 +44,7 @@ def zp_logger(d):
         print 'no data get'
         return
     ss = s % (d.get('zhiwei').text(), d.get('company').text())
-    data['title'] = d.get('zhiwei').text() + ' 招聘'
+    data['title'] = d.get('zhiwei').text() + u' 招聘'
     data['content'] = u'<h2>单位名称：%s</h2><p>职位介绍：<br>%s</p>%s' % (d.get('company').text(), d.get('detail').text(), ss)
     data['description'] = (len(d.get('company').text())>35) and d.get('company').text()[:35] or d.get('company').text()
     data['featured_image'] = d.get('imgs') and d.get('imgs')[0] or '/static/zhiyuw/cy_images/images/infor.jpg'
