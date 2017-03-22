@@ -441,6 +441,7 @@ def save_content(data):
     except Exception, e:
         print e, e.message
         return
+    print lastid
     if lastid:
         sql = '''insert blog_blogpost_categories (blogcategory_id, blogpost_id) values
                 ('%s', '%s')''' % (data.get('cate'), lastid)
