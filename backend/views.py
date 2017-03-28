@@ -125,6 +125,7 @@ def baoming(req, action):
         elif action=='del':
             id = req.GET.get('id')
             controller.del_baoming(id)
+            return
         page = req.GET.get('page',1)
         baoming_list = controller.get_baoming_list(req, page)
         return render_to_response("backend/baoming.html", locals())

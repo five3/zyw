@@ -143,7 +143,7 @@ def get_baoming_list(req, page, num=10):
     else:
         page = 1
     index = (page-1)*num
-    sql = '''select * from ww_baoming where 1=1 limit %s,%s''' % (index, num)
+    sql = '''select * from ww_baoming where 1=1 order by id DESC limit %s,%s''' % (index, num)
     # print sql
     return unio().fetchAll(sql)
 
