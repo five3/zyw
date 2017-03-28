@@ -401,11 +401,14 @@ def baoming(req):
         info['zhuanye'] = data.get('zhuanye')
         info['company'] = data.get('company')
         data = info
-    r = controller.baoming(data)
-    if r:
-        result = {'errorCode':0, 'msg':'报名成功 '}
+    if not data.get('name') or not data.get('phone'):
+        result = {'errorCode':-1, 'msg':'参数不足'}
     else:
-        result = {'errorCode':-1, 'msg':'报名失败 '}
+        r = controller.baoming(data)
+        if r:
+            result = {'errorCode':0, 'msg':'报名成功 '}
+        else:
+            result = {'errorCode':-1, 'msg':'报名失败 '}
     return HttpResponse(json.dumps(result),content_type="application/json")
 
 def qq_login(req):
