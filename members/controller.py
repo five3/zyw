@@ -428,6 +428,8 @@ def get_count(uid):
     print sql
     r3 = unio().fetchOne(sql)
     print r3
+    if not r3:
+        r3 = {'article' : 0, 'comment' : 0}
     d['hudie'] = member_totle + article_totle + r3.get('article')
     d['comment'] = comment + r3.get('comment')
     # print d
