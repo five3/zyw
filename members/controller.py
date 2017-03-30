@@ -427,6 +427,7 @@ def get_count(uid):
     sql = '''SELECT article, comment FROM ww_count WHERE uid=%s''' % uid
     print sql
     r3 = unio().fetchOne(sql)
+    print r3
     d['hudie'] = member_totle + article_totle + r3.get('article')
     d['comment'] = comment + r3.get('comment')
     # print d
