@@ -480,7 +480,7 @@ def get_money_history(uid):
         []
 
 def get_focus_count(uid):
-    d = {}
+    d = {'focus' : 0}
     sql = '''SELECT focus FROM ww_count WHERE uid=%s''' % uid
     r = unio().fetchOne(sql)
     sql = '''SELECT focus as focus_today FROM ww_count_history WHERE uid=%s AND created='%s';''' % (uid, date.today())
