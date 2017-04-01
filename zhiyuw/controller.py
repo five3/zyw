@@ -211,8 +211,8 @@ def auth(req, data):
     password = data.get('password')
     sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
             from ww_member
-            where site_id=%s and (username='%s' or email='%s')
-        ''' % (fun.get_site_id(req), username, username)
+            where site_id=%s and (username='%s' or email='%s' or phone='%s')
+        ''' % (fun.get_site_id(req), username, username, username)
     # print sql
     r = unio().fetchOne(sql)
     # print r
