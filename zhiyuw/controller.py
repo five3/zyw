@@ -209,6 +209,7 @@ def auth_3rd(req, openid, utype):
 def auth(req, data):
     username = data.get('username')
     password = data.get('password')
+    utype = data.get('utype')
     sql = '''select password,id,nickname,username,utype,email,bgmusic,credits,logo
             from ww_member
             where site_id=%s and (username='%s' or email='%s' or phone='%s')
@@ -217,11 +218,19 @@ def auth(req, data):
     r = unio().fetchOne(sql)
     # print r
     if not r:
-        sql = '''select password,ww_member.id,nickname,username,utype,email,bgmusic,credits,logo
-                from ww_member, ww_member_normal
-                where site_id=%s and ww_member.id=ww_member_normal.id and ww_member_normal.shoujihao='%s'
-            ''' % (fun.get_site_id(req), username)
-        # print sql
+        if utype=='gyq':
+            sql = '''select password,ww_member.id,nickname,username,utype,email,bgmusic,credits,logo
+                    from ww_member, ww_member_normal
+                    where site_id=%s and ww_member.id=ww_member_normal.id and ww_member_normal.shoujihao='%s'
+                ''' % (fun.get_site_id(req), username)
+            # print sql
+        r = unio().fetchOne(sql)
+        if not r:
+            sql = '''select password,ww_member.id,nickname,username,utype,email,bgmusic,credits,logo
+                    from ww_member, ww_member_vip
+                    where site_id=%s and ww_member.id=ww_member_vip.id and ww_member_vip.lianxifangshi='%s'
+                ''' % (fun.get_site_id(req), username)
+            # print sql
         r = unio().fetchOne(sql)
     if r and r.pop('password')==fun.mk_md5(password):
         sql = '''update ww_member set credits=credits+1 where id=%s''' % r['id']
