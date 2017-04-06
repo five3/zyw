@@ -336,7 +336,7 @@ def get_user_article(data, req, page=1):
     num = 10
     start = (page-1) * num
     end = start + num
-    sql = '''select post.title, short_url as url, user_name, created
+    sql = '''select post.title, short_url as url, mobile_url, featured_image, user_name, created
             from blog_blogpost post
             where post.site_id=%s and post.status=2 and post.user_id=%s order by updated desc limit %s,%s;''' % (fun.get_site_id(req), data.get('userid',0), start, end)
     # print sql
