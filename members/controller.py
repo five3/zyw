@@ -389,7 +389,7 @@ def get_tianchi(uid, gread=None, page=1, num=10):
     if gread:
         condi = ''' AND ww_member_normal.zhiwei='%s' ''' % gread
     index = (page-1)*num
-    sql = '''SELECT ww_guanzhu.msg, ww_member.id, ww_member.utype, ww_member.logo, ww_member.username, ww_member_normal.qq,
+    sql = '''SELECT ww_guanzhu.cid, ww_guanzhu.msg, ww_member.id, ww_member.utype, ww_member.logo, ww_member.username, ww_member_normal.qq,
             ww_member_normal.shoujihao, ww_member_normal.weixin, ww_member_normal.linkedin, ww_member_normal.gerenjianjie,
             ww_member_normal.guanzhuhan
             FROM ww_guanzhu, ww_member, ww_member_normal
@@ -493,9 +493,14 @@ def get_focus_count(uid):
         d.update(r2)
     return d
 
-def get_user_profile(uid, label):
-    sql = '''SELECT %s FROM ww_member_normal WHERE id=%s''' % (label, uid)
-    # print sql
+def get_user_profile(data, label):
+    uid = data.get('userid','0')
+    cid = data.get('cid', 0)
+    if label=='gerenjianjie':
+        sql = '''SELECT %s FROM ww_member_normal WHERE id=%s''' % (label, uid)
+    else:
+        sql = '''SELECT msg as %s FROM ww_guanzhu WHERE cid=%s AND pid=%s''' % (label, cid, uid)
+    print sql
     return unio().fetchOne(sql)
 
 def get_user_cates(uid):

@@ -207,6 +207,7 @@ def article(req, cate, id):
     if not art:
         msg = '当前文章不存在或者未生效，请联系管理员'
         return render_to_response("mobile/msg.html", locals(), context_instance = RequestContext(req))
+    ##art.content = art.content.replace('')
     logo_image = fun.get_site_logo(req)
     packagelist = None
     cate_name = cate_dict.get(cate, '无效分类')
@@ -375,12 +376,8 @@ def money(req):
             return HttpResponse(json.dumps(result),content_type="application/json")
 
 def info(req, action):
-    uid = req.session['info']['id']
-    utype = req.session['info']['utype']
-    data = {'userid':uid, 't':utype}
-    info = controller.get_user_info(data)
     if req.method=='GET':
-        info = controller2.get_user_profile(req.GET.get('userid','0'), action)
+        info = controller2.get_user_profile(req.GET, action)
         if info:
             info = info[action]
         else:
