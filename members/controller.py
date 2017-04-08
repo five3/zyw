@@ -48,7 +48,7 @@ def get_post_total(req, uid, cate=None):
     else:
         return 1
 
-def get_post_total(req, uid, cate, num=10):
+def get_post_total(req, uid, cate):
     if cate:
         condition = ' post.cate2="%s" and ' % cate
     else:
@@ -62,10 +62,7 @@ def get_post_total(req, uid, cate, num=10):
     r = unio().fetchOne(sql)
     if r:
         total = r['c']
-        if total%num==0:
-            return total/num
-        else:
-            return total/num+1
+        return total
     else:
         return 0
 

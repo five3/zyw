@@ -74,7 +74,8 @@ def member(req):
     page = data.get('page', 1)
     info = controller.get_user_info(data)
     article_list = controller.get_user_article(data, req, page)
-    total_page = controller2.get_post_total(req, data.get('userid',0), None)
+    total = controller2.get_post_total(req, data.get('userid',0), None)
+    total_page = fun.get_total_page(total)
     return render_to_response("mobile/member.html", locals(), context_instance = RequestContext(req))
 
 def second_cate(req, cate):

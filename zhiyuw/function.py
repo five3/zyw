@@ -108,7 +108,7 @@ def convert_qiye_dengji(credits):
     else:
         return "阳朔榕"
 
-def get_total_page(total, num):
+def get_total_page(total, num=10):
     if not total:
         return 1
     if total % num == 0:
