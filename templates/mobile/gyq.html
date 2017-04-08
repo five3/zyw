@@ -29,9 +29,9 @@
                         <div title="{{i.zuoyouming}}" class="introduce">座右铭：{{i.zuoyouming | slice:"25"}}...</div>
                     </div>
                 {% endfor %}
-                <div class="clear"></div>
-
-                <div class="pages">
+                
+                
+               <div class="pages" >
                   <div id="pages">
                         {% ifnotequal page 1 %}
                             <a href="/mobile/gyq?{{prepage}}">上一页</a>
@@ -41,14 +41,20 @@
                             <a href="/mobile/gyq?{{nextpage}}">下一页</a>
                         {% endifnotequal %}
                         <p style="display:inline-block;">
-                            <input type="text" style="width:30px;" placeholder="页码" id="page_num"/>
+                            <input type="text" style="width:92px; text-align:center;" placeholder="页码" id="page_num"/>
                             <input type="button" onclick="location.href='/mobile/gyq{{base_path}}' + $('#page_num').val()" value="Go!">
                         </p>
                     </div>
-                </div><div style="height:40px;"></div>
+</div>
+                <div class="clear"></div>
+
+                
             </div>
+            
         </div>
     </div>
 </div>
 <div class="clear"></div>
+ <div style="height:60px; background:#fff;"></div>
+
 {% endblock %}

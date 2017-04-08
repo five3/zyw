@@ -49,7 +49,7 @@
                             <a href="/mobile/ktq?{{nextpage}}">下一页</a>
                         {% endifnotequal %}
                         <div style="display:inline-block;">
-                            <input type="text" style="width:30px;" placeholder="页码" id="page_num"/>
+                            <input type="text" style="width:92px; text-align:center;" placeholder="页码" id="page_num"/>
                             <input type="button" onclick="location.href='/mobile/ktq{{base_path}}' + $('#page_num').val()" value="Go!">
                         </div>
                     </div>
@@ -59,4 +59,5 @@
     </div>
 </div>
 <div class="clear" style=""></div>
+ <div style="height:60px; background:#fff;"></div>
 {% endblock %}

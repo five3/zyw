@@ -29,7 +29,10 @@ text-decoration: none;
 a:hover {
 text-decoration: underline;
 }
-
+.STYLE1 a{ width: 312px;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;}
 
 /* Header */
 

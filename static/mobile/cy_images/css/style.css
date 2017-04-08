@@ -76,7 +76,7 @@ a:focus {outline:none; -moz-outline:none;}
 .swiper-slide {text-align: center;font-size: 18px;background: #fff; /* Center slide text vertically */display: -webkit-box;
 display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: center; -ms-flex-pack: center;-webkit-justify-content: center;justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit-align-items: center;align-items: center;}
 
-.news{ width:100%; height:auto; float:left; display:block;  margin-bottom:5px; margin-top:5px;}
+.news{ width:100%; height:auto; float:left; display:block;  margin-top:5px; background:#fff;}
 .title{ width:100%; background: url(../images/titiel_bg.jpg) center repeat-x; float:left; display:block; height:45px;}
 .title span{ float:left; margin-left:2%; line-height:45px; color: #333;font-size: 1.5em;font-family: "Microsoft YaHei";}
 .title a{ float:right; margin-right:2%; line-height:45px; color: #333;font-size: 1.5em;font-family: "Microsoft YaHei";}
@@ -160,7 +160,8 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 #cate19 .pagination {bottom: 60px;}
 
 
-.pages{font-size: 1.4em; width:100%; height:35px;  float:left; display:block; margin:8% auto; background:#fff; text-align:center; line-height:35px;}
+.pages{font-size: 1em; width:100%;   float:left; display:block; margin:8% auto; background:#fff; text-align:center; line-height:1em;}
+
 .red{ color:#F00;}
 .wealth{ width:100%; height:auto; float:left; display:block;  margin-bottom:10px; margin-top:10px;}
 .wealth span{ width:80%; margin-left:10%; height:40px; line-height:40px; text-align:center; background:#fff; float:left; display:block; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; font-family: "Microsoft YaHei";}
@@ -178,9 +179,10 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 .content{width:100%; float:left; display:block; height:auto; background:#fff; padding-top:10px; padding-bottom:20px;}
 .content_area{ width:96%; margin-left:2%; height:auto; float:left; display:block; margin-right:2%; font-size:1.4em;}
 .content_title{ width:100%; float:left; display:block; height:auto; text-align:center; margin-bottom:20px; }
-.content_title p{ width:100%; font-family: "Microsoft YaHei"; color: #333;font-size: 1.5em; line-height:30px;}
+.content_title p{ width:100%; font-family: "Microsoft YaHei"; color: #333;font-size: 1.5em; line-height:40px;}
 .content_title span{ width:100%; font-family: "Microsoft YaHei"; color: #999; line-height:1.2em; font-size: 1.2em;}
-.content_c{line-height:1.2em; font-size: 1.2em; }
+.content_c p{line-height:1.3em !important; font-size: 1.1em !important; font-family: "微软雅黑"; color: #454545 !important; }
+.content_c span{line-height:1.1em !important; font-size: 1.1em !important; font-family: "Microsoft YaHei"; color: #454545 !important; }
 .release{ width:100%; height:auto; float:left; display:block; background:#fff; margin-top:5px; margin-bottom:20px; padding-bottom:20px; }
 .release_area { width: 96%; margin: auto; overflow: hidden; float:left; display:block;   margin-left:2%; }
 .release_area dl { width: 100%; position: relative; overflow: hidden; border-bottom: #d3d3d3 1px solid; margin-bottom:5px; margin-top:5px;}
