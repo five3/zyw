@@ -389,7 +389,7 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
 }
 .add_name span {
     font-family: "微软雅黑";
-    font-size: 1.4em;
+    font-size: 1.7em;
     color: #079FE8;
     font-weight: bold;
     margin: 0 2px;
@@ -427,35 +427,32 @@ ol.list { height:auto; width:94%; float:left; display:block; background:#fff;}
 .add_word {
     float: right;
     display: block;
-    height: 82px;
 }
 .add_word b {
     float: left;
     display: block;
     width: 100%;
-    line-height: 25px;
     font-family: "微软雅黑";
-    font-size: 17px;
+    font-size: 1.4em;
     color: #333333;
 }
 .add_word_left {
     float: left;
-    height: 57px;
 }
 .add_word_left span {
     float: left;
     display: block;
-    width: 200px;
-    line-height: 20px;
+    width: 300px;
     font-family: "微软雅黑";
-    font-size: 16px;
+    font-size: 22px;
     color: #333333;
+    margin: 10px;
 }
 .add_word_left a {
     text-align: left;
     width: 80px;
     font-family: "微软雅黑";
-    font-size: 16px;
+    font-size: 22px;
     color: #333333;
 }
 .add_word_left a.gz {
