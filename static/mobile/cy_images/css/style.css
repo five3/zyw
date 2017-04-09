@@ -181,9 +181,9 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 .content_title{ width:100%; float:left; display:block; height:auto; text-align:center; margin-bottom:20px; }
 .content_title p{ width:100%; font-family: "Microsoft YaHei"; color: #333;font-size: 1.5em; line-height:40px;}
 .content_title span{ width:100%; font-family: "Microsoft YaHei"; color: #999; line-height:1.2em; font-size: 1.2em;}
-.content_c {line-height:1.6em; font-size: 27px; font-family: "微软雅黑"; color: #454545;padding: 10px 15px; text-indent: 0px;}
-.content_c p{line-height:1.6em !important; font-size: 27px !important; font-family: "微软雅黑"; color: #454545 !important; text-indent: 0px !important;}
-.content_c span{line-height:1.6em !important; font-size: 27px !important; font-family: "Microsoft YaHei"; color: #454545 !important; margin: 20px 0 !important;display: inline-block !important;text-indent: 0px !important;}
+.content_c {line-height:1.6em; font-size: 28px; font-family: "微软雅黑"; color: #454545;padding: 10px 15px; text-indent: 0px;}
+.content_c p{line-height:1.6em !important; font-size: 28px !important; font-family: "微软雅黑"; color: #454545 !important; text-indent: 0px !important;}
+.content_c span{line-height:1.6em !important; font-size: 28px !important; font-family: "Microsoft YaHei"; color: #454545 !important; margin: 20px 0 !important;display: inline-block !important;text-indent: 0px !important;}
 .release{ width:100%; height:auto; float:left; display:block; background:#fff; margin-top:5px; margin-bottom:20px; padding-bottom:20px; }
 .release_area { width: 96%; margin: auto; overflow: hidden; float:left; display:block;   margin-left:2%; }
 .release_area dl { width: 100%; position: relative; overflow: hidden; border-bottom: #d3d3d3 1px solid; margin-bottom:5px; margin-top:5px;}
