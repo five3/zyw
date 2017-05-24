@@ -50,16 +50,20 @@
                     {{info.qiyejianjie}}
                 </div>
 			{% endif %}
-            {% if article_list %}
-                <div class="articles">
-                <p>会员文章</p>
-                </div>
-                <ul>
+
+            <div class="articles">
+            <p>会员文章</p>
+            </div>
+            <ul>
+                {% if article_list %}
                     {% for i in article_list %}
                         <li><a href="{{i.url}}" title="{{i.title}}">{{i.title|slice:"35"}}</a><a class="name" href="{{i.url}}">{{i.user_name}}</a><span>{{i.created | date:"Y-m-d"}}</span></li>
                     {% endfor %}
-                </ul>
-            {% endif %}
+                {%else%}
+                    <li style="text-align: center;font-size: 20px;">当前用户未发布文章</li>
+                {% endif %}
+            </ul>
+
             </div>
              <div class="clear"></div>
             {% ifequal info.utype 'ktq' %}

@@ -101,13 +101,13 @@ def get_ktq_list(req, n, zhuanye=None, page=1):
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.status=1 and ww_member.site_id=%s and vip.zhuanye='%s' and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by id desc limit %s,%s''' % (fun.get_site_id(req), zhuanye, index, n)
+             order by ww_member.credits desc limit %s,%s''' % (fun.get_site_id(req), zhuanye, index, n)
     else:
         sql = '''select vip.id, ww_member.logo, utype, zhuti, qiyeming, qiyewangzhi as url,qiyejianjie,ww_zhuanye.desc as zhuanye,
                 ww_member.credits, vip.qiyejianjie
             from ww_member_vip vip, ww_member, ww_zhuanye
             where ww_member.status=1 and ww_member.site_id=%s and vip.id=ww_member.id and ww_zhuanye.name=vip.zhuanye
-             order by vip.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
+             order by ww_member.credits desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     rs = unio().fetchAll(sql)
     return fun.convert_dengji_list(*rs)
