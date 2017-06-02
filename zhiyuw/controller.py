@@ -241,16 +241,20 @@ def add_3rd_user(req, info, third_type):
     if third_type=='qq':
         openid = info['openId']
         logo = info['figureurl_qq_2']
-        username = openid
-        nickname = password = info['nickname']
+        password = openid
+        nickname = username = info['nickname']
     elif third_type=='weixin':
         openid = info['unionid']
         logo = info['headimgurl']
-        username = openid
-        nickname = password = info['nickname']
+        password = openid
+        username = nickname = info['nickname']
     # print username
+    sql = '''select count(id) as num from ww_member where username='%s';''' % username
+    r = unio().fetchOne(sql)
+    if r:
+        username = '%s(%s)' % (username, third_type)
+
     utype = ''
-    email = openid + '@qq.com'
     if req.META.has_key('HTTP_X_FORWARDED_FOR'):
         ip =  req.META['HTTP_X_FORWARDED_FOR']
     else:
@@ -259,8 +263,8 @@ def add_3rd_user(req, info, third_type):
     bg_music = '/static/members/cy_images/music/gohome.mp3'
     sql = '''insert into ww_member (3rd_id, 3rd_type, username, nickname, password, email, logo,
                                     created, regip, status, utype, site_id, bgmusic, credits)
-            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
-            ''' % (openid, third_type, username, nickname, password, email, logo,
+            values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
+            ''' % (openid, third_type, username, nickname, password, logo,
                    fun.now(), ip, utype, site_id, bg_music)
     # print sql
     try:
