@@ -247,7 +247,7 @@ def add_3rd_user(req, info, third_type):
         openid = info['unionid']
         logo = info['headimgurl']
         password = openid
-        username = nickname = info['nickname']
+        nickname = username = info['nickname']
     # print username
     sql = '''select count(id) as num from ww_member where username='%s';''' % username
     r = unio().fetchOne(sql)
