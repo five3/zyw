@@ -261,7 +261,7 @@ def add_3rd_user(req, info, third_type):
         ip = req.META['REMOTE_ADDR']
     site_id = fun.get_site_id(req)
     bg_music = '/static/members/cy_images/music/gohome.mp3'
-    sql = '''insert into ww_member (3rd_id, 3rd_type, username, nickname, password, email, logo,
+    sql = '''insert into ww_member (3rd_id, 3rd_type, username, nickname, password, logo,
                                     created, regip, status, utype, site_id, bgmusic, credits)
             values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
             ''' % (openid, third_type, username, nickname, password, logo,
