@@ -266,11 +266,12 @@ def add_3rd_user(req, info, third_type):
             values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', 0, '%s', %s, '%s', 1)
             ''' % (openid, third_type, username, nickname, password, logo,
                    fun.now(), ip, utype, site_id, bg_music)
-    # print sql
+    print sql
     try:
         return unio().executeInsert(sql)
     except Exception, e:
         print e
+        print e.message
         return None
 
 def reg_user(req, data):
