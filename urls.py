@@ -42,6 +42,7 @@ urlpatterns += patterns('',
     ("^backend/?", include("backend.urls")),
     ("^members/?", include("members.urls")),
     ("^mobile/?", include("mobile.urls")),
+    ("^api/?", include("api.urls")),
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
     # This pattern gives us a normal ``Page`` object, so that your

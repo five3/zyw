@@ -7,6 +7,7 @@ import controller
 from zhiyuw import function as fun
 from django.template import RequestContext
 from zhiyuw import controller as controller2
+import base64
 
 def request_login(func):
     def __warp(req, *args):
@@ -16,6 +17,29 @@ def request_login(func):
             return HttpResponseRedirect('/zhiyuw/3rd_yd?uid=%s' % req.session['info']['id'])
         ret = func(req, *args)
         return ret
+    return __warp
+
+def authed(func):
+    def __warp(req, *args):
+        auth_info = req.headers.get('Authorization')
+        if auth_info and auth_info.startsWith('Basic '):
+            base64_str = auth_info.replace('Basic ', '')
+            account_str = base64.decodestring(base64_str)
+            if ':' in account_str:
+                username, passwd = account_str.split(':')
+                data = {
+                    'username' : username,
+                    'password' : passwd,
+                    'utype' : 'gyq'
+                }
+                r = controller2.auth(req, data)
+                if r:
+                    req.session['3rd_not_init'] = False
+                    req.session['isLogin'] = True
+                    req.session['info'] = r
+                    ret = func(req, *args)
+                    return ret
+        return HttpResponseRedirect('/zhiyuw/login')
     return __warp
 
 @request_login
@@ -34,6 +58,13 @@ def index(req):
     cates = controller.get_user_cates(uid)
     # print cates
     return render_to_response("members/index.html", locals(), context_instance = RequestContext(req))
+
+@authed
+def postapi(req, action):
+    if req.method == 'POST':
+        return post(req, action)
+    else:
+        return "不支持的请求类型"
 
 @request_login
 def post(req, action):
