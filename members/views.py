@@ -21,7 +21,8 @@ def request_login(func):
 
 def authed(func):
     def __warp(req, *args):
-        auth_info = req.headers.get('Authorization')
+        print req.META
+        auth_info = req.META.get('Authorization')
         if auth_info and auth_info.startsWith('Basic '):
             base64_str = auth_info.replace('Basic ', '')
             account_str = base64.decodestring(base64_str)
