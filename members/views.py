@@ -23,7 +23,7 @@ def authed(func):
     def __warp(req, *args):
         print req.META
         auth_info = req.META.get('HTTP_AUTHORIZATION')
-        if auth_info and auth_info.startsWith('Basic '):
+        if auth_info and auth_info.startswith('Basic '):
             base64_str = auth_info.replace('Basic ', '')
             account_str = base64.decodestring(base64_str)
             if ':' in account_str:
