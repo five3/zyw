@@ -21,7 +21,6 @@ def request_login(func):
 
 def authed(func):
     def __warp(req, *args):
-        print req.META
         auth_info = req.META.get('HTTP_AUTHORIZATION')
         if auth_info and auth_info.startswith('Basic '):
             base64_str = auth_info.replace('Basic ', '')
@@ -35,6 +34,7 @@ def authed(func):
                     'utype' : 'gyq'
                 }
                 r = controller2.auth(req, data)
+                print r
                 if r:
                     req.session['3rd_not_init'] = False
                     req.session['isLogin'] = True
