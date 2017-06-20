@@ -99,7 +99,7 @@ def get_cate3_list(req, uid, cate, page=1, num=10):
     return unio().fetchAll(sql)
 
 def save_post(req, data, uid, uname):
-    # print data
+    print data
     id = data.get('id', 0)
     views = data.get('views', 0)
     if not views:
@@ -137,7 +137,7 @@ def save_post(req, data, uid, uname):
         if lastid:
             sql = '''insert blog_blogpost_categories (blogcategory_id, blogpost_id) values
                     ('%s', '%s')''' % (data.get('cate'), lastid)
-            # print sql
+            print sql
             r =unio().executeInsert(sql)
         if r:
             sql = '''update ww_member set credits=credits+10 where id=%s''' % uid
