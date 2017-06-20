@@ -34,7 +34,6 @@ def authed(func):
                     'utype' : 'gyq'
                 }
                 r = controller2.auth(req, data)
-                print r
                 if r:
                     req.session['3rd_not_init'] = False
                     req.session['isLogin'] = True
