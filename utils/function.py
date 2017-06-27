@@ -48,8 +48,8 @@ def send_mail(server, fro, to, subject, text, files=[]):
     smtp.close()
 
 def send_reset_email(url, to_email):
-    server = {'name':'smtp.163.com', 'user':'five3', 'passwd':'cxwfive3~', 'port':25}
-    fro = 'five3@163.com'
+    server = {'name':'smtp.163.com', 'user':'zhiyuwang2017', 'passwd':'zhiyuw2017', 'port':25}
+    fro = 'zhiyuwang2017@163.com'
     to = [to_email]
     subject = '''【重要】职语网密码重置邮件'''
 
