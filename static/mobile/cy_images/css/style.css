@@ -85,9 +85,9 @@ display: -ms-flexbox;display: -webkit-flex;display: flex;-webkit-box-pack: cente
 .news_map{ float:left; margin:12px; width:30%; display:block;}
 .news_map img{ float:left; display:block; width:100%;}
 .news_l{ float:right; width:65%; margin-bottom:12px; margin-top:12px; }
-.news_l a{height: 60px;overflow: hidden;letter-spacing: 5px; float:left; text-align:left; line-height:30px; color: #000;font-size:1.7em;font-family: "Microsoft YaHei"; width:98%;}
+.news_l a{height: 60px;overflow: hidden;letter-spacing: 3px; float:left; text-align:left; line-height:30px; color: #000;font-size:1.7em;font-family: "Microsoft YaHei"; width:98%;}
 .news_l a:hover{color:#069FE6;}
-.news_l span{letter-spacing: 3px; float:left; text-align:left; line-height:25px; color:#999999;font-size:1.5em;font-family: "Microsoft YaHei"; width:98%;}
+.news_l span{letter-spacing: 1px; float:left; text-align:left; line-height:25px; color:#999999;font-size:1.5em;font-family: "Microsoft YaHei"; width:98%;}
 
 .top_bar { position: fixed; z-index: 900; bottom: 0; left: 0; right: 0; margin: auto; font-family: Helvetica, Tahoma, Arial, Microsoft YaHei, sans-serif; display:block; clear:both; float:left;}
 
