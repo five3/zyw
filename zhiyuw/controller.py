@@ -138,13 +138,13 @@ def get_gyq_list(req, n, zhiwei=None, page=1):
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.status=1 and ww_member.site_id=%s and normal.zhiwei='%s' and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), zhiwei, index, n)
+                    order by ww_member.credits desc limit %s,%s''' % (fun.get_site_id(req), zhiwei, index, n)
     else:
         sql = '''select ww_member.id, utype,ww_zhiwei.desc as zhiwei,ww_member.logo,ww_member.nickname,
                 ww_member.credits, normal.zuoyouming
                 from ww_member_normal normal,ww_member,ww_zhiwei
                 where ww_member.status=1 and ww_member.site_id=%s and ww_member.id=normal.id and ww_zhiwei.name=normal.zhiwei
-                    order by normal.id desc limit %s,%s''' % (fun.get_site_id(req), index, n)
+                    order by ww_member.credits desc limit %s,%s''' % (fun.get_site_id(req), index, n)
     # print sql
     rs = unio().fetchAll(sql)
     return fun.convert_dengji_list(*rs)
