@@ -54,9 +54,9 @@ class uploader:
             traceback.print_exc()
 
     def checkFileType(self):
-        ext = self.f.name.split('.')[1]
-        self.fileType = '.'+ext
-        if '.'+ext not in self.config['allowFiles']:
+        ext = self.f.name.rsplit('.', 1)[1]
+        self.fileType = '.'+ext.lower()
+        if self.fileType not in self.config['allowFiles']:
             return False
         return True
 
