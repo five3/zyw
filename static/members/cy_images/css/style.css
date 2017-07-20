@@ -511,7 +511,7 @@
 #box {width: 760px; float:left; display:block; height:auto; }
 #box span{ float:left; display:block; width:104px; height:43px; background:#069FE6; font-size: 16px; line-height: 43px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; text-align:center; color:#fff; position:absolute; top:30px; right:0px;  font-family:"微软雅黑"; cursor: pointer;}
 #box ol {overflow: hidden; list-style-type:none; }
-#box li {width:110px;float: left;background:#F0F0F0;text-align: center;position: relative;cursor: pointer;margin-bottom:14px; height:42px; line-height:42px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; margin-left:8px; margin-right:8px; font-family:"微软雅黑"; font-size: 16px;}
+#box li {width:110px;float: left;background:rgba(6, 159, 230, 0.74);text-align: center;position: relative;cursor: pointer;margin-bottom:14px; height:42px; line-height:42px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; margin-left:8px; margin-right:8px; font-family:"微软雅黑"; font-size: 16px;}
 .pro_name {display: block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;font-weight: 400; font-family:"微软雅黑"; font-size: 16px;}
 .pro_name a {color: #333; font-family:"微软雅黑"; font-size: 16px; text-decoration: none;}
 #box li:hover .add_btn {display: block;}
