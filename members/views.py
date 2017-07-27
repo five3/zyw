@@ -91,7 +91,7 @@ def post(req, action):
             uid = req.session['info']['id']
             uname = req.session['info']['username']
             data = fun.warp_data(req.POST)
-            print data
+            print data.get('editorValue')
             r = controller.save_post(req, data, uid, uname)
             if r:
                 return HttpResponseRedirect('/members')
