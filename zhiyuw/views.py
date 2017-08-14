@@ -100,7 +100,7 @@ def gengyunqun(req):
     total_page = fun.get_total_page(total, 20)
     return render_to_response("zhiyuw/gyq.html", locals(), context_instance = RequestContext(req))
 
-cate_dict = {'alh':'案例汇','xxc':'信息窗','zyk':'资源库','bw':'博文', 'fsb':'放松吧','nxt':'纳贤台',
+cate_dict = {'alh':'CFO家园','xxc':'信息窗','zyk':'资源库','bw':'博文', 'fsb':'放松吧','nxt':'纳贤台',
              'lxwm':'联系我们','lyl':'留言栏', 'tzl':'通知栏', 'sh':'书画', 'sy':'摄影', 'bjys':'保健养生',
              'wxjl':'文学交流', 'ylxw':'娱乐新闻', 'zxmk':'招贤模块', 'zjmk':'自荐模块', 'rlzx':'人力资讯'}
 cate_dict = controller.get_cate_dict()
