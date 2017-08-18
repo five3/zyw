@@ -56,7 +56,7 @@ def index(req):
     total_page = total_num/10
     if total_num % 10 != 0:
         total_page += 1
-    print page, total_num
+    print page, total_page, total_num
     if page>total_page:
         page = total_page
     post_list = controller.get_post_list(req, uid, cate, page)
