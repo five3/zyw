@@ -49,10 +49,14 @@ def index(req):
     # print req.session['info']
     uid = req.session['info'].get('id', 0)
     cate = data.get('cate','')
-    page = req.GET.get('page')
+    page = data.get('page')
     if not page or int(page)<1:
         page = 1
-    total_page = controller.get_post_total(req, uid, cate)
+    total_num = controller.get_post_total(req, uid, cate)
+    total_page = total_num/10
+    if total_num % 10 != 0:
+        total_page += 1
+    print page, total_num
     if page>total_page:
         page = total_page
     post_list = controller.get_post_list(req, uid, cate, page)
